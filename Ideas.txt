@@ -1,1 +1,2 @@
 Which engine will we use or will we create our own?
+Will we build our own models or outsource the work? Is outsourcing allowed?
