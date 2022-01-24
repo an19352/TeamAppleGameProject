@@ -8,6 +8,8 @@ Powerup ideas:
 Explosives
 Rocket boosters
 Basic attack? (without powerup and possibly with a cooldown) - maybe specific to each character
+Time slowing
+Immovability/Anchor
 
 
 
