@@ -1,5 +1,6 @@
 Which engine will we use or will we create our own?
 Will we build our own models or outsource the work? Is outsourcing allowed?
+Will the game be played locally? (would likely require controller support)
 
 
 Powerup ideas:
@@ -13,3 +14,9 @@ Basic attack? (without powerup and possibly with a cooldown) - maybe specific to
 Movement Mechanics:
 Rolling around or walking/running
 Different characters could have their own specific movement ability (with cooldown)
+
+
+
+UI:
+What information will be shown?
+
