@@ -6,3 +6,22 @@ Questiions:
           (Making everything realistic is impossible because we don't have a team of 100. Somebody needs to experiment with Blender)
           
   3) What are we going to balance our game around? (Different characters, or same character and different pick ups or different loadouts)
+
+  4) Will the game be played locally or via a network? (locally would likely require controller support)
+
+  5) What information will be shown in the game's UI?
+
+
+Powerup ideas:
+  Explosives
+  Rocket boosters
+  Basic attack? (without powerup and possibly with a cooldown) - maybe specific to each character
+  Time slowing
+  Immovability/Anchor
+
+
+
+
+Movement Mechanics:
+  Rolling around or walking/running?
+  Different characters could have their own specific movement ability (with cooldown)
