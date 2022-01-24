@@ -3,6 +3,7 @@ Will we build our own models or outsource the work? Is outsourcing allowed?
 Will the game be played locally? (would likely require controller support)
 
 
+
 Powerup ideas:
 Explosives
 Rocket boosters
@@ -19,4 +20,5 @@ Different characters could have their own specific movement ability (with cooldo
 
 UI:
 What information will be shown?
+
 
