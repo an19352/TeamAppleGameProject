@@ -12,3 +12,4 @@ Basic attack? (without powerup and possibly with a cooldown) - maybe specific to
 
 Movement Mechanics:
 Rolling around or walking/running
+Different characters could have their own specific movement ability (with cooldown)
