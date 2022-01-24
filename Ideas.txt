@@ -1,9 +1,14 @@
 Which engine will we use or will we create our own?
 Will we build our own models or outsource the work? Is outsourcing allowed?
 
+
 Powerup ideas:
 Explosives
 Rocket boosters
+Basic attack? (without powerup and possibly with a cooldown) - maybe specific to each character
+
+
+
 
 Movement Mechanics:
 Rolling around or walking/running
