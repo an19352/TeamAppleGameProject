@@ -14,6 +14,11 @@ public class Movement : MonoBehaviour
 
     private int ID;               // ID is private so it can't be changed from inspector
 
+    public float rotationSpeed;
+    private Vector3 lookDirection;
+    private Quaternion lookRotation;
+    private Vector3 mouseLocation;
+
     public string horizontalAxis;
     public string verticalAxis;
     public bool isUsingMouse;
@@ -31,38 +36,34 @@ public class Movement : MonoBehaviour
        }
 
             
-            //Keyboard controls
-            if (!isUsingMouse)
-            {
-                float x = Input.GetAxis(horizontalAxis);
-                float z = Input.GetAxis(verticalAxis);
-                Vector3 move = new Vector3(x, 0f, z);
-                player.Translate( move * speed * Time.deltaTime);
-            }
+        //Keyboard controls
+            
+        float x = Input.GetAxis(horizontalAxis);
+        float z = Input.GetAxis(verticalAxis);
+        Vector3 move = new Vector3(x, 0f, z);
+        player.position = (player.position + move * speed * Time.deltaTime);
+        
+        float step = rotationSpeed * Time.deltaTime;
 
-            if (isUsingMouse)
+        Ray mouseRay = cameraMain.ScreenPointToRay(Input.mousePosition);
+        if (Physics.Raycast(mouseRay, out RaycastHit hit))
+        {
+            if (hit.transform.CompareTag("Ground"))
             {
-                float step = speed * Time.deltaTime;
-
-                Ray mouseRay = cameraMain.ScreenPointToRay(Input.mousePosition);
-                if (Physics.Raycast(mouseRay, out RaycastHit hit))
-                {
-                    if (hit.transform.CompareTag("Ground"))
-                    {
-                        move = new Vector3(hit.point.x, transform.position.y, hit.point.z);
-                    }
-                }
-                else
-                {
-                    Vector3 mousePos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, cameraMain.transform.position.y));
-                    move = new Vector3(mousePos.x, player.position.y, mousePos.z);
-                }
-                
-                if(Input.GetMouseButton(0))
-                {
-                    player.position = Vector3.MoveTowards(player.position, move, step);
-                }
+                //move = new Vector3(hit.point.x, transform.position.y, hit.point.z);
+                mouseLocation = hit.point;
+                lookDirection = (mouseLocation - player.position).normalized;
+                lookRotation = Quaternion.LookRotation(lookDirection);
+                lookRotation.x = 0f;
+                lookRotation.z = 0f;
             }
+        }
+
+        
+        //player.position = Vector3.MoveTowards(player.position, move, step);
+        player.rotation = Quaternion.Slerp(player.rotation, lookRotation, step);
+        
+            
     }
     
     // ReSpawn mechanic
