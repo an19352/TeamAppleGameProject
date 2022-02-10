@@ -10,7 +10,7 @@ public class ScoreTrigger : MonoBehaviour
     void Start()
     {
         MeshRenderer mesh = GetComponent<MeshRenderer>();
-        mesh.enabled = false;
+        //mesh.enabled = false;
     }
 
     void OnTriggerEnter(Collider other)
