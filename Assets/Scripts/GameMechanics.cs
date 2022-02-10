@@ -7,6 +7,14 @@ using UnityEngine.UI;
 
 public class GameMechanics : MonoBehaviour
 {
+    public static GameMechanics gameMechanics;
+
+    private void OnEnable()
+    {
+        if (GameMechanics.gameMechanics == null)
+            GameMechanics.gameMechanics = this;
+    }
+
     [Serializable]
     public struct Team           // This allows for Teams to be added via the inspector
     {
