@@ -2404,7 +2404,7 @@ MonoBehaviour:
   playerBody: {fileID: 1287108073}
   cameraMain: {fileID: 963194227}
   speed: 12
-  rotationSpeed: 0
+  rotationSpeed: 15
   horizontalAxis: Horizontal
   verticalAxis: Vertical
   isUsingMouse: 1
