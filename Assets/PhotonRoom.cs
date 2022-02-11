@@ -16,6 +16,8 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
     public int multiplayerSceneIndex = 1;
     private int currentSceneIndex;
 
+    #region Singleton
+
     private void Awake()
     {
         if(PhotonRoom.room == null)
@@ -33,6 +35,8 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
         DontDestroyOnLoad(this.gameObject);
         PV = GetComponent<PhotonView>();
     }
+
+    #endregion
 
     public override void OnEnable()
     {

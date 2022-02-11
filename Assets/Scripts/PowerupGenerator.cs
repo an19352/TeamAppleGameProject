@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class PowerupGenerator : MonoBehaviour
 {
+    ObjectPooler poolOfObject;
     
     private GameObject newCube;
-    private GameObject[] powerups;
-    
-    
+    private List<string> powerupTags;
+
+    public string powerupTag = "Powerup";
+
     //Generates random position in the space of Vector3
     private Vector3 RandomPosition()
     {
@@ -21,23 +23,10 @@ public class PowerupGenerator : MonoBehaviour
     //Places a random powerup in a random position
     void GenerateRandomPowerup()
     {
-        int randPow = Random.Range(0, powerups.Length);
-        newCube = Object.Instantiate(
-            powerups[randPow],
-            RandomPosition(),
-            new Quaternion(0f, 0f, 0f, 0f),
-            transform
-        );
+        int randPow = Random.Range(0, powerupTags.Count);
+        
+        newCube = poolOfObject.SpawnFromPool(powerupTags[randPow], RandomPosition(), Quaternion.identity);
         newCube.SetActive(true);
-    }
-    
-    //Deactivates all powerup gameobjects so the originals aren't visible
-    void DeactivatePowerups()
-    {
-        for (int i = 0; i < powerups.Length; i++)
-        {
-            powerups[i].SetActive(false);
-        }
     }
 
     //Coroutine to start generating random powerups every 5-10 seconds
@@ -54,14 +43,22 @@ public class PowerupGenerator : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        powerups = GameObject.FindGameObjectsWithTag("Powerup");
-        DeactivatePowerups();
+        poolOfObject = ObjectPooler.OP;
+
+        powerupTags = new List<string>();
+        foreach (ObjectPooler.Pool pool in poolOfObject.pools)
+            if (pool.prefab.CompareTag(powerupTag))
+                powerupTags.Add(pool.tag);
+
+        ParentPowerups();
         StartCoroutine(StartGenerator());
     }
 
-    // Update is called once per frame
-    void Update()
+    void ParentPowerups()
     {
-
+        foreach (KeyValuePair<string, Queue<GameObject>> kvp in poolOfObject.poolDictionary)
+            if (kvp.Value.Peek().CompareTag(powerupTag))
+                foreach (GameObject powerup in kvp.Value)
+                    powerup.transform.SetParent(transform);
     }
 }

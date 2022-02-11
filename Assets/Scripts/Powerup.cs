@@ -47,7 +47,7 @@ public class Powerup : MonoBehaviour
 
         if (other.CompareTag("Powerup"))
         {
-            Destroy(other.gameObject);
+            other.gameObject.SetActive(false);
             currentPowerup.text = LayerMask.LayerToName(other.gameObject.layer);
             hasPowerup = true;
         }
