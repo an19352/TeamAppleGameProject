@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class PowerupGenerator : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class PowerupGenerator : MonoBehaviour
     
     private GameObject newCube;
     private List<string> powerupTags;
+    private PhotonView PV;
 
     public string powerupTag = "Powerup";
 
@@ -21,11 +23,10 @@ public class PowerupGenerator : MonoBehaviour
     }
 
     //Places a random powerup in a random position
-    void GenerateRandomPowerup()
+    [PunRPC]
+    void GenerateRandomPowerup(int randPow, Vector3 randPosition)
     {
-        int randPow = Random.Range(0, powerupTags.Count);
-        
-        newCube = poolOfObject.SpawnFromPool(powerupTags[randPow], RandomPosition(), Quaternion.identity);
+        newCube = poolOfObject.SpawnFromPool(powerupTags[randPow], randPosition, Quaternion.identity);
         newCube.SetActive(true);
     }
 
@@ -34,24 +35,38 @@ public class PowerupGenerator : MonoBehaviour
     {
         while (true)
         {
-            float time = Random.Range(5, 10);
+            int numberOfPlayers = PhotonNetwork.CountOfPlayers;
+            if (numberOfPlayers == 0) numberOfPlayers++;
+            float time = Random.Range(5 * numberOfPlayers, 10 * numberOfPlayers);
             yield return new WaitForSeconds(time);
-            GenerateRandomPowerup();
+
+            int randPow = Random.Range(0, powerupTags.Count);
+            Vector3 randPosition = RandomPosition();
+            if (PV.IsOwnerActive)
+                PV.RPC("GenerateRandomPowerup", RpcTarget.All, randPow, randPosition);
+            else
+                GenerateRandomPowerup(randPow, randPosition);
+            
         }
     }
     
     // Start is called before the first frame update
     void Start()
     {
-        poolOfObject = ObjectPooler.OP;
+        PV = GetComponent<PhotonView>();
 
-        powerupTags = new List<string>();
-        foreach (ObjectPooler.Pool pool in poolOfObject.pools)
-            if (pool.prefab.CompareTag(powerupTag))
-                powerupTags.Add(pool.tag);
+        if (PV.Owner.IsMasterClient)
+        {
+            poolOfObject = ObjectPooler.OP;
 
-        ParentPowerups();
-        StartCoroutine(StartGenerator());
+            powerupTags = new List<string>();
+            foreach (ObjectPooler.Pool pool in poolOfObject.pools)
+                if (pool.prefab.CompareTag(powerupTag))
+                    powerupTags.Add(pool.tag);
+
+            ParentPowerups();
+            StartCoroutine(StartGenerator());
+        }
     }
 
     void ParentPowerups()
