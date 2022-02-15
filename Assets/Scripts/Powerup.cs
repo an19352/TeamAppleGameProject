@@ -9,7 +9,7 @@ public class Powerup : MonoBehaviour
 {
     PhotonView PV;
     public static PhotonRoom room;
-    GameObject thisPowerup;
+    //GameObject thisPowerup;
 
     public enum Effects{Orange,Blue,Purple};
     public Effects _effect;
@@ -21,7 +21,7 @@ public class Powerup : MonoBehaviour
         PV = GetComponent<PhotonView>();
         room = PhotonRoom.room;
 
-        thisPowerup = transform.gameObject;
+        //thisPowerup = transform.gameObject;
         effect = _effect.ToString();
     }
 
@@ -30,32 +30,32 @@ public class Powerup : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            PV.RPC(effect, RpcTarget.All, other.gameObject);
-            PV.RPC("Disable", RpcTarget.All);
+            PV.RPC(effect, RpcTarget.All, other.GetComponent<Movement>().GetId());
+            PV.RPC("Disable", RpcTarget.All, null);
         }
     }
 
     [PunRPC]
-    private void Orange(GameObject player)
+    public void Orange(int playerID)
     {
-        Debug.Log("orange!");
+        Debug.Log(playerID.ToString());
     }
 
     [PunRPC]
-    private void Blue(GameObject player) 
+    public void Blue(int playerID) 
     {
-        Debug.Log("blue!");
+        Debug.Log(playerID.ToString());
     }
 
     [PunRPC]
-    private void Purple(GameObject player) 
+    public void Purple(int playerID) 
     {
-        Debug.Log("purple!");
+        Debug.Log(playerID.ToString());
     }
 
     [PunRPC]
     public void Disable()
     {
-        thisPowerup.SetActive(false);
+        transform.gameObject.SetActive(false);
     }
 }

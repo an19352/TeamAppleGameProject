@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8521386507383712025}
   - component: {fileID: 8521386507383712026}
   - component: {fileID: 8521386507383712027}
-  - component: {fileID: 5585556804617368217}
+  - component: {fileID: -7131588376947766652}
   - component: {fileID: 8521386507383712021}
   - component: {fileID: 7291472432763749253}
   - component: {fileID: 4264911598900473318}
@@ -67,7 +67,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c6577621c294aca4b8289f4fc813d9cb, type: 2}
+  - {fileID: 2100000, guid: 63175f6e938e11948baafbdf21eb43da, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -103,7 +103,7 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &5585556804617368217
+--- !u!114 &-7131588376947766652
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -112,17 +112,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 8521386507383712022}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb22754fd71dfdb419aeb6bb6abca99f, type: 3}
+  m_Script: {fileID: 11500000, guid: 6a0141c7149b65e40affa96177f22aa3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  highlightedMaterial: {fileID: 2100000, guid: 1facf4f4455912648841caf557cb64b3, type: 2}
   player: {fileID: 8521386507383712024}
   playerBody: {fileID: 8521386507383712021}
-  cameraMain: {fileID: 0}
   speed: 12
+  rotationSpeed: 15
   horizontalAxis: Horizontal
   verticalAxis: Vertical
-  isUsingMouse: 0
-  view: {fileID: 7291472432763749253}
+  isUsingMouse: 1
+  currentPowerup: {fileID: 0}
+  hasPowerup: 0
 --- !u!54 &8521386507383712021
 Rigidbody:
   m_ObjectHideFlags: 0

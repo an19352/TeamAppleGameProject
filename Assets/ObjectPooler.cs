@@ -33,9 +33,11 @@ public class ObjectPooler : MonoBehaviour
     public Dictionary<string, Queue<GameObject>> poolDictionary;
 
     GameObject obj;
+    PhotonView PV;
 
     private void Start()
     {
+        PV = GetComponent<PhotonView>();
         poolDictionary = new Dictionary<string, Queue<GameObject>>();
 
         foreach(Pool pool in pools)
@@ -45,7 +47,8 @@ public class ObjectPooler : MonoBehaviour
             for (int i = 0; i < pool.size; i++)
             {
                 if (pool.prefab.GetComponent<PhotonView>()) 
-                    obj = PhotonNetwork.Instantiate(pool.prefab.name, transform.position, Quaternion.identity);
+                    if(PV.Owner.IsMasterClient)
+                        obj = PhotonNetwork.Instantiate(pool.prefab.name, transform.position, Quaternion.identity);
                 else 
                     obj = Instantiate(pool.prefab);
                 

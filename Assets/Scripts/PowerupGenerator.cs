@@ -55,18 +55,17 @@ public class PowerupGenerator : MonoBehaviour
     {
         PV = GetComponent<PhotonView>();
 
-        if (PV.Owner.IsMasterClient)
-        {
-            poolOfObject = ObjectPooler.OP;
+        if (!PV.Owner.IsMasterClient) return;
 
-            powerupTags = new List<string>();
-            foreach (ObjectPooler.Pool pool in poolOfObject.pools)
-                if (pool.prefab.CompareTag(powerupTag))
-                    powerupTags.Add(pool.tag);
+        poolOfObject = ObjectPooler.OP;
 
-            ParentPowerups();
-            StartCoroutine(StartGenerator());
-        }
+        powerupTags = new List<string>();
+        foreach (ObjectPooler.Pool pool in poolOfObject.pools)
+            if (pool.prefab.CompareTag(powerupTag))
+                powerupTags.Add(pool.tag);
+
+        ParentPowerups();
+        StartCoroutine(StartGenerator());
     }
 
     void ParentPowerups()
