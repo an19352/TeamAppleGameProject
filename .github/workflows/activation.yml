@@ -16,16 +16,6 @@ jobs:
         with:
           name: ${{ steps.getManualLicenseFile.outputs.filePath }}
           path: ${{ steps.getManualLicenseFile.outputs.filePath }}
-      
-      
-      
-name: Test unity license
-on: [push]
-jobs:
-  requestActivation:
-    name: Request activation ✔
-    runs-on: ubuntu-latest
-    steps:      
       - name: Activate Unity
         uses: webbertakken/unity-activate@v1
         env:
