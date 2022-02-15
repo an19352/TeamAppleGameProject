@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using Photon.Pun;
 
 public class Movement : MonoBehaviour
 {
+    PhotonView PV;
+
     public Transform player;
     public Rigidbody playerBody;
     public Camera cameraMain;
@@ -25,9 +27,20 @@ public class Movement : MonoBehaviour
 
     private Vector3 move;
 
+    public Text currentPowerup;
+    private bool cooldownActive;
+    public bool hasPowerup;
+
+    private void Start()
+    {
+        PV = GetComponent<PhotonView>();
+    }
+
     // Update is called once per frame
     void Update()
     {
+        if (!PV.IsMine) return;
+
        if (Input.GetKeyDown(KeyCode.F))
        {
             player.rotation = new Quaternion(0f, 0f, 0f, 0f);
@@ -62,10 +75,29 @@ public class Movement : MonoBehaviour
         
         //player.position = Vector3.MoveTowards(player.position, move, step);
         player.rotation = Quaternion.Slerp(player.rotation, lookRotation, step);
-        
-            
+
+        Fire();
     }
-    
+
+    void Fire()
+    {
+        //Starts cooldown coroutine if key is pressed, powerup is possessed and cooldown is not active
+        if (Input.GetKeyDown(KeyCode.V) && !cooldownActive && hasPowerup)
+        {
+            StartCoroutine(ActivateCooldown(5));
+        }
+    }
+
+    //Coroutine to activate a cooldown for a set period of time
+    IEnumerator ActivateCooldown(int time)
+    {
+        cooldownActive = true;
+        hasPowerup = false;
+        currentPowerup.text = "No Powerup";
+        yield return new WaitForSeconds(time);
+        cooldownActive = false;
+    }
+
     // ReSpawn mechanic
     public void Spawn()
     {

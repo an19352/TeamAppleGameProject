@@ -318,9 +318,10 @@ GameObject:
   - component: {fileID: 184574375}
   - component: {fileID: 184574374}
   - component: {fileID: 184574380}
+  - component: {fileID: 184574381}
   m_Layer: 0
   m_Name: GreenCapsule
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -361,6 +362,8 @@ MonoBehaviour:
   horizontalAxis: P2_Horizontal
   verticalAxis: P2_Vertical
   isUsingMouse: 0
+  currentPowerup: {fileID: 0}
+  hasPowerup: 0
 --- !u!136 &184574376
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -450,8 +453,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 685be0310bfabad49a2a321ed23695d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentPowerup: {fileID: 922394446}
-  hasPowerup: 0
+  _effect: 0
+--- !u!114 &184574381
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 184574373}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 3
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1001 &199824637
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -777,6 +801,8 @@ MonoBehaviour:
   horizontalAxis: 
   verticalAxis: 
   isUsingMouse: 0
+  currentPowerup: {fileID: 0}
+  hasPowerup: 0
 --- !u!136 &364981107
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2240,9 +2266,10 @@ GameObject:
   - component: {fileID: 1287108074}
   - component: {fileID: 1287108073}
   - component: {fileID: 1287108075}
+  - component: {fileID: 1287108076}
   m_Layer: 7
   m_Name: RedCapsule
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2361,6 +2388,8 @@ MonoBehaviour:
   horizontalAxis: Horizontal
   verticalAxis: Vertical
   isUsingMouse: 1
+  currentPowerup: {fileID: 0}
+  hasPowerup: 0
 --- !u!114 &1287108075
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2373,8 +2402,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 685be0310bfabad49a2a321ed23695d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentPowerup: {fileID: 310547912}
-  hasPowerup: 0
+  _effect: 0
+--- !u!114 &1287108076
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1287108068}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 4
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1001 &1332176520
 PrefabInstance:
   m_ObjectHideFlags: 0

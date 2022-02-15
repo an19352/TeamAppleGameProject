@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class ObjectPooler : MonoBehaviour
 {
@@ -31,6 +32,8 @@ public class ObjectPooler : MonoBehaviour
     public List<Pool> pools;
     public Dictionary<string, Queue<GameObject>> poolDictionary;
 
+    GameObject obj;
+
     private void Start()
     {
         poolDictionary = new Dictionary<string, Queue<GameObject>>();
@@ -41,7 +44,11 @@ public class ObjectPooler : MonoBehaviour
 
             for (int i = 0; i < pool.size; i++)
             {
-                GameObject obj = Instantiate(pool.prefab);
+                if (pool.prefab.GetComponent<PhotonView>()) 
+                    obj = PhotonNetwork.Instantiate(pool.prefab.name, transform.position, Quaternion.identity);
+                else 
+                    obj = Instantiate(pool.prefab);
+                
                 obj.SetActive(false);
                 objectPool.Enqueue(obj);
             }
