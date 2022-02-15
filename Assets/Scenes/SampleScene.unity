@@ -354,9 +354,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a0141c7149b65e40affa96177f22aa3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  highlightedMaterial: {fileID: 2100000, guid: 73306b8830f59e5418513cce5517dc55, type: 2}
   player: {fileID: 184574379}
   playerBody: {fileID: 184574374}
-  cameraMain: {fileID: 963194227}
   speed: 12
   rotationSpeed: 0
   horizontalAxis: P2_Horizontal
@@ -397,7 +397,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e116ae80ba8676942a92e6e84f3e4101, type: 2}
+  - {fileID: 2100000, guid: e8f4796c29cbe6948995afd7736ca145, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -466,7 +466,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
+  ObservedComponentsFoldoutOpen: 0
   Group: 0
   prefixField: -1
   Synchronization: 3
@@ -793,9 +793,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a0141c7149b65e40affa96177f22aa3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  highlightedMaterial: {fileID: 0}
   player: {fileID: 364981110}
   playerBody: {fileID: 364981105}
-  cameraMain: {fileID: 0}
   speed: 12
   rotationSpeed: 0
   horizontalAxis: 
@@ -1539,6 +1539,7 @@ GameObject:
   m_Component:
   - component: {fileID: 934732152}
   - component: {fileID: 934732151}
+  - component: {fileID: 934732153}
   m_Layer: 0
   m_Name: Object Pooler
   m_TagString: Untagged
@@ -1582,6 +1583,28 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &934732153
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 934732150}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 1
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &939097982 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -4805887740310861870, guid: c5919b155b70bc842b1b940fd6339d6f, type: 3}
@@ -1966,7 +1989,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 5bc87118c3a48e94587a5f529c1197ec, type: 2}
+  - {fileID: 2100000, guid: 71ac22159f584cc4ca029e9cd911b566, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2307,7 +2330,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 5bc87118c3a48e94587a5f529c1197ec, type: 2}
+  - {fileID: 2100000, guid: 71ac22159f584cc4ca029e9cd911b566, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2380,9 +2403,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a0141c7149b65e40affa96177f22aa3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  highlightedMaterial: {fileID: 2100000, guid: 58bee26ced6c6f744b21f82aa1205cc4, type: 2}
   player: {fileID: 1287108072}
   playerBody: {fileID: 1287108073}
-  cameraMain: {fileID: 963194227}
   speed: 12
   rotationSpeed: 15
   horizontalAxis: Horizontal

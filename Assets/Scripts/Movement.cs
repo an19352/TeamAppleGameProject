@@ -7,10 +7,11 @@ using Photon.Pun;
 public class Movement : MonoBehaviour
 {
     PhotonView PV;
+    public Material highlightedMaterial;
 
     public Transform player;
     public Rigidbody playerBody;
-    public Camera cameraMain;
+    private Camera cameraMain;
 
     public float speed = 5f;
 
@@ -34,6 +35,12 @@ public class Movement : MonoBehaviour
     private void Start()
     {
         PV = GetComponent<PhotonView>();
+        cameraMain = Camera.main;
+
+        if (PV.IsMine) 
+        {
+            GetComponent<Renderer>().material = highlightedMaterial;
+        }
     }
 
     // Update is called once per frame

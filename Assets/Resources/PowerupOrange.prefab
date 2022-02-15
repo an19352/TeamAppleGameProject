@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6768429541547310046}
   - component: {fileID: 6768429541547310045}
   - component: {fileID: -1297739077426303860}
+  - component: {fileID: -2186511167117932287}
   m_Layer: 8
   m_Name: PowerupOrange
   m_TagString: Powerup
@@ -118,3 +119,16 @@ MonoBehaviour:
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &-2186511167117932287
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6768429541547310044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 685be0310bfabad49a2a321ed23695d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _effect: 0
