@@ -5,6 +5,16 @@ jobs:
     name: Build project
     runs-on: ubuntu-latest
     steps:
+      - uses: action/checkout@v2
+        with:
+          lfs: true
+      - uses: actions/cache@v2
+        with:
+          path: Library
+          key: Library-SpaceBall-WebGL
+          restore-keys: |
+            Library-SpaceBall-
+            Library-    
       - uses: game-ci/unity-builder@v2.0.0-alpha-14
         env:
           UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
@@ -16,3 +26,4 @@ jobs:
         with:
           name: Build
           path: build
+          
