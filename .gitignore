@@ -71,3 +71,6 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 *.xml
+
+# Ignore generated credentials from google-github-actions/auth
+gha-creds-*.json
