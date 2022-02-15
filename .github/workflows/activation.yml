@@ -16,5 +16,3 @@ jobs:
         with:
           name: ${{ steps.getManualLicenseFile.outputs.filePath }}
           path: ${{ steps.getManualLicenseFile.outputs.filePath }}
-      - name: Unity - Activate
-      uses: game-ci/unity-activate@v1.3   
