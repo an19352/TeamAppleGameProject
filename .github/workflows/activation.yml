@@ -1,22 +1,11 @@
 name: Acquire activation file
-on:
-  workflow_dispatch: {}
+on: [push]
 jobs:
-  activation:
-    name: Request manual activation file 🔑
+  requestActivation:
+    name: Request activation ✔
     runs-on: ubuntu-latest
     steps:
-      # Request manual activation file
-      - name: Request manual activation file
-        id: getManualLicenseFile
-        uses: game-ci/unity-request-activation-file@v2
-      # Upload artifact (Unity_v20XX.X.XXXX.alf)
-      - name: Expose as artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: ${{ steps.getManualLicenseFile.outputs.filePath }}
-          path: ${{ steps.getManualLicenseFile.outputs.filePath }}
       - name: Activate Unity
         uses: webbertakken/unity-activate@v1
         env:
-          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}    
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
