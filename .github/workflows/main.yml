@@ -28,7 +28,7 @@ jobs:
         uses: 'google-github-actions/auth@v0'
         with:
           workload_identity_provider: 'projects/744153426878/locations/global/workloadIdentityPools/my-pool/providers/my-provider'
-          service_account: 'teamapple@eighth-codex-340614.iam.gserviceaccount.co'  
+          service_account: 'teamapple@eighth-codex-40614.iam.gserviceaccount.com'  
             
       - uses: game-ci/unity-builder@v2.0.0-alpha-14
         env:
