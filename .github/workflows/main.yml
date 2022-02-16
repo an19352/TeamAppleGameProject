@@ -36,6 +36,13 @@ jobs:
           UNITY_SERIAL: ${{ secrets.UNITY_SERIAL }}
         with:
           targetPlatform: WebGL
+          
+      - id: 'upload-file'
+        uses: 'google-github-actions/upload-cloud-storage@v0'
+        with:
+          path: build
+          destination: 'www.spaceball.co.uk/build'         
+          
       - uses: actions/upload-artifact@v2
         with:
           name: Build
