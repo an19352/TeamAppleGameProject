@@ -289,9 +289,10 @@ GameObject:
   - component: {fileID: 184574375}
   - component: {fileID: 184574374}
   - component: {fileID: 184574380}
+  - component: {fileID: 184574381}
   m_Layer: 0
   m_Name: GreenCapsule
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -324,14 +325,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a0141c7149b65e40affa96177f22aa3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  highlightedMaterial: {fileID: 2100000, guid: 73306b8830f59e5418513cce5517dc55, type: 2}
   player: {fileID: 184574379}
   playerBody: {fileID: 184574374}
-  cameraMain: {fileID: 963194227}
   speed: 12
   rotationSpeed: 0
   horizontalAxis: P2_Horizontal
   verticalAxis: P2_Vertical
   isUsingMouse: 0
+  currentPowerup: {fileID: 0}
+  hasPowerup: 0
 --- !u!136 &184574376
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -365,7 +368,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e116ae80ba8676942a92e6e84f3e4101, type: 2}
+  - {fileID: 2100000, guid: e8f4796c29cbe6948995afd7736ca145, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -421,8 +424,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 685be0310bfabad49a2a321ed23695d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentPowerup: {fileID: 922394446}
-  hasPowerup: 0
+  _effect: 0
+--- !u!114 &184574381
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 184574373}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 0
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 3
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1001 &199824637
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -659,14 +683,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a0141c7149b65e40affa96177f22aa3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  highlightedMaterial: {fileID: 0}
   player: {fileID: 364981110}
   playerBody: {fileID: 364981105}
-  cameraMain: {fileID: 0}
   speed: 12
   rotationSpeed: 0
   horizontalAxis: 
   verticalAxis: 
   isUsingMouse: 0
+  currentPowerup: {fileID: 0}
+  hasPowerup: 0
 --- !u!136 &364981107
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1403,6 +1429,7 @@ GameObject:
   m_Component:
   - component: {fileID: 934732152}
   - component: {fileID: 934732151}
+  - component: {fileID: 934732153}
   m_Layer: 0
   m_Name: Object Pooler
   m_TagString: Untagged
@@ -1796,7 +1823,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 5bc87118c3a48e94587a5f529c1197ec, type: 2}
+  - {fileID: 2100000, guid: 71ac22159f584cc4ca029e9cd911b566, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1986,9 +2013,10 @@ GameObject:
   - component: {fileID: 1287108074}
   - component: {fileID: 1287108073}
   - component: {fileID: 1287108075}
+  - component: {fileID: 1287108076}
   m_Layer: 7
   m_Name: RedCapsule
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2026,7 +2054,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 5bc87118c3a48e94587a5f529c1197ec, type: 2}
+  - {fileID: 2100000, guid: 71ac22159f584cc4ca029e9cd911b566, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2099,14 +2127,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a0141c7149b65e40affa96177f22aa3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  highlightedMaterial: {fileID: 2100000, guid: 58bee26ced6c6f744b21f82aa1205cc4, type: 2}
   player: {fileID: 1287108072}
   playerBody: {fileID: 1287108073}
-  cameraMain: {fileID: 963194227}
   speed: 12
   rotationSpeed: 15
   horizontalAxis: Horizontal
   verticalAxis: Vertical
   isUsingMouse: 1
+  currentPowerup: {fileID: 0}
+  hasPowerup: 0
 --- !u!114 &1287108075
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2119,8 +2149,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 685be0310bfabad49a2a321ed23695d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentPowerup: {fileID: 310547912}
-  hasPowerup: 0
+  _effect: 0
+--- !u!114 &1287108076
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1287108068}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 4
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1001 &1332176520
 PrefabInstance:
   m_ObjectHideFlags: 0

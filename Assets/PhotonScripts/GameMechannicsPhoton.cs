@@ -73,6 +73,6 @@ public class GameMechannicsPhoton : MonoBehaviour
         Player _player = new Player(player, team);
         players.Add(_player);
 
-        player.GetComponent<Powerup>().currentPowerup = teams[team].powerText;
+        player.GetComponent<Movement>().currentPowerup = teams[team].powerText;
     }
 }
