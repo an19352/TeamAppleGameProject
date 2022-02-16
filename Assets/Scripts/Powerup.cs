@@ -11,7 +11,7 @@ public class Powerup : MonoBehaviour
     public static PhotonRoom room;
     //GameObject thisPowerup;
 
-    public enum Effects{Orange,Blue,Purple};
+    public enum Effects{Orange,Blue,Purple, GravityGyun };
     public Effects _effect;
     string effect;
 
@@ -51,6 +51,12 @@ public class Powerup : MonoBehaviour
     public void Purple(int playerID) 
     {
         Debug.Log(playerID.ToString());
+    }
+
+    [PunRPC]
+    public void GravityGyun(int playerID)
+    {
+        Debug.Log("Player " + playerID.ToString() + " has picked up gravity gun");
     }
 
     [PunRPC]

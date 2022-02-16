@@ -12,14 +12,13 @@ public class PowerupGenerator : MonoBehaviour
     private PhotonView PV;
 
     public string powerupTag = "Powerup";
+    public List<Transform> spawiningPoints;
 
     //Generates random position in the space of Vector3
     private Vector3 RandomPosition()
     {
-        float x = Random.Range(-10, 10);
-        float z = Random.Range(-10, 10);
-        Vector3 pos = new Vector3(x, 1f, z);
-        return pos;
+        int index = Random.Range(0, spawiningPoints.Count);
+        return spawiningPoints[index].position;
     }
 
     //Places a random powerup in a random position
