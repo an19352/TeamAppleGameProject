@@ -20,15 +20,12 @@ public class Powerup : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
-
-        
+    {     
         //Starts cooldown coroutine if key is pressed, powerup is possessed and cooldown is not active
         if (Input.GetKeyDown(KeyCode.V) && !cooldownActive && hasPowerup)
         {
             StartCoroutine(ActivateCooldown(5));
         }
- 
     }
 
     //Coroutine to activate a cooldown for a set period of time
