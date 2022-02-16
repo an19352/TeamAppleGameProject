@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: -6213183319833646132}
   m_Layer: 10
   m_Name: PowerupPurple
-  m_TagString: Untagged
+  m_TagString: Powerup
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
