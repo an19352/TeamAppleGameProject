@@ -4,6 +4,7 @@ jobs:
 
   buildProject:
     name: Build project
+    
     runs-on: ubuntu-latest
     
     permissions:
