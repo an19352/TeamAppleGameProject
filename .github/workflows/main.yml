@@ -11,17 +11,9 @@ jobs:
       id-token: 'write'    
     
     steps:
-    - id: 'auth'
-      name: 'Authenticate to Google Cloud'
-      uses: 'google-github-actions/auth@v0'
-      with:
-        workload_identity_provider: 'projects/744153426878/locations/global/workloadIdentityPools/my-pool/providers/my-provider'
-        service_account: 'teamapple@eighth-codex-340614.iam.gserviceaccount.com'   
-        
       - uses: actions/checkout@v2
         with:
-          lfs: true        
-          
+          lfs: true
       - uses: actions/cache@v2
         with:
           path: Library
@@ -29,6 +21,13 @@ jobs:
           restore-keys: |
             Library-SpaceBall-
             Library-
+
+      - id: 'auth'
+        name: 'Authenticate to Google Cloud'
+        uses: 'google-github-actions/auth@v0'
+        with:
+          workload_identity_provider: 'projects/744153426878/locations/global/workloadIdentityPools/my-pool/providers/my-provider'
+          service_account: 'teamapple@eighth-codex-340614.iam.gserviceaccount.com'  
             
       - uses: game-ci/unity-builder@v2.0.0-alpha-14
         env:
