@@ -28,7 +28,7 @@ jobs:
         uses: 'google-github-actions/auth@v0'
         with:
           workload_identity_provider: 'projects/744153426878/locations/global/workloadIdentityPools/my-pool/providers/my-provider'
-          service_account: 'teamapple@eighth-codex-340614.iam.gserviceaccount.com'  
+          service_account: 'teamapple@eighth-codex-340614.iam.gserviceaccount.co'  
             
       - uses: game-ci/unity-builder@v2.0.0-alpha-14
         env:
@@ -42,7 +42,7 @@ jobs:
         uses: 'google-github-actions/upload-cloud-storage@v0'
         with:
           path: build
-          destination: 'www.spaceball.co.uk/build'         
+          destination: 'www.spaceball.co.uk/Build/build'         
           
       - uses: actions/upload-artifact@v2
         with:
