@@ -46,10 +46,12 @@ public class ObjectPooler : MonoBehaviour
 
             for (int i = 0; i < pool.size; i++)
             {
-                if (pool.prefab.GetComponent<PhotonView>()) 
-                    if(PV.Owner.IsMasterClient)
+                if (pool.prefab.GetComponent<PhotonView>())
+                {
+                    if (PV.Owner.IsMasterClient)
                         obj = PhotonNetwork.Instantiate(pool.prefab.name, transform.position, Quaternion.identity);
-                else 
+                }
+                else
                     obj = Instantiate(pool.prefab);
                 
                 obj.SetActive(false);
