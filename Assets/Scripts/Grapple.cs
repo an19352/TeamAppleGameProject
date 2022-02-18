@@ -43,13 +43,10 @@ public class Grapple : MonoBehaviour
             Ray mouseRay = cameraMain.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(mouseRay, out RaycastHit hit))
             {
-                if (hit.transform.CompareTag("Ground"))
-                {
-                    mouseLocation = hit.point;
-                    lookDirection = (mouseLocation - shootTransform.position).normalized;
-                    lookRotation = Quaternion.LookRotation(lookDirection);
-                    shootTransform.rotation = lookRotation;
-                }
+                mouseLocation = hit.point;
+                lookDirection = (mouseLocation - shootTransform.position).normalized;
+                lookRotation = Quaternion.LookRotation(lookDirection);
+                shootTransform.rotation = lookRotation;
             }
             hook = Instantiate(hookPrefab, shootTransform.position, Quaternion.identity).GetComponent<Hook>();
             hook.Initialise(this, shootTransform);
