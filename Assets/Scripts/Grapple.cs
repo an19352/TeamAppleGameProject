@@ -68,7 +68,5 @@ public class Grapple : MonoBehaviour
         yield return new WaitForSeconds(8f);
 
         DestroyHook();
-        Debug.Log(2);
-
     }
 }

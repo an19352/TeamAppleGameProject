@@ -35,7 +35,7 @@ public class Hook : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if ((LayerMask.GetMask("Ground") & 1 << other.gameObject.layer) > 0)
+        if ((LayerMask.GetMask("Hookable") & 1 << other.gameObject.layer) > 0)
         {
             rigid.useGravity = false;
             rigid.isKinematic = true;
