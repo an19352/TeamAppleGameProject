@@ -15,6 +15,10 @@ public class Grapple : MonoBehaviour
     Hook hook;
     bool pulling;
     Rigidbody rigid;
+    private Camera cameraMain;
+    private Vector3 mouseLocation;
+    private Vector3 lookDirection;
+    private Quaternion lookRotation;
 
     // Start is called before the first frame update
     void Start()
@@ -23,6 +27,7 @@ public class Grapple : MonoBehaviour
 
         rigid = GetComponent<Rigidbody>();
         pulling = false;
+        cameraMain = Camera.main;
 
     }
 
@@ -35,6 +40,17 @@ public class Grapple : MonoBehaviour
         {
             StopAllCoroutines();
             pulling = false;
+            Ray mouseRay = cameraMain.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(mouseRay, out RaycastHit hit))
+            {
+                if (hit.transform.CompareTag("Ground"))
+                {
+                    mouseLocation = hit.point;
+                    lookDirection = (mouseLocation - shootTransform.position).normalized;
+                    lookRotation = Quaternion.LookRotation(lookDirection);
+                    shootTransform.rotation = lookRotation;
+                }
+            }
             hook = Instantiate(hookPrefab, shootTransform.position, Quaternion.identity).GetComponent<Hook>();
             hook.Initialise(this, shootTransform);
             StartCoroutine(DestroyHookAfterLifetime());

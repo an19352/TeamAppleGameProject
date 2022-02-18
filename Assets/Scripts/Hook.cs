@@ -9,10 +9,13 @@ public class Hook : MonoBehaviour
     Grapple grapple;
     Rigidbody rigid;
     LineRenderer lineRenderer;
+    private Camera cameraMain;
+    private Vector3 mouseLocation;
 
     // Start is called before the first frame update
     void Start()
     {
+        cameraMain = Camera.main;
     }
 
     // Update is called once per frame
