@@ -46,7 +46,6 @@ jobs:
           destination: 'www.spaceball.co.uk'
           parent: false
           
-          
       - uses: actions/upload-artifact@v2
         with:
           name: Build
