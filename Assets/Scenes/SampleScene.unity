@@ -133,6 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 45342573}
   - component: {fileID: 45342572}
+  - component: {fileID: 45342574}
   m_Layer: 0
   m_Name: GameMechanics
   m_TagString: Untagged
@@ -164,6 +165,7 @@ MonoBehaviour:
     team: 0
   - obj: {fileID: 184574373}
     team: 1
+  spawnPpoints: []
 --- !u!4 &45342573
 Transform:
   m_ObjectHideFlags: 0
@@ -178,6 +180,28 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &45342574
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 45342571}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 5
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &88742152
 GameObject:
   m_ObjectHideFlags: 0
@@ -326,8 +350,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   highlightedMaterial: {fileID: 2100000, guid: 73306b8830f59e5418513cce5517dc55, type: 2}
-  player: {fileID: 184574379}
-  playerBody: {fileID: 184574374}
   speed: 12
   rotationSpeed: 0
   horizontalAxis: P2_Horizontal
@@ -684,8 +706,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   highlightedMaterial: {fileID: 0}
-  player: {fileID: 364981110}
-  playerBody: {fileID: 364981105}
   speed: 12
   rotationSpeed: 0
   horizontalAxis: 
@@ -1535,7 +1555,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78bccc5f165bb0f44b0b8565496bb99e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameMechanics: {fileID: 45342572}
 --- !u!64 &890320902
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -2588,8 +2607,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   highlightedMaterial: {fileID: 2100000, guid: 58bee26ced6c6f744b21f82aa1205cc4, type: 2}
-  player: {fileID: 1287108072}
-  playerBody: {fileID: 1287108073}
   speed: 12
   rotationSpeed: 15
   horizontalAxis: Horizontal

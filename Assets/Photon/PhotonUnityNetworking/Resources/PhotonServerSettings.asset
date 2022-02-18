@@ -46,6 +46,8 @@ MonoBehaviour:
   - Orange
   - Purple
   - GravityGyun
+  - Add_player
+  - Score
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

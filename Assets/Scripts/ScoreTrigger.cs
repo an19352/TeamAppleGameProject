@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class ScoreTrigger : MonoBehaviour
 {
-    public GameMechanics gameMechanics;
+    public static GameMechanics gameMechanics;
 
     // Hides the mesh of our Trigger
     void Start()
     {
+        gameMechanics = GameMechanics.gameMechanics;
+
         MeshRenderer mesh = GetComponent<MeshRenderer>();
         //mesh.enabled = false;
     }
@@ -18,13 +20,10 @@ public class ScoreTrigger : MonoBehaviour
         // If it got triggered by an object with a Movement file on it, 
         // checks for the player ID to score a point for the enemy team
         // and respawn the player
-        Movement mov = other.GetComponent<Movement>();
-        if (mov)
+        if (other.CompareTag("Player"))
         {
-            int playerID = mov.GetId();
-            gameMechanics.Score((1 + gameMechanics.checkTeam(mov.GetId())) % 2);    // Only works for 2 teams
-
-            mov.Spawn();
+            Movement mov = other.GetComponent<Movement>();
+            mov.Call_Score();
         }
     }
 }
