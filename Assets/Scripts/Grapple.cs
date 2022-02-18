@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class Grapple : MonoBehaviour
 {
+    PhotonView PV;
+
     [SerializeField] float pullSpeed = 0.5f;
     [SerializeField] float stopDistance = 4f;
     [SerializeField] GameObject hookPrefab;
@@ -16,6 +19,8 @@ public class Grapple : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        PV = GetComponent<PhotonView>();
+
         rigid = GetComponent<Rigidbody>();
         pulling = false;
 
@@ -24,6 +29,8 @@ public class Grapple : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!PV.IsMine) return;
+
         if (hook == null && Input.GetMouseButtonDown(0))
         {
             StopAllCoroutines();

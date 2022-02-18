@@ -47,6 +47,9 @@ public class GameMechanics : MonoBehaviour
 
     PhotonView PV;
 
+    [HideInInspector]
+    public Dictionary<GameObject, UnityEngine.Vector3> activePowerups;
+
     // Tells all players their ID
     public void Start()
     {
@@ -58,7 +61,7 @@ public class GameMechanics : MonoBehaviour
 
     // Increments the score of a team by one
     [PunRPC]
-    void Score(int teamID)
+    public void Score(int teamID)
     {
         string _name = teams[teamID].name;
         int _score = teams[teamID].score + 1;

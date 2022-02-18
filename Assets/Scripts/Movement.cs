@@ -49,6 +49,7 @@ public class Movement : MonoBehaviour
         if (PV.IsMine) 
         {
             GetComponent<Renderer>().material = highlightedMaterial;
+            cameraMain.GetComponent<FollowPlayer>().player = transform;
         }
     }
 
@@ -88,6 +89,7 @@ public class Movement : MonoBehaviour
             }
         }
 
+        if (Input.GetMouseButtonDown(1)) gameMechanics.RPC_Score(0);
         
         //player.position = Vector3.MoveTowards(player.position, move, step);
         player.rotation = Quaternion.Slerp(player.rotation, lookRotation, step);
@@ -141,11 +143,10 @@ public class Movement : MonoBehaviour
 
     public void Call_Score()
     {
-        if (!PV.IsMine) return;
+        //if (!PV.IsMine) return;
 
         int team = (1 + gameMechanics.checkTeam(ID)) % 2;    // Only works for 2 teams
         gameMechanics.RPC_Score(team);
 
-        Spawn();
     }
 }

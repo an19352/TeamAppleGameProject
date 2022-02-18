@@ -23,7 +23,9 @@ public class ScoreTrigger : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             Movement mov = other.GetComponent<Movement>();
-            mov.Call_Score();
+            int team = (1 + gameMechanics.checkTeam(mov.GetId())) % 2;    // Only works for 2 teams
+            gameMechanics.RPC_Score(team);
+            mov.Spawn();
         }
     }
 }

@@ -27,6 +27,13 @@ public class PhotonPlayer : MonoBehaviour
             myAvatar = PhotonNetwork.Instantiate(playerPrefab.name, new Vector3(x, 6, z), Quaternion.identity, 0);
             PV.RPC("Add_player", RpcTarget.AllBuffered, 0);
         }
+
+        if(gameMechanics.activePowerups.Count > 0)
+        foreach(KeyValuePair<GameObject, UnityEngine.Vector3> powerup in gameMechanics.activePowerups)
+        {
+            powerup.Key.SetActive(true);
+            powerup.Key.transform.position = powerup.Value;
+        }
     }
 
     // Update is called once per frame

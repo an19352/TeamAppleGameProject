@@ -9,7 +9,7 @@ public class Powerup : MonoBehaviour
 {
     PhotonView PV;
     public static PhotonRoom room;
-    //GameObject thisPowerup;
+    public static GameMechanics gameMechanics;
 
     public enum Effects{Orange,Blue,Purple, GravityGyun };
     public Effects _effect;
@@ -17,8 +17,10 @@ public class Powerup : MonoBehaviour
 
     // Start is called before the first frame update
     void Start()
-    {
+    { 
         PV = GetComponent<PhotonView>();
+        gameMechanics = GameMechanics.gameMechanics;
+
         if (PV == null) Debug.LogWarning(this.name + " does not have a PV");
         room = PhotonRoom.room;
 
@@ -34,6 +36,12 @@ public class Powerup : MonoBehaviour
             PV.RPC(effect, RpcTarget.All, other.GetComponent<Movement>().GetId());
             PV.RPC("Disable", RpcTarget.All, null);
         }
+    }
+
+    private void OnDisable()
+    {
+        if(PV)
+        PV.RPC("NoteMe", RpcTarget.All);
     }
 
     [PunRPC]
@@ -61,8 +69,15 @@ public class Powerup : MonoBehaviour
     }
 
     [PunRPC]
+    public void NoteMe()
+    {
+        gameMechanics.activePowerups.Add(this.gameObject, transform.position);
+    }
+
+    [PunRPC]
     public void Disable()
     {
+        gameMechanics.activePowerups.Remove(this.gameObject);
         transform.gameObject.SetActive(false);
     }
 }
