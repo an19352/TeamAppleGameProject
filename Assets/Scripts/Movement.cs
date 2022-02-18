@@ -7,10 +7,12 @@ using Photon.Pun;
 public class Movement : MonoBehaviour
 {
     PhotonView PV;
+    public static GameMechanics gameMechanics;
+
     public Material highlightedMaterial;
 
-    public Transform player;
-    public Rigidbody playerBody;
+    Transform player;
+    Rigidbody playerBody;
     private Camera cameraMain;
 
     public float speed = 5f;
@@ -28,13 +30,20 @@ public class Movement : MonoBehaviour
 
     private Vector3 move;
 
+    [HideInInspector]
     public Text currentPowerup;
     private bool cooldownActive;
+    
+    [HideInInspector]
     public bool hasPowerup;
 
     private void Start()
     {
         PV = GetComponent<PhotonView>();
+        gameMechanics = GameMechanics.gameMechanics;
+
+        player = transform;
+        playerBody = GetComponent<Rigidbody>();
         cameraMain = Camera.main;
 
         if (PV.IsMine) 
@@ -106,9 +115,13 @@ public class Movement : MonoBehaviour
     }
 
     // ReSpawn mechanic
-    public void Spawn()
+    public void Spawn(int spawnPointID = -1)
     {
-        player.position = new Vector3(0f, 4f, 0f);
+        if (spawnPointID < 0)
+            player.position = new Vector3(0f, 4f, 0f);
+        else
+            player.position = gameMechanics.spawnPpoints[spawnPointID].position;
+        
         player.rotation = new Quaternion(0f, 0f, 0f, 0f);
         playerBody.angularVelocity = new Vector3(0f, 0f, 0f);
         playerBody.velocity = new Vector3(0f, 0f, 0f);
@@ -124,5 +137,15 @@ public class Movement : MonoBehaviour
     public int GetId()
     {
         return ID;
+    }
+
+    public void Call_Score()
+    {
+        if (!PV.IsMine) return;
+
+        int team = (1 + gameMechanics.checkTeam(ID)) % 2;    // Only works for 2 teams
+        gameMechanics.RPC_Score(team);
+
+        Spawn();
     }
 }

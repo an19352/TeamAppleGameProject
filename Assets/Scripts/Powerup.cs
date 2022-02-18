@@ -19,6 +19,7 @@ public class Powerup : MonoBehaviour
     void Start()
     {
         PV = GetComponent<PhotonView>();
+        if (PV == null) Debug.LogWarning(this.name + " does not have a PV");
         room = PhotonRoom.room;
 
         //thisPowerup = transform.gameObject;

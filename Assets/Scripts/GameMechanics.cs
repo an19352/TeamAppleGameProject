@@ -4,16 +4,25 @@ using System.Collections.Generic;
 using System.Numerics;
 using UnityEngine;
 using UnityEngine.UI;
+using Photon.Pun;
 
 public class GameMechanics : MonoBehaviour
 {
     public static GameMechanics gameMechanics;
 
-    private void OnEnable()
+    #region Singleton
+
+    private void Awake()
     {
-        if (GameMechanics.gameMechanics == null)
+        if (GameMechanics.gameMechanics == null) GameMechanics.gameMechanics = this;
+        else if (GameMechanics.gameMechanics != this)
+        {
+            Destroy(GameMechanics.gameMechanics.gameObject);
             GameMechanics.gameMechanics = this;
+        }
     }
+
+    #endregion
 
     [Serializable]
     public struct Team           // This allows for Teams to be added via the inspector
@@ -34,16 +43,22 @@ public class GameMechanics : MonoBehaviour
 
     public List<Team> teams;      
     public List<Player> players;
+    public List<Transform> spawnPpoints;
+
+    PhotonView PV;
 
     // Tells all players their ID
     public void Start()
     {
+        PV = GetComponent<PhotonView>();
+
         for (int i = 0; i < players.Count; i++)
             players[i].obj.GetComponent<Movement>().SetId(i);
     }
 
     // Increments the score of a team by one
-    public void Score(int teamID)
+    [PunRPC]
+    void Score(int teamID)
     {
         string _name = teams[teamID].name;
         int _score = teams[teamID].score + 1;
@@ -57,5 +72,16 @@ public class GameMechanics : MonoBehaviour
     public int checkTeam(int playerID)
     {
         return players[playerID].team;
+    }
+
+    public void Add_player (GameObject player, int team)
+    {
+        Player _player = new Player { obj = player, team = team };
+        players.Add(_player);
+    }
+
+    public void RPC_Score(int teamID)
+    { 
+        PV.RPC("Score", RpcTarget.AllBuffered, teamID);
     }
 }
