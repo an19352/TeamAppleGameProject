@@ -71,13 +71,13 @@ public class Powerup : MonoBehaviour
     [PunRPC]
     public void NoteMe()
     {
-        gameMechanics.activePowerups.Add(this.gameObject, transform.position);
+        gameMechanics.activePowerups.Add(PV.ViewID, transform.position);
     }
 
     [PunRPC]
     public void Disable()
     {
-        gameMechanics.activePowerups.Remove(this.gameObject);
+        gameMechanics.activePowerups.Remove(PV.ViewID);
         transform.gameObject.SetActive(false);
     }
 }

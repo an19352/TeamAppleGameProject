@@ -49,6 +49,8 @@ MonoBehaviour:
   - Add_player
   - Score
   - NoteMe
+  - SendVariables
+  - Sync
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

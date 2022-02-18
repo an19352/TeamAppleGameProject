@@ -29,10 +29,11 @@ public class PhotonPlayer : MonoBehaviour
         }
 
         if(gameMechanics.activePowerups.Count > 0)
-        foreach(KeyValuePair<GameObject, UnityEngine.Vector3> powerup in gameMechanics.activePowerups)
+        foreach(KeyValuePair<int, UnityEngine.Vector3> powerupID in gameMechanics.activePowerups)
         {
-            powerup.Key.SetActive(true);
-            powerup.Key.transform.position = powerup.Value;
+                GameObject powerup = PhotonView.Find(powerupID.Key).gameObject;
+            powerup.SetActive(true);
+            powerup.transform.position = powerupID.Value;
         }
     }
 
