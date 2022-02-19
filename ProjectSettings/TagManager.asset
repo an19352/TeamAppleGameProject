@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Powerup
   - Ground
+  - Detector
+  - Detected
   layers:
   - Default
   - TransparentFX
@@ -13,7 +15,7 @@ TagManager:
   - Hookable
   - Water
   - UI
-  - 
+  - Detector
   - Player
   - PowerupOrange
   - PowerupBlue

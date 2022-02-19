@@ -19,6 +19,7 @@ public class Grapple : MonoBehaviour
     private Vector3 mouseLocation;
     private Vector3 lookDirection;
     private Quaternion lookRotation;
+    public LayerMask ignoredLayers;
 
     // Start is called before the first frame update
     void Start()
@@ -41,7 +42,7 @@ public class Grapple : MonoBehaviour
             StopAllCoroutines();
             pulling = false;
             Ray mouseRay = cameraMain.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(mouseRay, out RaycastHit hit))
+            if (Physics.Raycast(mouseRay, out RaycastHit hit, 1000f, ~ignoredLayers))
             {
                 mouseLocation = hit.point;
                 lookDirection = (mouseLocation - shootTransform.position).normalized;

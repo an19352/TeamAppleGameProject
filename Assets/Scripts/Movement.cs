@@ -26,7 +26,7 @@ public class Movement : MonoBehaviour
 
     public string horizontalAxis;
     public string verticalAxis;
-    public bool isUsingMouse;
+    public LayerMask ignoredLayers;
 
     private Vector3 move;
 
@@ -76,11 +76,10 @@ public class Movement : MonoBehaviour
         float step = rotationSpeed * Time.deltaTime;
 
         Ray mouseRay = cameraMain.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(mouseRay, out RaycastHit hit))
+        if (Physics.Raycast(mouseRay, out RaycastHit hit, 1000f, ~ignoredLayers))
         {
             if (hit.transform.CompareTag("Ground"))
             {
-                //move = new Vector3(hit.point.x, transform.position.y, hit.point.z);
                 mouseLocation = hit.point;
                 lookDirection = (mouseLocation - player.position).normalized;
                 lookRotation = Quaternion.LookRotation(lookDirection);
