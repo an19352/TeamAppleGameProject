@@ -30,8 +30,7 @@ public class Gravity : MonoBehaviour
             rigid.AddForce(transform.forward * pushForce * (1/distance), ForceMode.Impulse);
         }
     }
-
-
+    
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Detector"))
