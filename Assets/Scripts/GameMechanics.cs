@@ -168,6 +168,8 @@ public class GameMechanics : MonoBehaviour
     [PunRPC]
     void EndGame()
     {
+        PhotonRoom.room.redScore = teams[0].score;
+        PhotonRoom.room.greenScore = teams[1].score;
         SceneManager.LoadScene(2);
     }
 }

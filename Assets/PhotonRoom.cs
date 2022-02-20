@@ -16,6 +16,11 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
     public int multiplayerSceneIndex = 1;
     private int currentSceneIndex;
 
+    [HideInInspector]
+    public int greenScore;
+    [HideInInspector]
+    public int redScore;
+
     #region Singleton
 
     private void Awake()
