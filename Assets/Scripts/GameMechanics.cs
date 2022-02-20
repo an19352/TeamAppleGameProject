@@ -45,6 +45,8 @@ public class GameMechanics : MonoBehaviour
     public List<Player> players;
     public List<Transform> spawnPpoints;
 
+    public Timer timer;
+
     PhotonView PV;
 
     [HideInInspector]
@@ -92,9 +94,16 @@ public class GameMechanics : MonoBehaviour
         PV.RPC("Score", RpcTarget.AllBuffered, teamID);
     }
 
-    [PunRPC]
-    void Sync(int teamScore0, int teamScore1, int[] playerViewIds, int[] playerTeams, int[] powerupsId, UnityEngine.Vector3[] positions)
+    public void End_Game()
     {
+        Debug.Log("Game ended!");
+    }
+
+    [PunRPC]
+    void Sync(float game_time, int teamScore0, int teamScore1, int[] playerViewIds, int[] playerTeams, int[] powerupsId, UnityEngine.Vector3[] positions)
+    {
+        timer.UpdateTimer(game_time);
+
         List<Team> _teams = new List<Team>();
         List<int> scores = new List<int>();
         scores.Add(teamScore0);
@@ -123,6 +132,7 @@ public class GameMechanics : MonoBehaviour
     [PunRPC]
     void SendVariables()
     {
+        float game_time = timer.GetTimer();
         int[] playerViewIds = new int[players.Count];
         int[] playerTeams = new int[players.Count];
         int[] powerupsId = new int[activePowerups.Count];
@@ -142,6 +152,6 @@ public class GameMechanics : MonoBehaviour
             positions[i] = keypair.Value;
         }
 
-        PV.RPC("Sync", RpcTarget.Others, teams[0].score, teams[1].score, playerViewIds, playerTeams, powerupsId, positions);
+        PV.RPC("Sync", RpcTarget.Others, game_time, teams[0].score, teams[1].score, playerViewIds, playerTeams, powerupsId, positions);
     }
 }
