@@ -47,7 +47,10 @@ public class GameMechanics : MonoBehaviour
     public List<Transform> spawnPpoints;
 
     public Timer timer;
-    public Text master;
+
+    public Button redButton;
+    public Button greenButton;
+    public GameObject menuItem;
 
     PhotonView PV;
 
@@ -96,6 +99,7 @@ public class GameMechanics : MonoBehaviour
     {
         Player _player = new Player { obj = PhotonView.Find(playerViewId).gameObject, team = team };
         players.Add(_player);
+        _player.obj.GetComponent<Movement>().SetId(players.Count - 1);
     }
 
     public void RPC_Score(int teamID)

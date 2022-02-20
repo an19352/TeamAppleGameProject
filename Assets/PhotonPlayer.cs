@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using UnityEngine.UI;
 
 public class PhotonPlayer : MonoBehaviour
 {
@@ -18,16 +19,9 @@ public class PhotonPlayer : MonoBehaviour
     {
         PV = GetComponent<PhotonView>();
         gameMechanics = GameMechanics.gameMechanics;
-
-        float x = Random.Range(-7, 7);
-        float z = Random.Range(-7, 3);
-        int team = 1;
-       
-        if (PV.IsMine)
-        {
-            myAvatar = PhotonNetwork.Instantiate(playerPrefab.name, new Vector3(x, 6, z), Quaternion.identity, 0);
-            gameMechanics.RPC_AddPlayer(myAvatar, team);
-        }
+        
+        gameMechanics.redButton.onClick.AddListener(delegate { InitiatePlayer(0); });
+        gameMechanics.greenButton.onClick.AddListener(delegate { InitiatePlayer(1); });
 
         if(gameMechanics.activePowerups.Count > 0)
         foreach(KeyValuePair<int, UnityEngine.Vector3> powerupID in gameMechanics.activePowerups)
@@ -39,8 +33,19 @@ public class PhotonPlayer : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    public void InitiatePlayer(int team)
     {
-        
+        Debug.Log(team);
+
+        float x = Random.Range(-7, 7);
+        float z = Random.Range(-7, 3);
+
+        if (PV.IsMine)
+        {
+            myAvatar = PhotonNetwork.Instantiate(playerPrefab.name, new Vector3(x, 6, z), Quaternion.identity, 0);
+            gameMechanics.RPC_AddPlayer(myAvatar, team);
+        }
+
+        gameMechanics.menuItem.SetActive(false);
     }
 }
