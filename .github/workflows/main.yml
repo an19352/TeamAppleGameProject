@@ -24,30 +24,19 @@ jobs:
             Library-
 
             
-      #- uses: game-ci/unity-builder@v2.0.0-alpha-14
-       # env:
-        #  UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
-         # UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
-          #UNITY_SERIAL: ${{ secrets.UNITY_SERIAL }}
-   #     with:
-    #      targetPlatform: WebGL
-#
- #     - id: 'auth'
-  #      name: 'Authenticate to Google Cloud'
-   #     uses: 'google-github-actions/auth@v0'
-    #    with:
-     #     workload_identity_provider: 'projects/744153426878/locations/global/workloadIdentityPools/my-pool/providers/my-provider'
-      #    service_account: 'teamapple@eighth-codex-340614.iam.gserviceaccount.com'  
-       #   
-#      - id: 'upload-files'
- #       uses: 'google-github-actions/upload-cloud-storage@v0'
-  #      with:
-   #       path: 'build/WebGL/WebGL'
-    #      destination: 'www.spaceball.co.uk'
-     #     parent: false
-      #    
-       #   
-#      - uses: actions/upload-artifact@v2
- #       with:
-  #        name: Build
-   #       path: build     
+      - uses: game-ci/unity-builder@v2.0.0-alpha-14
+        env:
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+          UNITY_SERIAL: ${{ secrets.UNITY_SERIAL }}
+        with:
+          targetPlatform: WebGL
+          buildsPath: projectBuild
+
+          
+      - uses: actions/upload-artifact@v2
+        with:
+          name: Build
+          path: build
+      
+          
