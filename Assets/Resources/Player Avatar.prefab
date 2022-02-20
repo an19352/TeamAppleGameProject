@@ -15,7 +15,6 @@ GameObject:
   - component: {fileID: -7131588376947766652}
   - component: {fileID: 8521386507383712021}
   - component: {fileID: 7291472432763749253}
-  - component: {fileID: 4264911598900473318}
   - component: {fileID: 6886503607751001077}
   - component: {fileID: -3096326147471984968}
   m_Layer: 0
@@ -115,12 +114,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a0141c7149b65e40affa96177f22aa3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isNPC: 0
   highlightedMaterial: {fileID: 2100000, guid: 1facf4f4455912648841caf557cb64b3, type: 2}
   speed: 12
   rotationSpeed: 15
   horizontalAxis: Horizontal
   verticalAxis: Vertical
-  isUsingMouse: 1
+  ignoredLayers:
+    serializedVersion: 2
+    m_Bits: 0
   currentPowerup: {fileID: 0}
   hasPowerup: 0
 --- !u!54 &8521386507383712021
@@ -162,19 +164,6 @@ MonoBehaviour:
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!114 &4264911598900473318
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8521386507383712022}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 685be0310bfabad49a2a321ed23695d2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _effect: 0
 --- !u!114 &6886503607751001077
 MonoBehaviour:
   m_ObjectHideFlags: 0

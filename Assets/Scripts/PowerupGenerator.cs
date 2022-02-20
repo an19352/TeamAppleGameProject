@@ -34,9 +34,7 @@ public class PowerupGenerator : MonoBehaviour
     {
         while (true)
         {
-            int numberOfPlayers = PhotonNetwork.CountOfPlayers;
-            if (numberOfPlayers == 0) numberOfPlayers++;
-            float time = Random.Range(5 * numberOfPlayers, 10 * numberOfPlayers);
+            float time = Random.Range(5, 10);
             yield return new WaitForSeconds(time);
 
             int randPow = Random.Range(0, powerupTags.Count);
@@ -54,7 +52,7 @@ public class PowerupGenerator : MonoBehaviour
     {
         PV = GetComponent<PhotonView>();
 
-        if (!PV.Owner.IsMasterClient) return;
+        if (!PhotonNetwork.IsMasterClient) return;
 
         poolOfObject = ObjectPooler.OP;
 
@@ -63,10 +61,11 @@ public class PowerupGenerator : MonoBehaviour
             if (pool.prefab.CompareTag(powerupTag))
                 powerupTags.Add(pool.tag);
 
-        ParentPowerups();
+        PV.RPC("ParentPowerups", RpcTarget.AllBuffered);
         StartCoroutine(StartGenerator());
     }
 
+    [PunRPC]
     void ParentPowerups()
     {
         foreach (KeyValuePair<string, Queue<GameObject>> kvp in poolOfObject.poolDictionary)

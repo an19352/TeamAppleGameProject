@@ -9,6 +9,7 @@ public class Movement : MonoBehaviour
     PhotonView PV;
     public static GameMechanics gameMechanics;
 
+    public bool isNPC;
     public Material highlightedMaterial;
 
     Transform player;
@@ -56,13 +57,12 @@ public class Movement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (isNPC) return;
         if (!PV.IsMine) return;
 
        if (Input.GetKeyDown(KeyCode.F))
        {
-            player.rotation = new Quaternion(0f, 0f, 0f, 0f);
-            playerBody.angularVelocity = new Vector3(0f, 0f, 0f);
-            playerBody.velocity = new Vector3(0f, 0f, 0f);
+            Debug.Log(gameMechanics.activePowerups.Count);
        }
 
             

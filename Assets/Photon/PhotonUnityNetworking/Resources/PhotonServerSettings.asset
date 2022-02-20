@@ -51,6 +51,9 @@ MonoBehaviour:
   - NoteMe
   - SendVariables
   - Sync
+  - ParentPowerups
+  - NotifyMe
+  - EndGame
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

@@ -40,8 +40,14 @@ public class Powerup : MonoBehaviour
 
     private void OnDisable()
     {
-        if(PV)
-        PV.RPC("NoteMe", RpcTarget.All);
+        if(PV) if(PV.IsMine)
+        PV.RPC("Disable", RpcTarget.All);
+    }
+
+    private void OnEnable()
+    {
+        if (PV) if (PV.IsMine)
+        PV.RPC("NotifyMe", RpcTarget.All);
     }
 
     [PunRPC]
@@ -69,7 +75,7 @@ public class Powerup : MonoBehaviour
     }
 
     [PunRPC]
-    public void NoteMe()
+    public void NotifyMe()
     {
         gameMechanics.activePowerups.Add(PV.ViewID, transform.position);
     }
@@ -77,7 +83,8 @@ public class Powerup : MonoBehaviour
     [PunRPC]
     public void Disable()
     {
-        gameMechanics.activePowerups.Remove(PV.ViewID);
+        if (gameMechanics.activePowerups.ContainsKey(PV.ViewID))
+            gameMechanics.activePowerups.Remove(PV.ViewID);
         transform.gameObject.SetActive(false);
     }
 }

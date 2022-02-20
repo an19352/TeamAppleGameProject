@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Numerics;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Photon.Pun;
 
@@ -46,6 +47,7 @@ public class GameMechanics : MonoBehaviour
     public List<Transform> spawnPpoints;
 
     public Timer timer;
+    public Text master;
 
     PhotonView PV;
 
@@ -58,7 +60,7 @@ public class GameMechanics : MonoBehaviour
         PV = GetComponent<PhotonView>();
         activePowerups = new Dictionary<int, UnityEngine.Vector3>();
 
-        if (!PV.Owner.IsMasterClient)
+        if (!PhotonNetwork.IsMasterClient)
             PV.RPC("SendVariables", RpcTarget.MasterClient);
 
         for (int i = 0; i < players.Count; i++)
@@ -83,9 +85,16 @@ public class GameMechanics : MonoBehaviour
         return players[playerID].team;
     }
 
-    public void Add_player (GameObject player, int team)
+    public void RPC_AddPlayer(GameObject player, int team)
     {
-        Player _player = new Player { obj = player, team = team };
+        PV.RPC("Add_player", RpcTarget.All, player.GetComponent<PhotonView>().ViewID, team);
+        // If a player order inconsistency arises, add a sync here
+    }
+
+    [PunRPC]
+    public void Add_player (int playerViewId, int team)
+    {
+        Player _player = new Player { obj = PhotonView.Find(playerViewId).gameObject, team = team };
         players.Add(_player);
     }
 
@@ -94,10 +103,6 @@ public class GameMechanics : MonoBehaviour
         PV.RPC("Score", RpcTarget.AllBuffered, teamID);
     }
 
-    public void End_Game()
-    {
-        Debug.Log("Game ended!");
-    }
 
     [PunRPC]
     void Sync(float game_time, int teamScore0, int teamScore1, int[] playerViewIds, int[] playerTeams, int[] powerupsId, UnityEngine.Vector3[] positions)
@@ -153,5 +158,16 @@ public class GameMechanics : MonoBehaviour
         }
 
         PV.RPC("Sync", RpcTarget.Others, game_time, teams[0].score, teams[1].score, playerViewIds, playerTeams, powerupsId, positions);
+    }
+
+    public void End_Game()
+    {
+        PV.RPC("EndGame", RpcTarget.AllBuffered);
+    }
+
+    [PunRPC]
+    void EndGame()
+    {
+        SceneManager.LoadScene(2);
     }
 }

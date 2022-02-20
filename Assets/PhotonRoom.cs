@@ -74,4 +74,10 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
     {
         PhotonNetwork.Instantiate(prefab.name, transform.position, Quaternion.identity, 0);
     }
+
+    public void Reload()
+    {
+        PhotonNetwork.Disconnect();
+        SceneManager.LoadScene(0);
+    }
 }
