@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class Gravity : MonoBehaviour
+public class ImpulseCannon : MonoBehaviour
 {
-    GameObject pushed;
+    GameObject[] pushed;
     Transform parentPlayer;
     Rigidbody rigid;
     public float pushForce;
@@ -23,11 +23,14 @@ public class Gravity : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.B))
         {
-            pushed = GameObject.FindGameObjectWithTag("Detected").transform.parent.gameObject;
-            rigid = pushed.GetComponent<Rigidbody>();
-            parentPlayer = transform.parent;
-            distance = Vector3.Distance(parentPlayer.position, pushed.transform.position);
-            rigid.AddForce(transform.forward * pushForce * (1/distance), ForceMode.Impulse);
+            pushed = GameObject.FindGameObjectsWithTag("Detected");
+            for (int i = 0; i < pushed.Length; i++)
+            {
+                rigid = pushed[i].transform.parent.GetComponent<Rigidbody>();
+                parentPlayer = transform.parent;
+                distance = Vector3.Distance(parentPlayer.position, pushed[i].transform.position);
+                rigid.AddForce(transform.forward * pushForce * (1 / distance), ForceMode.Impulse);
+            }
         }
     }
     
