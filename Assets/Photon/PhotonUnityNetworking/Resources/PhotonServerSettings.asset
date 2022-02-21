@@ -54,6 +54,7 @@ MonoBehaviour:
   - ParentPowerups
   - NotifyMe
   - EndGame
+  - RPC_Cannon
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1
