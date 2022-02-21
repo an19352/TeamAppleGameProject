@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7722951318078907458}
   - component: {fileID: 1967290263044909499}
   - component: {fileID: 3654433288136150486}
+  - component: {fileID: 5694743030178498151}
   m_Layer: 6
   m_Name: ImpulseDetectorCube
   m_TagString: Untagged
@@ -109,6 +110,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pushForce: 20
+--- !u!114 &5694743030178498151
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1973076938037938879}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &2013496678312224094
 GameObject:
   m_ObjectHideFlags: 0
