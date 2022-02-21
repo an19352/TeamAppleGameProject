@@ -21,7 +21,7 @@ public class ImpulseCannon : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.B))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             pushed = GameObject.FindGameObjectsWithTag("Detected");
             for (int i = 0; i < pushed.Length; i++)

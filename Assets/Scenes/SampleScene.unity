@@ -297,7 +297,6 @@ GameObject:
   - component: {fileID: 184574376}
   - component: {fileID: 184574374}
   - component: {fileID: 184574381}
-  - component: {fileID: 184574375}
   m_Layer: 0
   m_Name: GreenCapsule
   m_TagString: Player
@@ -321,29 +320,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!114 &184574375
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 184574373}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a0141c7149b65e40affa96177f22aa3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isNPC: 0
-  highlightedMaterial: {fileID: 2100000, guid: 73306b8830f59e5418513cce5517dc55, type: 2}
-  speed: 5
-  rotationSpeed: 0
-  horizontalAxis: null
-  verticalAxis: null
-  ignoredLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  currentPowerup: {fileID: 0}
-  hasPowerup: 0
 --- !u!136 &184574376
 CapsuleCollider:
   m_ObjectHideFlags: 0
