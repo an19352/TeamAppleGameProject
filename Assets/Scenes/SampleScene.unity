@@ -160,11 +160,7 @@ MonoBehaviour:
   - name: Green
     scoreText: {fileID: 1168874982}
     score: 0
-  players:
-  - obj: {fileID: 1287108068}
-    team: 0
-  - obj: {fileID: 184574373}
-    team: 1
+  players: []
   spawnPpoints: []
   timer: {fileID: 1039434766}
   redButton: {fileID: 438487761}
@@ -303,7 +299,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!54 &184574374
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2547,7 +2543,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!136 &1287108069
 CapsuleCollider:
   m_ObjectHideFlags: 0

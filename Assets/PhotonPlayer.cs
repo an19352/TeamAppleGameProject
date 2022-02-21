@@ -35,8 +35,6 @@ public class PhotonPlayer : MonoBehaviour
     // Update is called once per frame
     public void InitiatePlayer(int team)
     {
-        Debug.Log(team);
-
         float x = Random.Range(-7, 7);
         float z = Random.Range(-7, 3);
 
