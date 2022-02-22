@@ -34,39 +34,57 @@ public class ObjectPooler : MonoBehaviour
 
     GameObject obj;
     PhotonView PV;
+    bool synced;
 
     private void Start()
     {
+        synced = false;
         PV = GetComponent<PhotonView>();
         poolDictionary = new Dictionary<string, Queue<GameObject>>();
 
         foreach(Pool pool in pools)
         {
-            Queue<GameObject> objectPool = new Queue<GameObject>();
-
-            for (int i = 0; i < pool.size; i++)
+            if (!pool.prefab.GetComponent<PhotonView>())
             {
-                if (pool.prefab.GetComponent<PhotonView>())
+                Queue<GameObject> objectPool = new Queue<GameObject>();
+                for (int i = 0; i < pool.size; i++)
                 {
-                    if (PhotonNetwork.IsMasterClient)
-                        obj = PhotonNetwork.Instantiate(pool.prefab.name, transform.position, Quaternion.identity);
-                }
-                else
                     obj = Instantiate(pool.prefab);
-                
-                obj.SetActive(false);
-                objectPool.Enqueue(obj);
+                    obj.SetActive(false);
+                    objectPool.Enqueue(obj);
+                }
+                poolDictionary.Add(pool.tag, objectPool);
             }
-
-            poolDictionary.Add(pool.tag, objectPool);
         }
+
+        if (!PhotonNetwork.IsMasterClient)
+        {
+            PV.RPC("SendPoolDic", RpcTarget.MasterClient);
+            return;
+        }
+
+        synced = true;
+
+        foreach (Pool pool in pools)
+            if (pool.prefab.GetComponent<PhotonView>())
+            {
+                Queue<GameObject> objectPool = new Queue<GameObject>();
+
+                for (int i = 0; i < pool.size; i++)
+                {
+                    obj = PhotonNetwork.Instantiate(pool.prefab.name, transform.position, Quaternion.identity);
+                    obj.SetActive(false);
+                    objectPool.Enqueue(obj);
+                }
+                poolDictionary.Add(pool.tag, objectPool);
+            }
     }
 
     public GameObject SpawnFromPool(string tag, Vector3 position, Quaternion rotation)
     {
         if (!poolDictionary.ContainsKey(tag)) 
         {
-            Debug.LogWarning("Pool " + tag + " does not exist!");
+            Debug.LogError("Pool " + tag + " does not exist!");
             return null;
         }
 
@@ -80,4 +98,62 @@ public class ObjectPooler : MonoBehaviour
         return objectToSpawn;
     }
 
+    public bool isSynced()
+    {
+        return synced;
+    }
+
+    [PunRPC]
+    void SyncPoolDic(string[] tags, int[] queueViewID, int[] queueLengths)
+    {
+        if (synced) return;
+
+        Debug.Log("Done!");
+
+        int filler = 0;
+
+        for (int i = 0; i < tags.Length; i++)
+        {
+            Queue<GameObject> _queue = new Queue<GameObject>();
+            for (int j = 0; j < queueLengths[i]; j++)
+                _queue.Enqueue(PhotonView.Find(queueViewID[j + filler]).gameObject);
+            poolDictionary.Add(tags[i], _queue);
+            filler += queueLengths[i];
+        }
+
+        Debug.Log("Now it's done");
+
+        synced = true;
+    }
+
+    [PunRPC]
+    void SendPoolDic()
+    {
+        string[] tags = new string[poolDictionary.Count];
+
+        int queueViewIDsLength = 0;
+        foreach (KeyValuePair<string, Queue<GameObject>> kvp in poolDictionary)
+            queueViewIDsLength += kvp.Value.Count;
+
+        int[] queueViewIDs = new int[queueViewIDsLength];
+        int[] queueLengths = new int[poolDictionary.Count];
+
+        int i = 0, j = 0;
+        foreach (KeyValuePair<string, Queue<GameObject>> kvp in poolDictionary)
+        {
+            if (kvp.Value.Peek().GetComponent<PhotonView>())
+            {
+                foreach (GameObject obj in kvp.Value)
+                {
+                    queueViewIDs[j] = obj.GetComponent<PhotonView>().ViewID;
+                    j++;
+                }
+                tags[i] = kvp.Key;
+                queueLengths[i] = kvp.Value.Count;
+                i++;
+            }
+        }
+
+        PV.RPC("SyncPoolDic", RpcTarget.Others, tags, queueViewIDs, queueLengths);
+    }
 }

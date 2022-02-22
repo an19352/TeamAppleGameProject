@@ -53,19 +53,19 @@ public class Powerup : MonoBehaviour
     [PunRPC]
     public void Orange(int playerID)
     {
-        Debug.Log(playerID.ToString());
+        return;
     }
 
     [PunRPC]
     public void Blue(int playerID) 
     {
-        Debug.Log(playerID.ToString());
+        return;
     }
 
     [PunRPC]
     public void Purple(int playerID) 
     {
-        Debug.Log(playerID.ToString());
+        return;
     }
 
     [PunRPC]

@@ -88,8 +88,6 @@ public class Movement : MonoBehaviour
             }
         }
 
-        if (Input.GetMouseButtonDown(1)) gameMechanics.RPC_Score(0);
-        
         //player.position = Vector3.MoveTowards(player.position, move, step);
         player.rotation = Quaternion.Slerp(player.rotation, lookRotation, step);
 

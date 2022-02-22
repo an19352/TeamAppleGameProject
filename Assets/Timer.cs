@@ -9,11 +9,13 @@ public class Timer : MonoBehaviour
 
     public static GameMechanics gameMechanics;
     TextMeshProUGUI timer;
+    float finishTime;
 
     // Start is called before the first frame update
     void Start()
     {
         gameMechanics = GameMechanics.gameMechanics;
+        finishTime = Time.time + totalTime;
 
         timer = GetComponent<TextMeshProUGUI>();
         timer.text = Convert_seconds(totalTime);
@@ -28,7 +30,7 @@ public class Timer : MonoBehaviour
             this.gameObject.SetActive(false);
         }
 
-        totalTime -= Time.deltaTime;
+        totalTime = finishTime - Time.time;
         timer.text = Convert_seconds(totalTime);
     }
 
@@ -48,6 +50,7 @@ public class Timer : MonoBehaviour
     public void UpdateTimer (float newTotalTime)
     {
         totalTime = newTotalTime;
+        finishTime = Time.time + totalTime;
     }
     
     public float GetTimer()

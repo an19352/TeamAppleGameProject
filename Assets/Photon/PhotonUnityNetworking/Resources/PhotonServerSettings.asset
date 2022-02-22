@@ -55,6 +55,8 @@ MonoBehaviour:
   - NotifyMe
   - EndGame
   - RPC_Cannon
+  - SendPoolDic
+  - SyncPoolDic
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

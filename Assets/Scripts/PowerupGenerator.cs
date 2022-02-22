@@ -26,7 +26,6 @@ public class PowerupGenerator : MonoBehaviour
     void GenerateRandomPowerup(int randPow, Vector3 randPosition)
     {
         newCube = poolOfObject.SpawnFromPool(powerupTags[randPow], randPosition, Quaternion.identity);
-        newCube.SetActive(true);
     }
 
     //Coroutine to start generating random powerups every 5-10 seconds
@@ -39,10 +38,7 @@ public class PowerupGenerator : MonoBehaviour
 
             int randPow = Random.Range(0, powerupTags.Count);
             Vector3 randPosition = RandomPosition();
-            if (PV.IsOwnerActive)
-                PV.RPC("GenerateRandomPowerup", RpcTarget.All, randPow, randPosition);
-            else
-                GenerateRandomPowerup(randPow, randPosition);
+            PV.RPC("GenerateRandomPowerup", RpcTarget.All, randPow, randPosition);
             
         }
     }
@@ -51,9 +47,6 @@ public class PowerupGenerator : MonoBehaviour
     void Start()
     {
         PV = GetComponent<PhotonView>();
-
-        if (!PhotonNetwork.IsMasterClient) return;
-
         poolOfObject = ObjectPooler.OP;
 
         powerupTags = new List<string>();
@@ -61,11 +54,12 @@ public class PowerupGenerator : MonoBehaviour
             if (pool.prefab.CompareTag(powerupTag))
                 powerupTags.Add(pool.tag);
 
-        PV.RPC("ParentPowerups", RpcTarget.AllBuffered);
-        StartCoroutine(StartGenerator());
+        ParentPowerups();
+        
+        if (PhotonNetwork.IsMasterClient)
+            StartCoroutine(StartGenerator());
     }
 
-    [PunRPC]
     void ParentPowerups()
     {
         foreach (KeyValuePair<string, Queue<GameObject>> kvp in poolOfObject.poolDictionary)

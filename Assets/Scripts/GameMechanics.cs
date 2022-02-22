@@ -70,18 +70,6 @@ public class GameMechanics : MonoBehaviour
             players[i].obj.GetComponent<Movement>().SetId(i);
     }
 
-    // Increments the score of a team by one
-    [PunRPC]
-    public void Score(int teamID)
-    {
-        string _name = teams[teamID].name;
-        int _score = teams[teamID].score + 1;
-        Text _text = teams[teamID].scoreText;
-        _text.text = _score.ToString();
-
-        teams[teamID] = new Team { name = _name, score = _score, scoreText = _text };
-    }
-
     // For functions in other classes, returns a player's team
     public int checkTeam(int playerID)
     {
@@ -103,26 +91,40 @@ public class GameMechanics : MonoBehaviour
     }
 
     public void RPC_Score(int teamID)
-    { 
+    {
         PV.RPC("Score", RpcTarget.AllBuffered, teamID);
     }
 
+    // Increments the score of a team by one
+    [PunRPC]
+    public void Score(int teamID)
+    {
+        string _name = teams[teamID].name;
+        int _score = teams[teamID].score + 1;
+        Text _text = teams[teamID].scoreText;
+        _text.text = _score.ToString();
+        Debug.Log("Here is the issue: " + teamID.ToString());
+
+        teams[teamID] = new Team { name = _name, score = _score, scoreText = _text };
+    }
 
     [PunRPC]
-    void Sync(float game_time, int teamScore0, int teamScore1, int[] playerViewIds, int[] playerTeams, int[] powerupsId, UnityEngine.Vector3[] positions)
+    void Sync(float game_time, int[] playerViewIds, int[] playerTeams, string[] teamNames, int[] teamScores, int[] scoreViewIDs, int[] powerupsId, UnityEngine.Vector3[] positions)
     {
         timer.UpdateTimer(game_time);
 
         List<Team> _teams = new List<Team>();
-        List<int> scores = new List<int>();
-        scores.Add(teamScore0);
-        scores.Add(teamScore1);
-        for (int i = 0; i < 2; i++) teams.Add(new Team
+        for (int i = 0; i < teamNames.Length; i++)
         {
-            name = teams[i].name,
-            score = scores[i],
-            scoreText = teams[i].scoreText
-        }); 
+            teams.Add(new Team
+            {
+                name = teamNames[i],
+                score = teamScores[i],
+                scoreText = PhotonView.Find(scoreViewIDs[i]).gameObject.GetComponent<Text>()
+            });
+            Debug.LogError(teamNames[i]);
+        }
+        Debug.LogError(teamNames.Length);
         teams = _teams;
 
         List<Player> _players = new List<Player>();
@@ -142,8 +144,14 @@ public class GameMechanics : MonoBehaviour
     void SendVariables()
     {
         float game_time = timer.GetTimer();
+
         int[] playerViewIds = new int[players.Count];
         int[] playerTeams = new int[players.Count];
+
+        string[] teamNames = new string[teams.Count];
+        int[] teamScores = new int[teams.Count]; 
+        int[] scoreViewIDs = new int[teams.Count];
+
         int[] powerupsId = new int[activePowerups.Count];
         UnityEngine.Vector3[] positions = new UnityEngine.Vector3[activePowerups.Count];
         int i;
@@ -154,14 +162,22 @@ public class GameMechanics : MonoBehaviour
             playerTeams[i] = players[i].team;
         }
 
+        for (i = 0; i < teams.Count; i++)
+        {
+            teamNames[i] = teams[i].name;
+            teamScores[i] = teams[i].score;
+            scoreViewIDs[i] = teams[i].scoreText.gameObject.GetComponent<PhotonView>().ViewID;
+        }
+
         i = 0;
         foreach(KeyValuePair<int, UnityEngine.Vector3> keypair in activePowerups)
         {
             powerupsId[i] = keypair.Key;
             positions[i] = keypair.Value;
+            i++;
         }
 
-        PV.RPC("Sync", RpcTarget.Others, game_time, teams[0].score, teams[1].score, playerViewIds, playerTeams, powerupsId, positions);
+        PV.RPC("Sync", RpcTarget.Others, game_time, playerViewIds, playerTeams, teamNames, teamScores, scoreViewIDs, powerupsId, positions);
     }
 
     public void End_Game()
