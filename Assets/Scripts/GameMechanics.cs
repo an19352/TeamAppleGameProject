@@ -114,17 +114,13 @@ public class GameMechanics : MonoBehaviour
         timer.UpdateTimer(game_time);
 
         List<Team> _teams = new List<Team>();
-        for (int i = 0; i < teamNames.Length; i++)
+        for (int i = 0; i < teamNames.Length; i++) _teams.Add(new Team
         {
-            teams.Add(new Team
-            {
-                name = teamNames[i],
-                score = teamScores[i],
-                scoreText = PhotonView.Find(scoreViewIDs[i]).gameObject.GetComponent<Text>()
-            });
-            Debug.LogError(teamNames[i]);
-        }
-        Debug.LogError(teamNames.Length);
+            name = teamNames[i],
+            score = teamScores[i],
+            scoreText = PhotonView.Find(scoreViewIDs[i]).gameObject.GetComponent<Text>()
+        });
+        
         teams = _teams;
 
         List<Player> _players = new List<Player>();
@@ -136,7 +132,14 @@ public class GameMechanics : MonoBehaviour
         players = _players;
 
         Dictionary<int, UnityEngine.Vector3> _powerups = new Dictionary<int, UnityEngine.Vector3>();
-        for (int i = 0; i < powerupsId.Length; i++) _powerups.Add(powerupsId[i], positions[i]);
+        for (int i = 0; i < powerupsId.Length; i++) 
+        { 
+            _powerups.Add(powerupsId[i], positions[i]);
+
+            GameObject _obj = PhotonView.Find(powerupsId[i]).gameObject;
+            _obj.SetActive(true);
+            _obj.transform.position = positions[i];
+        }
         activePowerups = _powerups;
     }
 

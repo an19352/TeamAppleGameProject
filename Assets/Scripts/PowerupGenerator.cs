@@ -13,6 +13,7 @@ public class PowerupGenerator : MonoBehaviour
 
     public string powerupTag = "Powerup";
     public List<Transform> spawiningPoints;
+    public GameObject powerupUpdatePender;
 
     //Generates random position in the space of Vector3
     private Vector3 RandomPosition()
@@ -48,19 +49,32 @@ public class PowerupGenerator : MonoBehaviour
     {
         PV = GetComponent<PhotonView>();
         poolOfObject = ObjectPooler.OP;
-
         powerupTags = new List<string>();
+
+        if (!PhotonNetwork.IsMasterClient)
+        {
+            powerupUpdatePender.SetActive(true);
+            return;
+        }
+
+        SetPowerupTags();
+        ParentPowerups();
+        StartCoroutine(StartGenerator());
+    }
+
+    public int GetPowerupTagsCount()
+    {
+        return powerupTags.Count;
+    }
+
+    public void SetPowerupTags()
+    {
         foreach (ObjectPooler.Pool pool in poolOfObject.pools)
             if (pool.prefab.CompareTag(powerupTag))
                 powerupTags.Add(pool.tag);
-
-        ParentPowerups();
-        
-        if (PhotonNetwork.IsMasterClient)
-            StartCoroutine(StartGenerator());
     }
 
-    void ParentPowerups()
+    public void ParentPowerups()
     {
         foreach (KeyValuePair<string, Queue<GameObject>> kvp in poolOfObject.poolDictionary)
             if (kvp.Value.Peek().CompareTag(powerupTag))

@@ -115,8 +115,13 @@ public class ObjectPooler : MonoBehaviour
         for (int i = 0; i < tags.Length; i++)
         {
             Queue<GameObject> _queue = new Queue<GameObject>();
-            for (int j = 0; j < queueLengths[i]; j++)
-                _queue.Enqueue(PhotonView.Find(queueViewID[j + filler]).gameObject);
+            for (int j = 0; j < queueLengths[i]; j++) 
+            {
+                GameObject _obj = PhotonView.Find(queueViewID[j + filler]).gameObject;
+                _queue.Enqueue(_obj);
+                if (!_obj.transform.parent)
+                    _obj.SetActive(false);
+            }
             poolDictionary.Add(tags[i], _queue);
             filler += queueLengths[i];
         }
