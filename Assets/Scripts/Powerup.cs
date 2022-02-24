@@ -11,13 +11,13 @@ public class Powerup : MonoBehaviour
     public static PhotonRoom room;
     public static GameMechanics gameMechanics;
 
-    public enum Effects{Orange,Blue,Purple, GravityGyun };
+    public enum Effects { Orange, Blue, Purple, GravityGun, Grapple };
     public Effects _effect;
     string effect;
 
     // Start is called before the first frame update
     void Start()
-    { 
+    {
         PV = GetComponent<PhotonView>();
         gameMechanics = GameMechanics.gameMechanics;
 
@@ -40,14 +40,14 @@ public class Powerup : MonoBehaviour
 
     private void OnDisable()
     {
-        if(PV) if(PV.IsMine)
-        PV.RPC("Disable", RpcTarget.All);
+        if (PV) if (PV.IsMine)
+                PV.RPC("Disable", RpcTarget.All);
     }
 
     private void OnEnable()
     {
         if (PV) if (PV.IsMine)
-        PV.RPC("NotifyMe", RpcTarget.All);
+                PV.RPC("NotifyMe", RpcTarget.All);
     }
 
     [PunRPC]
@@ -57,21 +57,34 @@ public class Powerup : MonoBehaviour
     }
 
     [PunRPC]
-    public void Blue(int playerID) 
+    public void Blue(int playerID)
     {
         return;
     }
 
     [PunRPC]
-    public void Purple(int playerID) 
+    public void Purple(int playerID)
     {
         return;
     }
 
     [PunRPC]
-    public void GravityGyun(int playerID)
+    public void GravityGun(int playerID)
     {
         Debug.Log("Player " + playerID.ToString() + " has picked up gravity gun");
+
+        GameObject playerObj = gameMechanics.players[playerID].obj;
+
+        playerObj.GetComponent<GravityGun>().enabled = true;
+        // player.GetComponent<Powerup>().enabled = true;
+
+    }
+
+    [PunRPC]
+    public void Grapple(int playerID)
+    {
+        Debug.Log("Player " + playerID.ToString() + " has picked up Grapple");
+        gameMechanics.players[playerID].obj.GetComponent<Grapple>().enabled = true;
     }
 
     [PunRPC]

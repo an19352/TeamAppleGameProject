@@ -44,12 +44,14 @@ public class GravityGun : MonoBehaviour
                 RaycastHit hit;
                 Ray mouseRay = cameraMain.ScreenPointToRay(Input.mousePosition);
 
-                if (Physics.Raycast(mouseRay, out hit))
+                int lm = LayerMask.GetMask("Grabbable");
+
+                if (Physics.Raycast(mouseRay, out hit, 1000f, lm))
                 {
                     GameObject objectHit = hit.collider.gameObject;
                     float dist = Vector3.Distance(objectHolder.position, objectHit.transform.position);
-                    // make sure to only grab objects that are tagged and close to player 
-                    if (hit.transform.CompareTag("Grabbable") && dist <= maxGrabDistance)
+                    // make sure to only grab objects that are within a certain distance to the player 
+                    if (dist <= maxGrabDistance)
                     {
                         grabbedRB = objectHit.GetComponent<Rigidbody>();
                         grabbedRB.isKinematic = true;

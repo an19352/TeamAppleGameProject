@@ -8,7 +8,9 @@ public class Grapple : MonoBehaviour
     PhotonView PV;
 
     [SerializeField] float pullSpeed = 0.5f;
-    [SerializeField] float stopDistance = 4f;
+    [SerializeField] float maxShootDistance = 20f;
+
+    [SerializeField] float stopPullDistance = 4f;
     [SerializeField] GameObject hookPrefab;
     [SerializeField] Transform shootTransform;
 
@@ -19,17 +21,16 @@ public class Grapple : MonoBehaviour
     private Vector3 mouseLocation;
     private Vector3 lookDirection;
     private Quaternion lookRotation;
-    public LayerMask ignoredLayers;
+    private int lm;
 
     // Start is called before the first frame update
     void Start()
     {
         PV = GetComponent<PhotonView>();
-
         rigid = GetComponent<Rigidbody>();
         pulling = false;
         cameraMain = Camera.main;
-
+        lm = LayerMask.GetMask("Hookable");
     }
 
     // Update is called once per frame
@@ -42,7 +43,7 @@ public class Grapple : MonoBehaviour
             StopAllCoroutines();
             pulling = false;
             Ray mouseRay = cameraMain.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(mouseRay, out RaycastHit hit, 1000f, ~ignoredLayers))
+            if (Physics.Raycast(mouseRay, out RaycastHit hit, 1000f, lm))
             {
                 mouseLocation = hit.point;
                 lookDirection = (mouseLocation - shootTransform.position).normalized;
@@ -58,9 +59,17 @@ public class Grapple : MonoBehaviour
             DestroyHook();
         }
 
+
+        if (hook == null) return;
+
+        if (Vector3.Distance(transform.position, hook.transform.position) >= maxShootDistance)
+        {
+            DestroyHook();
+        }
+
         if (!pulling || hook == null) return;
 
-        if (Vector3.Distance(transform.position, hook.transform.position) <= stopDistance)
+        if (Vector3.Distance(transform.position, hook.transform.position) <= stopPullDistance)
         {
             DestroyHook();
         }
