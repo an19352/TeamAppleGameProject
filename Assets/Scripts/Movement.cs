@@ -59,12 +59,6 @@ public class Movement : MonoBehaviour
     {
         if (isNPC) return;
         if (!PV.IsMine) return;
-
-       if (Input.GetKeyDown(KeyCode.F))
-       {
-            Debug.Log(gameMechanics.activePowerups.Count);
-       }
-
             
         //Keyboard controls
             

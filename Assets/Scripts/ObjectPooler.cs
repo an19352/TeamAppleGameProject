@@ -108,8 +108,6 @@ public class ObjectPooler : MonoBehaviour
     {
         if (synced) return;
 
-        Debug.Log("Done!");
-
         int filler = 0;
 
         for (int i = 0; i < tags.Length; i++)
@@ -125,8 +123,6 @@ public class ObjectPooler : MonoBehaviour
             poolDictionary.Add(tags[i], _queue);
             filler += queueLengths[i];
         }
-
-        Debug.Log("Now it's done");
 
         GameMechanics.gameMechanics.SyncPowerupsNow();
         synced = true;

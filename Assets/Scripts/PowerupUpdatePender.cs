@@ -22,6 +22,7 @@ public class PowerupUpdatePender : MonoBehaviour
 
         powerupGenerator.SetPowerupTags();
         powerupGenerator.ParentPowerups();
+        GameMechanics.gameMechanics.SyncPowerupsNow();
 
         if (powerupGenerator.GetPowerupTagsCount() > 0) gameObject.SetActive(false);
     }

@@ -71,8 +71,6 @@ public class Powerup : MonoBehaviour
     [PunRPC]
     public void GravityGun(int playerID)
     {
-        Debug.Log("Player " + playerID.ToString() + " has picked up gravity gun");
-
         GameObject playerObj = gameMechanics.players[playerID].obj;
 
         playerObj.GetComponent<GravityGun>().enabled = true;
@@ -83,7 +81,6 @@ public class Powerup : MonoBehaviour
     [PunRPC]
     public void Grapple(int playerID)
     {
-        Debug.Log("Player " + playerID.ToString() + " has picked up Grapple");
         gameMechanics.players[playerID].obj.GetComponent<Grapple>().enabled = true;
     }
 
