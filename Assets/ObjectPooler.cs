@@ -128,6 +128,7 @@ public class ObjectPooler : MonoBehaviour
 
         Debug.Log("Now it's done");
 
+        GameMechanics.gameMechanics.SyncPowerupsNow();
         synced = true;
     }
 

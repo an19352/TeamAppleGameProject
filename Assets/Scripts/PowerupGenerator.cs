@@ -40,7 +40,6 @@ public class PowerupGenerator : MonoBehaviour
             int randPow = Random.Range(0, powerupTags.Count);
             Vector3 randPosition = RandomPosition();
             PV.RPC("GenerateRandomPowerup", RpcTarget.All, randPow, randPosition);
-            
         }
     }
     

@@ -109,7 +109,7 @@ public class GameMechanics : MonoBehaviour
     }
 
     [PunRPC]
-    void Sync(float game_time, int[] playerViewIds, int[] playerTeams, string[] teamNames, int[] teamScores, int[] scoreViewIDs, int[] powerupsId, UnityEngine.Vector3[] positions)
+    void Sync(float game_time, int[] playerViewIds, int[] playerTeams, string[] teamNames, int[] teamScores, int[] scoreViewIDs)
     {
         timer.UpdateTimer(game_time);
 
@@ -130,17 +130,6 @@ public class GameMechanics : MonoBehaviour
             team = playerTeams[i]
         });
         players = _players;
-
-        Dictionary<int, UnityEngine.Vector3> _powerups = new Dictionary<int, UnityEngine.Vector3>();
-        for (int i = 0; i < powerupsId.Length; i++) 
-        { 
-            _powerups.Add(powerupsId[i], positions[i]);
-
-            GameObject _obj = PhotonView.Find(powerupsId[i]).gameObject;
-            _obj.SetActive(true);
-            _obj.transform.position = positions[i];
-        }
-        activePowerups = _powerups;
     }
 
     [PunRPC]
@@ -180,7 +169,45 @@ public class GameMechanics : MonoBehaviour
             i++;
         }
 
-        PV.RPC("Sync", RpcTarget.Others, game_time, playerViewIds, playerTeams, teamNames, teamScores, scoreViewIDs, powerupsId, positions);
+        PV.RPC("Sync", RpcTarget.Others, game_time, playerViewIds, playerTeams, teamNames, teamScores, scoreViewIDs);
+    }
+
+    public void SyncPowerupsNow()
+    {
+        PV.RPC("SendPowerups", RpcTarget.MasterClient);
+    }
+
+    [PunRPC]
+    void SendPowerups()
+    {
+        int[] powerupsId = new int[activePowerups.Count];
+        UnityEngine.Vector3[] positions = new UnityEngine.Vector3[activePowerups.Count];
+        int i;
+
+        i = 0;
+        foreach (KeyValuePair<int, UnityEngine.Vector3> keypair in activePowerups)
+        {
+            powerupsId[i] = keypair.Key;
+            positions[i] = keypair.Value;
+            i++;
+        }
+
+        PV.RPC("SyncPowerups", RpcTarget.Others, powerupsId, positions);
+    }
+
+    [PunRPC]
+    void SyncPowerups(int[] powerupsId, UnityEngine.Vector3[] positions)
+    {
+        Dictionary<int, UnityEngine.Vector3> _powerups = new Dictionary<int, UnityEngine.Vector3>();
+        for (int i = 0; i < powerupsId.Length; i++)
+        {
+            _powerups.Add(powerupsId[i], positions[i]);
+
+            GameObject _obj = PhotonView.Find(powerupsId[i]).gameObject;
+            _obj.SetActive(true);
+            _obj.transform.position = positions[i];
+        }
+        activePowerups = _powerups;
     }
 
     public void End_Game()
