@@ -80,13 +80,6 @@ public class GravityGun : MonoBehaviour
     }
 
     [PunRPC]
-    void ChangePosition(int PVID, Vector3 position)
-    {
-        Rigidbody _obj = PhotonView.Find(PVID).gameObject.GetComponent<Rigidbody>();
-        gameObject.transform.position = position;
-    }
-
-    [PunRPC]
     void ParentObject(int PVID)
     {
         GameObject _obj = PhotonView.Find(PVID).gameObject;
