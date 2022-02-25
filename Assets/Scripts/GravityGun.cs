@@ -29,14 +29,15 @@ public class GravityGun : MonoBehaviour
         if (grabbedRB)
         {
             grabbedID = grabbedRB.gameObject.GetComponent<PhotonView>().ViewID;
-            //PV.RPC("ChangePosition", RpcTarget.All, grabbedID, objectHolder.transform.position);
-            grabbedRB.transform.position = objectHolder.transform.position;
+            PV.RPC("ParentObject", RpcTarget.All, grabbedID);
+            //grabbedRB.transform.position = objectHolder.transform.position;
             if (Input.GetKeyDown(KeyCode.F))
             {
                 PV.RPC("ChangeKinematic", RpcTarget.All, grabbedID, false);
-                grabbedRB.AddForce(objectHolder.transform.forward * throwForce, ForceMode.VelocityChange);
+                PV.RPC("AddSomeForce", RpcTarget.All, grabbedID, objectHolder.transform.forward * throwForce, ForceMode.VelocityChange);
+                //grabbedRB.AddForce(objectHolder.transform.forward * throwForce, ForceMode.VelocityChange);
+                PV.RPC("ReleaseChildren", RpcTarget.All, grabbedID);
                 grabbedRB = null;
-
             }
         }
         if (Input.GetKeyDown(KeyCode.E))
@@ -44,6 +45,7 @@ public class GravityGun : MonoBehaviour
             if (grabbedRB)
             {
                 PV.RPC("ChangeKinematic", RpcTarget.All, grabbedID, false);
+                PV.RPC("ReleaseChildren", RpcTarget.All, grabbedID);
                 grabbedRB = null;
             }
             else
@@ -82,5 +84,26 @@ public class GravityGun : MonoBehaviour
     {
         Rigidbody _obj = PhotonView.Find(PVID).gameObject.GetComponent<Rigidbody>();
         gameObject.transform.position = position;
+    }
+
+    [PunRPC]
+    void ParentObject(int PVID)
+    {
+        GameObject _obj = PhotonView.Find(PVID).gameObject;
+        _obj.transform.SetParent(transform);
+    }
+
+    [PunRPC]
+    void ReleaseChildren(int PVID)
+    {
+        GameObject _obj = PhotonView.Find(PVID).gameObject;
+        _obj.transform.parent = null;
+    }
+
+    [PunRPC]
+    void AddSomeForce(int PVID, Vector3 force, ForceMode mode)
+    {
+        Rigidbody _rb = PhotonView.Find(PVID).gameObject.GetComponent<Rigidbody>();
+        _rb.AddForce(force, mode);
     }
 }
