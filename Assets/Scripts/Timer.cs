@@ -15,6 +15,7 @@ public class Timer : MonoBehaviour
     void Start()
     {
         gameMechanics = GameMechanics.gameMechanics;
+        totalTime++;
         finishTime = Time.time + totalTime;
 
         timer = GetComponent<TextMeshProUGUI>();
