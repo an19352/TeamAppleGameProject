@@ -51,7 +51,7 @@ public class Grapple : MonoBehaviour
                 shootTransform.rotation = lookRotation;
             }
             hook = Instantiate(hookPrefab, shootTransform.position, Quaternion.identity).GetComponent<Hook>();
-            hook.Initialise(this, shootTransform);
+            //hook.Initialise(this, shootTransform);
             StartCoroutine(DestroyHookAfterLifetime());
         }
         else if (hook != null && Input.GetMouseButtonDown(1))
