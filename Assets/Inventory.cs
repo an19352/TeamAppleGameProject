@@ -32,6 +32,7 @@ public class Inventory : MonoBehaviour
     Rigidbody rigid;
 
     [Header("Impulse Gun Settings")]
+    public ImpulseCannon impulseGun;
     public float pushForce;
 
     // Start is called before the first frame update
@@ -44,13 +45,14 @@ public class Inventory : MonoBehaviour
 
         rigid = GetComponent<Rigidbody>();
         grappleGun = new SpaceBallAbilities.Grapple();
-        grappleGun.SetVariables(PV, rigid, pullSpeed, maxShootDistance, stopPullDistance, hookLifetime, hookPrefab, shootTransform);
+        grappleGun.SetVariables(rigid, pullSpeed, maxShootDistance, stopPullDistance, hookLifetime, hookPrefab, shootTransform);
 
         if (!PV.IsMine) return;
 
         activeAbilities = new int[inventorySize];
         for (int i = 0; i < inventorySize; i++) activeAbilities[i] = -1;
-        inventoryMaxATM = 3;
+        inventoryMaxATM = 0;
+        activeAbilities[0] = 2;
     }
 
     // Update is called once per frame
@@ -68,11 +70,11 @@ public class Inventory : MonoBehaviour
             selectedAbility = Mathf.Max(0, selectedAbility - 1);
 
         if (Input.GetButtonDown("Fire1"))
-            Invoke(leftClickFunctions[selectedAbility], 0f);
+            Invoke(leftClickFunctions[activeAbilities[selectedAbility]], 0f);
 
         if (Input.GetButtonDown("Fire2"))
-            if(rightClickFunctions[selectedAbility] != null)
-                Invoke(rightClickFunctions[selectedAbility], 0f);
+            if(rightClickFunctions[activeAbilities[selectedAbility]] != null)
+                Invoke(rightClickFunctions[activeAbilities[selectedAbility]], 0f);
     }
 
     public void activateItem(int index)
@@ -115,15 +117,8 @@ public class Inventory : MonoBehaviour
                 activeAbilities[i] = activeAbilities[i + 1];
                 ok = true;
             }
-        else if (ok)
-                activeAbilities[i] = activeAbilities[i + 1];
 
-        if (ok)
-        {
-            activeAbilities[inventorySize - 1] = -1;
-            inventoryMaxATM--;
-        }
-        else if (activeAbilities[inventoryMaxATM] == index)
+        if (ok || activeAbilities[inventoryMaxATM] == index)
         {
             activeAbilities[inventoryMaxATM] = -1;
             inventoryMaxATM--;
@@ -152,6 +147,6 @@ public class Inventory : MonoBehaviour
 
     void ImpulseGunLeftClick()
     {
-        return;
+        impulseGun.Fire();
     }
 }

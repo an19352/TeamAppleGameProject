@@ -11,9 +11,16 @@ public class Powerup : MonoBehaviour
     public static PhotonRoom room;
     public static GameMechanics gameMechanics;
 
-    public enum Effects { Orange, Blue, Purple, GravityGun, Grapple, Coin };
+    public enum Effects {GravityGun, Grapple, Coin };
     public Effects _effect;
     string effect;
+
+    Dictionary<string, int> itemsLookup = new Dictionary<string, int>()
+    {
+        { "GravityGun", 0},
+        { "Grapple", 1 },
+        { "Coin", -1 }
+    };
 
     // Start is called before the first frame update
     void Start()
@@ -33,7 +40,7 @@ public class Powerup : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            PV.RPC(effect, RpcTarget.All, other.GetComponent<Movement>().GetId());
+            PV.RPC("ActivateItem", RpcTarget.All, other.GetComponent<Movement>().GetId(), itemsLookup[effect]);
             PV.RPC("Disable", RpcTarget.All, null);
         }
     }
@@ -48,6 +55,12 @@ public class Powerup : MonoBehaviour
     {
         if (PV) if (PV.IsMine)
                 PV.RPC("NotifyMe", RpcTarget.All);
+    }
+
+    [PunRPC]
+    public void ActivateItem(int playerID, int itemID)
+    {
+        gameMechanics.players[playerID].obj.GetComponent<Inventory>().activateItem(itemID);
     }
 
     [PunRPC]

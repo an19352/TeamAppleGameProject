@@ -120,9 +120,8 @@ namespace SpaceBallAbilities
         private int lm;
 
         // Start is called before the first frame update
-        public void SetVariables(PhotonView _PV, Rigidbody _rigid, float _pullSpeed, float _maxShootDistance, float _stopPullingDistance, float _hookLifetime, GameObject _hookPrefab, Transform _shootTransform)
+        public void SetVariables(Rigidbody _rigid, float _pullSpeed, float _maxShootDistance, float _stopPullingDistance, float _hookLifetime, GameObject _hookPrefab, Transform _shootTransform)
         {
-            PV = _PV;
             rigid = _rigid;
             cameraMain = Camera.main;
             lm = LayerMask.GetMask("Hookable");
@@ -150,7 +149,10 @@ namespace SpaceBallAbilities
                     shootTransform.rotation = lookRotation;
                 }
                 int IPPV = rigid.gameObject.GetComponent<PhotonView>().ViewID;
-                PV.RPC("InitializeHook", RpcTarget.All, shootTransform.position, IPPV, shootTransform.forward, maxShootDistance, stopPullDistance, pullSpeed, hookLifetime);
+                //              hook = Instantiate(hookPrefab, shootPos, Quaternion.identity).GetComponent<Hook>();
+                hook = PhotonNetwork.Instantiate(hookPrefab.name, shootTransform.position, Quaternion.identity).GetComponent<Hook>();
+                hook.PhotonInitialise(IPPV, shootTransform.forward, maxShootDistance, stopPullDistance, pullSpeed, hookLifetime);
+
                 //rigid.gameObject.GetComponent<Inventory>().StartCoroutine(DestroyHookAfterLifetime());
                 //FollowHook();
             }
@@ -159,14 +161,7 @@ namespace SpaceBallAbilities
         public void RightClick()
         {
             if (hook != null)
-                Destroy(hook.gameObject);
-        }
-
-        [PunRPC]
-        public void InitializeHook(Vector3 shootPos, int rigidbodyID, Vector3 shootFor, float maxShoot, float stopDist, float pullS, float hookL)
-        {
-            hook = Instantiate(hookPrefab, shootPos, Quaternion.identity).GetComponent<Hook>();
-            hook.Initialise(rigidbodyID, shootFor, maxShoot, stopDist, pullS, hookL);
+                PhotonNetwork.Destroy(hook.gameObject);
         }
     }
 
