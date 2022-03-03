@@ -11,7 +11,7 @@ public class Powerup : MonoBehaviour
     public static PhotonRoom room;
     public static GameMechanics gameMechanics;
 
-    public enum Effects { Orange, Blue, Purple, GravityGun, Grapple };
+    public enum Effects { Orange, Blue, Purple, GravityGun, Grapple, Coin };
     public Effects _effect;
     string effect;
 
@@ -82,6 +82,14 @@ public class Powerup : MonoBehaviour
     public void Grapple(int playerID)
     {
         gameMechanics.players[playerID].obj.GetComponent<Grapple>().enabled = true;
+    }
+
+    [PunRPC]
+    public void Coin(int playerID)
+    {
+        GameObject playerObj = gameMechanics.players[playerID].obj;
+        Vector3 scaleChange = new Vector3(0.5f, 0.5f, 0.5f);
+        playerObj.transform.localScale += scaleChange;
     }
 
     [PunRPC]

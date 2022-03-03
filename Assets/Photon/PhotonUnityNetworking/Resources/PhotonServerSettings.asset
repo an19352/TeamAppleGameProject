@@ -67,6 +67,8 @@ MonoBehaviour:
   - DeparentObject
   - ReleaseChildren
   - AddSomeForce
+  - Coin
+  - InitializeHook
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1
