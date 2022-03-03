@@ -12,7 +12,7 @@ public class ScoreTrigger : MonoBehaviour
         gameMechanics = GameMechanics.gameMechanics;
 
         MeshRenderer mesh = GetComponent<MeshRenderer>();
-        // mesh.enabled = false;
+        mesh.enabled = false;
     }
 
     void OnTriggerEnter(Collider other)
