@@ -23,22 +23,16 @@ public class ImpulseCannon : MonoBehaviour
         toBePushed = new List<int>();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Fire()
     {
-        if (!PV.IsMine) return;
-
-        if (Input.GetKeyDown(KeyCode.Space))
+        int[] pushNow = new int[toBePushed.Count];
+        //pushed = GameObject.FindGameObjectsWithTag("Detected");
+        for (int i = 0; i < toBePushed.Count; i++)
         {
-            int[] pushNow = new int[toBePushed.Count];
-            //pushed = GameObject.FindGameObjectsWithTag("Detected");
-            for (int i = 0; i < toBePushed.Count; i++)
-            {
-                pushNow[i] = toBePushed[i];
-                //                PV.RPC("RPC_Cannon", RpcTarget.All, i);
-            }
-            PV.RPC("RPC_Cannon", RpcTarget.All, pushNow, transform.forward * pushForce);
+            pushNow[i] = toBePushed[i];
+            //                PV.RPC("RPC_Cannon", RpcTarget.All, i);
         }
+        PV.RPC("RPC_Cannon", RpcTarget.All, pushNow, transform.forward * pushForce);
     }
     
     [PunRPC]

@@ -6,6 +6,8 @@ using Photon.Pun;
 
 public class Hook : MonoBehaviour
 {
+    PhotonView PV;
+
     float timeLife;
     public float hookForce = 25f;
     Rigidbody rigid, playerRB;
@@ -14,6 +16,14 @@ public class Hook : MonoBehaviour
     float pullSpeed;
     float maxShootDistance;
     float stopPullDistance;
+
+    void Awake()
+    { 
+        PV = GetComponent<PhotonView>();
+
+        rigid = GetComponent<Rigidbody>();
+        lineRenderer = GetComponent<LineRenderer>();
+    }
 
     // Update is called once per frame
     void Update()
@@ -32,12 +42,12 @@ public class Hook : MonoBehaviour
 
         if (Vector3.Distance(playerPosition, transform.position) >= maxShootDistance)
         {
-            Destroy(this.gameObject);
+            PhotonNetwork.Destroy(this.gameObject);
         }
 
         if (Vector3.Distance(playerPosition, transform.position) <= stopPullDistance)
         {
-            Destroy(this.gameObject);
+            PhotonNetwork.Destroy(this.gameObject);
         }
         else
         {
@@ -46,11 +56,17 @@ public class Hook : MonoBehaviour
         }
     }
 
-    public void Initialise(int rigidId, Vector3 _shootTransformForward, float _maxShootDistance, float _stopPullDistance, float _pullSpeed, float _timeLife)
+    public void PhotonInitialise(int rigidId, Vector3 _shootTransformForward, float _maxShootDistance, float _stopPullDistance, float _pullSpeed, float _timeLife)
+    {
+        
+
+        PV.RPC("Initialise", RpcTarget.All, rigidId, _shootTransformForward, _maxShootDistance, _stopPullDistance, _pullSpeed, _timeLife);
+    }
+
+    [PunRPC]
+    void Initialise(int rigidId, Vector3 _shootTransformForward, float _maxShootDistance, float _stopPullDistance, float _pullSpeed, float _timeLife)
     {
         transform.forward = _shootTransformForward;
-        rigid = GetComponent<Rigidbody>();
-        lineRenderer = GetComponent<LineRenderer>();
         rigid.AddForce(transform.forward * hookForce, ForceMode.Impulse);
 
         playerRB = PhotonView.Find(rigidId).gameObject.GetComponent<Rigidbody>();

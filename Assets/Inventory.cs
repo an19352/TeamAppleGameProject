@@ -7,20 +7,17 @@ using SpaceBallAbilities;
 public class Inventory : MonoBehaviour
 {
     PhotonView PV;
-    List<string> leftClickFunctions = new List<string> { "GravityGunLeftClick", "GrappleGunLeftClick", "ImpulseGunLeftClick" };
-    List<string> rightClickFunctions = new List<string> { "GravityGunRightClick", "GrappleGunRightClick", null };
-    SpaceBallAbilities.GravityGun gravityGun;
-    SpaceBallAbilities.Grapple grappleGun;
+    List<System.Type> itemComponents = new List<System.Type> { typeof(SpaceBallAbilities.GravityGun), typeof(SpaceBallAbilities.Grapple), 
+                                                                typeof(SpaceBallAbilities.ImpulseCannon) };
     
     [Range(1, 5)]
     public int inventorySize; 
-    int[] activeAbilities;
+    IAbility[] inventoryItems;
     int selectedAbility, inventoryMaxATM;
 
     [Header("Gravity Gun Settings")]
     public Transform objectHolder;
     public float maxGrabDistance = 3f, throwForce = 20f, lerpSpeed = 10f;
-    Rigidbody grabbedRB;
 
     [Header("Grapple Gun Settings")]
     public Transform shootTransform;
@@ -29,28 +26,25 @@ public class Inventory : MonoBehaviour
     public float stopPullDistance = 0.2f;
     public float hookLifetime = 8f;
     public GameObject hookPrefab;
-    Rigidbody rigid;
 
     [Header("Impulse Gun Settings")]
+    public GameObject impulseGunHolder;
     public float pushForce;
 
     // Start is called before the first frame update
     void Start()
     {
         PV = GetComponent<PhotonView>();
-
-        gravityGun = new SpaceBallAbilities.GravityGun();
-        gravityGun.SetVariables(PV, maxGrabDistance, throwForce, objectHolder);
-
-        rigid = GetComponent<Rigidbody>();
-        grappleGun = new SpaceBallAbilities.Grapple();
-        grappleGun.SetVariables(PV, rigid, pullSpeed, maxShootDistance, stopPullDistance, hookLifetime, hookPrefab, shootTransform);
-
         if (!PV.IsMine) return;
 
-        activeAbilities = new int[inventorySize];
-        for (int i = 0; i < inventorySize; i++) activeAbilities[i] = -1;
-        inventoryMaxATM = 3;
+        inventoryItems = new IAbility[inventorySize];
+
+        for (int i = 1; i < inventorySize; i++)
+            inventoryItems[i] = null;
+        
+        inventoryMaxATM = 0;
+        inventoryItems[0] = impulseGunHolder.AddComponent(itemComponents[2]) as IAbility;
+        removeItem(2);
     }
 
     // Update is called once per frame
@@ -68,16 +62,15 @@ public class Inventory : MonoBehaviour
             selectedAbility = Mathf.Max(0, selectedAbility - 1);
 
         if (Input.GetButtonDown("Fire1"))
-            Invoke(leftClickFunctions[selectedAbility], 0f);
+            inventoryItems[selectedAbility].LeftClick();
 
         if (Input.GetButtonDown("Fire2"))
-            if(rightClickFunctions[selectedAbility] != null)
-                Invoke(rightClickFunctions[selectedAbility], 0f);
+            inventoryItems[selectedAbility].RightClick();
     }
 
     public void activateItem(int index)
     {
-        if (index >= leftClickFunctions.Count || index < 0) 
+        if (index >= itemComponents.Count || index < 0) 
         {
             Debug.LogWarning("Ability not found");
             return; 
@@ -86,16 +79,16 @@ public class Inventory : MonoBehaviour
 
         for (int i = 0; i < inventorySize; i++)
         {
-            if (activeAbilities[i] == index)
+            if (inventoryItems[i] == null)
             {
-                // Reset timer or add to it or something
+                inventoryItems[i] = gameObject.AddComponent(itemComponents[index]) as IAbility;
+                inventoryMaxATM = i;
                 return;
             }
 
-            if (activeAbilities[i] == -1)
+            if (inventoryItems[i].GetType() == itemComponents[index])
             {
-                inventoryMaxATM = i;
-                activeAbilities[i] = index;
+                // Reset timer or add to it or something
                 return;
             }
         }
@@ -103,55 +96,26 @@ public class Inventory : MonoBehaviour
 
     public void removeItem(int index)
     {
-        if (index >= leftClickFunctions.Count || index < 0)
+        if (index >= itemComponents.Count || index < 0)
         {
             Debug.LogWarning("Ability not found");
             return;
         }
 
         bool ok = false;
-        for (int i = 0; i < inventoryMaxATM; i++) if(activeAbilities[i] == index || ok)
+        for (int i = 0; i < inventoryMaxATM; i++) if (inventoryItems[i].GetType() == itemComponents[index])
             {
-                activeAbilities[i] = activeAbilities[i + 1];
+                Destroy(inventoryItems[i] as MonoBehaviour);
+                inventoryItems[i] = inventoryItems[i + 1];
                 ok = true;
             }
-        else if (ok)
-                activeAbilities[i] = activeAbilities[i + 1];
+            else if (ok) inventoryItems[i] = inventoryItems[i + 1];
 
-        if (ok)
+        if (ok || inventoryItems[inventoryMaxATM].GetType() == itemComponents[index])
         {
-            activeAbilities[inventorySize - 1] = -1;
+            Destroy(inventoryItems[inventoryMaxATM] as MonoBehaviour);
+            inventoryItems[inventoryMaxATM] = null;
             inventoryMaxATM--;
         }
-        else if (activeAbilities[inventoryMaxATM] == index)
-        {
-            activeAbilities[inventoryMaxATM] = -1;
-            inventoryMaxATM--;
-        }
-    }
-
-    void GravityGunLeftClick()
-    {
-        grabbedRB = gravityGun.LeftClick(grabbedRB);
-    }
-
-    void GravityGunRightClick()
-    {
-        grabbedRB = gravityGun.RightClick(grabbedRB);
-    }
-
-    void GrappleGunLeftClick()
-    {
-        grappleGun.LeftClick();
-    }
-
-    void GrappleGunRightClick()
-    {
-        grappleGun.RightClick();
-    }
-
-    void ImpulseGunLeftClick()
-    {
-        return;
     }
 }

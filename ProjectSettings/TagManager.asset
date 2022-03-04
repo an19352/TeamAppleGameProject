@@ -8,6 +8,7 @@ TagManager:
   - Ground
   - Detector
   - Detected
+  - Hook
   layers:
   - Default
   - TransparentFX

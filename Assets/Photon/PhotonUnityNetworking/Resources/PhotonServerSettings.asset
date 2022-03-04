@@ -69,6 +69,8 @@ MonoBehaviour:
   - AddSomeForce
   - Coin
   - InitializeHook
+  - Initialise
+  - ActivateItem
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

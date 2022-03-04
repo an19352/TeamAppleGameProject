@@ -5,25 +5,32 @@ using Photon.Pun;
 
 namespace SpaceBallAbilities
 {
-    public class GravityGun : MonoBehaviour
+    public interface IAbility
+    {
+        public void LeftClick();
+        public void RightClick();
+    }
+
+    public class GravityGun : MonoBehaviour, IAbility
     {
         PhotonView PV;
 
         float maxGrabDistance, throwForce;
         Transform objectHolder;
         int grabbedID;
+        Rigidbody grabbedRB = null;
 
-        public void SetVariables(PhotonView _PV, float _maxGrabDistance, float _throwForce, Transform _objectHolder)
+        void Awake()
         {
-            PV = _PV;
+            PV = GetComponent<PhotonView>();
+            Inventory inventory = GetComponent<Inventory>();
 
-            maxGrabDistance = _maxGrabDistance;
-            throwForce = _throwForce;
-
-            objectHolder = _objectHolder;
+            maxGrabDistance = inventory.maxGrabDistance;
+            throwForce = inventory.throwForce;
+            objectHolder = inventory.objectHolder;
         }
 
-        public Rigidbody LeftClick(Rigidbody grabbedRB) 
+        public void LeftClick() 
         {
             if (grabbedRB)
             {
@@ -54,10 +61,9 @@ namespace SpaceBallAbilities
                     }
                 }
             }
-            return grabbedRB;
         }
 
-        public Rigidbody RightClick(Rigidbody grabbedRB) 
+        public void RightClick() 
         {
             if (grabbedRB)
             {
@@ -67,7 +73,6 @@ namespace SpaceBallAbilities
                 PV.RPC("ReleaseChildren", RpcTarget.All, grabbedID);
                 grabbedRB = null;
             }
-            return grabbedRB;
         }
 
         [PunRPC]
@@ -99,10 +104,8 @@ namespace SpaceBallAbilities
         }
     }
 
-    public class Grapple : MonoBehaviour
+    public class Grapple : MonoBehaviour, IAbility
     {
-        PhotonView PV;
-
         float pullSpeed;
         float maxShootDistance;
         float hookLifetime;
@@ -120,27 +123,27 @@ namespace SpaceBallAbilities
         private int lm;
 
         // Start is called before the first frame update
-        public void SetVariables(PhotonView _PV, Rigidbody _rigid, float _pullSpeed, float _maxShootDistance, float _stopPullingDistance, float _hookLifetime, GameObject _hookPrefab, Transform _shootTransform)
+        void Awake()
         {
-            PV = _PV;
-            rigid = _rigid;
+            rigid = GetComponent<Rigidbody>();
+            Inventory inventory = GetComponent<Inventory>();
             cameraMain = Camera.main;
             lm = LayerMask.GetMask("Hookable");
 
-            pullSpeed = _pullSpeed;
-            maxShootDistance = _maxShootDistance;
-            stopPullDistance = _stopPullingDistance;
-            hookLifetime = _hookLifetime;
 
-            hookPrefab = _hookPrefab;
-            shootTransform = _shootTransform;
+            pullSpeed = inventory.pullSpeed;
+            maxShootDistance = inventory.maxShootDistance;
+            stopPullDistance = inventory.stopPullDistance;
+            hookLifetime = inventory.hookLifetime;
+
+            hookPrefab = inventory.hookPrefab;
+            shootTransform = inventory.shootTransform;
         }
 
         public void LeftClick()
         {
             if(hook == null)
             {
-                //rigid.gameObject.GetComponent<Inventory>().StopAllCoroutines();  //PROBLEMATIC
                 Ray mouseRay = cameraMain.ScreenPointToRay(Input.mousePosition);
                 if (Physics.Raycast(mouseRay, out RaycastHit hit, 1000f, lm))
                 {
@@ -150,24 +153,78 @@ namespace SpaceBallAbilities
                     shootTransform.rotation = lookRotation;
                 }
                 int IPPV = rigid.gameObject.GetComponent<PhotonView>().ViewID;
-                PV.RPC("InitializeHook", RpcTarget.All, shootTransform.position, IPPV, shootTransform.forward, maxShootDistance, stopPullDistance, pullSpeed, hookLifetime);
-                //rigid.gameObject.GetComponent<Inventory>().StartCoroutine(DestroyHookAfterLifetime());
-                //FollowHook();
+                hook = PhotonNetwork.Instantiate(hookPrefab.name, shootTransform.position, Quaternion.identity).GetComponent<Hook>();
+                hook.PhotonInitialise(IPPV, shootTransform.forward, maxShootDistance, stopPullDistance, pullSpeed, hookLifetime);
             }
         }
 
         public void RightClick()
         {
             if (hook != null)
-                Destroy(hook.gameObject);
-        }
-
-        [PunRPC]
-        public void InitializeHook(Vector3 shootPos, int rigidbodyID, Vector3 shootFor, float maxShoot, float stopDist, float pullS, float hookL)
-        {
-            hook = Instantiate(hookPrefab, shootPos, Quaternion.identity).GetComponent<Hook>();
-            hook.Initialise(rigidbodyID, shootFor, maxShoot, stopDist, pullS, hookL);
+                PhotonNetwork.Destroy(hook.gameObject);
         }
     }
 
+    public class ImpulseCannon : MonoBehaviour, IAbility
+    {
+        PhotonView PV;
+
+        float pushForce;
+        float distance;
+
+        List<int> toBePushed;
+
+        // Start is called before the first frame update
+        void Awake()
+        {
+            PV = GetComponent<PhotonView>();
+            toBePushed = new List<int>();
+
+            pushForce = GetComponentInParent<Inventory>().pushForce;
+        }
+
+        public void LeftClick()
+        {
+            int[] pushNow = new int[toBePushed.Count];
+            //pushed = GameObject.FindGameObjectsWithTag("Detected");
+            for (int i = 0; i < toBePushed.Count; i++)
+            {
+                pushNow[i] = toBePushed[i];
+                //                PV.RPC("RPC_Cannon", RpcTarget.All, i);
+            }
+            PV.RPC("RPC_Cannon", RpcTarget.All, pushNow, transform.forward * pushForce);
+        }
+
+        public void RightClick() { return; }
+
+        [PunRPC]
+        void RPC_Cannon(int[] pushNow, Vector3 pushFactor)
+        {
+            for (int i = 0; i < pushNow.Length; i++)
+            {
+                GameObject _obj = PhotonView.Find(pushNow[i]).gameObject;
+                distance = Vector3.Distance(transform.parent.position, _obj.transform.position);
+                _obj.GetComponent<Rigidbody>().AddForce(pushFactor * (1 / distance), ForceMode.Impulse);
+            }
+
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.CompareTag("Detector") && other.transform.parent != this.transform)
+            {
+                other.tag = "Detected";
+                toBePushed.Add(other.gameObject.transform.parent.gameObject.GetComponent<PhotonView>().ViewID);
+            }
+        }
+
+        private void OnTriggerExit(Collider other)
+        {
+            if (other.CompareTag("Detected") && other.transform.parent != this.transform)
+            {
+                other.tag = "Detector";
+                toBePushed.Remove(other.gameObject.transform.parent.gameObject.GetComponent<PhotonView>().ViewID);
+            }
+        }
+    }
 }
