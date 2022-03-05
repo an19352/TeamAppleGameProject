@@ -2,31 +2,36 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Photon.Pun;
 
 public class ForceCalculator : MonoBehaviour
 {
-
+    PhotonView PV;
+    public float health = 50f;
+    private float healthRemain = 50f;
     private Image healthBarImage;
 
-    [SerializeField] float health = 50f;
-    [SerializeField] float healthRemain = 50f;
+    public GameObject destroyedVersion;
+
 
     // Start is called before the first frame update
     void Start()
     {
+        PV = this.GetComponent<PhotonView>();
         Transform canvas = this.gameObject.transform.Find("Canvas");
         Transform healthBar = canvas.Find("HealthBar");
         healthBarImage = healthBar.gameObject.GetComponent<Image>();
-        Debug.Log(healthBarImage);
     }
 
 
     // Update is called once per frame
     void Update()
     {
-        if (health <= 0)
+        // if (!PV.IsMine) return;
+        if (healthRemain <= 0)
         {
-            this.gameObject.SetActive(false);
+            Instantiate(destroyedVersion, transform.position, transform.rotation);
+            Destroy(this.gameObject);
         }
 
     }
@@ -38,20 +43,14 @@ public class ForceCalculator : MonoBehaviour
      */
     void OnCollisionEnter(Collision other)
     {
-
-
         ContactPoint cp = other.GetContact(0);
-
         Vector3 collisionVelocity = other.relativeVelocity;
         Vector3 collisionNormal = cp.normal;
         float mass = other.collider.attachedRigidbody.mass;
         float force = Mathf.Abs(Vector3.Dot(cp.normal, collisionVelocity)) * mass;
 
         healthRemain -= force;
-
         float fraction = healthRemain / health;
-
         healthBarImage.fillAmount = fraction;
-        // Vector3 force = other.impulse / Time.deltaTime;
     }
 }

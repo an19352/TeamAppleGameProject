@@ -11,7 +11,7 @@ public class Powerup : MonoBehaviour
     public static PhotonRoom room;
     public static GameMechanics gameMechanics;
 
-    public enum Effects {GravityGun, Grapple, Coin };
+    public enum Effects { GravityGun, Grapple, Coin };
     public Effects _effect;
     string effect;
 
