@@ -7,21 +7,27 @@ using Photon.Pun;
 public class ForceCalculator : MonoBehaviour
 {
     PhotonView PV;
+    public GameObject forceShield;
+
     public float health = 50f;
     public float healthRemain = 50f;
     public GameObject destroyedVersion;
 
     private Image healthBarImage;
 
+    private ForceShield fsScript;
 
 
     // Start is called before the first frame update
     void Start()
     {
+
         PV = this.GetComponent<PhotonView>();
+        Debug.Log(forceShield);
         Transform canvas = this.gameObject.transform.Find("Canvas");
         Transform healthBar = canvas.Find("HealthBar");
         healthBarImage = healthBar.gameObject.GetComponent<Image>();
+        fsScript = forceShield.GetComponent<ForceShield>();
     }
 
 
@@ -32,6 +38,8 @@ public class ForceCalculator : MonoBehaviour
         if (healthRemain <= 0)
         {
             Instantiate(destroyedVersion, transform.position, transform.rotation);
+            fsScript.generatorDestroyed++;
+            Debug.Log(fsScript.generatorDestroyed);
             Destroy(this.gameObject);
         }
 

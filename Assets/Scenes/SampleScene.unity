@@ -1373,6 +1373,24 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 302393990072391534, guid: 8fc104192fc4c734195f0c028326e8be, type: 3}
   m_PrefabInstance: {fileID: 767563219}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &767563221 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149304785000, guid: 8fc104192fc4c734195f0c028326e8be, type: 3}
+  m_PrefabInstance: {fileID: 767563219}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &767563222
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 767563221}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09f7579444e343a458c5395c020ecb57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  generatorDestroyed: 0
 --- !u!1 &866788124
 GameObject:
   m_ObjectHideFlags: 0
@@ -2831,6 +2849,10 @@ PrefabInstance:
       value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 5986070424073642859, guid: 4559a3726e1d96f4894f9e01eeeba80e, type: 3}
+      propertyPath: forceShield
+      value: 
+      objectReference: {fileID: 767563221}
+    - target: {fileID: 5986070424073642859, guid: 4559a3726e1d96f4894f9e01eeeba80e, type: 3}
       propertyPath: destroyedVersion
       value: 
       objectReference: {fileID: 3445558641650280665, guid: bacbbded924d9a1498a482b0c786722b, type: 3}
@@ -3558,6 +3580,10 @@ PrefabInstance:
       propertyPath: health
       value: 50
       objectReference: {fileID: 0}
+    - target: {fileID: 5986070424073642859, guid: 4559a3726e1d96f4894f9e01eeeba80e, type: 3}
+      propertyPath: forceShield
+      value: 
+      objectReference: {fileID: 767563221}
     - target: {fileID: 5986070424073642859, guid: 4559a3726e1d96f4894f9e01eeeba80e, type: 3}
       propertyPath: destroyedVersion
       value: 
@@ -5064,6 +5090,10 @@ PrefabInstance:
       propertyPath: health
       value: 50
       objectReference: {fileID: 0}
+    - target: {fileID: 5986070424073642859, guid: 4559a3726e1d96f4894f9e01eeeba80e, type: 3}
+      propertyPath: forceShield
+      value: 
+      objectReference: {fileID: 767563221}
     - target: {fileID: 5986070424073642859, guid: 4559a3726e1d96f4894f9e01eeeba80e, type: 3}
       propertyPath: destroyedVersion
       value: 
