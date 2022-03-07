@@ -8,10 +8,11 @@ public class ForceCalculator : MonoBehaviour
 {
     PhotonView PV;
     public float health = 50f;
-    private float healthRemain = 50f;
+    public float healthRemain = 50f;
+    public GameObject destroyedVersion;
+
     private Image healthBarImage;
 
-    public GameObject destroyedVersion;
 
 
     // Start is called before the first frame update
