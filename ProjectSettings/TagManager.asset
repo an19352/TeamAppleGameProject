@@ -9,6 +9,7 @@ TagManager:
   - Detector
   - Detected
   - Hook
+  - Meteor
   layers:
   - Default
   - TransparentFX

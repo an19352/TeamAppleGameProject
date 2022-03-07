@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -532,6 +532,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefab: {fileID: 6455685791752893937, guid: 20863f06745c5b244a14af7da2b8392c, type: 3}
   multiplayerSceneIndex: 1
+  greenScore: 0
+  redScore: 0
 --- !u!4 &646761400
 Transform:
   m_ObjectHideFlags: 0

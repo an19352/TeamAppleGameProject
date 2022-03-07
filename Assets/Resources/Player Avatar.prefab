@@ -293,6 +293,7 @@ GameObject:
   - component: {fileID: -3096326147471984968}
   - component: {fileID: 6608188565613503937}
   - component: {fileID: 3644458099836590924}
+  - component: {fileID: 4070538607894281487}
   m_Layer: 0
   m_Name: Player Avatar
   m_TagString: Player
@@ -528,6 +529,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pushForce: 100
+--- !u!114 &4070538607894281487
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8521386507383712022}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b4d6ec80c848974ea025f959f8478f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ignoredLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  meteorFallForce: 50
 --- !u!1 &8521386507560151343
 GameObject:
   m_ObjectHideFlags: 0
