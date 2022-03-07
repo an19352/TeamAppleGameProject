@@ -213,18 +213,29 @@ namespace SpaceBallAbilities
         {
             if (other.CompareTag("Detector") && other.transform.parent != this.transform)
             {
-                other.tag = "Detected";
                 toBePushed.Add(other.gameObject.transform.parent.gameObject.GetComponent<PhotonView>().ViewID);
             }
         }
 
         private void OnTriggerExit(Collider other)
         {
-            if (other.CompareTag("Detected") && other.transform.parent != this.transform)
+            if (other.CompareTag("Detector") && other.transform.parent != this.transform)
             {
-                other.tag = "Detector";
                 toBePushed.Remove(other.gameObject.transform.parent.gameObject.GetComponent<PhotonView>().ViewID);
             }
+        }
+    }
+
+    public class Coin : MonoBehaviour, IAbility
+    {
+        public void LeftClick()
+        {
+            return;
+        }
+
+        public void RightClick()
+        {
+            return;
         }
     }
 }
