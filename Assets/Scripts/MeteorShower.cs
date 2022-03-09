@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class MeteorShower : MonoBehaviour
 {
-    
+    //This script is currently being tested and does not yet need to be properly implemented
     ObjectPooler poolOfObject;
     
     private GameObject meteor;
