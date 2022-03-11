@@ -8,7 +8,7 @@ public class GravityGun : MonoBehaviour
     PhotonView PV;
 
     [SerializeField] Camera cameraMain;
-    [SerializeField] float maxGrabDistance = 3f, throwForce = 20f, lerpSpeed = 10f;
+    [SerializeField] float maxGrabDistance = 3f, throwForce = 20f; // lerpSpeed = 10f;
     [SerializeField] Transform objectHolder;
     Rigidbody grabbedRB;
     int grabbedID;

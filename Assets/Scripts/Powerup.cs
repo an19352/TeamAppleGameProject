@@ -19,7 +19,7 @@ public class Powerup : MonoBehaviour
     {
         { "GravityGun", 0},
         { "Grapple", 1 },
-        { "Coin", -1 }
+        { "Coin", 3 }
     };
 
     // Start is called before the first frame update

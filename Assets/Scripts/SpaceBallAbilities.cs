@@ -7,22 +7,29 @@ namespace SpaceBallAbilities
 {
     public interface IAbility
     {
+        public void SetUp();
+
         public void LeftClick();
         public void RightClick();
+        public InventoryElement GetIE();
     }
 
     public class GravityGun : MonoBehaviour, IAbility
     {
         PhotonView PV;
+        InventoryElement IE;
+        string IEtag = "Gravity Gun";
 
         float maxGrabDistance, throwForce;
         Transform objectHolder;
         int grabbedID;
         Rigidbody grabbedRB = null;
 
-        void Awake()
+        public void SetUp()
         {
             PV = GetComponent<PhotonView>();
+            IE = InventoryUIManager.inventory.GetIE(IEtag);
+            InventoryUIManager.inventory.AddUIElement(IEtag);
             Inventory inventory = GetComponent<Inventory>();
 
             maxGrabDistance = inventory.maxGrabDistance;
@@ -75,6 +82,13 @@ namespace SpaceBallAbilities
             }
         }
 
+        public InventoryElement GetIE() { return IE; }
+        
+        private void OnDestroy()
+        {
+            InventoryUIManager.inventory.RemoveUIElement(IEtag);    
+        }
+
         [PunRPC]
         void ChangeKinematic(int PVID, bool value)
         {
@@ -110,6 +124,9 @@ namespace SpaceBallAbilities
         float maxShootDistance;
         float hookLifetime;
 
+        InventoryElement IE;
+        string IEtag = "Grapple Gun";
+
         float stopPullDistance;
         GameObject hookPrefab;
         Transform shootTransform;
@@ -123,8 +140,10 @@ namespace SpaceBallAbilities
         private int lm;
 
         // Start is called before the first frame update
-        void Awake()
+        public void SetUp()
         {
+            IE = InventoryUIManager.inventory.GetIE(IEtag);
+            InventoryUIManager.inventory.AddUIElement(IEtag);
             rigid = GetComponent<Rigidbody>();
             Inventory inventory = GetComponent<Inventory>();
             cameraMain = Camera.main;
@@ -139,7 +158,7 @@ namespace SpaceBallAbilities
             hookPrefab = inventory.hookPrefab;
             shootTransform = inventory.shootTransform;
         }
-
+       
         public void LeftClick()
         {
             if(hook == null)
@@ -163,11 +182,20 @@ namespace SpaceBallAbilities
             if (hook != null)
                 PhotonNetwork.Destroy(hook.gameObject);
         }
+
+        public InventoryElement GetIE() { return IE; }
+
+        private void OnDestroy()
+        {
+            InventoryUIManager.inventory.RemoveUIElement(IEtag);
+        }
     }
 
     public class ImpulseCannon : MonoBehaviour, IAbility
     {
         PhotonView PV;
+        InventoryElement IE;
+        string IEtag = "Impulse Gun";
 
         float pushForce;
         float distance;
@@ -175,16 +203,18 @@ namespace SpaceBallAbilities
         List<int> toBePushed;
 
         // Start is called before the first frame update
-        void Awake()
+        public void SetUp()
         {
             PV = GetComponent<PhotonView>();
+            IE = InventoryUIManager.inventory.GetIE(IEtag);
+            InventoryUIManager.inventory.AddUIElement(IEtag);
             toBePushed = new List<int>();
-
             pushForce = GetComponentInParent<Inventory>().pushForce;
         }
 
         public void LeftClick()
         {
+            if (toBePushed.Count == 0) return;
             int[] pushNow = new int[toBePushed.Count];
             //pushed = GameObject.FindGameObjectsWithTag("Detected");
             for (int i = 0; i < toBePushed.Count; i++)
@@ -196,6 +226,13 @@ namespace SpaceBallAbilities
         }
 
         public void RightClick() { return; }
+
+        public InventoryElement GetIE() { return IE; }
+
+        private void OnDestroy()
+        {
+            InventoryUIManager.inventory.RemoveUIElement(IEtag);
+        }
 
         [PunRPC]
         void RPC_Cannon(int[] pushNow, Vector3 pushFactor)
@@ -228,6 +265,21 @@ namespace SpaceBallAbilities
 
     public class Coin : MonoBehaviour, IAbility
     {
+        InventoryElement IE;
+        string IEtag = "Coin";
+        public void SetUp()
+        {
+            IE = InventoryUIManager.inventory.GetIE(IEtag);
+            InventoryUIManager.inventory.AddUIElement(IEtag);
+            transform.localScale.Scale(new Vector3(2, 2, 2));
+        }
+
+        private void OnDestroy()
+        {
+            transform.localScale.Scale(new Vector3(0.5f, 0.5f, 0.5f));
+            InventoryUIManager.inventory.RemoveUIElement(IEtag);
+        }
+
         public void LeftClick()
         {
             return;
@@ -237,5 +289,7 @@ namespace SpaceBallAbilities
         {
             return;
         }
+
+        public InventoryElement GetIE() { return IE; }
     }
 }

@@ -7,8 +7,9 @@ using SpaceBallAbilities;
 public class Inventory : MonoBehaviour
 {
     PhotonView PV;
+    public static InventoryUIManager inventory;
     List<System.Type> itemComponents = new List<System.Type> { typeof(SpaceBallAbilities.GravityGun), typeof(SpaceBallAbilities.Grapple), 
-                                                                typeof(SpaceBallAbilities.ImpulseCannon) };
+                                                                typeof(SpaceBallAbilities.ImpulseCannon), typeof(Coin)};
     
     [Range(1, 5)]
     public int inventorySize; 
@@ -35,6 +36,7 @@ public class Inventory : MonoBehaviour
     void Start()
     {
         PV = GetComponent<PhotonView>();
+        inventory = InventoryUIManager.inventory;
         if (!PV.IsMine) return;
 
         inventoryItems = new IAbility[inventorySize];
@@ -44,7 +46,7 @@ public class Inventory : MonoBehaviour
         
         inventoryMaxATM = 0;
         inventoryItems[0] = impulseGunHolder.AddComponent(itemComponents[2]) as IAbility;
-        removeItem(2);
+        inventoryItems[0].SetUp();
     }
 
     // Update is called once per frame
@@ -60,6 +62,8 @@ public class Inventory : MonoBehaviour
 
         if (Input.GetAxisRaw("Mouse ScrollWheel") < 0)
             selectedAbility = Mathf.Max(0, selectedAbility - 1);
+            
+        inventory.UpdateQueue(inventoryItems[selectedAbility].GetIE().powerupName);
 
         if (Input.GetButtonDown("Fire1"))
             inventoryItems[selectedAbility].LeftClick();
@@ -82,6 +86,7 @@ public class Inventory : MonoBehaviour
             if (inventoryItems[i] == null)
             {
                 inventoryItems[i] = gameObject.AddComponent(itemComponents[index]) as IAbility;
+                inventoryItems[i].SetUp();
                 inventoryMaxATM = i;
                 return;
             }
