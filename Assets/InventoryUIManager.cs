@@ -121,7 +121,7 @@ public class InventoryUIManager : MonoBehaviour
             if (IE.powerupName == tag) return IE;
 
         Debug.LogWarning("Inventory element " + tag + " not found");
-        return null;
+        return IEs[0];
     }
 
     public void UpdateQueue(string tag)

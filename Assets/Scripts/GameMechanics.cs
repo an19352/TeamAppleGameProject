@@ -52,6 +52,8 @@ public class GameMechanics : MonoBehaviour
     public Button greenButton;
     public GameObject menuItem;
 
+    public int[] numberOfFlagsPerTeam;
+
     PhotonView PV;
 
     [HideInInspector]
@@ -62,6 +64,7 @@ public class GameMechanics : MonoBehaviour
     {
         PV = GetComponent<PhotonView>();
         activePowerups = new Dictionary<int, UnityEngine.Vector3>();
+        numberOfFlagsPerTeam = new int[teams.Count];
 
         if (!PhotonNetwork.IsMasterClient)
             PV.RPC("SendVariables", RpcTarget.MasterClient);
@@ -109,7 +112,7 @@ public class GameMechanics : MonoBehaviour
     }
 
     [PunRPC]
-    void Sync(float game_time, int[] playerViewIds, int[] playerTeams, string[] teamNames, int[] teamScores, int[] scoreViewIDs)
+    void Sync(float game_time, int[] playerViewIds, int[] playerTeams, string[] teamNames, int[] teamScores, int[] scoreViewIDs, int[]flags)
     {
         timer.UpdateTimer(game_time);
 
@@ -130,6 +133,8 @@ public class GameMechanics : MonoBehaviour
             team = playerTeams[i]
         });
         players = _players;
+
+        for (int i = 0; i < flags.Length; i++) numberOfFlagsPerTeam[i] = flags[i];
     }
 
     [PunRPC]
@@ -146,6 +151,7 @@ public class GameMechanics : MonoBehaviour
 
         int[] powerupsId = new int[activePowerups.Count];
         UnityEngine.Vector3[] positions = new UnityEngine.Vector3[activePowerups.Count];
+        int[] flagsToSend = new int[numberOfFlagsPerTeam.Length];
         int i;
 
         for (i = 0; i < players.Count; i++)
@@ -159,6 +165,7 @@ public class GameMechanics : MonoBehaviour
             teamNames[i] = teams[i].name;
             teamScores[i] = teams[i].score;
             scoreViewIDs[i] = teams[i].scoreText.gameObject.GetComponent<PhotonView>().ViewID;
+            flagsToSend[i] = numberOfFlagsPerTeam[i];
         }
 
         i = 0;
@@ -169,7 +176,8 @@ public class GameMechanics : MonoBehaviour
             i++;
         }
 
-        PV.RPC("Sync", RpcTarget.Others, game_time, playerViewIds, playerTeams, teamNames, teamScores, scoreViewIDs);
+
+        PV.RPC("Sync", RpcTarget.Others, game_time, playerViewIds, playerTeams, teamNames, teamScores, scoreViewIDs, flagsToSend);
     }
 
     public void SyncPowerupsNow()
@@ -221,5 +229,10 @@ public class GameMechanics : MonoBehaviour
         PhotonRoom.room.redScore = teams[0].score;
         PhotonRoom.room.greenScore = teams[1].score;
         SceneManager.LoadScene(2);
+    }
+
+    public void UpdateFlag(int teamID)
+    {
+        // update UI and numberOfFlagsPerTeam variable;
     }
 }
