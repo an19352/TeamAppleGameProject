@@ -72,14 +72,11 @@ public class Movement : MonoBehaviour
         Ray mouseRay = cameraMain.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(mouseRay, out RaycastHit hit, 1000f, ~ignoredLayers))
         {
-            if (hit.transform.CompareTag("Ground"))
-            {
-                mouseLocation = hit.point;
-                lookDirection = (mouseLocation - player.position).normalized;
-                lookRotation = Quaternion.LookRotation(lookDirection);
-                lookRotation.x = 0f;
-                lookRotation.z = 0f;
-            }
+            mouseLocation = hit.point;
+            lookDirection = (mouseLocation - player.position).normalized;
+            lookRotation = Quaternion.LookRotation(lookDirection);
+            lookRotation.x = 0f;
+            lookRotation.z = 0f;
         }
 
         //player.position = Vector3.MoveTowards(player.position, move, step);

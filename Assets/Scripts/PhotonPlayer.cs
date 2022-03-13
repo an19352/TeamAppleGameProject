@@ -35,12 +35,31 @@ public class PhotonPlayer : MonoBehaviour
     // Update is called once per frame
     public void InitiatePlayer(int team)
     {
-        float x = Random.Range(-7, 7);
-        float z = Random.Range(-7, 3);
+        float x;
+        float z;
+        float greenX = Random.Range(-92, -68);
+        float greenZ = Random.Range(-20, 20);
+        float redX = Random.Range(68, 92);
+        float redZ = Random.Range(-20, 20);
+        int playerLayer;
 
         if (PV.IsMine)
         {
+            if (team == 1)
+            {
+                playerLayer = 13;
+                z = greenZ;
+                x = greenX;
+            }
+            else
+            {
+                playerLayer = 12;
+                z = redZ;
+                x = redX;
+
+            }
             myAvatar = PhotonNetwork.Instantiate(playerPrefab.name, new Vector3(x, 6, z), Quaternion.identity, 0);
+            myAvatar.layer = playerLayer;
             gameMechanics.RPC_AddPlayer(myAvatar, team);
         }
 
