@@ -66,5 +66,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6d5678b9ff337d40828e1fe1d3543cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  matGreen: {fileID: 0}
+  matRed: {fileID: 0}
   myAvatar: {fileID: 0}
   playerPrefab: {fileID: 8521386507383712022, guid: ae4d1828886102a42aaad677976921a2, type: 3}

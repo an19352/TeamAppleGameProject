@@ -3,7 +3,11 @@ guid: c6d5678b9ff337d40828e1fe1d3543cf
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - matGreen: {fileID: 2100000, guid: e8f4796c29cbe6948995afd7736ca145, type: 2}
+  - matRed: {fileID: 2100000, guid: 71ac22159f584cc4ca029e9cd911b566, type: 2}
+  - myAvatar: {instanceID: 0}
+  - playerPrefab: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

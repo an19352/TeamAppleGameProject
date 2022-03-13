@@ -10,7 +10,8 @@ public class Movement : MonoBehaviour
     public static GameMechanics gameMechanics;
 
     public bool isNPC;
-    public Material highlightedMaterial;
+    public Material highlightedGreenMaterial;
+    public Material highlightedRedMaterial;
 
     Transform player;
     Rigidbody playerBody;
@@ -47,9 +48,17 @@ public class Movement : MonoBehaviour
         playerBody = GetComponent<Rigidbody>();
         cameraMain = Camera.main;
 
-        if (PV.IsMine) 
+        if (PV.IsMine)
         {
-            GetComponent<Renderer>().material = highlightedMaterial;
+            int team = gameMechanics.checkTeam(ID);
+            if (team == 1)
+            {
+                GetComponent<Renderer>().material = highlightedGreenMaterial;
+            }
+            else
+            {
+                GetComponent<Renderer>().material = highlightedRedMaterial;
+            }
             cameraMain.GetComponent<FollowPlayer>().player = transform;
         }
     }
@@ -64,8 +73,9 @@ public class Movement : MonoBehaviour
             
         float x = Input.GetAxis(horizontalAxis);
         float z = Input.GetAxis(verticalAxis);
-        Vector3 move = new Vector3(x, 0f, z);
-        player.position = (player.position + move * speed * Time.deltaTime);
+        Vector3 move = new Vector3(x * speed * Time.fixedDeltaTime, playerBody.velocity.y, z * speed * Time.fixedDeltaTime);
+        //player.position = (player.position + move * speed * Time.deltaTime);
+        playerBody.velocity = (move);
         
         float step = rotationSpeed * Time.deltaTime;
 

@@ -397,8 +397,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isNPC: 0
-  highlightedMaterial: {fileID: 2100000, guid: 1facf4f4455912648841caf557cb64b3, type: 2}
-  speed: 12
+  highlightedGreenMaterial: {fileID: 2100000, guid: 73306b8830f59e5418513cce5517dc55, type: 2}
+  highlightedRedMaterial: {fileID: 2100000, guid: 58bee26ced6c6f744b21f82aa1205cc4, type: 2}
+  speed: 625
   rotationSpeed: 15
   horizontalAxis: Horizontal
   verticalAxis: Vertical
