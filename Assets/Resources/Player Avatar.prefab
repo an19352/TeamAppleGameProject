@@ -404,7 +404,7 @@ MonoBehaviour:
   verticalAxis: Vertical
   ignoredLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 49152
   currentPowerup: {fileID: 0}
   hasPowerup: 0
 --- !u!54 &8521386507383712021
