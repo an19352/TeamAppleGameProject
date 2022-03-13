@@ -54,6 +54,7 @@ public class PhotonPlayer : MonoBehaviour
                 z = greenZ;
                 x = greenX;
                 playerMaterial = matGreen;
+                Debug.Log("set to green");
             }
             else
             {
@@ -61,10 +62,12 @@ public class PhotonPlayer : MonoBehaviour
                 z = redZ;
                 x = redX;
                 playerMaterial = matRed;
+                Debug.Log("set to red");
 
             }
             myAvatar = PhotonNetwork.Instantiate(playerPrefab.name, new Vector3(x, 6, z), Quaternion.identity, 0);
             myAvatar.layer = playerLayer;
+            Debug.Log(playerMaterial);
             myAvatar.GetComponent<MeshRenderer>().material = playerMaterial;
             gameMechanics.RPC_AddPlayer(myAvatar, team);
         }
