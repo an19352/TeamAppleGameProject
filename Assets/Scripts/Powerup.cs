@@ -11,14 +11,14 @@ public class Powerup : MonoBehaviour
     public static PhotonRoom room;
     public static GameMechanics gameMechanics;
 
-    public enum Effects { GravityGun, Grapple, Coin };
+    public enum Effects { Gravity_Gun, Grapple_Gun, Coin };
     public Effects _effect;
     string effect;
 
     Dictionary<string, int> itemsLookup = new Dictionary<string, int>()
     {
-        { "GravityGun", 0},
-        { "Grapple", 1 },
+        { "Gravity Gun", 0},
+        { "Grapple Gun", 1 },
         { "Coin", 3 }
     };
 
@@ -32,7 +32,8 @@ public class Powerup : MonoBehaviour
         room = PhotonRoom.room;
 
         //thisPowerup = transform.gameObject;
-        effect = _effect.ToString();
+        effect = _effect.ToString().Replace("_", " ");
+        Debug.Log(effect);
     }
 
     //Makes powerup disappear when touched and writes to powerup text in UI
@@ -40,7 +41,7 @@ public class Powerup : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            PV.RPC("ActivateItem", RpcTarget.All, other.GetComponent<Movement>().GetId(), itemsLookup[effect]);
+            PV.RPC("ActivateItem", RpcTarget.All, other.GetComponent<Movement>().GetId(), effect);
             PV.RPC("Disable", RpcTarget.All, null);
         }
     }
@@ -58,9 +59,9 @@ public class Powerup : MonoBehaviour
     }
 
     [PunRPC]
-    public void ActivateItem(int playerID, int itemID)
+    public void ActivateItem(int playerID, string item)
     {
-        gameMechanics.players[playerID].obj.GetComponent<Inventory>().activateItem(itemID);
+        gameMechanics.players[playerID].obj.GetComponent<Inventory>().activateItem(item);
     }
 
     [PunRPC]
