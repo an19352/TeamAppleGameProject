@@ -18,6 +18,7 @@ namespace SpaceBallAbilities
     {
         PhotonView PV;
         InventoryElement IE;
+        Inventory inventory;
         string IEtag = "Gravity Gun";
 
         float maxGrabDistance, throwForce;
@@ -29,8 +30,8 @@ namespace SpaceBallAbilities
         {
             PV = GetComponent<PhotonView>();
             IE = InventoryUIManager.inventory.GetIE(IEtag);
-            InventoryUIManager.inventory.AddUIElement(IEtag);
-            Inventory inventory = GetComponent<Inventory>();
+            inventory = GetComponent<Inventory>();
+            InventoryUIManager.inventory.AddUIElement(IEtag, inventory);
 
             maxGrabDistance = inventory.maxGrabDistance;
             throwForce = inventory.throwForce;
@@ -86,7 +87,7 @@ namespace SpaceBallAbilities
         
         private void OnDestroy()
         {
-            InventoryUIManager.inventory.RemoveUIElement(IEtag);    
+            //inventory.removeItem(IEtag);   
         }
 
         [PunRPC]
@@ -125,6 +126,7 @@ namespace SpaceBallAbilities
         float hookLifetime;
 
         InventoryElement IE;
+        Inventory inventory;
         string IEtag = "Grapple Gun";
 
         float stopPullDistance;
@@ -143,9 +145,9 @@ namespace SpaceBallAbilities
         public void SetUp()
         {
             IE = InventoryUIManager.inventory.GetIE(IEtag);
-            InventoryUIManager.inventory.AddUIElement(IEtag);
             rigid = GetComponent<Rigidbody>();
-            Inventory inventory = GetComponent<Inventory>();
+            inventory = GetComponent<Inventory>();
+            InventoryUIManager.inventory.AddUIElement(IEtag, inventory);
             cameraMain = Camera.main;
             lm = LayerMask.GetMask("Hookable");
 
@@ -187,7 +189,7 @@ namespace SpaceBallAbilities
 
         private void OnDestroy()
         {
-            InventoryUIManager.inventory.RemoveUIElement(IEtag);
+            //inventory.removeItem(IEtag);
         }
     }
 
@@ -195,6 +197,7 @@ namespace SpaceBallAbilities
     {
         PhotonView PV;
         InventoryElement IE;
+        Inventory inventory;
         string IEtag = "Impulse Gun";
 
         float pushForce;
@@ -207,9 +210,10 @@ namespace SpaceBallAbilities
         {
             PV = GetComponent<PhotonView>();
             IE = InventoryUIManager.inventory.GetIE(IEtag);
-            InventoryUIManager.inventory.AddUIElement(IEtag);
             toBePushed = new List<int>();
-            pushForce = GetComponentInParent<Inventory>().pushForce;
+            inventory = GetComponentInParent<Inventory>();
+            InventoryUIManager.inventory.AddUIElement(IEtag, inventory);
+            pushForce = inventory.pushForce;
         }
 
         public void LeftClick()
@@ -231,7 +235,7 @@ namespace SpaceBallAbilities
 
         private void OnDestroy()
         {
-            InventoryUIManager.inventory.RemoveUIElement(IEtag);
+            //inventory.removeItem(IEtag);
         }
 
         [PunRPC]
@@ -266,18 +270,21 @@ namespace SpaceBallAbilities
     public class Coin : MonoBehaviour, IAbility
     {
         InventoryElement IE;
+        Inventory inventory;
         string IEtag = "Coin";
         public void SetUp()
         {
             IE = InventoryUIManager.inventory.GetIE(IEtag);
-            InventoryUIManager.inventory.AddUIElement(IEtag);
             transform.localScale.Scale(new Vector3(2, 2, 2));
+
+            inventory = GetComponent<Inventory>();
+            InventoryUIManager.inventory.AddUIElement(IEtag, inventory);
         }
 
         private void OnDestroy()
         {
             transform.localScale.Scale(new Vector3(0.5f, 0.5f, 0.5f));
-            InventoryUIManager.inventory.RemoveUIElement(IEtag);
+            //inventory.removeItem(IEtag);
         }
 
         public void LeftClick()

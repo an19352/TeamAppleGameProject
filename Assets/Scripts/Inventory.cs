@@ -10,6 +10,7 @@ public class Inventory : MonoBehaviour
     public static InventoryUIManager inventory;
     List<System.Type> itemComponents = new List<System.Type> { typeof(SpaceBallAbilities.GravityGun), typeof(SpaceBallAbilities.Grapple), 
                                                                 typeof(SpaceBallAbilities.ImpulseCannon), typeof(Coin)};
+    Dictionary<string, System.Type> typeLookUp = new Dictionary<string, System.Type>();
     
     [Range(1, 5)]
     public int inventorySize; 
@@ -39,6 +40,10 @@ public class Inventory : MonoBehaviour
         inventory = InventoryUIManager.inventory;
         if (!PV.IsMine) return;
 
+        typeLookUp.Add("Impulse Gun", typeof(SpaceBallAbilities.ImpulseCannon));
+        typeLookUp.Add("Grapple Gun", typeof(SpaceBallAbilities.Grapple));
+        typeLookUp.Add("Gravity Gun", typeof(SpaceBallAbilities.GravityGun));
+        typeLookUp.Add("Coin", typeof(Coin));
         inventoryItems = new IAbility[inventorySize];
 
         for (int i = 1; i < inventorySize; i++)
@@ -58,12 +63,16 @@ public class Inventory : MonoBehaviour
             return;
 
         if (Input.GetAxisRaw("Mouse ScrollWheel") > 0)
+        {
             selectedAbility = Mathf.Min(selectedAbility + 1, inventoryMaxATM);
+            inventory.Select(inventoryItems[selectedAbility].GetIE().powerupName);
+        }
 
         if (Input.GetAxisRaw("Mouse ScrollWheel") < 0)
+        {
             selectedAbility = Mathf.Max(0, selectedAbility - 1);
-            
-        inventory.UpdateQueue(inventoryItems[selectedAbility].GetIE().powerupName);
+            inventory.Select(inventoryItems[selectedAbility].GetIE().powerupName);
+        }
 
         if (Input.GetButtonDown("Fire1"))
             inventoryItems[selectedAbility].LeftClick();
@@ -72,26 +81,26 @@ public class Inventory : MonoBehaviour
             inventoryItems[selectedAbility].RightClick();
     }
 
-    public void activateItem(int index)
-    {
-        if (index >= itemComponents.Count || index < 0) 
+    public void activateItem(string tag)
+    {/*
+        if (typeLookUp.ContainsKey(tag)) 
         {
-            Debug.LogWarning("Ability not found");
+            Debug.LogWarning(tag + " not found");
             return; 
-        }
+        }*/
         if (inventoryMaxATM == inventorySize) return;
 
         for (int i = 0; i < inventorySize; i++)
         {
             if (inventoryItems[i] == null)
             {
-                inventoryItems[i] = gameObject.AddComponent(itemComponents[index]) as IAbility;
+                inventoryItems[i] = gameObject.AddComponent(typeLookUp[tag]) as IAbility;
                 inventoryItems[i].SetUp();
                 inventoryMaxATM = i;
                 return;
             }
 
-            if (inventoryItems[i].GetType() == itemComponents[index])
+            if (inventoryItems[i].GetIE().powerupName == tag)
             {
                 // Reset timer or add to it or something
                 return;
@@ -99,28 +108,37 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    public void removeItem(int index)
+    public void removeItem(string tag)
     {
-        if (index >= itemComponents.Count || index < 0)
-        {
-            Debug.LogWarning("Ability not found");
-            return;
-        }
-
-        bool ok = false;
-        for (int i = 0; i < inventoryMaxATM; i++) if (inventoryItems[i].GetType() == itemComponents[index])
+        int i;
+        for (i = 0; i < inventoryMaxATM; i++) if (inventoryItems[i].GetIE().powerupName == tag)
             {
                 Destroy(inventoryItems[i] as MonoBehaviour);
-                inventoryItems[i] = inventoryItems[i + 1];
-                ok = true;
-            }
-            else if (ok) inventoryItems[i] = inventoryItems[i + 1];
 
-        if (ok || inventoryItems[inventoryMaxATM].GetType() == itemComponents[index])
+                inventoryItems[i] = null;
+                inventory.RemoveUIElement(tag);
+                break;
+            }
+        if (i == inventoryMaxATM)
         {
-            Destroy(inventoryItems[inventoryMaxATM] as MonoBehaviour);
-            inventoryItems[inventoryMaxATM] = null;
-            inventoryMaxATM--;
+            if (inventoryItems[inventoryMaxATM].GetIE().powerupName == tag)
+            {
+                Destroy(inventoryItems[inventoryMaxATM] as MonoBehaviour);
+                inventoryItems[inventoryMaxATM] = null;
+                inventory.RemoveUIElement(tag);
+                inventoryMaxATM--;
+                return;
+            }
+            else
+            {
+                Debug.LogWarning(tag + " was not in inventory");
+                return;
+            } 
         }
+
+        for (; i < inventoryMaxATM; i++) inventoryItems[i] = inventoryItems[i + 1];
+
+        inventoryItems[inventoryMaxATM] = null;
+        inventoryMaxATM--;
     }
 }

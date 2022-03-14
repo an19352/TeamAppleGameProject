@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class InventoryUIElement : MonoBehaviour
 {
-    public static InventoryUIManager inventory;
+    Inventory inventory;
 
     InventoryElement powerup;
     float timeToDie;
@@ -21,17 +21,17 @@ public class InventoryUIElement : MonoBehaviour
     public Text powerupName;
     public Text largeTimerText;
 
-    public void SetPowerup(InventoryElement _powerup)
+    public void SetPowerup(InventoryElement _powerup, Inventory _inv)
     {
         powerup = _powerup;
+        inventory = _inv;
 
         smallIcon.sprite = powerup.icon;
         largeIcon.sprite = powerup.icon;
 
         powerupName.text = powerup.powerupName;
 
-        timeToDie = powerup.timeToDie;
-        inventory = InventoryUIManager.inventory;
+        timeToDie = powerup.timeToDie + Time.time;
 
         if (powerup.Infinite)
         {
@@ -47,9 +47,9 @@ public class InventoryUIElement : MonoBehaviour
 
         totalTime = timeToDie - Time.time;
 
-        if (totalTime < 0) inventory.RemoveUIElement(powerupName.text);
+        if (totalTime < 0) inventory.removeItem(powerupName.text);
 
-        string seconds = ((int)totalTime % 60).ToString();
+        string seconds = ((int)totalTime).ToString();
         smallTimerText.text = seconds;
         largeTimerText.text = seconds;
     }

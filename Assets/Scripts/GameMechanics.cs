@@ -145,7 +145,6 @@ public class GameMechanics : MonoBehaviour
         int _score = teams[teamID].score + 1;
         Text _text = teams[teamID].scoreText;
         _text.text = _score.ToString();
-        Debug.Log("Here is the issue: " + teamID.ToString());
 
         teams[teamID] = new Team { name = _name, score = _score, scoreText = _text };
     }
