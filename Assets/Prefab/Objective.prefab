@@ -315,7 +315,7 @@ Transform:
   m_GameObject: {fileID: 8176473694404092270}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -26, y: -4.4000015, z: 4}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 8853947220358372922}
   - {fileID: 6646623522129346554}
@@ -337,12 +337,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defendTeam: 0
   hasFlag: 0
-  captureDuration: 10
-  captureCounter: 10
+  captureDuration: 5
+  captureCounter: 5
   idleMaterial: {fileID: 2100000, guid: 50559930fd1082846836124c6c74026e, type: 2}
   captureMaterial: {fileID: 2100000, guid: 73306b8830f59e5418513cce5517dc55, type: 2}
   stalemateMaterial: {fileID: 2100000, guid: 58bee26ced6c6f744b21f82aa1205cc4, type: 2}
   returnMaterial: {fileID: 2100000, guid: 4922f86565ee5b24a84a2430b44c51b1, type: 2}
+  otherObjectiveFlag: {fileID: 0}
 --- !u!54 &9059485778292226864
 Rigidbody:
   m_ObjectHideFlags: 0

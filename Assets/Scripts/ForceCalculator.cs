@@ -23,7 +23,6 @@ public class ForceCalculator : MonoBehaviour
     {
 
         PV = this.GetComponent<PhotonView>();
-        Debug.Log(forceShield);
         Transform canvas = this.gameObject.transform.Find("Canvas");
         Transform healthBar = canvas.Find("HealthBar");
         healthBarImage = healthBar.gameObject.GetComponent<Image>();
