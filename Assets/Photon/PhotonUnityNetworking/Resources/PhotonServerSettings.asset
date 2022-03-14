@@ -72,6 +72,8 @@ MonoBehaviour:
   - Initialise
   - ActivateItem
   - GenerateMeteor
+  - FlagUpdate
+  - UpdateFlag
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

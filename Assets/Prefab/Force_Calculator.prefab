@@ -446,7 +446,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e41d91d7ff0dd5e439c4e69768bb80b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  forceShield: {fileID: 0}
   health: 100
+  healthRemain: 100
   destroyedVersion: {fileID: 6905041342304132670, guid: bacbbded924d9a1498a482b0c786722b, type: 3}
 --- !u!114 &5986070424543799081
 MonoBehaviour:

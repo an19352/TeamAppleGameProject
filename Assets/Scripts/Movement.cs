@@ -35,7 +35,7 @@ public class Movement : MonoBehaviour
     [HideInInspector]
     public Text currentPowerup;
     private bool cooldownActive;
-    
+
     [HideInInspector]
     public bool hasPowerup;
 
@@ -68,15 +68,15 @@ public class Movement : MonoBehaviour
     {
         if (isNPC) return;
         if (!PV.IsMine) return;
-            
+
         //Keyboard controls
-            
+
         float x = Input.GetAxis(horizontalAxis);
         float z = Input.GetAxis(verticalAxis);
         Vector3 move = new Vector3(x * speed * Time.fixedDeltaTime, playerBody.velocity.y, z * speed * Time.fixedDeltaTime);
         //player.position = (player.position + move * speed * Time.deltaTime);
         playerBody.velocity = (move);
-        
+
         float step = rotationSpeed * Time.deltaTime;
 
         Ray mouseRay = cameraMain.ScreenPointToRay(Input.mousePosition);
@@ -121,7 +121,7 @@ public class Movement : MonoBehaviour
             player.position = new Vector3(0f, 4f, 0f);
         else
             player.position = gameMechanics.spawnPpoints[spawnPointID].position;
-        
+
         player.rotation = new Quaternion(0f, 0f, 0f, 0f);
         playerBody.angularVelocity = new Vector3(0f, 0f, 0f);
         playerBody.velocity = new Vector3(0f, 0f, 0f);

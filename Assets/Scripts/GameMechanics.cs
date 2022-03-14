@@ -1,4 +1,4 @@
- using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Numerics;
@@ -33,6 +33,7 @@ public class GameMechanics : MonoBehaviour
 
         [HideInInspector]       // The score is hidden from inspector. This can be undone
         public int score;       // if we ever want teams to start with an advantage. Text will need change
+        // public int flagCount;
     }
 
     [Serializable]
@@ -42,7 +43,7 @@ public class GameMechanics : MonoBehaviour
         public int team;
     }
 
-    public List<Team> teams;      
+    public List<Team> teams;
     public List<Player> players;
     public List<Transform> spawnPpoints;
 
@@ -53,6 +54,8 @@ public class GameMechanics : MonoBehaviour
     public GameObject menuItem;
 
     public int[] numberOfFlagsPerTeam;
+
+    private GameObject UI;
 
     PhotonView PV;
 
@@ -65,12 +68,48 @@ public class GameMechanics : MonoBehaviour
         PV = GetComponent<PhotonView>();
         activePowerups = new Dictionary<int, UnityEngine.Vector3>();
         numberOfFlagsPerTeam = new int[teams.Count];
+        UI = Camera.main.transform.Find("Canvas").gameObject;
+
+        InitialiseFlags();
 
         if (!PhotonNetwork.IsMasterClient)
             PV.RPC("SendVariables", RpcTarget.MasterClient);
 
         for (int i = 0; i < players.Count; i++)
             players[i].obj.GetComponent<Movement>().SetId(i);
+    }
+
+    public void InitialiseFlags()
+    {
+
+        // each team would be assigned three flags at the start
+        for (int i = 0; i < teams.Count; i++)
+        {
+            numberOfFlagsPerTeam[i] = 3;
+        }
+        UpdateFlagUI();
+    }
+
+    public void UpdateFlagUI()
+    {
+        Transform GreenFlags = UI.transform.Find("GreenFlags");
+        Transform RedFlags = UI.transform.Find("RedFlags");
+        foreach (Transform flag in GreenFlags)
+        {
+            flag.GetComponent<Image>().enabled = false;
+        }
+        foreach (Transform flag in RedFlags)
+        {
+            flag.GetComponent<Image>().enabled = false;
+        }
+        for (int i = 0; i < numberOfFlagsPerTeam[0]; i++)
+        {
+            GreenFlags.GetChild(i).gameObject.GetComponent<Image>().enabled = true;
+        }
+        for (int i = 0; i < numberOfFlagsPerTeam[1]; i++)
+        {
+            RedFlags.GetChild(i).gameObject.GetComponent<Image>().enabled = true;
+        }
     }
 
     // For functions in other classes, returns a player's team
@@ -86,7 +125,7 @@ public class GameMechanics : MonoBehaviour
     }
 
     [PunRPC]
-    public void Add_player (int playerViewId, int team)
+    public void Add_player(int playerViewId, int team)
     {
         Player _player = new Player { obj = PhotonView.Find(playerViewId).gameObject, team = team };
         players.Add(_player);
@@ -111,8 +150,42 @@ public class GameMechanics : MonoBehaviour
         teams[teamID] = new Team { name = _name, score = _score, scoreText = _text };
     }
 
+    public void RPC_UpdateFlag(int teamID, bool isScore)
+    {
+        PV.RPC("UpdateFlag", RpcTarget.AllBuffered, teamID, isScore);
+    }
+
     [PunRPC]
-    void Sync(float game_time, int[] playerViewIds, int[] playerTeams, string[] teamNames, int[] teamScores, int[] scoreViewIDs, int[]flags)
+    public void UpdateFlag(int teamID, bool isScore)
+    {
+        // if isScore is true, add one to flag count, else minus one 
+        if (isScore)
+        {
+            for (int i = 0; i < numberOfFlagsPerTeam.Length; i++)
+            {
+                if (teamID == i)
+                {
+                    numberOfFlagsPerTeam[i]++;
+                }
+                else
+                {
+                    numberOfFlagsPerTeam[i]--;
+                }
+
+            }
+        }
+        // retrieve back a stolen flag, so only increment friendly flag count
+        else
+        {
+            numberOfFlagsPerTeam[teamID]++;
+        }
+        // add something here to update the ui
+        UpdateFlagUI();
+
+    }
+
+    [PunRPC]
+    void Sync(float game_time, int[] playerViewIds, int[] playerTeams, string[] teamNames, int[] teamScores, int[] scoreViewIDs, int[] flags)
     {
         timer.UpdateTimer(game_time);
 
@@ -123,7 +196,7 @@ public class GameMechanics : MonoBehaviour
             score = teamScores[i],
             scoreText = PhotonView.Find(scoreViewIDs[i]).gameObject.GetComponent<Text>()
         });
-        
+
         teams = _teams;
 
         List<Player> _players = new List<Player>();
@@ -146,10 +219,11 @@ public class GameMechanics : MonoBehaviour
         int[] playerTeams = new int[players.Count];
 
         string[] teamNames = new string[teams.Count];
-        int[] teamScores = new int[teams.Count]; 
+        int[] teamScores = new int[teams.Count];
         int[] scoreViewIDs = new int[teams.Count];
 
         int[] powerupsId = new int[activePowerups.Count];
+
         UnityEngine.Vector3[] positions = new UnityEngine.Vector3[activePowerups.Count];
         int[] flagsToSend = new int[numberOfFlagsPerTeam.Length];
         int i;
@@ -169,7 +243,7 @@ public class GameMechanics : MonoBehaviour
         }
 
         i = 0;
-        foreach(KeyValuePair<int, UnityEngine.Vector3> keypair in activePowerups)
+        foreach (KeyValuePair<int, UnityEngine.Vector3> keypair in activePowerups)
         {
             powerupsId[i] = keypair.Key;
             positions[i] = keypair.Value;
@@ -231,8 +305,5 @@ public class GameMechanics : MonoBehaviour
         SceneManager.LoadScene(2);
     }
 
-    public void UpdateFlag(int teamID)
-    {
-        // update UI and numberOfFlagsPerTeam variable;
-    }
+
 }
