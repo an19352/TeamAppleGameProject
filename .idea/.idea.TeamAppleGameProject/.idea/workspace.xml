@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9d59a655-b95b-4264-984d-b993a5d47562" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/PhotonPlayer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PhotonPlayer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Hook.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Hook.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Player Avatar.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Player Avatar.prefab" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -72,7 +73,7 @@
       <workItem from="1646593336509" duration="1848000" />
       <workItem from="1646658790352" duration="4956000" />
       <workItem from="1646665745729" duration="3754000" />
-      <workItem from="1647263024689" duration="1297000" />
+      <workItem from="1647263024689" duration="1958000" />
     </task>
     <servers />
   </component>
