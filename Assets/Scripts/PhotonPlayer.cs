@@ -7,8 +7,6 @@ using UnityEngine.UI;
 public class PhotonPlayer : MonoBehaviour
 {
     private PhotonView PV;
-    public Material matGreen;
-    public Material matRed;
     public static GameMechanics gameMechanics;
 
     [HideInInspector]
@@ -44,7 +42,6 @@ public class PhotonPlayer : MonoBehaviour
         float redX = Random.Range(68, 92);
         float redZ = Random.Range(-20, 20);
         int playerLayer;
-        Material playerMaterial;
 
         if (PV.IsMine)
         {
@@ -53,22 +50,16 @@ public class PhotonPlayer : MonoBehaviour
                 playerLayer = 13;
                 z = greenZ;
                 x = greenX;
-                playerMaterial = matGreen;
-                Debug.Log("set to green");
             }
             else
             {
                 playerLayer = 12;
                 z = redZ;
                 x = redX;
-                playerMaterial = matRed;
-                Debug.Log("set to red");
 
             }
             myAvatar = PhotonNetwork.Instantiate(playerPrefab.name, new Vector3(x, 6, z), Quaternion.identity, 0);
             myAvatar.layer = playerLayer;
-            Debug.Log(playerMaterial);
-            myAvatar.GetComponent<MeshRenderer>().material = playerMaterial;
             gameMechanics.RPC_AddPlayer(myAvatar, team);
         }
 
