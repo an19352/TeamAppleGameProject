@@ -3502,6 +3502,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -1500838157198093432, guid: 75c75d0a4c3eb3f488ba93f8c3726e81, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -1018664272722485354, guid: 75c75d0a4c3eb3f488ba93f8c3726e81, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 75c75d0a4c3eb3f488ba93f8c3726e81, type: 3}
       propertyPath: m_Name
       value: Planet_1
@@ -6372,9 +6380,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -1018664272722485354, guid: 636e45c2766dd6148a779a39bf52711b, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 636e45c2766dd6148a779a39bf52711b, type: 3}
       propertyPath: m_Name
       value: Planet_2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3396913584297481876, guid: 636e45c2766dd6148a779a39bf52711b, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 636e45c2766dd6148a779a39bf52711b, type: 3}
