@@ -46,6 +46,7 @@ public class GameMechanics : MonoBehaviour
     public List<Team> teams;
     public List<Player> players;
     public List<Transform> spawnPpoints;
+    public List<Material> teamMaterials;
 
     public Timer timer;
 
@@ -208,6 +209,12 @@ public class GameMechanics : MonoBehaviour
         players = _players;
 
         for (int i = 0; i < flags.Length; i++) numberOfFlagsPerTeam[i] = flags[i];
+        
+
+        foreach(Player _player in players)
+        {
+            _player.obj.GetComponent<MeshRenderer>().material = teamMaterials[_player.team];
+        }
     }
 
     [PunRPC]
