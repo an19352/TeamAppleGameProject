@@ -31,6 +31,7 @@ public class Inventory : MonoBehaviour
 
     [Header("Impulse Gun Settings")]
     public GameObject impulseGunHolder;
+    public GameObject particleSystem;
     public float pushForce;
 
     // Start is called before the first frame update

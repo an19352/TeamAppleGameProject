@@ -199,6 +199,8 @@ namespace SpaceBallAbilities
         InventoryElement IE;
         Inventory inventory;
         string IEtag = "Impulse Gun";
+        GameObject particleSystem;
+        float timeToShoot = 0;
 
         float pushForce;
         float distance;
@@ -214,10 +216,15 @@ namespace SpaceBallAbilities
             inventory = GetComponentInParent<Inventory>();
             InventoryUIManager.inventory.AddUIElement(IEtag, inventory);
             pushForce = inventory.pushForce;
+            particleSystem = inventory.particleSystem;
         }
 
         public void LeftClick()
         {
+            if (Time.time < timeToShoot) return;
+            particleSystem.SetActive(false);
+            particleSystem.SetActive(true);
+            timeToShoot = Time.time + 1.2f;
             if (toBePushed.Count == 0) return;
             int[] pushNow = new int[toBePushed.Count];
             //pushed = GameObject.FindGameObjectsWithTag("Detected");
