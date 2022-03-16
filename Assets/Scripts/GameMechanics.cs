@@ -54,6 +54,8 @@ public class GameMechanics : MonoBehaviour
     public Button greenButton;
     public GameObject menuItem;
 
+    public Canvas worldSpaceCanvas;
+
     public int[] numberOfFlagsPerTeam;
 
     private GameObject UI;

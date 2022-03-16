@@ -11,6 +11,9 @@ public class Inventory : MonoBehaviour
     List<System.Type> itemComponents = new List<System.Type> { typeof(SpaceBallAbilities.GravityGun), typeof(SpaceBallAbilities.Grapple), 
                                                                 typeof(SpaceBallAbilities.ImpulseCannon), typeof(Coin)};
     Dictionary<string, System.Type> typeLookUp = new Dictionary<string, System.Type>();
+    public List<GameObject> tooltips;
+    public Vector3 tooltipOffset;
+    Canvas worldCanvas;
     
     [Range(1, 5)]
     public int inventorySize; 
@@ -47,13 +50,15 @@ public class Inventory : MonoBehaviour
         typeLookUp.Add("Gravity Gun", typeof(SpaceBallAbilities.GravityGun));
         typeLookUp.Add("Coin", typeof(Coin));
         inventoryItems = new IAbility[inventorySize];
+        worldCanvas = GameMechanics.gameMechanics.worldSpaceCanvas;
 
         for (int i = 1; i < inventorySize; i++)
             inventoryItems[i] = null;
         
         inventoryMaxATM = 0;
-        inventoryItems[0] = impulseGunHolder.AddComponent(itemComponents[2]) as IAbility;
-        inventoryItems[0].SetUp();
+        activateItem("Impulse Gun");
+        //inventoryItems[0] = impulseGunHolder.AddComponent(itemComponents[2]) as IAbility;
+        //inventoryItems[0].SetUp();
     }
 
     // Update is called once per frame
@@ -92,7 +97,13 @@ public class Inventory : MonoBehaviour
         }*/
         if (inventoryMaxATM == inventorySize) return;
 
-        if(notNewPowerups.Contains(tag)) //spanw tool tip;
+        if (!notNewPowerups.Contains(tag))
+        {
+            notNewPowerups.Add(tag);
+
+            GameObject tooltip = Instantiate(tooltips[itemComponents.IndexOf(typeLookUp[tag])], worldCanvas.transform);
+            tooltip.transform.position = transform.position + tooltipOffset;
+        }
 
         for (int i = 0; i < inventorySize; i++)
         {

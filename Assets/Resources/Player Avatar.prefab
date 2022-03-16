@@ -5306,6 +5306,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3fb3fefdecf4c84bb63a8537bbb9439, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tooltips:
+  - {fileID: 1560234478154502641, guid: 0be595e8484854f4ea100e3568115c5f, type: 3}
+  - {fileID: 1560234478154502641, guid: 0be595e8484854f4ea100e3568115c5f, type: 3}
+  - {fileID: 1560234478154502641, guid: 0be595e8484854f4ea100e3568115c5f, type: 3}
+  - {fileID: 1560234478154502641, guid: 0be595e8484854f4ea100e3568115c5f, type: 3}
+  tooltipOffset: {x: 5, y: 0, z: 0}
   inventorySize: 3
   objectHolder: {fileID: 938504099680742854}
   maxGrabDistance: 3

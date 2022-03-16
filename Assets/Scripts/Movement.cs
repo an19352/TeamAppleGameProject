@@ -104,7 +104,6 @@ public class Movement : MonoBehaviour
         if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out hit, Mathf.Infinity, shadowMask))
         {
             shadowInsatance.SetActive(true);
-            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.down) * hit.distance, Color.green);
             shadowInsatance.transform.position = transform.position + Vector3.down * hit.distance;
         }
         else shadowInsatance.SetActive(false);
