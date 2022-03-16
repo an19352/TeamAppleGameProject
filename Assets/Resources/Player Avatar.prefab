@@ -5207,7 +5207,7 @@ MonoBehaviour:
   shadow: {fileID: 6782581534402815839, guid: 76b0d73376cac714dabdf8c7ec66cf3d, type: 3}
   shadowMask:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 65544
   currentPowerup: {fileID: 0}
   hasPowerup: 0
 --- !u!54 &8521386507383712021
