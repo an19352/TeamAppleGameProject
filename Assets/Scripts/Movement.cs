@@ -29,7 +29,9 @@ public class Movement : MonoBehaviour
     public string horizontalAxis;
     public string verticalAxis;
     public LayerMask ignoredLayers;
-
+    public GameObject shadow;
+    GameObject shadowInsatance;
+    public LayerMask shadowMask;
     private Vector3 move;
 
     [HideInInspector]
@@ -43,6 +45,7 @@ public class Movement : MonoBehaviour
     {
         PV = GetComponent<PhotonView>();
         gameMechanics = GameMechanics.gameMechanics;
+        shadowInsatance = Instantiate(shadow);
 
         player = transform;
         playerBody = GetComponent<Rigidbody>();
@@ -93,6 +96,18 @@ public class Movement : MonoBehaviour
         player.rotation = Quaternion.Slerp(player.rotation, lookRotation, step);
 
         Fire();
+    }
+
+    void LateUpdate()
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out hit, Mathf.Infinity, shadowMask))
+        {
+            shadowInsatance.SetActive(true);
+            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.down) * hit.distance, Color.green);
+            shadowInsatance.transform.position = transform.position + Vector3.down * hit.distance;
+        }
+        else shadowInsatance.SetActive(false);
     }
 
     void Fire()
