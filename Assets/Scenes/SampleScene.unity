@@ -2898,7 +2898,7 @@ MonoBehaviour:
   player: {fileID: 0}
   offset: {x: 0, y: -20, z: 20}
   Zoffset: -5
-  smoothMotion: 0
+  smoothMotion: 1
   smoothSpeed: 4.2
 --- !u!1001 &978322255
 PrefabInstance:
