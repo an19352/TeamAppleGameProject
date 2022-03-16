@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657838, g: 0.49641234, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -902,6 +902,10 @@ MonoBehaviour:
   horizontalAxis: 
   verticalAxis: 
   ignoredLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  shadow: {fileID: 0}
+  shadowMask:
     serializedVersion: 2
     m_Bits: 0
   currentPowerup: {fileID: 0}
@@ -2895,7 +2899,7 @@ MonoBehaviour:
   offset: {x: 0, y: -20, z: 20}
   Zoffset: -5
   smoothMotion: 0
-  smoothSpeed: 3.8
+  smoothSpeed: 4.2
 --- !u!1001 &978322255
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4227,6 +4231,10 @@ MonoBehaviour:
   ignoredLayers:
     serializedVersion: 2
     m_Bits: 192
+  shadow: {fileID: 0}
+  shadowMask:
+    serializedVersion: 2
+    m_Bits: 0
   currentPowerup: {fileID: 0}
   hasPowerup: 0
 --- !u!114 &1287108075
