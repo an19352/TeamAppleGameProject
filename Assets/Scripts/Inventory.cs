@@ -16,6 +16,7 @@ public class Inventory : MonoBehaviour
     public int inventorySize; 
     IAbility[] inventoryItems;
     int selectedAbility, inventoryMaxATM;
+    List<string> notNewPowerups = new List<string>();
 
     [Header("Gravity Gun Settings")]
     public Transform objectHolder;
@@ -90,6 +91,8 @@ public class Inventory : MonoBehaviour
             return; 
         }*/
         if (inventoryMaxATM == inventorySize) return;
+
+        if(notNewPowerups.Contains(tag)) //spanw tool tip;
 
         for (int i = 0; i < inventorySize; i++)
         {
