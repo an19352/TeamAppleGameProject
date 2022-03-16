@@ -2894,6 +2894,8 @@ MonoBehaviour:
   player: {fileID: 0}
   offset: {x: 0, y: -20, z: 20}
   Zoffset: -5
+  smoothMotion: 0
+  smoothSpeed: 3.8
 --- !u!1001 &978322255
 PrefabInstance:
   m_ObjectHideFlags: 0
