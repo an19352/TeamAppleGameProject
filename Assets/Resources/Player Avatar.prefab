@@ -5307,9 +5307,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tooltips:
-  - {fileID: 1560234478154502641, guid: 0be595e8484854f4ea100e3568115c5f, type: 3}
-  - {fileID: 1560234478154502641, guid: 14ce9fa8889e643f0b8f7641eeaf7e28, type: 3}
   - {fileID: 1560234478154502641, guid: 3c1325ba50b144d77a203ea840112dcc, type: 3}
+  - {fileID: 1560234478154502641, guid: 14ce9fa8889e643f0b8f7641eeaf7e28, type: 3}
+  - {fileID: 1560234478154502641, guid: 0be595e8484854f4ea100e3568115c5f, type: 3}
   - {fileID: 1560234478154502641, guid: 5006d189f7764434f94b7713801b80b1, type: 3}
   tooltipOffset: {x: 5, y: 0, z: 0}
   inventorySize: 3
