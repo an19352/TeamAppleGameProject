@@ -78,7 +78,7 @@ public class Movement : MonoBehaviour, IPunObservable
             if(Vector3.Distance(networkPosition, playerBody.position) > maxDiscDistance)
             {
                 playerBody.position = networkPosition;
-                playerBody.rotation = networkRotation;
+                playerBody.rotation = Quaternion.RotateTowards(playerBody.rotation, networkRotation, Time.fixedDeltaTime * 100f);
                 return;
             }
 
