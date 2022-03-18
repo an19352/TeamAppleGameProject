@@ -95,6 +95,8 @@ public class Inventory : MonoBehaviour
             Debug.LogWarning(tag + " not found");
             return; 
         }*/
+        if (!PV.IsMine) return;
+        
         if (inventoryMaxATM == inventorySize) return;
 
         if (!notNewPowerups.Contains(tag))
@@ -125,6 +127,8 @@ public class Inventory : MonoBehaviour
 
     public void removeItem(string tag)
     {
+        if (!PV.IsMine) return;
+
         int i;
         for (i = 0; i < inventoryMaxATM; i++) if (inventoryItems[i].GetIE().powerupName == tag)
             {

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Photon.Pun;
 
-public class Movement : MonoBehaviour
+public class Movement : MonoBehaviour, IPunObservable
 {
     PhotonView PV;
     public static GameMechanics gameMechanics;
@@ -19,12 +19,12 @@ public class Movement : MonoBehaviour
 
     public float speed = 5f;
 
-    private int ID;               // ID is private so it can't be changed from inspector
+    int ID;               // ID is private so it can't be changed from inspector
 
     public float rotationSpeed;
-    private Vector3 lookDirection;
-    private Quaternion lookRotation;
-    private Vector3 mouseLocation;
+    Vector3 lookDirection;
+    Quaternion lookRotation;
+    Vector3 mouseLocation;
 
     public string horizontalAxis;
     public string verticalAxis;
@@ -32,11 +32,13 @@ public class Movement : MonoBehaviour
     public GameObject shadow;
     GameObject shadowInsatance;
     public LayerMask shadowMask;
-    private Vector3 move;
+    Vector3 move;
+    Vector3 networkPosition;
+    Quaternion networkRotation;
 
     [HideInInspector]
     public Text currentPowerup;
-    private bool cooldownActive;
+    bool cooldownActive;
 
     [HideInInspector]
     public bool hasPowerup;
@@ -67,10 +69,15 @@ public class Movement : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if (isNPC) return;
-        if (!PV.IsMine) return;
+        if (!PV.IsMine) 
+        {
+            playerBody.position = Vector3.MoveTowards(playerBody.position, networkPosition, Time.fixedDeltaTime);
+            playerBody.rotation = Quaternion.RotateTowards(playerBody.rotation, networkRotation, Time.fixedDeltaTime * 100f);
+            return; 
+        }
 
         //Keyboard controls
 
@@ -153,12 +160,22 @@ public class Movement : MonoBehaviour
         return ID;
     }
 
-    public void Call_Score()
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
-        //if (!PV.IsMine) return;
+        if (stream.IsWriting)
+        {
+            stream.SendNext(playerBody.position);
+            stream.SendNext(playerBody.rotation);
+            stream.SendNext(playerBody.velocity);
+        }
+        if (stream.IsReading)
+        {
+            networkPosition = (Vector3)stream.ReceiveNext();
+            networkRotation = (Quaternion)stream.ReceiveNext();
+            playerBody.velocity = (Vector3)stream.ReceiveNext();
 
-        int team = (1 + gameMechanics.checkTeam(ID)) % 2;    // Only works for 2 teams
-        gameMechanics.RPC_Score(team);
-
+            float lag = Mathf.Abs((float)(PhotonNetwork.Time - info.timestamp));
+            networkPosition += playerBody.velocity * lag;
+        }
     }
 }
