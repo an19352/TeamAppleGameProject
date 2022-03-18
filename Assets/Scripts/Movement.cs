@@ -35,6 +35,7 @@ public class Movement : MonoBehaviour, IPunObservable
     Vector3 move;
     Vector3 networkPosition;
     Quaternion networkRotation;
+    public float maxDiscDistance = 3f;
 
     [HideInInspector]
     public Text currentPowerup;
@@ -74,6 +75,13 @@ public class Movement : MonoBehaviour, IPunObservable
         if (isNPC) return;
         if (!PV.IsMine) 
         {
+            if(Vector3.Distance(networkPosition, playerBody.position) > maxDiscDistance)
+            {
+                playerBody.position = networkPosition;
+                playerBody.rotation = networkRotation;
+                return;
+            }
+
             playerBody.position = Vector3.MoveTowards(playerBody.position, networkPosition, Time.fixedDeltaTime);
             playerBody.rotation = Quaternion.RotateTowards(playerBody.rotation, networkRotation, Time.fixedDeltaTime * 100f);
             return; 
