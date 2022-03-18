@@ -12,9 +12,9 @@ public class Movement : MonoBehaviour, IPunObservable
     public bool isNPC;
     public Material highlightedGreenMaterial;
     public Material highlightedRedMaterial;
+    public Rigidbody playerBody;
 
     Transform player;
-    Rigidbody playerBody;
     private Camera cameraMain;
 
     public float speed = 5f;
@@ -51,7 +51,6 @@ public class Movement : MonoBehaviour, IPunObservable
         shadowInsatance = Instantiate(shadow);
 
         player = transform;
-        playerBody = GetComponent<Rigidbody>();
         cameraMain = Camera.main;
 
         if (PV.IsMine)

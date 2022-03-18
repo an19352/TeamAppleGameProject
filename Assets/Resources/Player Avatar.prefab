@@ -5196,6 +5196,7 @@ MonoBehaviour:
   isNPC: 0
   highlightedGreenMaterial: {fileID: 2100000, guid: 73306b8830f59e5418513cce5517dc55, type: 2}
   highlightedRedMaterial: {fileID: 2100000, guid: 58bee26ced6c6f744b21f82aa1205cc4, type: 2}
+  playerBody: {fileID: 8521386507383712021}
   speed: 625
   rotationSpeed: 15
   horizontalAxis: Horizontal
@@ -5207,6 +5208,7 @@ MonoBehaviour:
   shadowMask:
     serializedVersion: 2
     m_Bits: 65544
+  maxDiscDistance: 3
   currentPowerup: {fileID: 0}
   hasPowerup: 0
 --- !u!54 &8521386507383712021
