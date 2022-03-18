@@ -168,7 +168,7 @@ public class Movement : MonoBehaviour, IPunObservable
             stream.SendNext(playerBody.rotation);
             stream.SendNext(playerBody.velocity);
         }
-        if (stream.IsReading)
+        else if (stream.IsReading)
         {
             networkPosition = (Vector3)stream.ReceiveNext();
             networkRotation = (Quaternion)stream.ReceiveNext();
