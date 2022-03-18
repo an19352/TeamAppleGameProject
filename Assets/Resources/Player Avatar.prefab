@@ -5208,7 +5208,7 @@ MonoBehaviour:
   shadowMask:
     serializedVersion: 2
     m_Bits: 65544
-  maxDiscDistance: 3
+  maxDiscDistance: 6.5
   currentPowerup: {fileID: 0}
   hasPowerup: 0
 --- !u!54 &8521386507383712021
