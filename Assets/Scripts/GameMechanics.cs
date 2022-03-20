@@ -107,11 +107,11 @@ public class GameMechanics : MonoBehaviour
         }
         for (int i = 0; i < numberOfFlagsPerTeam[0]; i++)
         {
-            GreenFlags.GetChild(i).gameObject.GetComponent<Image>().enabled = true;
+            RedFlags.GetChild(i).gameObject.GetComponent<Image>().enabled = true;
         }
         for (int i = 0; i < numberOfFlagsPerTeam[1]; i++)
         {
-            RedFlags.GetChild(i).gameObject.GetComponent<Image>().enabled = true;
+            GreenFlags.GetChild(i).gameObject.GetComponent<Image>().enabled = true;
         }
     }
 
@@ -210,9 +210,9 @@ public class GameMechanics : MonoBehaviour
         players = _players;
 
         for (int i = 0; i < flags.Length; i++) numberOfFlagsPerTeam[i] = flags[i];
-        
 
-        foreach(Player _player in players)
+
+        foreach (Player _player in players)
         {
             _player.obj.GetComponent<MeshRenderer>().material = teamMaterials[_player.team];
         }

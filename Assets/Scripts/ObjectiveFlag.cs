@@ -159,7 +159,6 @@ public class ObjectiveFlag : MonoBehaviour
             // score a point for the team and disable its flag
             if (playerEntered.GetComponent<FlagHolder>().enabled)
             {
-
                 gameMechanics.UpdateFlag(teamId, true);
                 playerEntered.GetComponent<FlagHolder>().enabled = false;
                 otherObjectiveFlag.GetComponent<ObjectiveFlag>().hasFlag = true;

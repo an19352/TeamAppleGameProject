@@ -8,15 +8,15 @@ public class Inventory : MonoBehaviour
 {
     PhotonView PV;
     public static InventoryUIManager inventory;
-    List<System.Type> itemComponents = new List<System.Type> { typeof(SpaceBallAbilities.GravityGun), typeof(SpaceBallAbilities.Grapple), 
+    List<System.Type> itemComponents = new List<System.Type> { typeof(SpaceBallAbilities.GravityGun), typeof(SpaceBallAbilities.Grapple),
                                                                 typeof(SpaceBallAbilities.ImpulseCannon), typeof(Coin)};
     Dictionary<string, System.Type> typeLookUp = new Dictionary<string, System.Type>();
     public List<GameObject> tooltips;
     public Vector3 tooltipOffset;
     Canvas worldCanvas;
-    
+
     [Range(1, 5)]
-    public int inventorySize; 
+    public int inventorySize;
     IAbility[] inventoryItems;
     int selectedAbility, inventoryMaxATM;
     List<string> notNewPowerups = new List<string>();
@@ -54,7 +54,7 @@ public class Inventory : MonoBehaviour
 
         for (int i = 1; i < inventorySize; i++)
             inventoryItems[i] = null;
-        
+
         inventoryMaxATM = 0;
         activateItem("Impulse Gun");
         //inventoryItems[0] = impulseGunHolder.AddComponent(itemComponents[2]) as IAbility;
@@ -148,7 +148,7 @@ public class Inventory : MonoBehaviour
             {
                 Debug.LogWarning(tag + " was not in inventory");
                 return;
-            } 
+            }
         }
 
         for (; i < inventoryMaxATM; i++) inventoryItems[i] = inventoryItems[i + 1];
