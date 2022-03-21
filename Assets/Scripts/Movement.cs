@@ -90,9 +90,9 @@ public class Movement : MonoBehaviour, IPunObservable
 
         float x = Input.GetAxis(horizontalAxis);
         float z = Input.GetAxis(verticalAxis);
-        Vector3 move = new Vector3(x * speed * Time.fixedDeltaTime, playerBody.velocity.y, z * speed * Time.fixedDeltaTime);
+        Vector3 move = new Vector3(x * speed, 0, z * speed);
         //player.position = (player.position + move * speed * Time.deltaTime);
-        playerBody.velocity = (move);
+        playerBody.AddForce(move - playerBody.velocity);
 
         float step = rotationSpeed * Time.deltaTime;
 
