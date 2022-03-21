@@ -1,9 +1,14 @@
 fileFormatVersion: 2
-guid: d6b193f5a9a42ae47b734c2dcd9df053
+guid: 338787324af13b44c99d0f2d2eb7a930
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: leopolds-dreams-32x
+    second: {fileID: 2800000, guid: e74eaeef0d73a0e4387c12e0b3b2141d, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0

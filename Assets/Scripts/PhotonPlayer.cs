@@ -19,17 +19,17 @@ public class PhotonPlayer : MonoBehaviour
     {
         PV = GetComponent<PhotonView>();
         gameMechanics = GameMechanics.gameMechanics;
-        
+
         gameMechanics.redButton.onClick.AddListener(delegate { InitiatePlayer(0); });
         gameMechanics.greenButton.onClick.AddListener(delegate { InitiatePlayer(1); });
 
-        if(gameMechanics.activePowerups.Count > 0)
-        foreach(KeyValuePair<int, UnityEngine.Vector3> powerupID in gameMechanics.activePowerups)
-        {
+        if (gameMechanics.activePowerups.Count > 0)
+            foreach (KeyValuePair<int, UnityEngine.Vector3> powerupID in gameMechanics.activePowerups)
+            {
                 GameObject powerup = PhotonView.Find(powerupID.Key).gameObject;
-            powerup.SetActive(true);
-            powerup.transform.position = powerupID.Value;
-        }
+                powerup.SetActive(true);
+                powerup.transform.position = powerupID.Value;
+            }
     }
 
     // Update is called once per frame
@@ -37,10 +37,10 @@ public class PhotonPlayer : MonoBehaviour
     {
         float x;
         float z;
-        float greenX = Random.Range(-92, -68);
-        float greenZ = Random.Range(-20, 20);
-        float redX = Random.Range(68, 92);
-        float redZ = Random.Range(-20, 20);
+        float greenX = Random.Range(-85, -85);
+        float greenZ = Random.Range(-16, 16);
+        float redX = Random.Range(85, 85);
+        float redZ = Random.Range(-16, 16);
         int playerLayer;
 
         if (PV.IsMine)
