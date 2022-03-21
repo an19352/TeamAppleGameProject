@@ -196,4 +196,9 @@ public class Movement : MonoBehaviour, IPunObservable
             networkPosition += playerBody.velocity * lag;
         }
     }
+
+    private void OnDestroy()
+    {
+        Destroy(shadow);
+    }
 }

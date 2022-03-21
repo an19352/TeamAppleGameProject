@@ -4,7 +4,7 @@ using UnityEngine;
 using Photon.Pun;
 using UnityEngine.UI;
 
-public class PhotonPlayer : MonoBehaviour
+public class PhotonPlayer : MonoBehaviourPunCallbacks
 {
     private PhotonView PV;
     public static GameMechanics gameMechanics;
@@ -64,5 +64,10 @@ public class PhotonPlayer : MonoBehaviour
         }
 
         gameMechanics.menuItem.SetActive(false);
+    }
+
+    private void OnDestroy()
+    {
+        PhotonNetwork.Destroy(myAvatar);
     }
 }
