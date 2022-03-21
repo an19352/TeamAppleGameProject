@@ -56,6 +56,7 @@ public class Inventory : MonoBehaviour
             inventoryItems[i] = null;
 
         inventoryMaxATM = 0;
+        transform.GetChild(2).gameObject.SetActive(true);
         activateItem("Impulse Gun");
         //inventoryItems[0] = impulseGunHolder.AddComponent(itemComponents[2]) as IAbility;
         //inventoryItems[0].SetUp();
