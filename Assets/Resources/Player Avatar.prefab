@@ -5087,7 +5087,6 @@ GameObject:
   - component: {fileID: 7291472432763749253}
   - component: {fileID: -3096326147471984968}
   - component: {fileID: 6608188565613503937}
-  - component: {fileID: 3644458099836590924}
   - component: {fileID: 4070538607894281487}
   - component: {fileID: 6366128571172061808}
   m_Layer: 0
@@ -5294,19 +5293,6 @@ MonoBehaviour:
   impulseGunHolder: {fileID: 1973076938037938879}
   particleSystem: {fileID: 6164135461106777563}
   pushForce: 20
---- !u!114 &3644458099836590924
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8521386507383712022}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d535a04f6c97e4843850c5240df6a932, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pushForce: 100
 --- !u!114 &4070538607894281487
 MonoBehaviour:
   m_ObjectHideFlags: 0

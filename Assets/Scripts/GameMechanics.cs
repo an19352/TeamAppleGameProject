@@ -82,6 +82,19 @@ public class GameMechanics : MonoBehaviour
             players[i].obj.GetComponent<Movement>().SetId(i);
     }
 
+    private void Update()
+    {
+        foreach(Player player in players)
+        {
+            if (player.obj.GetPhotonView().Owner.IsInactive)
+            {
+                GameObject _obj = player.obj;
+                players.Remove(player);
+                PhotonNetwork.Destroy(_obj);
+            }
+        }
+    }
+
     public void InitialiseFlags()
     {
 
