@@ -233,8 +233,7 @@ namespace SpaceBallAbilities
                 pushNow[i] = toBePushed[i];
                 //                PV.RPC("RPC_Cannon", RpcTarget.All, i);
             }
-            //PV.RPC("RPC_Cannon", RpcTarget.All, pushNow, transform.forward * pushForce);
-            RPC_Cannon(pushNow, transform.forward * pushForce);
+            PV.RPC("RPC_Cannon", RpcTarget.All, pushNow, transform.forward * pushForce);
         }
 
         public void RightClick() { return; }
@@ -252,7 +251,6 @@ namespace SpaceBallAbilities
             for (int i = 0; i < pushNow.Length; i++)
             {
                 GameObject _obj = PhotonView.Find(pushNow[i]).gameObject;
-                Debug.Log(_obj.transform);
                 distance = Vector3.Distance(transform.parent.position, _obj.transform.position);
                 _obj.GetComponent<Rigidbody>().AddForce(pushFactor * (1 / distance), ForceMode.Impulse);
             }

@@ -955,7 +955,6 @@ MonoBehaviour:
   isNPC: 0
   highlightedGreenMaterial: {fileID: 0}
   highlightedRedMaterial: {fileID: 0}
-  playerBody: {fileID: 0}
   speed: 12
   rotationSpeed: 0
   horizontalAxis: 
@@ -967,7 +966,6 @@ MonoBehaviour:
   shadowMask:
     serializedVersion: 2
     m_Bits: 0
-  maxDiscDistance: 3
   currentPowerup: {fileID: 0}
   hasPowerup: 0
 --- !u!136 &364981107
@@ -13937,7 +13935,6 @@ MonoBehaviour:
   isNPC: 0
   highlightedGreenMaterial: {fileID: 0}
   highlightedRedMaterial: {fileID: 0}
-  playerBody: {fileID: 0}
   speed: 12
   rotationSpeed: 15
   horizontalAxis: Horizontal
@@ -13949,7 +13946,6 @@ MonoBehaviour:
   shadowMask:
     serializedVersion: 2
     m_Bits: 0
-  maxDiscDistance: 3
   currentPowerup: {fileID: 0}
   hasPowerup: 0
 --- !u!114 &1287108075

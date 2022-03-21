@@ -5090,7 +5090,6 @@ GameObject:
   - component: {fileID: 3644458099836590924}
   - component: {fileID: 4070538607894281487}
   - component: {fileID: 6366128571172061808}
-  - component: {fileID: -6406617146887709065}
   m_Layer: 0
   m_Name: Player Avatar
   m_TagString: Player
@@ -5248,7 +5247,6 @@ MonoBehaviour:
   observableSearch: 0
   ObservedComponents:
   - {fileID: -7131588376947766652}
-  - {fileID: -6406617146887709065}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -5337,22 +5335,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab7a4a62fb829d548897e1e94c7a9c74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &-6406617146887709065
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8521386507383712022}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64179f3720bbfe947b7724caa67b7c1d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SynchronizeVelocity: 1
-  m_SynchronizeAngularVelocity: 0
-  m_TeleportEnabled: 0
-  m_TeleportIfDistanceGreaterThan: 3
 --- !u!1 &8521386507560151343
 GameObject:
   m_ObjectHideFlags: 0
