@@ -14,13 +14,13 @@ public class Powerup : MonoBehaviour
     public enum Effects { Gravity_Gun, Grapple_Gun, Coin };
     public Effects _effect;
     string effect;
-
+    /*
     Dictionary<string, int> itemsLookup = new Dictionary<string, int>()
     {
         { "Gravity Gun", 0},
         { "Grapple Gun", 1 },
         { "Coin", 3 }
-    };
+    };*/
 
     // Start is called before the first frame update
     void Start()

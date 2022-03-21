@@ -167,6 +167,17 @@ public class Movement : MonoBehaviour, IPunObservable
         return ID;
     }
 
+    public void PushMe (Vector3 force, ForceMode mode, int PVID)
+    {
+        PV.RPC("RPC_PushMe", PhotonView.Find(PVID).Owner, force, mode);
+    }
+
+    [PunRPC]
+    public void RPC_PushMe(Vector3 force, ForceMode mode)
+    {
+        GetComponent<Rigidbody>().AddForce(force, mode);
+    }
+
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
         if (stream.IsWriting)
