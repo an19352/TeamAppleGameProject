@@ -81,7 +81,7 @@ public class GameMechanics : MonoBehaviour
         for (int i = 0; i < players.Count; i++)
             players[i].obj.GetComponent<Movement>().SetId(i);
     }
-
+    /*
     private void Update()
     {
         foreach(Player player in players)
@@ -93,7 +93,7 @@ public class GameMechanics : MonoBehaviour
                 Destroy(_obj);
             }
         }
-    }
+    }*/
 
     public void InitialiseFlags()
     {
@@ -159,8 +159,7 @@ public class GameMechanics : MonoBehaviour
         Player _player = players[playerID];
         GameObject _obj = _player.obj;
         players.Remove(_player);
-        _obj.GetComponent<Movement>().SelfDestruct();
-        if (_obj != null) Destroy(_obj);
+        Destroy(_obj);
     }
 
     public void RPC_Score(int teamID)

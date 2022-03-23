@@ -220,4 +220,9 @@ public class Movement : MonoBehaviour, IPunObservable
         if (PV.IsMine)
             PhotonNetwork.Destroy(gameObject);
     }
+
+    private void OnApplicationQuit()
+    {
+        gameMechanics.RPC_RemovePlayer(ID);
+    }
 }
