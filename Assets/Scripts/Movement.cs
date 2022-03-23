@@ -214,6 +214,6 @@ public class Movement : MonoBehaviour, IPunObservable
 
     private void OnDestroy()
     {
-        Destroy(shadow);
+        DestroyImmediate(shadow);
     }
 }
