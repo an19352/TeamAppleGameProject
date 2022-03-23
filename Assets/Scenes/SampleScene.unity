@@ -887,7 +887,7 @@ MonoBehaviour:
   rotationSpeed: 0
   horizontalAxis: 
   verticalAxis: 
-  ignoredLayers:
+  mousecastPlane:
     serializedVersion: 2
     m_Bits: 0
   shadow: {fileID: 0}
@@ -3989,9 +3989,9 @@ MonoBehaviour:
   rotationSpeed: 15
   horizontalAxis: Horizontal
   verticalAxis: Vertical
-  ignoredLayers:
+  mousecastPlane:
     serializedVersion: 2
-    m_Bits: 192
+    m_Bits: 0
   shadow: {fileID: 0}
   shadowMask:
     serializedVersion: 2
