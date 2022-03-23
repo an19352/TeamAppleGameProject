@@ -62,6 +62,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _effect: 0
+  pickupEffect: {fileID: 0}
 --- !u!114 &4502714479763640856
 MonoBehaviour:
   m_ObjectHideFlags: 0

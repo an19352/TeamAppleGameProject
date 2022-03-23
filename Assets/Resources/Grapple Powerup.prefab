@@ -229,6 +229,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _effect: 1
+  pickupEffect: {fileID: 0}
 --- !u!114 &9113826483214321866
 MonoBehaviour:
   m_ObjectHideFlags: 0
