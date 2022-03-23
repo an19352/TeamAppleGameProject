@@ -97,10 +97,10 @@ public class Movement : MonoBehaviour, IPunObservable
         float z = Input.GetAxis(verticalAxis);
         Vector3 move = new Vector3(x * speed, 0, z * speed);
         //player.position = (player.position + move * speed * Time.deltaTime);
-        if (Vector3.Dot(currentVelocity, lastFrameVelocity) / (currentVelocity.magnitude * lastFrameVelocity.magnitude) > 0.8)
-            playerBody.velocity = new Vector3(0, playerBody.velocity.y, 0) + move;
+        if (currentVelocity.magnitude > 23f)
+            playerBody.AddForce(move - currentVelocity, ForceMode.VelocityChange);
         else
-            playerBody.AddForce(move - playerBody.velocity);
+            playerBody.velocity = new Vector3(0, playerBody.velocity.y, 0) + move;
 
         //if (Time.time % 2 == 0) Debug.Log(Vector3.Dot(currentVelocity, lastFrameVelocity) / (currentVelocity.magnitude * lastFrameVelocity.magnitude));
         //DebugText.text = (Vector3.Dot(currentVelocity, lastFrameVelocity) / (currentVelocity.magnitude * lastFrameVelocity.magnitude)).ToString();
@@ -224,5 +224,6 @@ public class Movement : MonoBehaviour, IPunObservable
     private void OnApplicationQuit()
     {
         gameMechanics.RPC_RemovePlayer(ID);
+        PhotonNetwork.Disconnect();
     }
 }
