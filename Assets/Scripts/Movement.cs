@@ -22,6 +22,7 @@ public class Movement : MonoBehaviour, IPunObservable
     Vector3 lastFrameVelocity = new Vector3(0, 0, 0);
     Vector3 currentVelocity;
     Vector3 acceleration = new Vector3(0, 0, 0);
+    float mag = 0;
 
     int ID;               // ID is private so it can't be changed from inspector
 
@@ -91,6 +92,8 @@ public class Movement : MonoBehaviour, IPunObservable
         }
 
         currentVelocity = new Vector3(playerBody.velocity.x, 0, playerBody.velocity.z);
+        if(mag < currentVelocity.magnitude)
+            mag = currentVelocity.magnitude;
         acceleration = (currentVelocity - lastFrameVelocity);
         //Keyboard controls
 
@@ -181,9 +184,9 @@ public class Movement : MonoBehaviour, IPunObservable
         return ID;
     }
 
-    public void PushMe(Vector3 force, ForceMode mode, int PVID)
+    public void PushMe(Vector3 force, ForceMode mode)
     {
-        PV.RPC("RPC_PushMe", PhotonView.Find(PVID).Owner, force, mode);
+        PV.RPC("RPC_PushMe", PhotonView.Find(PV.ViewID).Owner, force, mode);
     }
 
     [PunRPC]
