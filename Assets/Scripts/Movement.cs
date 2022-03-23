@@ -102,7 +102,7 @@ public class Movement : MonoBehaviour, IPunObservable
         Vector3 move = new Vector3(x * speed, 0, z * speed);
         //player.position = (player.position + move * speed * Time.deltaTime);
         if (currentVelocity.magnitude > 23f)
-            playerBody.AddForce(move - currentVelocity, ForceMode.VelocityChange);
+            playerBody.AddForce(move - currentVelocity.normalized, ForceMode.VelocityChange);
         else
             playerBody.velocity = new Vector3(0, playerBody.velocity.y, 0) + move;
 

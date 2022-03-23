@@ -233,7 +233,7 @@ namespace SpaceBallAbilities
                 if (PhotonView.Find(toBePushed[i]) != null)
                 {
                     GameObject _obj = PhotonView.Find(toBePushed[i]).gameObject;
-                    _obj.GetComponent<Movement>().PushMe(transform.forward * pushForce, ForceMode.Impulse);
+                    _obj.GetComponent<Movement>().PushMe(transform.forward * pushForce, ForceMode.VelocityChange);
                 }
             }
         }
