@@ -97,7 +97,7 @@ public class Inventory : MonoBehaviour
             return; 
         }*/
         if (!PV.IsMine) return;
-        
+
         if (inventoryMaxATM == inventorySize) return;
 
         if (!notNewPowerups.Contains(tag))

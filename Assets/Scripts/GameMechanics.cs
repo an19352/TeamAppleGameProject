@@ -90,7 +90,7 @@ public class GameMechanics : MonoBehaviour
             {
                 GameObject _obj = player.obj;
                 players.Remove(player);
-                PhotonNetwork.Destroy(_obj);
+                Destroy(_obj);
             }
         }
     }
