@@ -44,6 +44,7 @@ public class MeteorShower : MonoBehaviour
     {
         meteor = poolOfObject.SpawnFromPool(meteorTags[randMet], randPositionSpawn, Quaternion.identity);
         Vector3 pushFactor = ((randPositionTarget - randPositionSpawn).normalized) * meteorFallForce;
+        meteor.GetComponent<Rigidbody>().velocity = new Vector3(0f, 0f, 0f);
         meteor.GetComponent<Rigidbody>().AddForce(pushFactor, ForceMode.Impulse);
     }
 
