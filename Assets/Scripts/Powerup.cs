@@ -13,6 +13,7 @@ public class Powerup : MonoBehaviour
 
     public enum Effects { Gravity_Gun, Grapple_Gun, Coin };
     public Effects _effect;
+    public GameObject pickupEffect;
     string effect;
     /*
     Dictionary<string, int> itemsLookup = new Dictionary<string, int>()
@@ -41,6 +42,10 @@ public class Powerup : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            // TODO: make the effect spawn also to be an RPC
+            // !For Now just local 
+
+
             PV.RPC("ActivateItem", RpcTarget.All, other.GetComponent<Movement>().GetId(), effect);
             PV.RPC("Disable", RpcTarget.All, null);
         }
@@ -62,24 +67,6 @@ public class Powerup : MonoBehaviour
     public void ActivateItem(int playerID, string item)
     {
         gameMechanics.players[playerID].obj.GetComponent<Inventory>().activateItem(item);
-    }
-
-    [PunRPC]
-    public void Orange(int playerID)
-    {
-        return;
-    }
-
-    [PunRPC]
-    public void Blue(int playerID)
-    {
-        return;
-    }
-
-    [PunRPC]
-    public void Purple(int playerID)
-    {
-        return;
     }
 
     [PunRPC]
