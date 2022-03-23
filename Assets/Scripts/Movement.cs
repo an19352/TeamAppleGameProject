@@ -32,7 +32,7 @@ public class Movement : MonoBehaviour, IPunObservable
 
     public string horizontalAxis;
     public string verticalAxis;
-    public LayerMask ignoredLayers;
+    public LayerMask mousecastPlane;
     public GameObject shadow;
     GameObject shadowInsatance;
     public LayerMask shadowMask;
@@ -59,6 +59,7 @@ public class Movement : MonoBehaviour, IPunObservable
 
         if (PV.IsMine)
         {
+            transform.GetChild(8).gameObject.SetActive(true);
             int team = gameMechanics.checkTeam(ID);
             if (team == 1)
             {
@@ -108,7 +109,7 @@ public class Movement : MonoBehaviour, IPunObservable
         float step = rotationSpeed * Time.deltaTime;
 
         Ray mouseRay = cameraMain.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(mouseRay, out RaycastHit hit, 1000f, ~ignoredLayers))
+        if (Physics.Raycast(mouseRay, out RaycastHit hit, 1000f, mousecastPlane))
         {
             mouseLocation = hit.point;
             lookDirection = (mouseLocation - player.position).normalized;
