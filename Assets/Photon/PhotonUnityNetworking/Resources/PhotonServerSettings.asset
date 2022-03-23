@@ -75,6 +75,7 @@ MonoBehaviour:
   - FlagUpdate
   - UpdateFlag
   - RPC_PushMe
+  - Remove_player
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

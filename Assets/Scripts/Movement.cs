@@ -75,9 +75,9 @@ public class Movement : MonoBehaviour, IPunObservable
     void FixedUpdate()
     {
         if (isNPC) return;
-        if (!PV.IsMine) 
+        if (!PV.IsMine)
         {
-            if(Vector3.Distance(networkPosition, playerBody.position) > maxDiscDistance)
+            if (Vector3.Distance(networkPosition, playerBody.position) > maxDiscDistance)
             {
                 playerBody.position = networkPosition;
                 playerBody.rotation = Quaternion.RotateTowards(playerBody.rotation, networkRotation, Time.fixedDeltaTime * 100f);
@@ -86,7 +86,7 @@ public class Movement : MonoBehaviour, IPunObservable
 
             playerBody.position = Vector3.MoveTowards(playerBody.position, networkPosition, Time.fixedDeltaTime);
             playerBody.rotation = Quaternion.RotateTowards(playerBody.rotation, networkRotation, Time.fixedDeltaTime * 100f);
-            return; 
+            return;
         }
 
         currentVelocity = new Vector3(playerBody.velocity.x, 0, playerBody.velocity.z);
@@ -180,7 +180,7 @@ public class Movement : MonoBehaviour, IPunObservable
         return ID;
     }
 
-    public void PushMe (Vector3 force, ForceMode mode, int PVID)
+    public void PushMe(Vector3 force, ForceMode mode, int PVID)
     {
         PV.RPC("RPC_PushMe", PhotonView.Find(PVID).Owner, force, mode);
     }
