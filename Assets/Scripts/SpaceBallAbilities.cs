@@ -230,37 +230,17 @@ namespace SpaceBallAbilities
             //pushed = GameObject.FindGameObjectsWithTag("Detected");
             for (int i = 0; i < toBePushed.Count; i++)
             {
-                GameObject _obj = PhotonView.Find(toBePushed[i]).gameObject;
-                _obj.GetComponent<Movement>().PushMe(transform.forward * pushForce, ForceMode.Impulse);
-                //pushNow[i] = toBePushed[i];
-                //                PV.RPC("RPC_Cannon", RpcTarget.All, i);
+                if (PhotonView.Find(toBePushed[i]) != null)
+                {
+                    GameObject _obj = PhotonView.Find(toBePushed[i]).gameObject;
+                    _obj.GetComponent<Movement>().PushMe(transform.forward * pushForce, ForceMode.VelocityChange);
+                }
             }
-            //PV.RPC("RPC_Cannon", RpcTarget.All, pushNow, transform.forward * pushForce);
         }
 
         public void RightClick() { return; }
 
         public InventoryElement GetIE() { return IE; }
-
-        private void OnDestroy()
-        {
-            //inventory.removeItem(IEtag);
-        }
-
-        [PunRPC]
-        void RPC_Cannon(int[] pushNow, Vector3 pushFactor)
-        {
-            for (int i = 0; i < pushNow.Length; i++)
-            {
-                if (PhotonView.Find(pushNow[i]) != null)
-                {
-                    GameObject _obj = PhotonView.Find(pushNow[i]).gameObject;
-                    distance = Vector3.Distance(transform.parent.position, _obj.transform.position);
-                    _obj.GetComponent<Rigidbody>().AddForce(pushFactor * (1 / distance), ForceMode.Impulse);
-                }
-            }
-
-        }
 
         private void OnTriggerEnter(Collider other)
         {
