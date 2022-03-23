@@ -127,8 +127,6 @@ public class Movement : MonoBehaviour, IPunObservable
 
     void LateUpdate()
     {
-
-
         RaycastHit hit;
         if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out hit, Mathf.Infinity, shadowMask))
         {
@@ -214,6 +212,6 @@ public class Movement : MonoBehaviour, IPunObservable
 
     private void OnDestroy()
     {
-        DestroyImmediate(shadow);
+        Destroy(shadowInsatance);
     }
 }
