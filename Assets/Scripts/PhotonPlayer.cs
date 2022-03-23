@@ -65,10 +65,4 @@ public class PhotonPlayer : MonoBehaviourPunCallbacks
 
         gameMechanics.menuItem.SetActive(false);
     }
-
-    private void OnDestroy()
-    {
-        if(PV.IsMine)
-        PhotonNetwork.Destroy(myAvatar);
-    }
 }

@@ -214,4 +214,10 @@ public class Movement : MonoBehaviour, IPunObservable
     {
         Destroy(shadowInsatance);
     }
+
+    public void SelfDestruct()
+    {
+        if (PV.IsMine)
+            PhotonNetwork.Destroy(gameObject);
+    }
 }

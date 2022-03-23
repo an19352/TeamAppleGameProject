@@ -148,6 +148,21 @@ public class GameMechanics : MonoBehaviour
         _player.obj.GetComponent<Movement>().SetId(players.Count - 1);
     }
 
+    public void RPC_RemovePlayer(int playerID)
+    {
+        PV.RPC("Remove_player", RpcTarget.All, playerID);
+    }
+
+    [PunRPC]
+    public void Remove_player(int playerID)
+    {
+        Player _player = players[playerID];
+        GameObject _obj = _player.obj;
+        players.Remove(_player);
+        _obj.GetComponent<Movement>().SelfDestruct();
+        if (_obj != null) Destroy(_obj);
+    }
+
     public void RPC_Score(int teamID)
     {
         PV.RPC("Score", RpcTarget.AllBuffered, teamID);
