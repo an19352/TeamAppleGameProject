@@ -18,6 +18,10 @@ public class Movement : MonoBehaviour, IPunObservable
     private Camera cameraMain;
 
     public float speed = 5f;
+    public float frictionCoef = 1.2f;
+    Vector3 lastFrameVelocity = new Vector3(0, 0, 0);
+    Vector3 currentVelocity;
+    Vector3 acceleration = new Vector3(0, 0, 0);
 
     int ID;               // ID is private so it can't be changed from inspector
 
@@ -68,7 +72,6 @@ public class Movement : MonoBehaviour, IPunObservable
         }
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
         if (isNPC) return;
@@ -86,13 +89,21 @@ public class Movement : MonoBehaviour, IPunObservable
             return; 
         }
 
+        currentVelocity = new Vector3(playerBody.velocity.x, 0, playerBody.velocity.z);
+        acceleration = (currentVelocity - lastFrameVelocity);
         //Keyboard controls
 
         float x = Input.GetAxis(horizontalAxis);
         float z = Input.GetAxis(verticalAxis);
         Vector3 move = new Vector3(x * speed, 0, z * speed);
         //player.position = (player.position + move * speed * Time.deltaTime);
-        playerBody.AddForce(move - playerBody.velocity);
+        if (Vector3.Dot(currentVelocity, lastFrameVelocity) / (currentVelocity.magnitude * lastFrameVelocity.magnitude) > 0.8)
+            playerBody.velocity = new Vector3(0, playerBody.velocity.y, 0) + move;
+        else
+            playerBody.AddForce(move - playerBody.velocity);
+
+        //if (Time.time % 2 == 0) Debug.Log(Vector3.Dot(currentVelocity, lastFrameVelocity) / (currentVelocity.magnitude * lastFrameVelocity.magnitude));
+        //DebugText.text = (Vector3.Dot(currentVelocity, lastFrameVelocity) / (currentVelocity.magnitude * lastFrameVelocity.magnitude)).ToString();
 
         float step = rotationSpeed * Time.deltaTime;
 
@@ -110,10 +121,14 @@ public class Movement : MonoBehaviour, IPunObservable
         player.rotation = Quaternion.Slerp(player.rotation, lookRotation, step);
 
         Fire();
+
+        lastFrameVelocity = currentVelocity;
     }
 
     void LateUpdate()
     {
+
+
         RaycastHit hit;
         if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out hit, Mathf.Infinity, shadowMask))
         {

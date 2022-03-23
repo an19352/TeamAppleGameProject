@@ -558,7 +558,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5223200164382058796, guid: ff08f3d22e1aa7a4c91f94c89bf534ee, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5223200164382058796, guid: ff08f3d22e1aa7a4c91f94c89bf534ee, type: 3}
       propertyPath: m_LocalPosition.x
@@ -883,6 +883,7 @@ MonoBehaviour:
   highlightedRedMaterial: {fileID: 0}
   playerBody: {fileID: 0}
   speed: 12
+  frictionCoef: 1.2
   rotationSpeed: 0
   horizontalAxis: 
   verticalAxis: 
@@ -4081,6 +4082,7 @@ MonoBehaviour:
   highlightedRedMaterial: {fileID: 0}
   playerBody: {fileID: 0}
   speed: 12
+  frictionCoef: 1.2
   rotationSpeed: 15
   horizontalAxis: Horizontal
   verticalAxis: Vertical

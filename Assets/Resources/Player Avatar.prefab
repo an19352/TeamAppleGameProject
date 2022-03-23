@@ -5196,7 +5196,8 @@ MonoBehaviour:
   highlightedGreenMaterial: {fileID: 2100000, guid: 73306b8830f59e5418513cce5517dc55, type: 2}
   highlightedRedMaterial: {fileID: 2100000, guid: 58bee26ced6c6f744b21f82aa1205cc4, type: 2}
   playerBody: {fileID: 8521386507383712021}
-  speed: 25
+  speed: 20
+  frictionCoef: 0.2
   rotationSpeed: 15
   horizontalAxis: Horizontal
   verticalAxis: Vertical
