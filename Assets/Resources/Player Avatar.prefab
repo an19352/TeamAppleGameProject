@@ -10210,8 +10210,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ignoredLayers:
     serializedVersion: 2
-    m_Bits: 0
-  meteorFallForce: 50
+    m_Bits: 131072
+  meteorFallForce: 10
 --- !u!114 &6366128571172061808
 MonoBehaviour:
   m_ObjectHideFlags: 0

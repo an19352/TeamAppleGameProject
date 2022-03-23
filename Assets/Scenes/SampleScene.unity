@@ -6005,7 +6005,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 861601461855915012, guid: 4b9eef4794ac1084caf36e88645e744d, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2381163966327287535, guid: 4b9eef4794ac1084caf36e88645e744d, type: 3}
       propertyPath: m_TagString
@@ -6203,7 +6203,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2189855169800015731, guid: 18fa7e423aaeb204f929e1cda9327e0c, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2281815134197513496, guid: 18fa7e423aaeb204f929e1cda9327e0c, type: 3}
       propertyPath: m_RootOrder
