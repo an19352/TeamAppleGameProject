@@ -101,10 +101,18 @@ public class Movement : MonoBehaviour, IPunObservable
         float z = Input.GetAxis(verticalAxis);
         Vector3 move = new Vector3(x * speed, 0, z * speed);
         //player.position = (player.position + move * speed * Time.deltaTime);
-        if (currentVelocity.magnitude > 23f)
-            playerBody.AddForce(move - currentVelocity, ForceMode.VelocityChange);
+        if (currentVelocity.magnitude > speed + 5f)
+            //playerBody.velocity = Vector3.Lerp(playerBody.velocity, move - playerBody.velocity, frictionCoef * Time.deltaTime);
+            playerBody.AddForce(move - playerBody.velocity);
         else
-            playerBody.velocity = new Vector3(0, playerBody.velocity.y, 0) + move;
+            playerBody.velocity = Vector3.Lerp(playerBody.velocity, new Vector3(0, playerBody.velocity.y, 0) + move, frictionCoef * Time.deltaTime);
+        /*
+
+        if (move.magnitude > 0.1f)
+            playerBody.AddForce(move);
+        else
+            playerBody.AddForce(-playerBody.velocity +Vector3.down * 9.81f, ForceMode.VelocityChange);
+        */
 
         //if (Time.time % 2 == 0) Debug.Log(Vector3.Dot(currentVelocity, lastFrameVelocity) / (currentVelocity.magnitude * lastFrameVelocity.magnitude));
         //DebugText.text = (Vector3.Dot(currentVelocity, lastFrameVelocity) / (currentVelocity.magnitude * lastFrameVelocity.magnitude)).ToString();
