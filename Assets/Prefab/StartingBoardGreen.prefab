@@ -222,7 +222,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0, g: 0.34274754, b: 0.6037736, a: 1}
+      maxColor: {r: 0, g: 0.56493497, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -5026,7 +5026,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0, g: 0.34274754, b: 0.6037736, a: 1}
+      maxColor: {r: 0, g: 0.56493497, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -9830,7 +9830,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0, g: 0.34274754, b: 0.6037736, a: 1}
+      maxColor: {r: 0, g: 0.56493497, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -14669,7 +14669,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0, g: 0.34274754, b: 0.6037736, a: 1}
+      maxColor: {r: 0, g: 0.56493497, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -19352,6 +19352,10 @@ PrefabInstance:
       propertyPath: team
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 606147806180581927, guid: bd78a2a15475a1d4698780a7d85602de, type: 3}
+      propertyPath: explosion
+      value: 
+      objectReference: {fileID: 1362822013187336473, guid: 71485555c39e1fc41a2caab498211993, type: 3}
     - target: {fileID: 807309145668344836, guid: bd78a2a15475a1d4698780a7d85602de, type: 3}
       propertyPath: m_Name
       value: ForceShield

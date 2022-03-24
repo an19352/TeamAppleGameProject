@@ -19348,6 +19348,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 606147806180581927, guid: bd78a2a15475a1d4698780a7d85602de, type: 3}
+      propertyPath: explosion
+      value: 
+      objectReference: {fileID: 1362822013187336473, guid: 71485555c39e1fc41a2caab498211993, type: 3}
     - target: {fileID: 807309145668344836, guid: bd78a2a15475a1d4698780a7d85602de, type: 3}
       propertyPath: m_Name
       value: ForceShield
@@ -19533,20 +19537,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4989051873170242972, guid: d6b193f5a9a42ae47b734c2dcd9df053, type: 3}
   m_PrefabInstance: {fileID: 5399645447057982344}
   m_PrefabAsset: {fileID: 0}
---- !u!64 &3612571270417263541
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1462451263430581217}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4134334079762673540, guid: d6b193f5a9a42ae47b734c2dcd9df053, type: 3}
 --- !u!64 &1119233857318422905
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -19561,6 +19551,20 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 5603498468283802828, guid: d6b193f5a9a42ae47b734c2dcd9df053, type: 3}
+--- !u!64 &3612571270417263541
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1462451263430581217}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4134334079762673540, guid: d6b193f5a9a42ae47b734c2dcd9df053, type: 3}
 --- !u!1001 &5410863404300361650
 PrefabInstance:
   m_ObjectHideFlags: 0
