@@ -19,10 +19,7 @@ public class Movement : MonoBehaviour, IPunObservable
 
     public float speed = 5f;
     public float frictionCoef = 1.2f;
-    Vector3 lastFrameVelocity = new Vector3(0, 0, 0);
     Vector3 currentVelocity;
-    Vector3 acceleration = new Vector3(0, 0, 0);
-    float mag = 0;
 
     int ID;               // ID is private so it can't be changed from inspector
 
@@ -78,7 +75,7 @@ public class Movement : MonoBehaviour, IPunObservable
     {
         if (isNPC) return;
         if (!PV.IsMine)
-        {
+        {   // Move other players according to the data they sent over the network... teleport them if they are too far away
             if (Vector3.Distance(networkPosition, playerBody.position) > maxDiscDistance)
             {
                 playerBody.position = networkPosition;
@@ -91,50 +88,33 @@ public class Movement : MonoBehaviour, IPunObservable
             return;
         }
 
-        currentVelocity = new Vector3(playerBody.velocity.x, 0, playerBody.velocity.z);
-        if(mag < currentVelocity.magnitude)
-            mag = currentVelocity.magnitude;
-        acceleration = (currentVelocity - lastFrameVelocity);
+        currentVelocity = new Vector3(playerBody.velocity.x, 0, playerBody.velocity.z);   // #LeaveGravityAlone
+        
         //Keyboard controls
-
         float x = Input.GetAxis(horizontalAxis);
         float z = Input.GetAxis(verticalAxis);
-        Vector3 move = new Vector3(x * speed, 0, z * speed);
-        //player.position = (player.position + move * speed * Time.deltaTime);
+        Vector3 move = new Vector3(x * speed, 0, z * speed);        // The direction the player wants to move in
         if (currentVelocity.magnitude > speed + 5f)
-            //playerBody.velocity = Vector3.Lerp(playerBody.velocity, move - playerBody.velocity, frictionCoef * Time.deltaTime);
-            playerBody.AddForce(move - playerBody.velocity);
+            playerBody.AddForce(move - playerBody.velocity);        // If the force is greater then what the player can do, let it play out
         else
             playerBody.velocity = Vector3.Lerp(playerBody.velocity, new Vector3(0, playerBody.velocity.y, 0) + move, frictionCoef * Time.deltaTime);
-        /*
+                                                                    
+                                                                    // This part ^ allows the player to beat his own input force and turn around quickly
+        float step = rotationSpeed * Time.deltaTime;                // frictionCoef controls how easy it is for the player to fully change moving direction
 
-        if (move.magnitude > 0.1f)
-            playerBody.AddForce(move);
-        else
-            playerBody.AddForce(-playerBody.velocity +Vector3.down * 9.81f, ForceMode.VelocityChange);
-        */
-
-        //if (Time.time % 2 == 0) Debug.Log(Vector3.Dot(currentVelocity, lastFrameVelocity) / (currentVelocity.magnitude * lastFrameVelocity.magnitude));
-        //DebugText.text = (Vector3.Dot(currentVelocity, lastFrameVelocity) / (currentVelocity.magnitude * lastFrameVelocity.magnitude)).ToString();
-
-        float step = rotationSpeed * Time.deltaTime;
-
-        Ray mouseRay = cameraMain.ScreenPointToRay(Input.mousePosition);
+        Ray mouseRay = cameraMain.ScreenPointToRay(Input.mousePosition);   
         if (Physics.Raycast(mouseRay, out RaycastHit hit, 1000f, mousecastPlane))
         {
             mouseLocation = hit.point;
             lookDirection = (mouseLocation - player.position).normalized;
-            lookRotation = Quaternion.LookRotation(lookDirection);
+            lookRotation = Quaternion.LookRotation(lookDirection);  // Calculte the angle needed to rotate on the y axis to look at the cursor
             lookRotation.x = 0f;
             lookRotation.z = 0f;
         }
 
-        //player.position = Vector3.MoveTowards(player.position, move, step);
         player.rotation = Quaternion.Slerp(player.rotation, lookRotation, step);
 
         Fire();
-
-        lastFrameVelocity = currentVelocity;
     }
 
     void LateUpdate()
