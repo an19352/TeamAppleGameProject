@@ -38,15 +38,13 @@ public class Powerup : MonoBehaviour
     }
 
     //Makes powerup disappear when touched and writes to powerup text in UI
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision other)
     {
-        if (other.CompareTag("Player"))
+        if (other.collider.CompareTag("Player"))
         {
             // TODO: make the effect spawn also to be an RPC
-            // !For Now just local 
-
-
-            PV.RPC("ActivateItem", RpcTarget.All, other.GetComponent<Movement>().GetId(), effect);
+            // !For Now just local
+            PV.RPC("ActivateItem", RpcTarget.All, other.collider.GetComponent<Movement>().GetId(), effect);
             PV.RPC("Disable", RpcTarget.All, null);
         }
     }

@@ -8,14 +8,13 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: 11 - Default
-  m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
-  m_ShaderKeywords: 
-  m_LightmapFlags: 5
+  m_Shader: {fileID: -6465566751694194690, guid: d158bf6c9002449408f29f3fecbf48cb, type: 3}
+  m_ShaderKeywords: _EMISSION
+  m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 2000
-  stringTagMap:
-    RenderType: Opaque
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
@@ -77,6 +76,8 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
+    - Vector1_1b7eb350ef304a09b083e623974ba2ed: 1
+    - Vector1_78de307ae8e04f149454895092b4ff6e: 2
     - _AlphaClip: 0
     - _Blend: 0
     - _BumpScale: 1
@@ -106,9 +107,13 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
+    - Color_607b0b21c2744679ad22c0912c69d60e: {r: 1, g: 1, b: 1, a: 1}
+    - Vector3_de6e6094f813423787a5e081803c2bc1: {r: 0, g: 0, b: 0, a: 0}
+    - _BackColor: {r: 0, g: 0.03529412, b: 0.09362745, a: 1}
     - _BaseColor: {r: 0.6397059, g: 0.63179064, b: 0.35277897, a: 1}
     - _Color: {r: 0.6397059, g: 0.63179064, b: 0.35277897, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _FrontColor: {r: 0, g: 1.641597, b: 4.237095, a: 1}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &3743984557314355289

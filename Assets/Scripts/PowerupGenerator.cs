@@ -6,7 +6,7 @@ using Photon.Pun;
 public class PowerupGenerator : MonoBehaviour
 {
     ObjectPooler poolOfObject;
-    
+
     private GameObject newCube;
     private List<string> powerupTags;
     private PhotonView PV;
@@ -14,6 +14,7 @@ public class PowerupGenerator : MonoBehaviour
     public string powerupTag = "Powerup";
     public List<Transform> spawiningPoints;
     public GameObject powerupUpdatePender;
+    public GameObject spawnEffect;
 
     //Generates random position in the space of Vector3
     private Vector3 RandomPosition()
@@ -39,10 +40,14 @@ public class PowerupGenerator : MonoBehaviour
 
             int randPow = Random.Range(0, powerupTags.Count);
             Vector3 randPosition = RandomPosition();
+            Instantiate(spawnEffect, randPosition, Quaternion.identity);
+            // wait for the spawn animation to finish before spawning the item
+            yield return new WaitForSeconds(10);
+
             PV.RPC("GenerateRandomPowerup", RpcTarget.All, randPow, randPosition);
         }
     }
-    
+
     // Start is called before the first frame update
     void Start()
     {
