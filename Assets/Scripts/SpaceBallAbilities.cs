@@ -132,6 +132,7 @@ namespace SpaceBallAbilities
         float stopPullDistance;
         GameObject hookPrefab;
         Transform shootTransform;
+        float antigravity;
 
         Hook hook;
         Rigidbody rigid;
@@ -149,6 +150,7 @@ namespace SpaceBallAbilities
             inventory = GetComponent<Inventory>();
             InventoryUIManager.inventory.AddUIElement(IEtag, inventory);
             cameraMain = Camera.main;
+            antigravity = inventory.antigravity;
             lm = LayerMask.GetMask("Hookable");
 
 
@@ -175,7 +177,7 @@ namespace SpaceBallAbilities
                 }
                 int IPPV = rigid.gameObject.GetComponent<PhotonView>().ViewID;
                 hook = PhotonNetwork.Instantiate(hookPrefab.name, shootTransform.position, Quaternion.identity).GetComponent<Hook>();
-                hook.PhotonInitialise(IPPV, shootTransform.forward, maxShootDistance, stopPullDistance, pullSpeed, hookLifetime);
+                hook.PhotonInitialise(IPPV, shootTransform.forward, maxShootDistance, stopPullDistance, pullSpeed, antigravity, hookLifetime);
             }
         }
 

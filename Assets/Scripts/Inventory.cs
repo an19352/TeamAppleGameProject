@@ -31,6 +31,7 @@ public class Inventory : MonoBehaviour
     public float maxShootDistance = 20f;
     public float stopPullDistance = 0.2f;
     public float hookLifetime = 8f;
+    public float antigravity = 5f;
     public GameObject hookPrefab;
 
     [Header("Impulse Gun Settings")]

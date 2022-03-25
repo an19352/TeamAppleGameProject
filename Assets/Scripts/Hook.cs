@@ -10,12 +10,16 @@ public class Hook : MonoBehaviour
 
     float timeLife;
     public float hookForce = 25f;
-    Rigidbody rigid, playerRB;
+    Rigidbody rigid;
+    Movement player;
     LineRenderer lineRenderer;
+    Vector3 pullingForce = new Vector3(0f, 0f, 0f);
 
     float pullSpeed;
     float maxShootDistance;
     float stopPullDistance;
+    float antigravity;
+    float sin = 0f;
 
     void Awake()
     { 
@@ -28,17 +32,16 @@ public class Hook : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector3 playerPosition = playerRB.transform.position;
+        Vector3 playerPosition = player.transform.position;
 
         lineRenderer.SetPositions(new Vector3[] {
             transform.position,
             playerPosition
         });
 
-        if (rigid.useGravity) return;
+        if (rigid.velocity.magnitude > 0.1f) return;
 
         if (Time.time >= timeLife) Destroy(this.gameObject);
-
 
         if (Vector3.Distance(playerPosition, transform.position) >= maxShootDistance)
         {
@@ -51,28 +54,29 @@ public class Hook : MonoBehaviour
         }
         else
         {
-
-            playerRB.AddForce((transform.position - playerPosition).normalized * pullSpeed, ForceMode.VelocityChange);
+            pullingForce = (transform.position - playerPosition).normalized * pullSpeed;
+            sin = (new Vector2(pullingForce.x, pullingForce.z).magnitude) / Vector3.Distance(transform.position, playerPosition);
+            player.PushMe(pullingForce + Vector3.up * (-sin * antigravity), ForceMode.Acceleration);
         }
     }
 
-    public void PhotonInitialise(int rigidId, Vector3 _shootTransformForward, float _maxShootDistance, float _stopPullDistance, float _pullSpeed, float _timeLife)
+    public void PhotonInitialise(int rigidId, Vector3 _shootTransformForward, float _maxShootDistance, float _stopPullDistance, float _pullSpeed, float _antigravity, float _timeLife)
     {
-        
-
-        PV.RPC("Initialise", RpcTarget.All, rigidId, _shootTransformForward, _maxShootDistance, _stopPullDistance, _pullSpeed, _timeLife);
+        PV.RPC("Initialise", RpcTarget.All, rigidId, _shootTransformForward, _maxShootDistance, _stopPullDistance, _pullSpeed, _antigravity, _timeLife);
     }
 
     [PunRPC]
-    void Initialise(int rigidId, Vector3 _shootTransformForward, float _maxShootDistance, float _stopPullDistance, float _pullSpeed, float _timeLife)
+    void Initialise(int rigidId, Vector3 _shootTransformForward, float _maxShootDistance, float _stopPullDistance, float _pullSpeed, float _antigravity, float _timeLife)
     {
         transform.forward = _shootTransformForward;
-        rigid.AddForce(transform.forward * hookForce, ForceMode.Impulse);
 
-        playerRB = PhotonView.Find(rigidId).gameObject.GetComponent<Rigidbody>();
+        player = PhotonView.Find(rigidId).gameObject.GetComponent<Movement>();
+        rigid.AddForce(transform.forward * (hookForce) + player.playerBody.velocity, ForceMode.Impulse);
+        
         maxShootDistance = _maxShootDistance;
         stopPullDistance = _stopPullDistance;
         pullSpeed = _pullSpeed;
+        antigravity = _antigravity;
 
         timeLife = Time.time + _timeLife;
     }
@@ -81,7 +85,6 @@ public class Hook : MonoBehaviour
     {
         if ((LayerMask.GetMask("Hookable") & 1 << other.gameObject.layer) > 0)
         {
-            rigid.useGravity = false;
             rigid.isKinematic = true;
         }
     }
