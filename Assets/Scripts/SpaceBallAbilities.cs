@@ -87,7 +87,7 @@ namespace SpaceBallAbilities
         
         private void OnDestroy()
         {
-            //inventory.removeItem(IEtag);   
+            RightClick();   
         }
 
         [PunRPC]
@@ -189,7 +189,7 @@ namespace SpaceBallAbilities
 
         private void OnDestroy()
         {
-            //inventory.removeItem(IEtag);
+            RightClick();
         }
     }
 
