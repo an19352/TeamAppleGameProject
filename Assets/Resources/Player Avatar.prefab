@@ -10100,8 +10100,8 @@ MonoBehaviour:
   playerBody: {fileID: 8521386507383712021}
   speed: 26.5
   frictionCoef: 40
-  gravityStrength: 9
-  jumpForce: 1e+9
+  gravityStrength: 13
+  jumpForce: 550
   rotationSpeed: 15
   horizontalAxis: Horizontal
   verticalAxis: Vertical
