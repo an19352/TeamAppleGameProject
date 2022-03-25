@@ -10102,7 +10102,7 @@ MonoBehaviour:
   frictionCoef: 40
   gravityStrength: 13
   jumpForce: 550
-  rotationSpeed: 15
+  rotationSpeed: 50
   horizontalAxis: Horizontal
   verticalAxis: Vertical
   mousecastPlane:
