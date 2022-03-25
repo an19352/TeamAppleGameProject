@@ -19,7 +19,10 @@ public class Movement : MonoBehaviour, IPunObservable
 
     public float speed = 5f;
     public float frictionCoef = 1.2f;
+    public float gravityStrength = 9.8f;
+    public float jumpForce = 13f;
     Vector3 currentVelocity;
+    bool isGrounded;
 
     int ID;               // ID is private so it can't be changed from inspector
 
@@ -95,8 +98,9 @@ public class Movement : MonoBehaviour, IPunObservable
         float z = Input.GetAxis(verticalAxis);
         Vector3 move = new Vector3(x * speed, 0, z * speed);        // The direction the player wants to move in
         if (currentVelocity.magnitude > speed + 5f)
-            playerBody.AddForce(move - playerBody.velocity);        // If the force is greater then what the player can do, let it play out
-        else
+            playerBody.AddForce(move - playerBody.velocity, ForceMode.Acceleration);
+                                                                    // If the force is greater then what the player can do, let it play out
+        else                                                        
             playerBody.velocity = Vector3.Lerp(playerBody.velocity, new Vector3(0, playerBody.velocity.y, 0) + move, frictionCoef * Time.deltaTime);
                                                                     
                                                                     // This part ^ allows the player to beat his own input force and turn around quickly
@@ -113,6 +117,11 @@ public class Movement : MonoBehaviour, IPunObservable
         }
 
         player.rotation = Quaternion.Slerp(player.rotation, lookRotation, step);
+        if (isGrounded)
+            if (Input.GetKeyDown(KeyCode.Space))
+                playerBody.AddForce(transform.up * jumpForce, ForceMode.Acceleration);
+        
+        playerBody.AddForce(Vector3.down * gravityStrength, ForceMode.Acceleration);
 
         Fire();
     }
@@ -126,6 +135,16 @@ public class Movement : MonoBehaviour, IPunObservable
             shadowInsatance.transform.position = transform.position + Vector3.down * hit.distance;
         }
         else shadowInsatance.SetActive(false);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        isGrounded = true;
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        isGrounded = false;
     }
 
     void Fire()

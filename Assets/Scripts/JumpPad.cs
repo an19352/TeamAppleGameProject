@@ -29,7 +29,7 @@ public class JumpPad : MonoBehaviour
         arrowUp.SetActive(false);
         StartCoroutine(ActivateCooldown(coolDown));
         Rigidbody playerBody = other.collider.attachedRigidbody;
-        playerBody.AddForce(transform.up * upwardForce);
+        playerBody.AddForce(transform.up * upwardForce, ForceMode.Acceleration);
 
 
     }
