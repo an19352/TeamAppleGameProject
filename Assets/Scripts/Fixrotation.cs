@@ -6,15 +6,14 @@ public class Fixrotation : MonoBehaviour
 {
     public Transform child;
     // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    // void Start()
+    // {
+    //     
+    // }
 
     // Update is called once per frame
     void Update()
     {
-        //var rotation = Quaternion.LookRotation(Vector3.up , Vector3.forward);
         child.transform.rotation = Quaternion.Euler (0.0f, 0.0f, gameObject.transform.rotation.z * -1.0f);
     }
     
