@@ -50,6 +50,8 @@ public class GameMechanics : MonoBehaviour
 
     public Timer timer;
 
+    public List<GameObject> redgens;
+    public List<GameObject> greengens;
     public Button redButton;
     public Button greenButton;
     public GameObject menuItem;
