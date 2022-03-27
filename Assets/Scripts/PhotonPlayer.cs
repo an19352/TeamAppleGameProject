@@ -14,6 +14,7 @@ public class PhotonPlayer : MonoBehaviourPunCallbacks
 
     public GameObject playerPrefab;
 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -37,9 +38,9 @@ public class PhotonPlayer : MonoBehaviourPunCallbacks
     {
         float x;
         float z;
-        float greenX = Random.Range(-85, -85);
+        float greenX = Random.Range(-145, -145);
         float greenZ = Random.Range(-16, 16);
-        float redX = Random.Range(85, 85);
+        float redX = Random.Range(145, 145);
         float redZ = Random.Range(-16, 16);
         int playerLayer;
 
