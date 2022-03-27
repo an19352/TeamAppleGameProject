@@ -37,7 +37,7 @@ public class ObjectiveFlag : MonoBehaviour
     {
         PV = GetComponent<PhotonView>();
         hasFlag = true;
-        flag = transform.Find("Flag").gameObject;
+        flag = transform.Find("Ball").gameObject;
         detectionField = transform.Find("DetectionField").gameObject;
         gameMechanics = GameMechanics.gameMechanics;
         numOfAttackers = 0;
@@ -147,7 +147,6 @@ public class ObjectiveFlag : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-
         // track players as they enter the detection field
         if (!playersList.Exists(pair => pair.Player == other.gameObject) && other.gameObject.CompareTag("Player"))
         {
@@ -155,20 +154,20 @@ public class ObjectiveFlag : MonoBehaviour
             GameObject playerEntered = other.gameObject;
             int playerId = playerEntered.GetComponent<Movement>().GetId();
             int teamId = gameMechanics.checkTeam(playerId);
-            // First and formost, if any friendly player enters holding a flag,
-            // score a point for the team and disable its flag
-            if (playerEntered.GetComponent<FlagHolder>().enabled)
-            {
-                gameMechanics.UpdateFlag(teamId, true);
-                playerEntered.GetComponent<FlagHolder>().enabled = false;
-                otherObjectiveFlag.GetComponent<ObjectiveFlag>().hasFlag = true;
-                otherObjectiveFlag.transform.Find("Flag").gameObject.SetActive(true);
-            }
 
             // update attacker/defender counter
             if (teamId == defendTeam)
             {
                 numOfDefenders++;
+                // if any friendly player enters holding a flag,
+                // score a point for the team and disable its flag
+                if (playerEntered.GetComponent<FlagHolder>().enabled)
+                {
+                    gameMechanics.UpdateFlag(teamId, true);
+                    playerEntered.GetComponent<FlagHolder>().enabled = false;
+                    otherObjectiveFlag.GetComponent<ObjectiveFlag>().hasFlag = true;
+                    otherObjectiveFlag.transform.Find("Ball").gameObject.SetActive(true);
+                }
             }
             else
             {

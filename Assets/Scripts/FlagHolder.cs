@@ -13,12 +13,16 @@ public class FlagHolder : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        transform.Find("Flag").gameObject.SetActive(true);
+        transform.Find("Ball").gameObject.SetActive(true);
         // flagTeam = gameObject.GetComponent<Movement>().GetId();
     }
 
     void OnDisable()
     {
-        transform.Find("Flag").gameObject.SetActive(false);
+        transform.Find("Ball").gameObject.SetActive(false);
+    }
+    void OnEnable()
+    {
+        transform.Find("Ball").gameObject.SetActive(true);
     }
 }

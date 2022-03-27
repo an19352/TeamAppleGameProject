@@ -12,4 +12,11 @@ public class RepelField : MonoBehaviour
         Rigidbody playerBody = other.attachedRigidbody;
         playerBody.AddForce(forceDir * force);
     }
+    void OnCollisionEnter(Collision other)
+    {
+        // apply the force in the opposite direction that the player went in
+        Vector3 forceDir = -(transform.position - other.transform.position);
+        Rigidbody playerBody = other.collider.attachedRigidbody;
+        playerBody.AddForce(forceDir * force);
+    }
 }
