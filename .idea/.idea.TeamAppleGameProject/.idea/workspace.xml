@@ -6,6 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="9d59a655-b95b-4264-984d-b993a5d47562" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TeamAppleGameProject/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TeamAppleGameProject/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Arrow.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Arrow.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -91,6 +93,8 @@
       <workItem from="1647263024689" duration="3570000" />
       <workItem from="1648150443358" duration="20239000" />
       <workItem from="1648308176326" duration="264000" />
+      <workItem from="1648322589223" duration="135000" />
+      <workItem from="1648478159764" duration="840000" />
     </task>
     <servers />
   </component>
