@@ -42,10 +42,13 @@ public class MeteorShower : MonoBehaviour
     [PunRPC]
     void GenerateMeteor(int randMet, Vector3 randPositionSpawn, Vector3 randPositionTarget)
     {
-        meteor = poolOfObject.SpawnFromPool(meteorTags[randMet], randPositionSpawn, Quaternion.identity);
-        Vector3 pushFactor = ((randPositionTarget - randPositionSpawn).normalized) * meteorFallForce;
-        meteor.GetComponent<Rigidbody>().velocity = new Vector3(0f, 0f, 0f);
-        meteor.GetComponent<Rigidbody>().AddForce(pushFactor, ForceMode.Impulse);
+        if (PV.IsMine)
+        {
+            meteor = poolOfObject.SpawnFromPool(meteorTags[randMet], randPositionSpawn, Quaternion.identity);
+            Vector3 pushFactor = ((randPositionTarget - randPositionSpawn).normalized) * meteorFallForce;
+            meteor.GetComponent<Rigidbody>().velocity = new Vector3(0f, 0f, 0f);
+            meteor.GetComponent<Rigidbody>().AddForce(pushFactor, ForceMode.Impulse);
+        }
     }
 
     void SpawnMeteor()
