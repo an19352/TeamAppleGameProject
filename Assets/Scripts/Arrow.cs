@@ -33,6 +33,11 @@ public class Arrow : MonoBehaviour
     //     teamId = gameMechanics.checkTeam(playerId);
     // }
 
+    private void Awake()
+    {
+        arrow.SetActive(true);    
+    }
+
     // Update is called once per frame
     void Update()
     {
