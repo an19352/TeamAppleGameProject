@@ -19,6 +19,9 @@ public class Arrow : MonoBehaviour
     [HideInInspector]
     public GameObject flag;
 
+    [HideInInspector] 
+    public GameObject home;
+
     //private GameMechanics gameMechanics;
     //private int teamId;
     // Start is called before the first frame update
@@ -69,7 +72,14 @@ public class Arrow : MonoBehaviour
         var list = dist.Keys.ToList();
         if (list.Count == 0)
         {
-            generator = flag;
+            if (this.gameObject.GetComponent<FlagHolder>().enabled)
+            {
+                generator = home;
+            }
+            else
+            {
+                generator = flag;
+            }
         }
         else
         {
@@ -89,5 +99,6 @@ public class Arrow : MonoBehaviour
         generator2 = gens[1];
         generator3 = gens[2];
         flag = gens[3];
+        home = gens[4];
     }
 }

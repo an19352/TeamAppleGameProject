@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.19634691, g: 0.09731356, b: 0.119633995, a: 1}
+  m_IndirectSpecularColor: {r: 0.1962879, g: 0.09740276, b: 0.11954967, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -171,11 +171,13 @@ MonoBehaviour:
   - {fileID: 494832437}
   - {fileID: 1083527709}
   - {fileID: 991864233}
+  - {fileID: 1100069053}
   greengens:
   - {fileID: 1245927289}
   - {fileID: 2194458613028478735}
   - {fileID: 1589144394}
   - {fileID: 1100069051}
+  - {fileID: 991864234}
   redButton: {fileID: 438487761}
   greenButton: {fileID: 932828948}
   menuItem: {fileID: 140748702}
@@ -3440,6 +3442,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 8042518775565755914, guid: 1f1ac4a73097c5f41bb7a6413df2c86e, type: 3}
   m_PrefabInstance: {fileID: 991864230}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &991864234 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 376143127431588121, guid: 1f1ac4a73097c5f41bb7a6413df2c86e, type: 3}
+  m_PrefabInstance: {fileID: 991864230}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1039434764
 GameObject:
   m_ObjectHideFlags: 0
@@ -4001,6 +4008,11 @@ GameObject:
 --- !u!1 &1100069052 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1337390470386120520, guid: 4b9eef4794ac1084caf36e88645e744d, type: 3}
+  m_PrefabInstance: {fileID: 1100069049}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1100069053 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3725601306088826322, guid: 4b9eef4794ac1084caf36e88645e744d, type: 3}
   m_PrefabInstance: {fileID: 1100069049}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1135379286
