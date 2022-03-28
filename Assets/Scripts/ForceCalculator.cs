@@ -16,6 +16,10 @@ public class ForceCalculator : MonoBehaviour
     private Image healthBarImage;
 
     private ForceShield fsScript;
+    public LayerMask players;
+
+    public float pushForce = 5;
+    public float explosionRadius = 2;
 
 
     // Start is called before the first frame update
@@ -40,6 +44,7 @@ public class ForceCalculator : MonoBehaviour
             fsScript.generatorDestroyed++;
             Debug.Log(fsScript.generatorDestroyed);
             Destroy(this.gameObject);
+            RepelNearbyPlayers();
         }
 
     }
@@ -60,5 +65,17 @@ public class ForceCalculator : MonoBehaviour
         healthRemain -= force;
         float fraction = healthRemain / health;
         healthBarImage.fillAmount = fraction;
+    }
+
+    void RepelNearbyPlayers()
+    {
+        Collider[] playersInRadius = Physics.OverlapSphere(transform.position, explosionRadius, players, 0);
+        foreach (Collider player in playersInRadius)
+        {
+            Debug.Log(player);
+            Vector3 pushFactor = (player.transform.position - transform.position).normalized * pushForce;
+            Debug.Log(pushFactor);
+            player.GetComponent<Movement>().RPC_PushMe(pushFactor, ForceMode.Impulse);
+        }
     }
 }

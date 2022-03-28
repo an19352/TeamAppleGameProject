@@ -1913,12 +1913,20 @@ PrefabInstance:
       value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 5986070424073642859, guid: 4559a3726e1d96f4894f9e01eeeba80e, type: 3}
+      propertyPath: pushForce
+      value: 75
+      objectReference: {fileID: 0}
+    - target: {fileID: 5986070424073642859, guid: 4559a3726e1d96f4894f9e01eeeba80e, type: 3}
       propertyPath: forceShield
       value: 
       objectReference: {fileID: 991864232}
     - target: {fileID: 5986070424073642859, guid: 4559a3726e1d96f4894f9e01eeeba80e, type: 3}
       propertyPath: healthRemain
       value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 5986070424073642859, guid: 4559a3726e1d96f4894f9e01eeeba80e, type: 3}
+      propertyPath: players.m_Bits
+      value: 12288
       objectReference: {fileID: 0}
     - target: {fileID: 5986070424073642859, guid: 4559a3726e1d96f4894f9e01eeeba80e, type: 3}
       propertyPath: destroyedVersion
@@ -3779,12 +3787,20 @@ PrefabInstance:
       value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 5986070424073642859, guid: 4559a3726e1d96f4894f9e01eeeba80e, type: 3}
+      propertyPath: pushForce
+      value: 75
+      objectReference: {fileID: 0}
+    - target: {fileID: 5986070424073642859, guid: 4559a3726e1d96f4894f9e01eeeba80e, type: 3}
       propertyPath: forceShield
       value: 
       objectReference: {fileID: 991864232}
     - target: {fileID: 5986070424073642859, guid: 4559a3726e1d96f4894f9e01eeeba80e, type: 3}
       propertyPath: healthRemain
       value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 5986070424073642859, guid: 4559a3726e1d96f4894f9e01eeeba80e, type: 3}
+      propertyPath: players.m_Bits
+      value: 12288
       objectReference: {fileID: 0}
     - target: {fileID: 5986070424073642859, guid: 4559a3726e1d96f4894f9e01eeeba80e, type: 3}
       propertyPath: destroyedVersion
@@ -4386,12 +4402,20 @@ PrefabInstance:
       value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 5986070424073642859, guid: 4559a3726e1d96f4894f9e01eeeba80e, type: 3}
+      propertyPath: pushForce
+      value: 75
+      objectReference: {fileID: 0}
+    - target: {fileID: 5986070424073642859, guid: 4559a3726e1d96f4894f9e01eeeba80e, type: 3}
       propertyPath: forceShield
       value: 
       objectReference: {fileID: 1100069050}
     - target: {fileID: 5986070424073642859, guid: 4559a3726e1d96f4894f9e01eeeba80e, type: 3}
       propertyPath: healthRemain
       value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 5986070424073642859, guid: 4559a3726e1d96f4894f9e01eeeba80e, type: 3}
+      propertyPath: players.m_Bits
+      value: 12288
       objectReference: {fileID: 0}
     - target: {fileID: 5986070424073642859, guid: 4559a3726e1d96f4894f9e01eeeba80e, type: 3}
       propertyPath: destroyedVersion
@@ -5372,12 +5396,20 @@ PrefabInstance:
       value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 5986070424073642859, guid: 4559a3726e1d96f4894f9e01eeeba80e, type: 3}
+      propertyPath: pushForce
+      value: 75
+      objectReference: {fileID: 0}
+    - target: {fileID: 5986070424073642859, guid: 4559a3726e1d96f4894f9e01eeeba80e, type: 3}
       propertyPath: forceShield
       value: 
       objectReference: {fileID: 1100069050}
     - target: {fileID: 5986070424073642859, guid: 4559a3726e1d96f4894f9e01eeeba80e, type: 3}
       propertyPath: healthRemain
       value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 5986070424073642859, guid: 4559a3726e1d96f4894f9e01eeeba80e, type: 3}
+      propertyPath: players.m_Bits
+      value: 12288
       objectReference: {fileID: 0}
     - target: {fileID: 5986070424073642859, guid: 4559a3726e1d96f4894f9e01eeeba80e, type: 3}
       propertyPath: destroyedVersion
@@ -6252,12 +6284,20 @@ PrefabInstance:
       value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 5986070424073642859, guid: 4559a3726e1d96f4894f9e01eeeba80e, type: 3}
+      propertyPath: pushForce
+      value: 75
+      objectReference: {fileID: 0}
+    - target: {fileID: 5986070424073642859, guid: 4559a3726e1d96f4894f9e01eeeba80e, type: 3}
       propertyPath: forceShield
       value: 
       objectReference: {fileID: 991864232}
     - target: {fileID: 5986070424073642859, guid: 4559a3726e1d96f4894f9e01eeeba80e, type: 3}
       propertyPath: healthRemain
       value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 5986070424073642859, guid: 4559a3726e1d96f4894f9e01eeeba80e, type: 3}
+      propertyPath: players.m_Bits
+      value: 12288
       objectReference: {fileID: 0}
     - target: {fileID: 5986070424073642859, guid: 4559a3726e1d96f4894f9e01eeeba80e, type: 3}
       propertyPath: destroyedVersion
@@ -6865,12 +6905,20 @@ PrefabInstance:
       value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 5986070424073642859, guid: 4559a3726e1d96f4894f9e01eeeba80e, type: 3}
+      propertyPath: pushForce
+      value: 75
+      objectReference: {fileID: 0}
+    - target: {fileID: 5986070424073642859, guid: 4559a3726e1d96f4894f9e01eeeba80e, type: 3}
       propertyPath: forceShield
       value: 
       objectReference: {fileID: 1100069050}
     - target: {fileID: 5986070424073642859, guid: 4559a3726e1d96f4894f9e01eeeba80e, type: 3}
       propertyPath: healthRemain
       value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 5986070424073642859, guid: 4559a3726e1d96f4894f9e01eeeba80e, type: 3}
+      propertyPath: players.m_Bits
+      value: 12288
       objectReference: {fileID: 0}
     - target: {fileID: 5986070424073642859, guid: 4559a3726e1d96f4894f9e01eeeba80e, type: 3}
       propertyPath: destroyedVersion
