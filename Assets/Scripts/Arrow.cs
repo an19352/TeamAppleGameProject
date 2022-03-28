@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
+using Photon.Pun;
 
 public class Arrow : MonoBehaviour
 {
@@ -35,6 +36,9 @@ public class Arrow : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!gameObject.GetComponent<PhotonView>().IsMine)
+            return;
+
         float dist1;
         float dist2;
         float dist3;

@@ -62,13 +62,15 @@ public class PhotonPlayer : MonoBehaviourPunCallbacks
             myAvatar = PhotonNetwork.Instantiate(playerPrefab.name, new Vector3(x, 6, z), Quaternion.identity, 0);
             myAvatar.layer = playerLayer;
             gameMechanics.RPC_AddPlayer(myAvatar, team);
+            Arrow arrow = myAvatar.GetComponent<Arrow>();
+            arrow.enabled = true;
             if (team == 0)
             {
-                myAvatar.GetComponent<Arrow>().getgens(gameMechanics.greengens);
+                arrow.getgens(gameMechanics.greengens);
             }
             else
             {
-                myAvatar.GetComponent<Arrow>().getgens(gameMechanics.redgens);
+                arrow.getgens(gameMechanics.redgens);
             }
         }
 
