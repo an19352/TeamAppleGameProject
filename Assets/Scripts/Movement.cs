@@ -186,7 +186,14 @@ public class Movement : MonoBehaviour, IPunObservable
         float greenZ = Random.Range(-16, 16);
         float redX = Random.Range(145, 145);
         float redZ = Random.Range(-16, 16);
-        int team = gameMechanics.checkTeam(ID);
+        int team = 0;
+
+        if(gameMechanics == null)
+        {
+            player.position = new Vector3(0, 4, 0);
+        }
+        else 
+        team = gameMechanics.checkTeam(ID);
 
         /*if (spawnPointID < 0)
             player.position = new Vector3(0f, 4f, 0f);
