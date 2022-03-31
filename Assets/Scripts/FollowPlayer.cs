@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FollowPlayer : MonoBehaviour
 {
-    [HideInInspector]
+    //[HideInInspector]
     public Transform player;
 
     public Vector3 offset;
