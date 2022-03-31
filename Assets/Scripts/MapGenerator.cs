@@ -31,6 +31,9 @@ public class MapGenerator : MonoBehaviour
 
     public int width = 15;
     public int height = 15;
+
+    [Range(1, 4)]
+    public int method = 3;
     Platform[,] map;
 
     void Start()
@@ -38,6 +41,27 @@ public class MapGenerator : MonoBehaviour
         map = new Platform[width, height];
 
         Random.InitState(13);
+        if (method == 1) first_method();
+        else if (method == 2) second_method();
+        else if (method == 3) third_method();
+        else if (method == 4) fourth_method();
+    }
+
+    void first_method()
+    {
+        // Horiszontal line + trees
+        return;
+    }
+
+    void second_method()
+    {
+        // Mirror method
+        return;
+    }
+
+    void third_method()
+    {
+        // Quadtrant method
 
         Vector3 position;
         PlatformType chosen;
@@ -56,5 +80,11 @@ public class MapGenerator : MonoBehaviour
             Instantiate(chosen.prefab, position, Quaternion.identity);
             map[i, height / 2] = new Platform(position, chosen.reach, chosen.verticalReach);
         }
+    }
+
+    void fourth_method()
+    {
+        // Grid strike out (graph theory)
+        return;
     }
 }

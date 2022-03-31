@@ -262,6 +262,7 @@ MonoBehaviour:
     verticalReach: 2.5
   width: 7
   height: 7
+  method: 2
 --- !u!4 &506366124
 Transform:
   m_ObjectHideFlags: 0
