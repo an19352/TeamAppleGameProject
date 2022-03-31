@@ -188,25 +188,27 @@ public class Movement : MonoBehaviour, IPunObservable
         float redZ = Random.Range(-16, 16);
         int team = 0;
 
-        if(gameMechanics == null)
+        if (gameMechanics == null)
         {
             player.position = new Vector3(0, 4, 0);
         }
-        else 
-        team = gameMechanics.checkTeam(ID);
+        else
+        {
+            team = gameMechanics.checkTeam(ID);
 
-        /*if (spawnPointID < 0)
-            player.position = new Vector3(0f, 4f, 0f);
-        else
-            player.position = gameMechanics.spawnPpoints[spawnPointID].position;*/
-        
-        if (team == 1)
-        {
-            player.position = new Vector3(greenX, 6, greenZ);
-        }
-        else
-        {
-            player.position = new Vector3(redX, 6, redZ);
+            /*if (spawnPointID < 0)
+                player.position = new Vector3(0f, 4f, 0f);
+            else
+                player.position = gameMechanics.spawnPpoints[spawnPointID].position;*/
+
+            if (team == 1)
+            {
+                player.position = new Vector3(greenX, 6, greenZ);
+            }
+            else
+            {
+                player.position = new Vector3(redX, 6, redZ);
+            }
         }
         
 
