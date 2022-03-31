@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Photon.Pun;
 
-public class ForceCalculator : MonoBehaviour
+public class ForceCalculator : MonoBehaviour, IPunObservable
 {
     PhotonView PV;
     public GameObject forceShield;
@@ -40,10 +40,11 @@ public class ForceCalculator : MonoBehaviour
         // if (!PV.IsMine) return;
         if (healthRemain <= 0)
         {
-            Instantiate(destroyedVersion, transform.position, transform.rotation);
+            PhotonNetwork.Instantiate(destroyedVersion.name, transform.position, transform.rotation);
             fsScript.generatorDestroyed++;
             Debug.Log(fsScript.generatorDestroyed);
-            Destroy(this.gameObject);
+            PV.RPC("RememberMe", RpcTarget.AllBuffered);
+            //PhotonNetwork.Destroy(this.gameObject);
             RepelNearbyPlayers();
         }
 
@@ -76,6 +77,27 @@ public class ForceCalculator : MonoBehaviour
             Vector3 pushFactor = (player.transform.position - transform.position).normalized * pushForce;
             Debug.Log(pushFactor);
             player.GetComponent<Movement>().RPC_PushMe(pushFactor, ForceMode.Impulse);
+        }
+    }
+
+    [PunRPC]
+    void RememberMe()
+    {
+        Destroy(gameObject);
+    }
+
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)
+        {
+            if (healthRemain <= 0) healthRemain = 1;
+            stream.SendNext(healthRemain);
+        }
+        if (stream.IsReading)
+        {
+            healthRemain = (float)stream.ReceiveNext();
+            float fraction = healthRemain / health;
+            healthBarImage.fillAmount = fraction;
         }
     }
 }

@@ -224,8 +224,7 @@ namespace SpaceBallAbilities
         public void LeftClick()
         {
             if (Time.time < timeToShoot) return;
-            particleSystem.SetActive(false);
-            particleSystem.SetActive(true);
+            PV.RPC("ParticleSpawn", RpcTarget.All);
             timeToShoot = Time.time + 1.2f;
             if (toBePushed.Count == 0) return;
             int[] pushNow = new int[toBePushed.Count];
@@ -238,6 +237,13 @@ namespace SpaceBallAbilities
                     _obj.GetComponent<Movement>().PushMe(transform.forward * pushForce, ForceMode.VelocityChange);
                 }
             }
+        }
+
+        [PunRPC]
+        public void ParticleSpawn()
+        {
+            particleSystem.SetActive(false);
+            particleSystem.SetActive(true);
         }
 
         public void RightClick() { return; }
