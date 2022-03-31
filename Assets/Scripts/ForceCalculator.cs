@@ -41,7 +41,6 @@ public class ForceCalculator : MonoBehaviour, IPunObservable
         if (healthRemain <= 0)
         {
             PhotonNetwork.Instantiate(destroyedVersion.name, transform.position, transform.rotation);
-            fsScript.generatorDestroyed++;
             Debug.Log(fsScript.generatorDestroyed);
             PV.RPC("RememberMe", RpcTarget.AllBuffered);
             //PhotonNetwork.Destroy(this.gameObject);
@@ -83,6 +82,7 @@ public class ForceCalculator : MonoBehaviour, IPunObservable
     [PunRPC]
     void RememberMe()
     {
+        fsScript.generatorDestroyed++;
         Destroy(gameObject);
     }
 
