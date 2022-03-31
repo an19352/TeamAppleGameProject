@@ -42,6 +42,10 @@ public class Movement : MonoBehaviour, IPunObservable
     Quaternion networkRotation;
     public float maxDiscDistance = 3f;
 
+    bool jumpInput = false;
+    float xAxisInput = 0f;
+    float zAxisInput = 0f;
+
     [HideInInspector]
     public Text currentPowerup;
     bool cooldownActive;
@@ -58,7 +62,7 @@ public class Movement : MonoBehaviour, IPunObservable
         player = transform;
         cameraMain = Camera.main;
 
-        if (PV.IsMine)
+        if (PV.IsMine && gameMechanics != null)
         {
             transform.GetChild(8).gameObject.SetActive(true);
             int team = gameMechanics.checkTeam(ID);
@@ -72,6 +76,14 @@ public class Movement : MonoBehaviour, IPunObservable
             }
             cameraMain.GetComponent<FollowPlayer>().player = transform;
         }
+    }
+
+    void Update()
+    {
+        jumpInput = Input.GetButton("Jump");
+
+        xAxisInput = Input.GetAxis(horizontalAxis);
+        zAxisInput = Input.GetAxis(verticalAxis);
     }
 
     void FixedUpdate()
@@ -92,10 +104,10 @@ public class Movement : MonoBehaviour, IPunObservable
         }
 
         currentVelocity = new Vector3(playerBody.velocity.x, 0, playerBody.velocity.z);   // #LeaveGravityAlone
-        
+
         //Keyboard controls
-        float x = Input.GetAxis(horizontalAxis);
-        float z = Input.GetAxis(verticalAxis);
+        float x = xAxisInput;
+        float z = zAxisInput;
         Vector3 move = new Vector3(x * speed, 0, z * speed);        // The direction the player wants to move in
         if (currentVelocity.magnitude > speed + 5f)
             playerBody.AddForce(move - playerBody.velocity, ForceMode.Acceleration);
@@ -118,7 +130,7 @@ public class Movement : MonoBehaviour, IPunObservable
 
         player.rotation = Quaternion.Slerp(player.rotation, lookRotation, step);
         if (isGrounded)
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (jumpInput)
                 playerBody.AddForce(transform.up * jumpForce, ForceMode.Acceleration);
         
         playerBody.AddForce(Vector3.down * gravityStrength, ForceMode.Acceleration);
@@ -136,7 +148,7 @@ public class Movement : MonoBehaviour, IPunObservable
         }
         else shadowInsatance.SetActive(false);
     }
-
+    /*
     private void OnCollisionEnter(Collision collision)
     {
         isGrounded = true;
@@ -145,7 +157,7 @@ public class Movement : MonoBehaviour, IPunObservable
     private void OnCollisionExit(Collision collision)
     {
         isGrounded = false;
-    }
+    }*/
 
     void Fire()
     {
@@ -221,6 +233,8 @@ public class Movement : MonoBehaviour, IPunObservable
         }
     }
 
+    public void Ground(bool value) { isGrounded = value; }
+
     private void OnDestroy()
     {
         Destroy(shadowInsatance);
@@ -234,7 +248,8 @@ public class Movement : MonoBehaviour, IPunObservable
 
     private void OnApplicationQuit()
     {
-        gameMechanics.RPC_RemovePlayer(ID);
+        if (gameMechanics != null)
+            gameMechanics.RPC_RemovePlayer(ID);
         PhotonNetwork.Disconnect();
     }
 }

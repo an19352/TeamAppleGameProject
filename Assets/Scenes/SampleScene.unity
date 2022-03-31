@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.1962879, g: 0.09740276, b: 0.11954967, a: 1}
+  m_IndirectSpecularColor: {r: 0.19634691, g: 0.09731356, b: 0.119633995, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3369,6 +3369,14 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 2b0a00116ac02514b99143e85d000375, type: 2}
+    - target: {fileID: 646741822111245587, guid: 1f1ac4a73097c5f41bb7a6413df2c86e, type: 3}
+      propertyPath: m_TagString
+      value: Ground
+      objectReference: {fileID: 0}
+    - target: {fileID: 4269437077869140552, guid: 1f1ac4a73097c5f41bb7a6413df2c86e, type: 3}
+      propertyPath: m_TagString
+      value: Ground
+      objectReference: {fileID: 0}
     - target: {fileID: 4855106600265033456, guid: 1f1ac4a73097c5f41bb7a6413df2c86e, type: 3}
       propertyPath: m_Name
       value: StartingBoardRed
@@ -3916,6 +3924,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Planet_1
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 75c75d0a4c3eb3f488ba93f8c3726e81, type: 3}
+      propertyPath: m_TagString
+      value: Ground
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 75c75d0a4c3eb3f488ba93f8c3726e81, type: 3}
 --- !u!1001 &1100069049
@@ -3925,6 +3937,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 994095875538146947, guid: 4b9eef4794ac1084caf36e88645e744d, type: 3}
+      propertyPath: m_TagString
+      value: Ground
+      objectReference: {fileID: 0}
     - target: {fileID: 4855106600265033456, guid: 4b9eef4794ac1084caf36e88645e744d, type: 3}
       propertyPath: m_Name
       value: StartingBoardGreen
@@ -3989,6 +4005,10 @@ PrefabInstance:
       propertyPath: otherObjectiveFlag
       value: 
       objectReference: {fileID: 991864231}
+    - target: {fileID: 7343277037552369787, guid: 4b9eef4794ac1084caf36e88645e744d, type: 3}
+      propertyPath: m_TagString
+      value: Ground
+      objectReference: {fileID: 0}
     - target: {fileID: 8213014794067255412, guid: 4b9eef4794ac1084caf36e88645e744d, type: 3}
       propertyPath: sceneViewId
       value: 26
@@ -5766,6 +5786,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 252df1eefac2ddd4ebb61aa03c74ac9a, type: 3}
       propertyPath: m_Layer
       value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 252df1eefac2ddd4ebb61aa03c74ac9a, type: 3}
+      propertyPath: m_TagString
+      value: Ground
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 252df1eefac2ddd4ebb61aa03c74ac9a, type: 3}

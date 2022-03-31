@@ -10369,7 +10369,7 @@ MonoBehaviour:
   speed: 26.5
   frictionCoef: 40
   gravityStrength: 13
-  jumpForce: 550
+  jumpForce: 250
   rotationSpeed: 50
   horizontalAxis: Horizontal
   verticalAxis: Vertical
@@ -10536,6 +10536,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8521386507560151342}
+  - component: {fileID: 4545206265465567992}
+  - component: {fileID: 3543029450949334635}
   m_Layer: 0
   m_Name: GroundCheck
   m_TagString: Untagged
@@ -10557,6 +10559,31 @@ Transform:
   m_Father: {fileID: 8521386507383712024}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &4545206265465567992
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8521386507560151343}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.85, y: 0.13, z: 0.85}
+  m_Center: {x: 0, y: 0.14, z: 0}
+--- !u!114 &3543029450949334635
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8521386507560151343}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4059fed7ed7d96644be5e0a6cf8a3e78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2257804774299827222
 PrefabInstance:
   m_ObjectHideFlags: 0
