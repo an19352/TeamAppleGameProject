@@ -181,10 +181,27 @@ public class Movement : MonoBehaviour, IPunObservable
     // ReSpawn mechanic
     public void Spawn(int spawnPointID = -1)
     {
-        if (spawnPointID < 0)
+        
+        float greenX = Random.Range(-145, -145);
+        float greenZ = Random.Range(-16, 16);
+        float redX = Random.Range(145, 145);
+        float redZ = Random.Range(-16, 16);
+        int team = gameMechanics.checkTeam(ID);
+
+        /*if (spawnPointID < 0)
             player.position = new Vector3(0f, 4f, 0f);
         else
-            player.position = gameMechanics.spawnPpoints[spawnPointID].position;
+            player.position = gameMechanics.spawnPpoints[spawnPointID].position;*/
+        
+        if (team == 1)
+        {
+            player.position = new Vector3(greenX, 6, greenZ);
+        }
+        else
+        {
+            player.position = new Vector3(redX, 6, redZ);
+        }
+        
 
         player.rotation = new Quaternion(0f, 0f, 0f, 0f);
         playerBody.angularVelocity = new Vector3(0f, 0f, 0f);
