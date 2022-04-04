@@ -5,7 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9d59a655-b95b-4264-984d-b993a5d47562" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Movement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Movement.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.TeamAppleGameProject/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TeamAppleGameProject/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Force_Calculator_Destroyed.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Force_Calculator_Destroyed.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Player Avatar.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Player Avatar.prefab" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -94,7 +96,10 @@
       <workItem from="1648308176326" duration="264000" />
       <workItem from="1648322589223" duration="135000" />
       <workItem from="1648478159764" duration="1634000" />
-      <workItem from="1648726384513" duration="648000" />
+      <workItem from="1648726384513" duration="1940000" />
+      <workItem from="1648735300641" duration="1908000" />
+      <workItem from="1648738062715" duration="625000" />
+      <workItem from="1648752467646" duration="1000000" />
     </task>
     <servers />
   </component>
