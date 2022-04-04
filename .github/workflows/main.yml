@@ -33,15 +33,15 @@ jobs:
           targetPlatform: WebGL
 
           
-      - uses: actions/upload-artifact@v2
+      #- uses: actions/upload-artifact@v2
+       # with:
+        #  name: Build
+         # path: build  
+          
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        if: ${{ github.ref == 'refs/heads/main' }}
         with:
-          name: Build
-          path: build  
-          
-      #- name: Deploy
-       # uses: peaceiris/actions-gh-pages@v3
-        #if: ${{ github.ref == 'refs/heads/main' }}
-      #  with:
-       #   github_token: ${{ secrets.GITHUB_TOKEN }}
-        #  publish_dir: build/WebGL        
-          
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: build/WebGL
+          publish_branch: main
