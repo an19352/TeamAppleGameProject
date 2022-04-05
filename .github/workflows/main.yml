@@ -45,3 +45,4 @@ jobs:
           github_token: ${{ secrets.GH_PAT }}
           publish_dir: build/WebGL/WebGL
           destination_dir: docs
+          cname: https://spaceball.co.uk
