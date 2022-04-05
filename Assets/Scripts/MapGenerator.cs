@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,17 +13,56 @@ public class MapGenerator : MonoBehaviour
 
     public struct Platform
     {
-        public Vector3 position;
+        public Transform transform;
         public float reach;
         public float verticalReach;
 
-        public Platform(Vector3 _position, float _reach, float _verticalReach)
+        public Platform(Transform _transform, float _reach, float _verticalReach)
         {
-            position = _position;
+            transform = _transform;
             reach = _reach;
             verticalReach = _verticalReach;
         }
+        public Platform(Transform _transform, PlatformType type)
+        {
+            transform = _transform;
+            reach = type.reach;
+            verticalReach = type.verticalReach;
+        }
     }
+
+    public struct TreeElement
+    {
+        public int index, root;
+        public List<int> leafs;
+        public Platform platform;
+
+        public TreeElement(Platform _platform, int _index, int _root = -1)
+        {
+            index = _index;
+            root = _root;
+            platform = _platform;
+
+            leafs = new List<int>();
+        }
+        public TreeElement(Transform _transform, float _reach, float _verticalReach, int _index, int _root = -1)
+        {
+            index = _index;
+            root = _root;
+            platform = new Platform(_transform, _reach, _verticalReach);
+
+            leafs = new List<int>();
+        }
+        public TreeElement(Transform _transform, PlatformType type, int _index, int _root = -1)
+        {
+            index = _index;
+            root = _root;
+            platform = new Platform(_transform, type);
+
+            leafs = new List<int>();
+        }
+    }
+    public List<TreeElement> tree = new List<TreeElement>();
 
     public Vector3 startingPosition; 
     public List<PlatformType> platformTypes;
@@ -65,26 +103,56 @@ public class MapGenerator : MonoBehaviour
 
         Vector3 position;
         PlatformType chosen;
-        Platform previous;
 
         position = new Vector3(0, 0, 0);
         chosen = platformTypes[Random.Range(0, platformTypes.Count - 1)];
-        Instantiate(chosen.prefab, position, Quaternion.identity);
-        map[0, height / 2] = new Platform(position, chosen.reach, chosen.verticalReach);
+        Transform tr = Instantiate(chosen.prefab, position, Quaternion.identity).transform;
 
-        for (int i = 1; i < width; i++)
-        {
-            previous = map[i - 1, height / 2];
-            position = map[i - 1, height / 2].position + new Vector3(Random.Range(previous.reach * 0.75f, previous.reach), Random.Range(-previous.verticalReach, previous.verticalReach), 0);
-            chosen = platformTypes[Random.Range(0, platformTypes.Count)];
-            Instantiate(chosen.prefab, position, Quaternion.identity);
-            map[i, height / 2] = new Platform(position, chosen.reach, chosen.verticalReach);
-        }
+        tree.Add(new TreeElement(new Platform(tr, chosen), 0));
+        map[0, height / 2] = new Platform(tr, chosen);
+
+        DrawLineOfPlatforms(tree[0], Vector3.right, width);
+        DrawLineOfPlatforms(tree[width / 2], Vector3.forward, height / 2);
+        DrawLineOfPlatforms(tree[width / 2], Vector3.back, height / 2);
     }
 
     void fourth_method()
     {
         // Grid strike out (graph theory)
         return;
+    }
+   
+    int FindPlatform(Transform _transform)
+    {
+        foreach (TreeElement element in tree)
+            if (element.platform.transform.Equals(_transform)) return element.index;
+
+        return -1;
+    }
+
+    void DrawLineOfPlatforms(TreeElement from, Vector3 direction, int length = -1, int angleOverTime = -1)
+    {
+        if (length == 0) return;
+        if (length < 0) length = Mathf.Min(width, height);
+
+        Vector3 position;
+        PlatformType chosen;
+        Platform previous = from.platform;
+        int previousIndex = from.index;
+        Transform current;
+
+        for (; length > 0; length--)
+        {
+            position = previous.transform.position + direction.normalized * Random.Range(previous.reach * 0.75f, previous.reach);
+            position.y += Random.Range(-previous.verticalReach, previous.verticalReach);
+            chosen = platformTypes[Random.Range(0, platformTypes.Count)];
+
+            current = Instantiate(chosen.prefab, position, Quaternion.identity).transform;
+            tree[previousIndex].leafs.Add(tree.Count);
+            tree.Add(new TreeElement(current, chosen, tree.Count, previousIndex));
+
+            previousIndex = tree.Count - 1;
+            previous = tree[tree.Count - 1].platform;
+        }
     }
 }
