@@ -123,6 +123,49 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &40919614
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 40919616}
+  - component: {fileID: 40919615}
+  m_Layer: 0
+  m_Name: ConsoleToGUI
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &40919615
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 40919614}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a5bd47682a16e6448dc30a04f087e41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &40919616
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 40919614}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 22
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &45342571
 GameObject:
   m_ObjectHideFlags: 0
@@ -182,7 +225,15 @@ MonoBehaviour:
   greenButton: {fileID: 932828948}
   menuItem: {fileID: 140748702}
   worldSpaceCanvas: {fileID: 1619943151}
-  numberOfFlagsPerTeam: 
+  flagObjectives:
+  - team: 0
+    hasFlag: 1
+    flagCount: 3
+    playersList: []
+  - team: 1
+    hasFlag: 1
+    flagCount: 3
+    playersList: []
 --- !u!4 &45342573
 Transform:
   m_ObjectHideFlags: 0
@@ -1912,7 +1963,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 58bee26ced6c6f744b21f82aa1205cc4, type: 2}
     - target: {fileID: 5986070424073642859, guid: 4559a3726e1d96f4894f9e01eeeba80e, type: 3}
       propertyPath: health
-      value: 50
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5986070424073642859, guid: 4559a3726e1d96f4894f9e01eeeba80e, type: 3}
       propertyPath: pushForce
@@ -1924,7 +1975,7 @@ PrefabInstance:
       objectReference: {fileID: 991864232}
     - target: {fileID: 5986070424073642859, guid: 4559a3726e1d96f4894f9e01eeeba80e, type: 3}
       propertyPath: healthRemain
-      value: 50
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5986070424073642859, guid: 4559a3726e1d96f4894f9e01eeeba80e, type: 3}
       propertyPath: players.m_Bits
@@ -3373,6 +3424,10 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Ground
       objectReference: {fileID: 0}
+    - target: {fileID: 3408987049687998777, guid: 1f1ac4a73097c5f41bb7a6413df2c86e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 14
+      objectReference: {fileID: 0}
     - target: {fileID: 4269437077869140552, guid: 1f1ac4a73097c5f41bb7a6413df2c86e, type: 3}
       propertyPath: m_TagString
       value: Ground
@@ -3803,7 +3858,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 58bee26ced6c6f744b21f82aa1205cc4, type: 2}
     - target: {fileID: 5986070424073642859, guid: 4559a3726e1d96f4894f9e01eeeba80e, type: 3}
       propertyPath: health
-      value: 50
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5986070424073642859, guid: 4559a3726e1d96f4894f9e01eeeba80e, type: 3}
       propertyPath: pushForce
@@ -3815,7 +3870,7 @@ PrefabInstance:
       objectReference: {fileID: 991864232}
     - target: {fileID: 5986070424073642859, guid: 4559a3726e1d96f4894f9e01eeeba80e, type: 3}
       propertyPath: healthRemain
-      value: 50
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5986070424073642859, guid: 4559a3726e1d96f4894f9e01eeeba80e, type: 3}
       propertyPath: players.m_Bits
@@ -4439,7 +4494,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 73306b8830f59e5418513cce5517dc55, type: 2}
     - target: {fileID: 5986070424073642859, guid: 4559a3726e1d96f4894f9e01eeeba80e, type: 3}
       propertyPath: health
-      value: 50
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5986070424073642859, guid: 4559a3726e1d96f4894f9e01eeeba80e, type: 3}
       propertyPath: pushForce
@@ -4451,7 +4506,7 @@ PrefabInstance:
       objectReference: {fileID: 1100069050}
     - target: {fileID: 5986070424073642859, guid: 4559a3726e1d96f4894f9e01eeeba80e, type: 3}
       propertyPath: healthRemain
-      value: 50
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5986070424073642859, guid: 4559a3726e1d96f4894f9e01eeeba80e, type: 3}
       propertyPath: players.m_Bits
@@ -5437,7 +5492,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 73306b8830f59e5418513cce5517dc55, type: 2}
     - target: {fileID: 5986070424073642859, guid: 4559a3726e1d96f4894f9e01eeeba80e, type: 3}
       propertyPath: health
-      value: 50
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5986070424073642859, guid: 4559a3726e1d96f4894f9e01eeeba80e, type: 3}
       propertyPath: pushForce
@@ -5449,7 +5504,7 @@ PrefabInstance:
       objectReference: {fileID: 1100069050}
     - target: {fileID: 5986070424073642859, guid: 4559a3726e1d96f4894f9e01eeeba80e, type: 3}
       propertyPath: healthRemain
-      value: 50
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5986070424073642859, guid: 4559a3726e1d96f4894f9e01eeeba80e, type: 3}
       propertyPath: players.m_Bits
@@ -6333,7 +6388,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 58bee26ced6c6f744b21f82aa1205cc4, type: 2}
     - target: {fileID: 5986070424073642859, guid: 4559a3726e1d96f4894f9e01eeeba80e, type: 3}
       propertyPath: health
-      value: 50
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5986070424073642859, guid: 4559a3726e1d96f4894f9e01eeeba80e, type: 3}
       propertyPath: pushForce
@@ -6345,7 +6400,7 @@ PrefabInstance:
       objectReference: {fileID: 991864232}
     - target: {fileID: 5986070424073642859, guid: 4559a3726e1d96f4894f9e01eeeba80e, type: 3}
       propertyPath: healthRemain
-      value: 50
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5986070424073642859, guid: 4559a3726e1d96f4894f9e01eeeba80e, type: 3}
       propertyPath: players.m_Bits
@@ -6958,7 +7013,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 73306b8830f59e5418513cce5517dc55, type: 2}
     - target: {fileID: 5986070424073642859, guid: 4559a3726e1d96f4894f9e01eeeba80e, type: 3}
       propertyPath: health
-      value: 50
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5986070424073642859, guid: 4559a3726e1d96f4894f9e01eeeba80e, type: 3}
       propertyPath: pushForce
@@ -6970,7 +7025,7 @@ PrefabInstance:
       objectReference: {fileID: 1100069050}
     - target: {fileID: 5986070424073642859, guid: 4559a3726e1d96f4894f9e01eeeba80e, type: 3}
       propertyPath: healthRemain
-      value: 50
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5986070424073642859, guid: 4559a3726e1d96f4894f9e01eeeba80e, type: 3}
       propertyPath: players.m_Bits

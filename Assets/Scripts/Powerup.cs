@@ -10,7 +10,6 @@ public class Powerup : MonoBehaviour
     PhotonView PV;
     public static PhotonRoom room;
     public static GameMechanics gameMechanics;
-
     public enum Effects { Gravity_Gun, Grapple_Gun, Coin };
     public Effects _effect;
     public GameObject pickupEffect;
@@ -42,8 +41,6 @@ public class Powerup : MonoBehaviour
     {
         if (other.collider.CompareTag("Player"))
         {
-            // TODO: make the effect spawn also to be an RPC
-            // !For Now just local
             PV.RPC("ActivateItem", RpcTarget.All, other.collider.GetComponent<Movement>().GetId(), effect);
             PV.RPC("Disable", RpcTarget.All, null);
         }
