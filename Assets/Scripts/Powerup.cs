@@ -10,7 +10,7 @@ public class Powerup : MonoBehaviour
     PhotonView PV;
     public static PhotonRoom room;
     public static GameMechanics gameMechanics;
-    public enum Effects { Gravity_Gun, Grapple_Gun, Coin };
+    public enum Effects { Gravity_Gun, Grapple_Gun, Coin, Grenade };
     public Effects _effect;
     public GameObject pickupEffect;
     string effect;

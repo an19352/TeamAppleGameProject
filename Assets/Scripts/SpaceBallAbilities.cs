@@ -261,6 +261,87 @@ namespace SpaceBallAbilities
         }
     }
 
+    public class Grenade : MonoBehaviour, IAbility
+    {
+        public float delay;
+        public float radius;
+        public float force;
+        public GameObject explosionEffect;
+        public float throwForce;
+        
+        InventoryElement IE;
+        Inventory inventory;
+        string IEtag = "Grenade";
+
+        public GameObject grenadePrefab;
+        Transform shootTransform;
+        float countdown;
+        bool hasExploded = false;
+        
+        private Camera cameraMain;
+        private Vector3 mouseLocation;
+        private Vector3 lookDirection;
+        private Quaternion lookRotation;
+        private int lm;
+        
+        public void SetUp()
+        {
+            countdown = delay;
+            cameraMain = Camera.main;
+            
+            IE = InventoryUIManager.inventory.GetIE(IEtag);
+            inventory = GetComponent<Inventory>();
+            InventoryUIManager.inventory.AddUIElement(IEtag, inventory);
+            cameraMain = Camera.main;
+            lm = LayerMask.GetMask("Hookable");
+            
+            shootTransform = inventory.shootTransform;
+        }
+
+        public void RightClick()
+        {
+            GameObject grenade = Instantiate(grenadePrefab, transform.position, transform.rotation);
+            Rigidbody rb = grenade.GetComponent<Rigidbody>();
+            rb.AddForce(transform.forward * throwForce, ForceMode.VelocityChange);
+            
+            countdown -= Time.deltaTime;
+            if (countdown <= 0f && !hasExploded)
+            {
+                Explode();
+                hasExploded = true;
+            }
+            
+            void Explode(){
+
+                // show effect
+                Instantiate(explosionEffect, transform.position, transform.rotation);
+
+                //get nearbyb objects
+                Collider[] colliders = Physics.OverlapSphere(transform.position, radius);
+
+                // Add force
+                foreach (Collider nearbyObject in colliders)
+                {
+                    Rigidbody rb = nearbyObject.GetComponent<Rigidbody>();
+                    if(rb != null)
+                    {
+                        rb.AddExplosionForce(force, transform.position, radius);
+                    }
+                }
+
+                //  damage
+
+                // remove grenade
+                Destroy(gameObject);
+            }
+        }
+        public void LeftClick() { return; }
+
+        
+        public InventoryElement GetIE() { return IE; }
+        
+    }
+
     public class Coin : MonoBehaviour, IAbility
     {
         InventoryElement IE;

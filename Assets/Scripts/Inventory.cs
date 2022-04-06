@@ -9,7 +9,7 @@ public class Inventory : MonoBehaviour
     PhotonView PV;
     public static InventoryUIManager inventory;
     List<System.Type> itemComponents = new List<System.Type> { typeof(SpaceBallAbilities.GravityGun), typeof(SpaceBallAbilities.Grapple),
-                                                                typeof(SpaceBallAbilities.ImpulseCannon), typeof(Coin)};
+                                                                typeof(SpaceBallAbilities.ImpulseCannon), typeof(Grenade), typeof(Coin)};
     Dictionary<string, System.Type> typeLookUp = new Dictionary<string, System.Type>();
     public List<GameObject> tooltips;
     public Vector3 tooltipOffset;
@@ -39,6 +39,12 @@ public class Inventory : MonoBehaviour
     public GameObject particleSystem;
     public float pushForce;
 
+    [Header("Grenade Settings")]
+    public float delay = 120f;
+    public float radius = 5f;
+    public float force = 700f; 
+    //public float throwForce= 40f;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -49,6 +55,7 @@ public class Inventory : MonoBehaviour
         typeLookUp.Add("Impulse Gun", typeof(SpaceBallAbilities.ImpulseCannon));
         typeLookUp.Add("Grapple Gun", typeof(SpaceBallAbilities.Grapple));
         typeLookUp.Add("Gravity Gun", typeof(SpaceBallAbilities.GravityGun));
+        typeLookUp.Add("Grenade", typeof(SpaceBallAbilities.Grenade));
         typeLookUp.Add("Coin", typeof(Coin));
         inventoryItems = new IAbility[inventorySize];
         worldCanvas = GameMechanics.gameMechanics.worldSpaceCanvas;

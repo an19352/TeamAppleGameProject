@@ -10467,6 +10467,9 @@ MonoBehaviour:
   impulseGunHolder: {fileID: 1973076938037938879}
   particleSystem: {fileID: 6164135461106777563}
   pushForce: 40
+  delay: 120
+  radius: 5
+  force: 700
 --- !u!114 &4070538607894281487
 MonoBehaviour:
   m_ObjectHideFlags: 0
