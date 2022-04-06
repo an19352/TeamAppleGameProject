@@ -130,7 +130,7 @@ public class MapGenerator : MonoBehaviour
         return -1;
     }
 
-    void DrawLineOfPlatforms(TreeElement from, Vector3 direction, int length = -1, int angleOverTime = -1)
+    void DrawLineOfPlatforms(TreeElement from, Vector3 direction, int length = -1, float angleOverTime = -1f)
     {
         if (length == 0) return;
         if (length < 0) length = Mathf.Min(width, height);
@@ -140,9 +140,17 @@ public class MapGenerator : MonoBehaviour
         Platform previous = from.platform;
         int previousIndex = from.index;
         Transform current;
+        float angle = angleOverTime;
 
         for (; length > 0; length--)
         {
+            if (angleOverTime > 0) 
+            {
+                direction = new Vector3(direction.x * Mathf.Cos(angle) - direction.z * Mathf.Sin(angle), 0f,
+                                        direction.x * Mathf.Sin(angle) + direction.z * Mathf.Cos(angle));
+                angle += angleOverTime;
+            }
+
             position = previous.transform.position + direction.normalized * Random.Range(previous.reach * 0.75f, previous.reach);
             position.y += Random.Range(-previous.verticalReach, previous.verticalReach);
             chosen = platformTypes[Random.Range(0, platformTypes.Count)];
