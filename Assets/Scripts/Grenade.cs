@@ -9,13 +9,13 @@ public class Grenade : MonoBehaviour
 
     public float delay = 3f;
     public float radius = 5f;
-    public float force = 700f; 
+    public float force = 700f;
 
     public GameObject explosionEffect;
     public Transform shootTransform;
     float countdown;
     bool hasExploded = false;
-    
+
     private Camera cameraMain;
     private Vector3 mouseLocation;
     private Vector3 lookDirection;
@@ -35,7 +35,7 @@ public class Grenade : MonoBehaviour
     void Update()
     {
         //if (!PV.IsMine) return;
-        
+
         countdown -= Time.deltaTime;
         if (countdown <= 0f && !hasExploded)
         {
@@ -44,27 +44,29 @@ public class Grenade : MonoBehaviour
         }
     }
 
-    void Explode(){
+    void Explode()
+    {
 
         // show effect
-        Instantiate(explosionEffect, transform.position, transform.rotation);
+        GameObject explosion = Instantiate(explosionEffect, transform.position, transform.rotation);
 
         //get nearbyb objects
         Collider[] colliders = Physics.OverlapSphere(transform.position, radius);
 
-            // Add force
-            foreach (Collider nearbyObject in colliders)
+        // Add force
+        foreach (Collider nearbyObject in colliders)
+        {
+            Rigidbody rb = nearbyObject.GetComponent<Rigidbody>();
+            if (rb != null)
             {
-                Rigidbody rb = nearbyObject.GetComponent<Rigidbody>();
-                if(rb != null)
-                {
-                    rb.AddExplosionForce(force, transform.position, radius);
-                }
+                rb.AddExplosionForce(force, transform.position, radius);
             }
+        }
 
-            //  damage
+        //  damage
 
         // remove grenade
         Destroy(gameObject);
+        Destroy(explosion);
     }
 }
