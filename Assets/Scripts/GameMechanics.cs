@@ -45,12 +45,9 @@ public class GameMechanics : MonoBehaviour
     [Serializable]
     public struct FlagObjective
     {
-        public int team;
-        public bool hasFlag;
         public int flagCount;
-        public List<Player> playersList;
-        // public int numOfDefenders;
-        // public int numOfAttackers;
+        public int numOfDefenders;
+        public int numOfAttackers;
     }
 
     public List<Team> teams;
@@ -156,6 +153,7 @@ public class GameMechanics : MonoBehaviour
         teams[teamID] = new Team { name = _name, score = _score, scoreText = _text };
     }
 
+    #region FlagStuff
     [PunRPC]
     public void UpdateFlag(int teamID, bool isScore)
     {
@@ -205,66 +203,75 @@ public class GameMechanics : MonoBehaviour
         }
     }
 
-    public void RPC_PlayerEnter(int playerID, int flagTeamID)
+    public void RPC_UpdateFlag(int teamID, bool isScore)
     {
-        PV.RPC("PlayerEnter", RpcTarget.MasterClient, playerID, flagTeamID);
+        PV.RPC("UpdateFlag", RpcTarget.AllBuffered, teamID, isScore);
+        // add something here to update the ui
+        PV.RPC("UpdateFlagUI", RpcTarget.AllBuffered);
     }
 
-    [PunRPC]
-    public void PlayerEnter(int playerID, int flagTeamID)
+    public void RPC_EnableFlagHolder(int playerID)
     {
-        int teamID = checkTeam(playerID);
-
-        Player playerEntered = players.Find(player => player.obj.GetComponent<Movement>().GetId() == playerID);
-        List<Player> _playerList = flagObjectives[flagTeamID].playersList;
-        _playerList.Add(new Player
-        {
-            obj = playerEntered.obj,
-            team = playerEntered.team
-        });
-        flagObjectives[flagTeamID].playersList = _playerList;
-        if (playerEntered.team != flagTeamID)
-        {
-            PV.RPC("EnableFlagHolder", RpcTarget.All, playerID);
-        }
-        if (playerEntered.team == flagTeamID && playerEntered.obj.GetComponent<FlagHolder>().enabled)
-        {
-            PV.RPC("DisableFlagHolder", RpcTarget.All, playerID);
-            PV.RPC("UpdateFlag", RpcTarget.AllBuffered, teamID, true);
-            // add something here to update the ui
-            PV.RPC("UpdateFlagUI", RpcTarget.AllBuffered);
-        }
+        PV.RPC("EnableFlagHolder", RpcTarget.All, playerID);
     }
-
-    public void RPC_PlayerExit(int playerID, int flagTeamID)
-    {
-        PV.RPC("PlayerExit", RpcTarget.MasterClient, playerID, flagTeamID);
-    }
-
-    [PunRPC]
-    public void PlayerExit(int playerID, int flagTeamID)
-    {
-        int teamID = checkTeam(playerID);
-        Player playerExited = players.Find(player => player.obj.GetComponent<Movement>().GetId() == playerID);
-        List<Player> _playerList = flagObjectives[flagTeamID].playersList;
-        _playerList.Remove(playerExited);
-        flagObjectives[flagTeamID].playersList = _playerList;
-    }
-
     [PunRPC]
     public void EnableFlagHolder(int playerID)
     {
         players[playerID].obj.GetComponent<FlagHolder>().enabled = true;
     }
 
+    public void RPC_DisableFlagHolder(int playerID)
+    {
+        PV.RPC("DisableFlagHolder", RpcTarget.All, playerID);
+    }
     [PunRPC]
     public void DisableFlagHolder(int playerID)
     {
         players[playerID].obj.GetComponent<FlagHolder>().enabled = false;
     }
 
+    public void RPC_UpdateAttackers(int teamID, bool addition)
+    {
+        PV.RPC("UpdateAttackers", RpcTarget.AllBuffered, teamID, addition);
+    }
+
     [PunRPC]
-    void Sync(float game_time, int[] playerViewIds, int[] playerTeams, string[] teamNames, int[] teamScores, int[] flagCounts, int[] scoreViewIDs)
+    public void UpdateAttackers(int teamID, bool addition)
+    {
+        if (addition)
+        {
+            flagObjectives[teamID].numOfAttackers++;
+        }
+        else
+        {
+            flagObjectives[teamID].numOfAttackers--;
+
+        }
+    }
+
+    public void RPC_UpdateDefenders(int teamID, bool addition)
+    {
+        PV.RPC("UpdateDefenders", RpcTarget.AllBuffered, teamID, addition);
+    }
+
+    [PunRPC]
+    public void UpdateDefenders(int teamID, bool addition)
+    {
+        if (addition)
+        {
+            flagObjectives[teamID].numOfDefenders++;
+        }
+        else
+        {
+            flagObjectives[teamID].numOfDefenders--;
+
+        }
+    }
+
+    #endregion
+
+    [PunRPC]
+    void Sync(float game_time, int[] playerViewIds, int[] playerTeams, string[] teamNames, int[] teamScores, int[] flagCounts, int[] numsOfAttackers, int[] numsOfDefenders, int[] scoreViewIDs)
     {
         timer.UpdateTimer(game_time);
         List<Team> _teams = new List<Team>();
@@ -293,6 +300,8 @@ public class GameMechanics : MonoBehaviour
         for (int i = 0; i < flagObjectives.Length; i++)
         {
             flagObjectives[i].flagCount = flagCounts[i];
+            flagObjectives[i].numOfAttackers = numsOfAttackers[i];
+            flagObjectives[i].numOfDefenders = numsOfDefenders[i];
         }
     }
 
@@ -309,7 +318,8 @@ public class GameMechanics : MonoBehaviour
         int[] scoreViewIDs = new int[teams.Count];
 
         int[] flagCounts = new int[teams.Count];
-        List<Player> playerLists = new List<Player>();
+        int[] numsOfDefenders = new int[teams.Count];
+        int[] numsOfAttackers = new int[teams.Count];
 
         int[] powerupsId = new int[activePowerups.Count];
 
@@ -342,10 +352,12 @@ public class GameMechanics : MonoBehaviour
         for (i = 0; i < flagObjectives.Length; i++)
         {
             flagCounts[i] = flagObjectives[i].flagCount;
+            numsOfAttackers[i] = flagObjectives[i].numOfAttackers;
+            numsOfDefenders[i] = flagObjectives[i].numOfDefenders;
         }
 
 
-        PV.RPC("Sync", RpcTarget.Others, game_time, playerViewIds, playerTeams, teamNames, teamScores, flagCounts, scoreViewIDs);
+        PV.RPC("Sync", RpcTarget.Others, game_time, playerViewIds, playerTeams, teamNames, teamScores, flagCounts, numsOfAttackers, numsOfDefenders, scoreViewIDs);
     }
 
     public void SyncPowerupsNow()

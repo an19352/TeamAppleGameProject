@@ -17,12 +17,15 @@ public class ObjectiveFlag : MonoBehaviour
     public Material returnMaterial;
     // red <-> green 
     public GameObject otherObjectiveFlag;
+
+    public List<GameMechanics.Player> playerList;
+    public int numOfAttackers, numOfDefenders;
     public int firstEnteredId;
+
+
     private GameObject flag;
     private GameObject detectionField;
     private GameMechanics gameMechanics;
-    private int numOfAttackers, numOfDefenders;
-    private bool countDown;
     private enum State
     {
         // Idle: nothing happening 
@@ -31,6 +34,8 @@ public class ObjectiveFlag : MonoBehaviour
         // Return: defender returning the flag / attacker returning the flag
         Idle, Capture, Stalemate, Return
     };
+
+    [SerializeField]
     private State currentState;
     private Renderer fieldRenderer;
     void Start()
@@ -40,132 +45,154 @@ public class ObjectiveFlag : MonoBehaviour
         flag = transform.Find("Ball").gameObject;
         detectionField = transform.Find("DetectionField").gameObject;
         gameMechanics = GameMechanics.gameMechanics;
-        numOfAttackers = 0;
-        numOfDefenders = 0;
+        numOfAttackers = gameMechanics.flagObjectives[defendTeam].numOfAttackers;
+        numOfDefenders = gameMechanics.flagObjectives[defendTeam].numOfDefenders;
         currentState = State.Idle;
         fieldRenderer = detectionField.GetComponent<Renderer>();
-        countDown = false;
     }
 
     // Update is called once per frame
     void Update()
     {
         if (!PV.IsMine) return;
-        if (countDown)
+    }
+
+    State EvaluateState()
+    {
+        numOfDefenders = gameMechanics.flagObjectives[defendTeam].numOfDefenders;
+        numOfAttackers = gameMechanics.flagObjectives[defendTeam].numOfAttackers;
+        Debug.Log(numOfAttackers);
+        Debug.Log(numOfDefenders);
+        // the defending team has the flag
+        if (hasFlag)
         {
-            // the attacker has to stay for a certain duration before can capture flag
-            captureCounter -= Time.deltaTime;
-            if (captureCounter <= 0f)
+            // first check if a defender has the other team's flag, if they have, score a point 
+            // foreach (var player in playerList)
+            // {
+            //     if (player.team == defendTeam && player.obj.transform.Find("Flag") != null)
+            //     {
+            //         return State.Return;
+            //     };
+            // }
+            if ((numOfAttackers + numOfDefenders) == 0)
             {
-                hasFlag = false;
-                flag.SetActive(false);
-                // give the flag to the attacker which entered first (RPC)
-                ResetCounter();
+                return State.Idle;
             }
+            // the flag can only be captured only when there are more attacker than defenders
+            else if (numOfAttackers > numOfDefenders)
+            {
+                return State.Capture;
+            }
+            else if (numOfAttackers >= 1)
+            {
+                Debug.Log("enter stalemate");
+                return State.Stalemate;
+            }
+            else return State.Idle;
+        }
+        else
+        {
+            // check if a defender has the flag from its own team to return 
+            foreach (var pair in playerList)
+            {
+                if (pair.obj.transform.Find("Flag") != null)
+                {
+                    return State.Return;
+                };
+            }
+            return State.Idle;
         }
     }
 
-    void ResetCounter()
+    public void RPC_ApplyChangesOnState(int playerID)
     {
-        // reset counter
-        captureCounter = captureDuration;
-        countDown = false;
+        PV.RPC("ApplyChangesOnState", RpcTarget.All, playerID);
     }
 
-    // State EvaluateState()
-    // {
-    //     // the defending team has the flag
-    //     if (hasFlag)
-    //     {
-    //         // first check if a defender has the other team's flag, if they have, score a point 
-    //         foreach (var pair in playersList)
-    //         {
-    //             if (pair.Team == defendTeam && pair.Player.transform.Find("Flag") != null)
-    //             {
-    //                 return State.Return;
-    //             };
-    //         }
-    //         if ((numOfAttackers + numOfDefenders) == 0)
-    //         {
-    //             return State.Idle;
-    //         }
-    //         // the flag can only be captured only when there are more attacker than defenders
-    //         else if (numOfAttackers > numOfDefenders)
-    //         {
-    //             return State.Capture;
-    //         }
-    //         else if (numOfAttackers >= 1)
-    //         {
-    //             return State.Stalemate;
-    //         }
-    //         else return State.Idle;
-    //     }
-    //     else
-    //     {
-    //         // check if a defender has the flag from its own team to return 
-    //         foreach (var pair in playersList)
-    //         {
-    //             if (pair.Player.transform.Find("Flag") != null)
-    //             {
-    //                 return State.Return;
-    //             };
-    //         }
-    //         return State.Idle;
-    //     }
-    // }
-
     // based on the current state, apply changes
-    // void ApplyChangesOnState()
-    // {
-    //     currentState = EvaluateState();
-    //     switch (currentState)
-    //     {
-    //         case State.Idle:
-    //             fieldRenderer.material = idleMaterial;
-    //             if (countDown)
-    //             {
-    //                 ResetCounter();
-    //             }
-    //             break;
-    //         case State.Capture:
-    //             fieldRenderer.material = captureMaterial;
-    //             // start the captureCounter
-    //             countDown = true;
-    //             break;
-    //         case State.Return:
-    //             fieldRenderer.material = returnMaterial;
-    //             break;
-    //         case State.Stalemate:
-    //             fieldRenderer.material = stalemateMaterial;
-    //             countDown = false;
-    //             break;
-    //     }
-    // }
+    [PunRPC]
+    void ApplyChangesOnState(int playerID)
+    {
+        currentState = EvaluateState();
+        switch (currentState)
+        {
+            case State.Idle:
+                fieldRenderer.material = idleMaterial;
+                StopAllCoroutines();
+                break;
+            case State.Capture:
+                fieldRenderer.material = captureMaterial;
+                // start the capture counter
+                StartCoroutine(StartCaptureCountDown(captureDuration, playerID));
+                break;
+            case State.Return:
+                fieldRenderer.material = returnMaterial;
+                break;
+            case State.Stalemate:
+                fieldRenderer.material = stalemateMaterial;
+                StopAllCoroutines();
+                break;
+        }
+    }
+
+    IEnumerator StartCaptureCountDown(float time, int playerID)
+    {
+        yield return new WaitForSeconds(time);
+        gameMechanics.RPC_EnableFlagHolder(playerID);
+    }
 
     void OnTriggerEnter(Collider other)
     {
         if (!PV.IsMine) return;
         // track players as they enter the detection field
-        if (other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player") && !playerList.Exists(player => player.obj == other.gameObject))
         {
             GameObject playerEntered = other.gameObject;
+
             int playerID = playerEntered.GetComponent<Movement>().GetId();
-            gameMechanics.RPC_PlayerEnter(playerID, defendTeam);
+            int teamID = gameMechanics.checkTeam(playerID);
+
+            playerList.Add(new GameMechanics.Player { team = teamID, obj = other.gameObject });
+            // attacking
+            if (teamID != defendTeam)
+            {
+                gameMechanics.RPC_UpdateAttackers(defendTeam, true);
+            }
+            // defending
+            else
+            {
+                gameMechanics.RPC_UpdateDefenders(teamID, true);
+                if (playerEntered.GetComponent<FlagHolder>().enabled)
+                {
+                    gameMechanics.RPC_DisableFlagHolder(playerID);
+                    gameMechanics.RPC_UpdateFlag(defendTeam, true);
+
+                }
+            }
+            RPC_ApplyChangesOnState(playerID);
         }
-        // ApplyChangesOnState();
     }
 
     void OnTriggerExit(Collider other)
     {
         if (!PV.IsMine) return;
-
         // Untrack players as they leave the detection field
         if (other.gameObject.CompareTag("Player"))
         {
+            GameObject playerExited = other.gameObject;
             int playerID = other.gameObject.GetComponent<Movement>().GetId();
-            gameMechanics.RPC_PlayerExit(playerID, defendTeam);
-            // playersList.Remove(playerExited);
+            int teamID = gameMechanics.checkTeam(playerID);
+            if (teamID != defendTeam)
+            {
+                gameMechanics.RPC_UpdateAttackers(defendTeam, false);
+            }
+            else
+            {
+                gameMechanics.RPC_UpdateDefenders(defendTeam, false);
+            }
+            playerList.RemoveAll(player => player.obj == other.gameObject);
+            RPC_ApplyChangesOnState(playerID);
         }
     }
-    // ApplyChangesOnState();
+
 }
