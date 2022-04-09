@@ -31,6 +31,7 @@ public class ScoreTrigger : MonoBehaviour
             if (fh.enabled == true)
             {
                 fh.RespawnFlag(other.transform.position, other.transform.rotation);
+                fh.enabled = false;
             }
 
             mov.Spawn();

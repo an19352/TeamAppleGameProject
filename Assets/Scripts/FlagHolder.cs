@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class FlagHolder : MonoBehaviour
 {
@@ -9,11 +10,17 @@ public class FlagHolder : MonoBehaviour
     // public int flagTeam;
     // public int playerTeam;
     public Transform flagPrefab;
+    public PhotonView PV;
     // Start is called before the first frame update
     void Start()
     {
-        // flagTeam = gameObject.GetComponent<Movement>().GetId();
+        PV = GetComponent<PhotonView>();
     }
+
+    // void Update()
+    // {
+    //     if (!PV.IsMine) return;
+    // }
 
     void OnDisable()
     {
@@ -33,7 +40,14 @@ public class FlagHolder : MonoBehaviour
 
         Vector3 respawnFLagPosition = new Vector3(respawnFLagPlatform.position.x, respawnFLagPlatform.position.y + 10, respawnFLagPlatform.position.z);
         Quaternion respawnFLagRotation = respawnFLagPlatform.transform.rotation;
-        Instantiate(flagPrefab, respawnFLagPosition, respawnFLagRotation);
+
+        PV.RPC("InstantiateFlag", RpcTarget.All, respawnFLagPosition, respawnFLagRotation);
+    }
+
+    [PunRPC]
+    void InstantiateFlag(Vector3 respawnFlagPosition, Quaternion respawnFLagRotation)
+    {
+        Instantiate(flagPrefab, respawnFlagPosition, respawnFLagRotation);
     }
 
     Transform FindClosestDistance(GameObject[] platforms, Vector3 respawnFlagPosition)
