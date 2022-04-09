@@ -4815,7 +4815,7 @@ GameObject:
   - component: {fileID: 4993819792352137872}
   m_Layer: 0
   m_Name: StartingBoardRed
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5258,9 +5258,29 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -2284055510531762282, guid: d6b193f5a9a42ae47b734c2dcd9df053, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 887f8d37fa6082e44af9fba054dc7035, type: 2}
+    - target: {fileID: -2284055510531762282, guid: d6b193f5a9a42ae47b734c2dcd9df053, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 887f8d37fa6082e44af9fba054dc7035, type: 2}
     - target: {fileID: 919132149155446097, guid: d6b193f5a9a42ae47b734c2dcd9df053, type: 3}
       propertyPath: m_Name
       value: SpaceShip1
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: d6b193f5a9a42ae47b734c2dcd9df053, type: 3}
+      propertyPath: m_TagString
+      value: Ground
+      objectReference: {fileID: 0}
+    - target: {fileID: 4989051873170242972, guid: d6b193f5a9a42ae47b734c2dcd9df053, type: 3}
+      propertyPath: m_TagString
+      value: Ground
+      objectReference: {fileID: 0}
+    - target: {fileID: 6819803609713842281, guid: d6b193f5a9a42ae47b734c2dcd9df053, type: 3}
+      propertyPath: m_TagString
+      value: Ground
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d6b193f5a9a42ae47b734c2dcd9df053, type: 3}
@@ -5346,9 +5366,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: Board
       objectReference: {fileID: 0}
+    - target: {fileID: 5783757352103883764, guid: d5fc2f8a923f3f5429eb9fc1ea2e2d41, type: 3}
+      propertyPath: m_TagString
+      value: Ground
+      objectReference: {fileID: 0}
+    - target: {fileID: 7943306184028749989, guid: d5fc2f8a923f3f5429eb9fc1ea2e2d41, type: 3}
+      propertyPath: m_TagString
+      value: Ground
+      objectReference: {fileID: 0}
     - target: {fileID: 8176473694404092270, guid: d5fc2f8a923f3f5429eb9fc1ea2e2d41, type: 3}
       propertyPath: m_Name
       value: RedObjective
+      objectReference: {fileID: 0}
+    - target: {fileID: 8176473694404092270, guid: d5fc2f8a923f3f5429eb9fc1ea2e2d41, type: 3}
+      propertyPath: m_TagString
+      value: Ground
       objectReference: {fileID: 0}
     - target: {fileID: 8805517132008291284, guid: d5fc2f8a923f3f5429eb9fc1ea2e2d41, type: 3}
       propertyPath: m_RootOrder

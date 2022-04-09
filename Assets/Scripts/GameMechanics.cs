@@ -63,8 +63,9 @@ public class GameMechanics : MonoBehaviour
     public Button greenButton;
     public GameObject menuItem;
     public Canvas worldSpaceCanvas;
+    public Transform greenFlags;
+    public Transform redFlags;
     public FlagObjective[] flagObjectives;
-    private GameObject UI;
 
     PhotonView PV;
 
@@ -76,7 +77,6 @@ public class GameMechanics : MonoBehaviour
     {
         PV = GetComponent<PhotonView>();
         activePowerups = new Dictionary<int, UnityEngine.Vector3>();
-        UI = Camera.main.transform.Find("Canvas").gameObject;
         if (!PhotonNetwork.IsMasterClient)
             PV.RPC("SendVariables", RpcTarget.MasterClient);
 
@@ -183,23 +183,21 @@ public class GameMechanics : MonoBehaviour
     [PunRPC]
     public void UpdateFlagUI()
     {
-        Transform GreenFlags = UI.transform.Find("GreenFlags");
-        Transform RedFlags = UI.transform.Find("RedFlags");
-        foreach (Transform flag in GreenFlags)
+        foreach (Transform flag in greenFlags)
         {
             flag.GetComponent<Image>().enabled = false;
         }
-        foreach (Transform flag in RedFlags)
+        foreach (Transform flag in redFlags)
         {
             flag.GetComponent<Image>().enabled = false;
         }
         for (int i = 0; i < flagObjectives[0].flagCount; i++)
         {
-            RedFlags.GetChild(i).gameObject.GetComponent<Image>().enabled = true;
+            redFlags.GetChild(i).gameObject.GetComponent<Image>().enabled = true;
         }
         for (int i = 0; i < flagObjectives[1].flagCount; i++)
         {
-            GreenFlags.GetChild(i).gameObject.GetComponent<Image>().enabled = true;
+            greenFlags.GetChild(i).gameObject.GetComponent<Image>().enabled = true;
         }
     }
 

@@ -20,14 +20,27 @@ public class ScoreTrigger : MonoBehaviour
         // If it got triggered by an object with a Movement file on it, 
         // checks for the player ID to score a point for the enemy team
         // and respawn the player
+
         if (other.CompareTag("Player"))
         {
             Movement mov = other.GetComponent<Movement>();
+
+            // if the player also holds the flag, respawn the flag at the nearest platform
+            // always do the flag respawn before player respawn, to capture the drop coordinate
+            FlagHolder fh = other.GetComponent<FlagHolder>();
+            if (fh.enabled == true)
+            {
+                fh.RespawnFlag(other.transform.position, other.transform.rotation);
+            }
+
             mov.Spawn();
+
 
             if (gameMechanics == null) return;
             int team = (1 + gameMechanics.checkTeam(mov.GetId())) % 2;    // Only works for 2 teams
             gameMechanics.RPC_Score(team);
+
+
         }
     }
 }

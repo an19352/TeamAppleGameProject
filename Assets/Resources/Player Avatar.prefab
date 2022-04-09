@@ -10498,6 +10498,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab7a4a62fb829d548897e1e94c7a9c74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  flagPrefab: {fileID: 8739342494494658063, guid: b2314e4357384b44693adcb971d71536, type: 3}
 --- !u!114 &2286949501575152505
 MonoBehaviour:
   m_ObjectHideFlags: 0

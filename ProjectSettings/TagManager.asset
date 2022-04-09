@@ -10,6 +10,7 @@ TagManager:
   - Detected
   - Hook
   - Meteor
+  - ScoreTrigger
   layers:
   - Default
   - TransparentFX

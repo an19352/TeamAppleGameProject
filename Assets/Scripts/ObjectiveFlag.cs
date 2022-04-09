@@ -61,8 +61,7 @@ public class ObjectiveFlag : MonoBehaviour
     {
         numOfDefenders = gameMechanics.flagObjectives[defendTeam].numOfDefenders;
         numOfAttackers = gameMechanics.flagObjectives[defendTeam].numOfAttackers;
-        Debug.Log(numOfAttackers);
-        Debug.Log(numOfDefenders);
+
         // the defending team has the flag
         if (hasFlag)
         {
@@ -85,7 +84,6 @@ public class ObjectiveFlag : MonoBehaviour
             }
             else if (numOfAttackers >= 1)
             {
-                Debug.Log("enter stalemate");
                 return State.Stalemate;
             }
             else return State.Idle;

@@ -111,14 +111,14 @@ public class Movement : MonoBehaviour, IPunObservable
         Vector3 move = new Vector3(x * speed, 0, z * speed);        // The direction the player wants to move in
         if (currentVelocity.magnitude > speed + 5f)
             playerBody.AddForce(move - playerBody.velocity, ForceMode.Acceleration);
-                                                                    // If the force is greater then what the player can do, let it play out
-        else                                                        
+        // If the force is greater then what the player can do, let it play out
+        else
             playerBody.velocity = Vector3.Lerp(playerBody.velocity, new Vector3(0, playerBody.velocity.y, 0) + move, frictionCoef * Time.deltaTime);
-                                                                    
-                                                                    // This part ^ allows the player to beat his own input force and turn around quickly
+
+        // This part ^ allows the player to beat his own input force and turn around quickly
         float step = rotationSpeed * Time.deltaTime;                // frictionCoef controls how easy it is for the player to fully change moving direction
 
-        Ray mouseRay = cameraMain.ScreenPointToRay(Input.mousePosition);   
+        Ray mouseRay = cameraMain.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(mouseRay, out RaycastHit hit, 1000f, mousecastPlane))
         {
             mouseLocation = hit.point;
@@ -132,7 +132,7 @@ public class Movement : MonoBehaviour, IPunObservable
         if (isGrounded)
             if (jumpInput)
                 playerBody.AddForce(transform.up * jumpForce, ForceMode.Acceleration);
-        
+
         playerBody.AddForce(Vector3.down * gravityStrength, ForceMode.Acceleration);
 
         Fire();
@@ -181,7 +181,7 @@ public class Movement : MonoBehaviour, IPunObservable
     // ReSpawn mechanic
     public void Spawn(int spawnPointID = -1)
     {
-        
+
         float greenX = Random.Range(-145, -145);
         float greenZ = Random.Range(-16, 16);
         float redX = Random.Range(145, 145);
@@ -210,7 +210,7 @@ public class Movement : MonoBehaviour, IPunObservable
                 player.position = new Vector3(redX, 6, redZ);
             }
         }
-        
+
 
         player.rotation = new Quaternion(0f, 0f, 0f, 0f);
         playerBody.angularVelocity = new Vector3(0f, 0f, 0f);
