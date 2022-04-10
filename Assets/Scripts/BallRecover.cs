@@ -6,9 +6,12 @@ using Photon.Pun;
 public class BallRecover : MonoBehaviour
 {
     PhotonView PV;
+    public static GameMechanics gameMechanics;
+
     void Start()
     {
         PV = GetComponent<PhotonView>();
+        gameMechanics = GameMechanics.gameMechanics;
     }
 
     void OnTriggerEnter(Collider other)
@@ -19,8 +22,20 @@ public class BallRecover : MonoBehaviour
             if (!player.GetComponent<FlagHolder>().enabled)
             {
                 GameMechanics.gameMechanics.RPC_EnableFlagHolder(player.GetComponent<Movement>().GetId());
-                GameMechanics.gameMechanics.RPC_Destroy(gameObject);
+
+                // strangely worked the first time
+                // gameMechanics.RPC_Destroy(gameObject);
+
+                // brute force LOL
+                PV.RPC("DestroyFlag", RpcTarget.All);
+
             }
+
         }
+    }
+    [PunRPC]
+    void DestroyFlag()
+    {
+        PhotonNetwork.Destroy(gameObject);
     }
 }

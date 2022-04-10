@@ -90,6 +90,8 @@ MonoBehaviour:
   - UpdateDefenders
   - InstantiateFlag
   - DestroyFlagOnRecover
+  - DestroyProperty
+  - DestroyFlag
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

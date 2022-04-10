@@ -28,15 +28,11 @@ public class FlagHolder : MonoBehaviour
 
     public void RespawnFlag(Vector3 dropPosition, Quaternion dropRotation)
     {
-
         GameObject[] platforms = GameObject.FindGameObjectsWithTag("Ground");
 
         Transform respawnFLagPlatform = FindClosestDistance(platforms, dropPosition);
-
         Vector3 respawnFlagPosition = new Vector3(respawnFLagPlatform.position.x, respawnFLagPlatform.position.y + 10, respawnFLagPlatform.position.z);
-        Quaternion respawnFLagRotation = respawnFLagPlatform.transform.rotation;
-
-        // PV.RPC("InstantiateFlag", RpcTarget.All, respawnFLagPosition, respawnFLagRotation);
+        Quaternion respawnFLagRotation = Quaternion.identity;
         PhotonNetwork.Instantiate(droppedBall.name, respawnFlagPosition, respawnFLagRotation);
     }
 
