@@ -9,18 +9,13 @@ public class FlagHolder : MonoBehaviour
 
     // public int flagTeam;
     // public int playerTeam;
-    public Transform flagPrefab;
-    public PhotonView PV;
+    public Transform droppedBall;
+    PhotonView PV;
     // Start is called before the first frame update
     void Start()
     {
         PV = GetComponent<PhotonView>();
     }
-
-    // void Update()
-    // {
-    //     if (!PV.IsMine) return;
-    // }
 
     void OnDisable()
     {
@@ -38,16 +33,11 @@ public class FlagHolder : MonoBehaviour
 
         Transform respawnFLagPlatform = FindClosestDistance(platforms, dropPosition);
 
-        Vector3 respawnFLagPosition = new Vector3(respawnFLagPlatform.position.x, respawnFLagPlatform.position.y + 10, respawnFLagPlatform.position.z);
+        Vector3 respawnFlagPosition = new Vector3(respawnFLagPlatform.position.x, respawnFLagPlatform.position.y + 10, respawnFLagPlatform.position.z);
         Quaternion respawnFLagRotation = respawnFLagPlatform.transform.rotation;
 
-        PV.RPC("InstantiateFlag", RpcTarget.All, respawnFLagPosition, respawnFLagRotation);
-    }
-
-    [PunRPC]
-    void InstantiateFlag(Vector3 respawnFlagPosition, Quaternion respawnFLagRotation)
-    {
-        Instantiate(flagPrefab, respawnFlagPosition, respawnFLagRotation);
+        // PV.RPC("InstantiateFlag", RpcTarget.All, respawnFLagPosition, respawnFLagRotation);
+        PhotonNetwork.Instantiate(droppedBall.name, respawnFlagPosition, respawnFLagRotation);
     }
 
     Transform FindClosestDistance(GameObject[] platforms, Vector3 respawnFlagPosition)

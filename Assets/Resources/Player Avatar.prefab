@@ -10498,8 +10498,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab7a4a62fb829d548897e1e94c7a9c74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  flagPrefab: {fileID: 815355317453089143, guid: b2314e4357384b44693adcb971d71536, type: 3}
-  PV: {fileID: 0}
+  droppedBall: {fileID: 815355317453089143, guid: b2314e4357384b44693adcb971d71536, type: 3}
 --- !u!114 &2286949501575152505
 MonoBehaviour:
   m_ObjectHideFlags: 0
