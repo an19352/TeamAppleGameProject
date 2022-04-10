@@ -409,5 +409,17 @@ public class GameMechanics : MonoBehaviour
         SceneManager.LoadScene(2);
     }
 
+    public void RPC_Destroy(GameObject obj)
+    {
+        if (obj.TryGetComponent(out PhotonView target))
+            PV.RPC("DestroyProperty", RpcTarget.MasterClient, target.ViewID);
+    }
+
+    [PunRPC]
+    void DestroyProperty(int PVID)
+    {
+        if (PhotonNetwork.IsMasterClient)
+            PhotonNetwork.Destroy(PhotonView.Find(PVID).gameObject);
+    }
 
 }
