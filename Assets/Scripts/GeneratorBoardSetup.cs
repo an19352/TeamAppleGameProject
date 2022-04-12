@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Security;
 using UnityEngine;
 
 public class GeneratorBoardSetup : MonoBehaviour
@@ -12,5 +13,18 @@ public class GeneratorBoardSetup : MonoBehaviour
         jumpPad.position = transform.position + jumpPad_position;
         boxes.position = transform.position + boxes_position;
         boxes.rotation = boxes_rotation;
+    }
+
+    public void Setup()
+    { 
+        Vector3 gen,box;
+        gen = generator.position;
+        gen.x = transform.position.x - (generator.position.x - transform.position.x);
+        generator.position = gen;
+        
+        box = boxes.position;
+        box.x = transform.position.x - (boxes.position.x - transform.position.x);
+        boxes.position = box;
+        boxes.rotation = Quaternion.identity;
     }
 }

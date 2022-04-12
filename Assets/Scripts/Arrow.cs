@@ -23,16 +23,6 @@ public class Arrow : MonoBehaviour
     [HideInInspector] 
     public GameObject home;
 
-    //private GameMechanics gameMechanics;
-    //private int teamId;
-    // Start is called before the first frame update
-    // void Start()
-    // {
-    //     this.gameMechanics = GameMechanics.gameMechanics;
-    //     int playerId = gameObject.GetComponent<Movement>().GetId();
-    //     teamId = gameMechanics.checkTeam(playerId);
-    // }
-
     private void Awake()
     {
         arrow.SetActive(true);    
@@ -48,17 +38,6 @@ public class Arrow : MonoBehaviour
         float dist2;
         float dist3;
         var dist = new Dictionary<float, GameObject>();
-
-        // if (teamId == 0)
-        // {
-        //     flag = GameObject.Find("StartingBoardGreen");
-        // }
-        // else
-        // {
-        //     flag = GameObject.Find("StartingBoardRed");
-        //
-        // }
-
 
         if (generator1 != null)
         {

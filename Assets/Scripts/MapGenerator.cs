@@ -13,27 +13,31 @@ public class MapGenerator : MonoBehaviour
 
     public struct Platform
     {
+        public PlatformType board;
         public Transform transform;
         public float reach;
         public float verticalReach;
 
-        public Platform(Transform _transform, float _reach, float _verticalReach)
+        public Platform(Transform _transform, float _reach, float _verticalReach, PlatformType type)
         {
             transform = _transform;
             reach = _reach;
             verticalReach = _verticalReach;
+            board = type;
         }
         public Platform(Transform _transform, PlatformType type)
         {
             transform = _transform;
             reach = type.reach;
             verticalReach = type.verticalReach;
+            board = type;
         }
         public Platform(Vector3 position, Quaternion rotation, PlatformType type)
         {
             transform = Instantiate(type.prefab, position, rotation).transform;
             reach = type.reach;
             verticalReach = type.verticalReach;
+            board = type;
         }
     }
 
@@ -48,15 +52,15 @@ public class MapGenerator : MonoBehaviour
             index = _index;
             root = _root;
             platform = _platform;
-
+        
             leafs = new List<int>();
         }
-        public TreeElement(Transform _transform, float _reach, float _verticalReach, int _index, int _root = -1)
+        public TreeElement(Transform _transform, float _reach, float _verticalReach, PlatformType type, int _index, int _root = -1)
         {
             index = _index;
             root = _root;
-            platform = new Platform(_transform, _reach, _verticalReach);
-
+            platform = new Platform(_transform, _reach, _verticalReach,type);
+        
             leafs = new List<int>();
         }
         public TreeElement(Transform _transform, PlatformType type, int _index, int _root = -1)
@@ -64,7 +68,7 @@ public class MapGenerator : MonoBehaviour
             index = _index;
             root = _root;
             platform = new Platform(_transform, type);
-
+        
             leafs = new List<int>();
         }
         public TreeElement(Vector3 position, Quaternion rotation, PlatformType type, int _index, int _root = -1)
@@ -77,6 +81,7 @@ public class MapGenerator : MonoBehaviour
         }
     }
     public List<TreeElement> tree = new List<TreeElement>();
+    public List<TreeElement> mirrortree = new List<TreeElement>();
 
     public Vector3 startingPosition; 
     public List<PlatformType> platformTypes;
@@ -88,6 +93,9 @@ public class MapGenerator : MonoBehaviour
     [Range(1, 4)]
     public int method = 3;
     Platform[,] map;
+
+    public GameObject greenbase;
+    public GameObject redbase;
 
     void Start()
     {
@@ -102,19 +110,58 @@ public class MapGenerator : MonoBehaviour
 
     void first_method()
     {
-        // Horiszontal line + trees
+        // Horizontal line + trees
         return;
     }
 
     void second_method()
     {
         // Mirror method
-        return;
+        
+        Vector3 position;
+        PlatformType chosen;
+        Vector3 rotation = new Vector3(0, 180, 0);
+        position = new Vector3(0, 0, 0);
+        chosen = platformTypes[Random.Range(0, platformTypes.Count - 1)];
+        tree.Add(new TreeElement(position, Quaternion.identity, chosen, 0));
+
+         DrawLineOfPlatforms(tree[0], Vector3.right, width);
+         DrawLineOfPlatforms(tree[width / 2], Vector3.forward, height / 2);
+         DrawLineOfPlatforms(tree[width / 2], Vector3.back, height / 2);
+         ReplacePlatform(width / 2, specialPlatforms[0]);
+        
+         DrawLineOfPlatforms(tree[1], Vector3.back, 3, Mathf.PI/36);
+         ReplacePlatform(tree.Count - 1, specialPlatforms[1]);
+        
+         for (int i = 1; i < tree.Count; i++)
+         {
+             position = tree[i].platform.transform.position;
+             position.x = -(position.x);
+             chosen = tree[i].platform.board;
+
+             if (chosen.prefab.name == "Board_With_Generator")
+             {
+                 mirrortree.Add(new TreeElement(position, Quaternion.identity, chosen, tree[i].index, tree[i].root));
+                 Transform settingup = mirrortree[mirrortree.Count - 1].platform.transform;
+                 settingup.gameObject.GetComponent<GeneratorBoardSetup>().Setup();
+             }
+             else
+             {
+                 mirrortree.Add(new TreeElement(position, Quaternion.identity, chosen, tree[i].index, tree[i].root));
+             }
+         }
+
+        //Component[] children = mirrortree[mirrortree.Count - 1].platform.type1.prefab.GetComponents(GameObject);
+        //Transform settingup = mirrortree[mirrortree.Count - 1].platform.transform;
+        //settingup.gameObject.GetComponent<GeneratorBoardSetup>().Setup();
+        
+        SpawnBases();
+        
     }
 
     void third_method()
     {
-        // Quadtrant method
+        // Quadrant method
 
         Vector3 position;
         PlatformType chosen;
@@ -123,14 +170,14 @@ public class MapGenerator : MonoBehaviour
         chosen = platformTypes[Random.Range(0, platformTypes.Count - 1)];
         tree.Add(new TreeElement(position, Quaternion.identity, chosen, 0));
 
-        Transform tr = Instantiate(chosen.prefab, position, Quaternion.identity).transform;
-        map[0, height / 2] = new Platform(tr, chosen);
+        //Transform tr = Instantiate(chosen.prefab, position, Quaternion.identity).transform;
+        //map[0, height / 2] = new Platform(tr, chosen);
 
         DrawLineOfPlatforms(tree[0], Vector3.right, width);
         DrawLineOfPlatforms(tree[width / 2], Vector3.forward, height / 2);
         DrawLineOfPlatforms(tree[width / 2], Vector3.back, height / 2);
         ReplacePlatform(width / 2, specialPlatforms[0]);
-
+        
         DrawLineOfPlatforms(tree[1], Vector3.back, 3, Mathf.PI/36);
         DrawLineOfPlatforms(tree[tree.Count - 2], Vector3.back, 2, 11 * Mathf.PI / 6);
         ReplacePlatform(tree.Count - 1, specialPlatforms[1]);
@@ -189,5 +236,32 @@ public class MapGenerator : MonoBehaviour
             previousIndex = tree.Count - 1;
             previous = tree[tree.Count - 1].platform;
         }
+    }
+
+    void SpawnBases()
+    {
+        Transform tr;
+        Platform previous = tree[0].platform;
+        Vector3 pos = previous.transform.position;
+        float max = pos.x; 
+        for (int i = 1; i < tree.Count; i++)
+        {
+            float a = tree[i].platform.transform.position.x;
+            if (a > max)
+            {
+                max = a;
+                previous = tree[i].platform;
+                pos = previous.transform.position;
+            }
+        }
+        pos = pos + Vector3.right.normalized * Random.Range(previous.reach * 1.85f, 2.1f * previous.reach);
+        pos.y += Random.Range(-previous.verticalReach, previous.verticalReach);
+
+        tr = Instantiate(redbase, pos, Quaternion.identity).transform;
+        tr.Rotate(new Vector3(0, 180, 0),Space.Self);
+
+        pos.x = -(pos.x);
+        Instantiate(greenbase, pos, Quaternion.identity);
+
     }
 }
