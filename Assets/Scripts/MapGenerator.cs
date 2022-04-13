@@ -109,16 +109,11 @@ public class MapGenerator : MonoBehaviour
              position.x = -(position.x);
              chosen = tree[i].platform.board;
 
-             if (chosen.prefab.name == "Board_With_Generator")
-             {
-                 mirrortree.Add(new TreeElement(position, Quaternion.identity, chosen, tree[i].index, tree[i].root));
-                 Transform settingup = mirrortree[mirrortree.Count - 1].platform.transform;
-                 settingup.gameObject.GetComponent<GeneratorBoardSetup>().Setup();
-             }
-             else
-             {
-                 mirrortree.Add(new TreeElement(position, Quaternion.identity, chosen, tree[i].index, tree[i].root));
-             }
+            mirrortree.Add(new TreeElement(position, Quaternion.identity, chosen, tree[i].index, tree[i].root));
+            Transform settingup = mirrortree[mirrortree.Count - 1].platform.transform;
+
+            if (settingup.gameObject.TryGetComponent(out BoardSetup BS))
+                BS.Setup();
          }
 
         //Component[] children = mirrortree[mirrortree.Count - 1].platform.type1.prefab.GetComponents(GameObject);

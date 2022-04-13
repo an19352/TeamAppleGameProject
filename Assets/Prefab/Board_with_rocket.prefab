@@ -202,6 +202,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2872560894573219669}
   - component: {fileID: 789822029385292869}
+  - component: {fileID: 5964041653623096869}
   m_Layer: 3
   m_Name: Board_with_rocket
   m_TagString: Ground
@@ -240,6 +241,20 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 0}
+--- !u!114 &5964041653623096869
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3212951400544163311}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e85688f8eb14f64c976e447ec963c9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  transforms:
+  - {fileID: 8490802856013270958}
 --- !u!1001 &8617370304557109704
 PrefabInstance:
   m_ObjectHideFlags: 0

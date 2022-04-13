@@ -202,6 +202,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7632914093073490353}
   - component: {fileID: 4955911172836111009}
+  - component: {fileID: 6495874509571105965}
   m_Layer: 3
   m_Name: Board_with_single_box
   m_TagString: Ground
@@ -240,6 +241,20 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 0}
+--- !u!114 &6495874509571105965
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7108472697868761867}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e85688f8eb14f64c976e447ec963c9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  transforms:
+  - {fileID: 5206667862934862807}
 --- !u!1001 &621411027079705330
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -269,7 +284,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4674312949722253605, guid: f3971aa49eb6bb04b9676549e109707c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -2.75
       objectReference: {fileID: 0}
     - target: {fileID: 4674312949722253605, guid: f3971aa49eb6bb04b9676549e109707c, type: 3}
       propertyPath: m_LocalPosition.y

@@ -18,9 +18,11 @@ public class GeneratorBoardSetup : MonoBehaviour
     public void Setup()
     { 
         Vector3 gen,box;
+
         gen = generator.position;
         gen.x = transform.position.x - (generator.position.x - transform.position.x);
         generator.position = gen;
+        generator.rotation = Quaternion.identity;
         
         box = boxes.position;
         box.x = transform.position.x - (boxes.position.x - transform.position.x);

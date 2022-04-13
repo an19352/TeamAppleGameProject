@@ -292,7 +292,7 @@ MonoBehaviour:
     chance: 0
   width: 7
   height: 7
-  method: 3
+  method: 2
   greenbase: {fileID: 4855106600265033456, guid: 4b9eef4794ac1084caf36e88645e744d, type: 3}
   redbase: {fileID: 4855106600265033456, guid: 1f1ac4a73097c5f41bb7a6413df2c86e, type: 3}
 --- !u!4 &506366124
