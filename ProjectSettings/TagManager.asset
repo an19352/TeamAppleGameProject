@@ -11,6 +11,7 @@ TagManager:
   - Hook
   - Meteor
   - ScoreTrigger
+  - Turret
   layers:
   - Default
   - TransparentFX

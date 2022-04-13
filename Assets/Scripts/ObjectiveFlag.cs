@@ -137,6 +137,7 @@ public class ObjectiveFlag : MonoBehaviour
     IEnumerator StartCaptureCountDown(float time, int playerID)
     {
         yield return new WaitForSeconds(time);
+        hasFlag = false;
         gameMechanics.RPC_EnableFlagHolder(playerID);
     }
 

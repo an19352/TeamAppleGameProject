@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Photon.Pun;
+using System.Linq;
 
 public class ForceCalculator : MonoBehaviour, IPunObservable
 {
@@ -12,7 +13,12 @@ public class ForceCalculator : MonoBehaviour, IPunObservable
     public float health = 50f;
     public float healthRemain = 50f;
     public GameObject destroyedVersion;
-
+    public float range = 35f;
+    public float turnSpeed = 10f;
+    public int team;
+    public Transform target;
+    public Transform partToRotate;
+    public Transform healthBar;
     private Image healthBarImage;
 
     private ForceShield fsScript;
@@ -27,10 +33,11 @@ public class ForceCalculator : MonoBehaviour, IPunObservable
     {
 
         PV = this.GetComponent<PhotonView>();
-        Transform canvas = this.gameObject.transform.Find("Canvas");
-        Transform healthBar = canvas.Find("HealthBar");
+        // Transform canvas = this.gameObject.transform.Find("Canvas");
         healthBarImage = healthBar.gameObject.GetComponent<Image>();
         fsScript = forceShield.GetComponent<ForceShield>();
+
+        InvokeRepeating("UpdateTarget", 0f, 0.5f);
     }
 
 
@@ -47,6 +54,51 @@ public class ForceCalculator : MonoBehaviour, IPunObservable
             RepelNearbyPlayers();
         }
 
+        if (target != null)
+        {
+            Vector3 direction = transform.position - target.position;
+            Quaternion rotation = Quaternion.LookRotation(direction);
+            Quaternion smoothRotation = Quaternion.Lerp(partToRotate.rotation, rotation, turnSpeed);
+            partToRotate.rotation = Quaternion.Euler(0f, smoothRotation.eulerAngles.y, 0f);
+        }
+    }
+
+
+    // updates a few times a second, used to locate the closest enemy player in range
+    void UpdateTarget()
+    {
+        int enemyLayer = team == 0 ? 13 : 12;
+        List<GameObject> players = new List<GameObject>(GameObject.FindGameObjectsWithTag("Player"));
+        List<GameObject> enemys = players.FindAll(player => player.layer == enemyLayer);
+
+        float closestDistance = Mathf.Infinity;
+        GameObject closestEnemy = null;
+        foreach (var enemy in enemys)
+        {
+            float distanceToEnemy = Vector3.Distance(enemy.transform.position, transform.position);
+            if (distanceToEnemy < closestDistance)
+            {
+                closestDistance = distanceToEnemy;
+                closestEnemy = enemy;
+            }
+        }
+
+        if (closestEnemy != null && closestDistance <= range)
+        {
+            target = closestEnemy.transform;
+        }
+        else
+        {
+            target = null;
+        }
+
+
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, range);
     }
 
     /*
@@ -56,6 +108,7 @@ public class ForceCalculator : MonoBehaviour, IPunObservable
      */
     void OnCollisionEnter(Collision other)
     {
+        Debug.Log(other.collider.tag);
         ContactPoint cp = other.GetContact(0);
         Vector3 collisionVelocity = other.relativeVelocity;
         Vector3 collisionNormal = cp.normal;
