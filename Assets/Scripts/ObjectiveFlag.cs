@@ -45,6 +45,7 @@ public class ObjectiveFlag : MonoBehaviour
         flag = transform.Find("Ball").gameObject;
         detectionField = transform.Find("DetectionField").gameObject;
         gameMechanics = GameMechanics.gameMechanics;
+        if (gameMechanics == null) return;
         numOfAttackers = gameMechanics.flagObjectives[defendTeam].numOfAttackers;
         numOfDefenders = gameMechanics.flagObjectives[defendTeam].numOfDefenders;
         currentState = State.Idle;
@@ -141,6 +142,7 @@ public class ObjectiveFlag : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
+        if (!PhotonNetwork.IsConnected) return;
         if (!PV.IsMine) return;
         // track players as they enter the detection field
         if (other.gameObject.CompareTag("Player") && !playerList.Exists(player => player.obj == other.gameObject))
