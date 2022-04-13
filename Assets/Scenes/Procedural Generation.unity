@@ -260,6 +260,12 @@ MonoBehaviour:
   - prefab: {fileID: 2765404466157998811, guid: 90228459ee011a04f816883ed77bc560, type: 3}
     reach: 35
     verticalReach: 2.5
+  - prefab: {fileID: 3212951400544163311, guid: b18bda2c21ced9c45a3cb0688dc902f3, type: 3}
+    reach: 35
+    verticalReach: 2.5
+  - prefab: {fileID: 7108472697868761867, guid: 95b1554454eb9df41b749481067a5c5e, type: 3}
+    reach: 35
+    verticalReach: 2.5
   specialPlatforms:
   - prefab: {fileID: 2479892074112479611, guid: d0309f77de521c44482a6b3b2913322b, type: 3}
     reach: 70
