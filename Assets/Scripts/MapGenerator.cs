@@ -9,6 +9,12 @@ public class MapGenerator : MonoBehaviour
         public GameObject prefab;
         public float reach;
         public float verticalReach;
+        public float chance;
+
+        public void modifyChance(float newChance)
+        {
+            chance = newChance;
+        }
     }
 
     public struct Platform
@@ -18,20 +24,6 @@ public class MapGenerator : MonoBehaviour
         public float reach;
         public float verticalReach;
 
-        public Platform(Transform _transform, float _reach, float _verticalReach, PlatformType type)
-        {
-            transform = _transform;
-            reach = _reach;
-            verticalReach = _verticalReach;
-            board = type;
-        }
-        public Platform(Transform _transform, PlatformType type)
-        {
-            transform = _transform;
-            reach = type.reach;
-            verticalReach = type.verticalReach;
-            board = type;
-        }
         public Platform(Vector3 position, Quaternion rotation, PlatformType type)
         {
             transform = Instantiate(type.prefab, position, rotation).transform;
@@ -47,30 +39,6 @@ public class MapGenerator : MonoBehaviour
         public List<int> leafs;
         public Platform platform;
 
-        public TreeElement(Platform _platform, int _index, int _root = -1)
-        {
-            index = _index;
-            root = _root;
-            platform = _platform;
-        
-            leafs = new List<int>();
-        }
-        public TreeElement(Transform _transform, float _reach, float _verticalReach, PlatformType type, int _index, int _root = -1)
-        {
-            index = _index;
-            root = _root;
-            platform = new Platform(_transform, _reach, _verticalReach,type);
-        
-            leafs = new List<int>();
-        }
-        public TreeElement(Transform _transform, PlatformType type, int _index, int _root = -1)
-        {
-            index = _index;
-            root = _root;
-            platform = new Platform(_transform, type);
-        
-            leafs = new List<int>();
-        }
         public TreeElement(Vector3 position, Quaternion rotation, PlatformType type, int _index, int _root = -1)
         {
             index = _index;
@@ -86,6 +54,7 @@ public class MapGenerator : MonoBehaviour
     public Vector3 startingPosition; 
     public List<PlatformType> platformTypes;
     public List<PlatformType> specialPlatforms;
+    float chanceSum = 0f;
 
     public int width = 15;
     public int height = 15;
@@ -100,6 +69,7 @@ public class MapGenerator : MonoBehaviour
     void Start()
     {
         map = new Platform[width, height];
+        foreach (PlatformType plt in platformTypes) chanceSum += plt.chance;
 
         Random.InitState(13);
         if (method == 1) first_method();
