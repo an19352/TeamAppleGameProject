@@ -11,7 +11,7 @@ public class BoardSetup : MonoBehaviour
     public void Setup()
     {
         Vector3 helper;
-        foreach(Transform trans in transform)
+        foreach(Transform trans in transforms)
         {
             helper = trans.position;
             helper.x = transform.position.x - (trans.position.x - transform.position.x);

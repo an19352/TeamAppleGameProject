@@ -116,11 +116,7 @@ public class MapGenerator : MonoBehaviour
                 BS.Setup();
          }
 
-        //Component[] children = mirrortree[mirrortree.Count - 1].platform.type1.prefab.GetComponents(GameObject);
-        //Transform settingup = mirrortree[mirrortree.Count - 1].platform.transform;
-        //settingup.gameObject.GetComponent<GeneratorBoardSetup>().Setup();
-        
-        SpawnBases();
+         SpawnBases();
         
     }
 
@@ -147,7 +143,7 @@ public class MapGenerator : MonoBehaviour
         DrawLineOfPlatforms(tree[tree.Count - 2], Vector3.back, 2, 11 * Mathf.PI / 6);
         ReplacePlatform(tree.Count - 1, specialPlatforms[1]);
         Transform settingup = tree[tree.Count - 1].platform.transform;
-        settingup.gameObject.GetComponent<GeneratorBoardSetup>().Setup(new Vector3(-7f, 0f, 0f), new Vector3(0f, 0f, 0f), new Vector3(0f, 0f, 7f), Quaternion.identity);
+        //settingup.gameObject.GetComponent<BoardSetup>().Setup(new Vector3(-7f, 0f, 0f), new Vector3(0f, 0f, 0f), new Vector3(0f, 0f, 7f), Quaternion.identity);
     }
 
     void fourth_method()
