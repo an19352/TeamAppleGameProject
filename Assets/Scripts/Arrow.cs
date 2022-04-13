@@ -20,8 +20,13 @@ public class Arrow : MonoBehaviour
     [HideInInspector]
     public GameObject flag;
 
-    [HideInInspector] 
+    [HideInInspector]
     public GameObject home;
+
+    // private void Awake()
+    // {
+    //     arrow.SetActive(true);
+    // }
 
     // Update is called once per frame
     void Update()

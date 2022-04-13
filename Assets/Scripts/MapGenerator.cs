@@ -51,7 +51,7 @@ public class MapGenerator : MonoBehaviour
     public List<TreeElement> tree = new List<TreeElement>();
     public List<TreeElement> mirrortree = new List<TreeElement>();
 
-    public Vector3 startingPosition; 
+    public Vector3 startingPosition;
     public List<PlatformType> platformTypes;
     public List<PlatformType> specialPlatforms;
     float chanceSum = 0f;
@@ -87,7 +87,7 @@ public class MapGenerator : MonoBehaviour
     void second_method()
     {
         // Mirror method
-        
+
         Vector3 position;
         PlatformType chosen;
         Vector3 rotation = new Vector3(0, 180, 0);
@@ -99,10 +99,10 @@ public class MapGenerator : MonoBehaviour
          DrawLineOfPlatforms(tree[width / 2], Vector3.forward, height / 2);
          DrawLineOfPlatforms(tree[width / 2], Vector3.back, height / 2);
          ReplacePlatform(width / 2, specialPlatforms[0]);
-        
+
          DrawLineOfPlatforms(tree[1], Vector3.back, 3, Mathf.PI/36);
          ReplacePlatform(tree.Count - 1, specialPlatforms[1]);
-        
+
          for (int i = 1; i < tree.Count; i++)
          {
              position = tree[i].platform.transform.position;
@@ -116,12 +116,8 @@ public class MapGenerator : MonoBehaviour
                 BS.Setup();
          }
 
-        //Component[] children = mirrortree[mirrortree.Count - 1].platform.type1.prefab.GetComponents(GameObject);
-        //Transform settingup = mirrortree[mirrortree.Count - 1].platform.transform;
-        //settingup.gameObject.GetComponent<GeneratorBoardSetup>().Setup();
-        
-        SpawnBases();
-        
+         SpawnBases();
+
     }
 
     void third_method()
@@ -142,7 +138,7 @@ public class MapGenerator : MonoBehaviour
         DrawLineOfPlatforms(tree[width / 2], Vector3.forward, height / 2);
         DrawLineOfPlatforms(tree[width / 2], Vector3.back, height / 2);
         ReplacePlatform(width / 2, specialPlatforms[0]);
-        
+
         DrawLineOfPlatforms(tree[1], Vector3.back, 3, Mathf.PI/36);
         DrawLineOfPlatforms(tree[tree.Count - 2], Vector3.back, 2, 11 * Mathf.PI / 6);
         ReplacePlatform(tree.Count - 1, specialPlatforms[1]);
@@ -155,7 +151,7 @@ public class MapGenerator : MonoBehaviour
         // Grid strike out (graph theory)
         return;
     }
-   
+
     int FindPlatform(Transform _transform)
     {
         foreach (TreeElement element in tree)
@@ -183,7 +179,7 @@ public class MapGenerator : MonoBehaviour
 
         for (; length > 0; length--)
         {
-            if (angleOverTime > 0) 
+            if (angleOverTime > 0)
             {
                 direction = new Vector3(direction.x * Mathf.Cos(angle) - direction.z * Mathf.Sin(angle), 0f,
                                         direction.x * Mathf.Sin(angle) + direction.z * Mathf.Cos(angle));
@@ -217,7 +213,7 @@ public class MapGenerator : MonoBehaviour
         Transform tr;
         Platform previous = tree[0].platform;
         Vector3 pos = previous.transform.position;
-        float max = pos.x; 
+        float max = pos.x;
         for (int i = 1; i < tree.Count; i++)
         {
             float a = tree[i].platform.transform.position.x;
