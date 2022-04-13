@@ -171,4 +171,18 @@ public class Inventory : MonoBehaviour
         inventoryItems[inventoryMaxATM] = null;
         inventoryMaxATM--;
     }
+
+    public void ClearInventory()
+    {
+        for (int i = inventoryMaxATM; i > 0; i--)
+        {
+            inventory.RemoveUIElement(inventoryItems[i].GetIE().powerupName);
+            inventoryItems[i].RightClick();
+            Destroy(inventoryItems[i] as MonoBehaviour);
+
+            inventoryItems[i] = null;
+        }
+        selectedAbility = 0;
+        inventoryMaxATM = 0;
+    }
 }

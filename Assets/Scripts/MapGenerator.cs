@@ -66,12 +66,36 @@ public class MapGenerator : MonoBehaviour
     public GameObject greenbase;
     public GameObject redbase;
 
+    public int InitState = 13;
+    public bool Generate_Again = false;
+
+    public void OnValidate()
+    {
+        if (Generate_Again)
+        {
+
+            foreach (TreeElement TE in tree)
+            {
+                Destroy(TE.platform.transform.gameObject);
+            }
+            tree = new List<TreeElement>();
+
+            Random.InitState(InitState);
+            if (method == 1) first_method();
+            else if (method == 2) second_method();
+            else if (method == 3) third_method();
+            else if (method == 4) fourth_method();
+
+            Generate_Again = false;
+        }
+    }
+
     void Start()
     {
         map = new Platform[width, height];
         foreach (PlatformType plt in platformTypes) chanceSum += plt.chance;
 
-        Random.InitState(13);
+        //Random.InitState(InitState);
         if (method == 1) first_method();
         else if (method == 2) second_method();
         else if (method == 3) third_method();
@@ -134,16 +158,38 @@ public class MapGenerator : MonoBehaviour
         //Transform tr = Instantiate(chosen.prefab, position, Quaternion.identity).transform;
         //map[0, height / 2] = new Platform(tr, chosen);
 
-        DrawLineOfPlatforms(tree[0], Vector3.right, width);
+        DrawLineOfPlatforms(tree[0], Vector3.right, width - 1);
+        ReplacePlatform(0, specialPlatforms[0]);
+        ReplacePlatform(width - 1, specialPlatforms[0]);
+
+        position = position + Vector3.left * 100f;
+        Instantiate(greenbase, position, Quaternion.identity);
+        position = tree[width - 1].platform.transform.position + Vector3.right * 100f;
+        Instantiate(redbase, position, Quaternion.identity).transform.Rotate(new Vector3(0, 180, 0), Space.Self); 
+
         DrawLineOfPlatforms(tree[width / 2], Vector3.forward, height / 2);
         DrawLineOfPlatforms(tree[width / 2], Vector3.back, height / 2);
         ReplacePlatform(width / 2, specialPlatforms[0]);
 
-        DrawLineOfPlatforms(tree[1], Vector3.back, 3, Mathf.PI/36);
+        DrawLineOfPlatforms(tree[width / 6], Vector3.back, 3, Mathf.PI / 36);
+        ReplacePlatform(tree.Count - 2, specialPlatforms[0]);
         DrawLineOfPlatforms(tree[tree.Count - 2], Vector3.back, 2, 11 * Mathf.PI / 6);
         ReplacePlatform(tree.Count - 1, specialPlatforms[1]);
         Transform settingup = tree[tree.Count - 1].platform.transform;
         settingup.gameObject.GetComponent<BoardSetup>().Setup();
+
+        DrawLineOfPlatforms(tree[width / 6], Vector3.forward, 3, Mathf.PI / 36);
+        ReplacePlatform(tree.Count - 2, specialPlatforms[0]);
+        DrawLineOfPlatforms(tree[tree.Count - 2], Vector3.back, 2, 7* Mathf.PI / 6);
+        ReplacePlatform(tree.Count - 1, specialPlatforms[1]);
+        settingup = tree[tree.Count - 1].platform.transform;
+        settingup.gameObject.GetComponent<BoardSetup>().Setup();
+
+        for (int i = 1; i < width / 6; i++)
+        {
+            DrawLineOfPlatforms(tree[width / 6], Vector3.back, 3, Mathf.PI / 36);
+            DrawLineOfPlatforms(tree[width / 6], Vector3.forward, 3, Mathf.PI / 36);
+        }
     }
 
     void fourth_method()
@@ -187,7 +233,8 @@ public class MapGenerator : MonoBehaviour
             }
 
             position = previous.transform.position + direction.normalized * Random.Range(previous.reach * 0.75f, previous.reach);
-            position.y += Random.Range(-previous.verticalReach, previous.verticalReach);
+            if (previous.verticalReach > 4f) position.y += Random.Range(3 * previous.verticalReach / 2, previous.verticalReach);
+            else position.y += Random.Range(-previous.verticalReach, previous.verticalReach);   
             float num = Random.Range(0f, 1f);
             for(int i = 0; i < platformTypes.Count; i++)
             {

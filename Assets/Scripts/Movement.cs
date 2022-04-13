@@ -211,7 +211,7 @@ public class Movement : MonoBehaviour, IPunObservable
             }
         }
 
-
+        GetComponent<Inventory>().ClearInventory();
         player.rotation = new Quaternion(0f, 0f, 0f, 0f);
         playerBody.angularVelocity = new Vector3(0f, 0f, 0f);
         playerBody.velocity = new Vector3(0f, 0f, 0f);
