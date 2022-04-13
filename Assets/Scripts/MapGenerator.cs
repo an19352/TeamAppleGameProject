@@ -195,7 +195,6 @@ public class MapGenerator : MonoBehaviour
     {
         foreach (TreeElement element in tree)
             if (element.platform.transform.Equals(_transform)) return element.index;
-
         return -1;
     }
 

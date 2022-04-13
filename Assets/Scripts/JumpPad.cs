@@ -25,7 +25,7 @@ public class JumpPad : MonoBehaviour
 
     void OnCollisionEnter(Collision other)
     {
-
+        if (arrowUp == null) return;
         arrowUp.SetActive(false);
         StartCoroutine(ActivateCooldown(coolDown));
         Rigidbody playerBody = other.collider.attachedRigidbody;
