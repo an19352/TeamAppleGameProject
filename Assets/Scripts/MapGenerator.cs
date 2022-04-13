@@ -66,12 +66,36 @@ public class MapGenerator : MonoBehaviour
     public GameObject greenbase;
     public GameObject redbase;
 
+    public int InitState = 13;
+    public bool Generate_Again = false;
+
+    public void OnValidate()
+    {
+        if (Generate_Again)
+        {
+
+            foreach (TreeElement TE in tree)
+            {
+                Destroy(TE.platform.transform.gameObject);
+            }
+            tree = new List<TreeElement>();
+
+            Random.InitState(InitState);
+            if (method == 1) first_method();
+            else if (method == 2) second_method();
+            else if (method == 3) third_method();
+            else if (method == 4) fourth_method();
+
+            Generate_Again = false;
+        }
+    }
+
     void Start()
     {
         map = new Platform[width, height];
         foreach (PlatformType plt in platformTypes) chanceSum += plt.chance;
 
-        Random.InitState(13);
+        Random.InitState(InitState);
         if (method == 1) first_method();
         else if (method == 2) second_method();
         else if (method == 3) third_method();
@@ -134,7 +158,7 @@ public class MapGenerator : MonoBehaviour
         //Transform tr = Instantiate(chosen.prefab, position, Quaternion.identity).transform;
         //map[0, height / 2] = new Platform(tr, chosen);
 
-        DrawLineOfPlatforms(tree[0], Vector3.right, width);
+        DrawLineOfPlatforms(tree[0], Vector3.right, width - 1);
         DrawLineOfPlatforms(tree[width / 2], Vector3.forward, height / 2);
         DrawLineOfPlatforms(tree[width / 2], Vector3.back, height / 2);
         ReplacePlatform(width / 2, specialPlatforms[0]);
