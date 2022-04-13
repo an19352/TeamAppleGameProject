@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.1962879, g: 0.09740276, b: 0.11954967, a: 1}
+  m_IndirectSpecularColor: {r: 0.19634691, g: 0.09731356, b: 0.119633995, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -260,22 +260,39 @@ MonoBehaviour:
   - prefab: {fileID: 2765404466157998811, guid: 90228459ee011a04f816883ed77bc560, type: 3}
     reach: 35
     verticalReach: 2.5
+    chance: 0.3
   - prefab: {fileID: 3212951400544163311, guid: b18bda2c21ced9c45a3cb0688dc902f3, type: 3}
     reach: 35
     verticalReach: 2.5
+    chance: 0.2
   - prefab: {fileID: 7108472697868761867, guid: 95b1554454eb9df41b749481067a5c5e, type: 3}
     reach: 35
     verticalReach: 2.5
+    chance: 0.2
+  - prefab: {fileID: 7157000051020754708, guid: d26fbeaacf2ea498c98b40be19dd77b7, type: 3}
+    reach: 35
+    verticalReach: 2.5
+    chance: 0.1
+  - prefab: {fileID: 4241231335372436453, guid: cb23c9b82505b47b4916b0ed6d656942, type: 3}
+    reach: 35
+    verticalReach: 2.5
+    chance: 0.06
+  - prefab: {fileID: 4821233131761326416, guid: 1228a0c565c214fd6a26155a0881b3d5, type: 3}
+    reach: 35
+    verticalReach: 2.5
+    chance: 0.14
   specialPlatforms:
   - prefab: {fileID: 2479892074112479611, guid: d0309f77de521c44482a6b3b2913322b, type: 3}
     reach: 70
     verticalReach: 30
+    chance: 0
   - prefab: {fileID: 6225837053503751009, guid: 1a78f81512f8c76488c9b3bdde4172d0, type: 3}
     reach: 70
     verticalReach: 30
+    chance: 0
   width: 7
   height: 7
-  method: 2
+  method: 3
   greenbase: {fileID: 4855106600265033456, guid: 4b9eef4794ac1084caf36e88645e744d, type: 3}
   redbase: {fileID: 4855106600265033456, guid: 1f1ac4a73097c5f41bb7a6413df2c86e, type: 3}
 --- !u!4 &506366124

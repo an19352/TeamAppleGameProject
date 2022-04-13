@@ -181,7 +181,7 @@ public class MapGenerator : MonoBehaviour
         if (length < 0) length = Mathf.Min(width, height);
 
         Vector3 position;
-        PlatformType chosen;
+        PlatformType chosen = platformTypes[0];
         Platform previous = from.platform;
         int previousIndex = from.index;
         float angle = angleOverTime;
@@ -197,7 +197,17 @@ public class MapGenerator : MonoBehaviour
 
             position = previous.transform.position + direction.normalized * Random.Range(previous.reach * 0.75f, previous.reach);
             position.y += Random.Range(-previous.verticalReach, previous.verticalReach);
-            chosen = platformTypes[Random.Range(0, platformTypes.Count)];
+            float num = Random.Range(0f, 1f);
+            for(int i = 0; i < platformTypes.Count; i++)
+            {
+                if (num > platformTypes[i].chance) num -= platformTypes[i].chance;
+                else
+                {
+                    chosen = platformTypes[i];
+                    break;
+                }
+            }
+
 
             tree[previousIndex].leafs.Add(tree.Count);
             tree.Add(new TreeElement(position, Quaternion.identity, chosen, tree.Count, previousIndex));
