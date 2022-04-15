@@ -5,28 +5,34 @@ using UnityEngine.UI;
 using Photon.Pun;
 using System.Linq;
 
-public class ForceCalculator : MonoBehaviour, IPunObservable
+public class Turret : MonoBehaviour, IPunObservable
 {
     PhotonView PV;
-    public GameObject forceShield;
 
+    [Header("Can mess with")]
+    public int team;
     public float health = 50f;
     public float healthRemain = 50f;
-    public GameObject destroyedVersion;
-    public float range = 35f;
+    public GameObject explosionEffect;
+    public float explosionRadius = 2;
+    public float range = 15f;
     public float turnSpeed = 10f;
-    public int team;
+    public float pushForce = 5;
+    // times/per second
+    public float fireRate = 0.2f;
+    public float fireCountDown = 0;
+
+    [Header("Do not mess with")]
+    public GameObject bulletPrefab;
+    public Transform firePoint;
     public Transform target;
     public Transform partToRotate;
     public Transform healthBar;
-    private Image healthBarImage;
 
-    private ForceShield fsScript;
     public LayerMask players;
 
-    public float pushForce = 5;
-    public float explosionRadius = 2;
-
+    private ForceShield fsScript;
+    private Image healthBarImage;
 
     // Start is called before the first frame update
     void Start()
@@ -35,7 +41,6 @@ public class ForceCalculator : MonoBehaviour, IPunObservable
         PV = this.GetComponent<PhotonView>();
         // Transform canvas = this.gameObject.transform.Find("Canvas");
         healthBarImage = healthBar.gameObject.GetComponent<Image>();
-        fsScript = forceShield.GetComponent<ForceShield>();
 
         InvokeRepeating("UpdateTarget", 0f, 0.5f);
     }
@@ -47,11 +52,10 @@ public class ForceCalculator : MonoBehaviour, IPunObservable
         // if (!PV.IsMine) return;
         if (healthRemain <= 0)
         {
-            PhotonNetwork.Instantiate(destroyedVersion.name, transform.position, transform.rotation);
-            Debug.Log(fsScript.generatorDestroyed);
+            // Debug.Log(fsScript.generatorDestroyed);
             PV.RPC("RememberMe", RpcTarget.AllBuffered);
             //PhotonNetwork.Destroy(this.gameObject);
-            RepelNearbyPlayers();
+
         }
 
         if (target != null)
@@ -60,9 +64,28 @@ public class ForceCalculator : MonoBehaviour, IPunObservable
             Quaternion rotation = Quaternion.LookRotation(direction);
             Quaternion smoothRotation = Quaternion.Lerp(partToRotate.rotation, rotation, turnSpeed);
             partToRotate.rotation = Quaternion.Euler(0f, smoothRotation.eulerAngles.y, 0f);
+            if (fireCountDown <= 0)
+            {
+                Shoot();
+                fireCountDown = 1 / fireRate;
+
+            }
+            fireCountDown -= Time.deltaTime;
         }
     }
 
+    void Shoot()
+    {
+        Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+    }
+
+    IEnumerator CreateExplosion()
+    {
+        GameObject explosion = PhotonNetwork.Instantiate(explosionEffect.name, transform.position, transform.rotation);
+        RepelNearbyPlayers();
+        yield return new WaitForSeconds(2);
+        PhotonNetwork.Destroy(explosion);
+    }
 
     // updates a few times a second, used to locate the closest enemy player in range
     void UpdateTarget()
@@ -108,7 +131,6 @@ public class ForceCalculator : MonoBehaviour, IPunObservable
      */
     void OnCollisionEnter(Collision other)
     {
-        Debug.Log(other.collider.tag);
         ContactPoint cp = other.GetContact(0);
         Vector3 collisionVelocity = other.relativeVelocity;
         Vector3 collisionNormal = cp.normal;
@@ -135,8 +157,8 @@ public class ForceCalculator : MonoBehaviour, IPunObservable
     [PunRPC]
     void RememberMe()
     {
-        fsScript.generatorDestroyed++;
         Destroy(gameObject);
+        StartCoroutine(CreateExplosion());
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)

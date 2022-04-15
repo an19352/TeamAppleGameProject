@@ -17,12 +17,6 @@ public class JumpPad : MonoBehaviour
 
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     void OnCollisionEnter(Collision other)
     {
         if (arrowUp == null) return;
