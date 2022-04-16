@@ -26,18 +26,19 @@ public class ScoreTrigger : MonoBehaviour
             Movement mov = other.GetComponent<Movement>();
 
             // if the player also holds the flag, respawn the flag at the nearest platform
-            // always do the flag respawn before player respawn, to capture the drop coordinate
             FlagHolder fh = other.GetComponent<FlagHolder>();
-
-            mov.Spawn();
-
-
             if (gameMechanics == null) return;
             if (fh.enabled == true)
             {
                 fh.RespawnFlag(other.transform.position, other.transform.rotation);
                 fh.enabled = false;
             }
+
+            // ! always do the flag respawn before player respawn, to capture the drop coordinate
+            mov.Spawn();
+
+
+
             int team = (1 + gameMechanics.checkTeam(mov.GetId())) % 2;    // Only works for 2 teams
             gameMechanics.RPC_Score(team);
 
