@@ -27,7 +27,6 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 5986070424737422582}
   - {fileID: 8420498286815013988}
   - {fileID: 702839273180954776}
   m_Father: {fileID: 0}
@@ -314,19 +313,19 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5986070424737422583}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 5986070424052126117}
   - {fileID: 5986070423604516640}
   - {fileID: 5986070422846274075}
-  m_Father: {fileID: 1873199503195028654}
-  m_RootOrder: 0
+  m_Father: {fileID: 702839273180954776}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1, y: -0.00000166893}
+  m_AnchoredPosition: {x: 0, y: 3}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &5986070424737422579
@@ -399,7 +398,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 5484e70e1af39514eabe9e616d45c11e, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5484e70e1af39514eabe9e616d45c11e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -451,19 +450,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5484e70e1af39514eabe9e616d45c11e, type: 3}
---- !u!1 &183288815020235298 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 5484e70e1af39514eabe9e616d45c11e, type: 3}
-  m_PrefabInstance: {fileID: 1029712315237820275}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &702839273180954776 stripped
+--- !u!4 &7135676713032466971 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 5484e70e1af39514eabe9e616d45c11e, type: 3}
-  m_PrefabInstance: {fileID: 1029712315237820275}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &6541996032160050047 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: -3133498875991405556, guid: 5484e70e1af39514eabe9e616d45c11e, type: 3}
+  m_CorrespondingSourceObject: {fileID: 7876023681238672744, guid: 5484e70e1af39514eabe9e616d45c11e, type: 3}
   m_PrefabInstance: {fileID: 1029712315237820275}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &8227550229501023071 stripped
@@ -471,9 +460,19 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: -259972160606440404, guid: 5484e70e1af39514eabe9e616d45c11e, type: 3}
   m_PrefabInstance: {fileID: 1029712315237820275}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &7135676713032466971 stripped
+--- !u!1 &6541996032160050047 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -3133498875991405556, guid: 5484e70e1af39514eabe9e616d45c11e, type: 3}
+  m_PrefabInstance: {fileID: 1029712315237820275}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &702839273180954776 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 7876023681238672744, guid: 5484e70e1af39514eabe9e616d45c11e, type: 3}
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 5484e70e1af39514eabe9e616d45c11e, type: 3}
+  m_PrefabInstance: {fileID: 1029712315237820275}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &183288815020235298 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 5484e70e1af39514eabe9e616d45c11e, type: 3}
   m_PrefabInstance: {fileID: 1029712315237820275}
   m_PrefabAsset: {fileID: 0}
 --- !u!54 &2510789085823813920
@@ -527,11 +526,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e41d91d7ff0dd5e439c4e69768bb80b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forceShield: {fileID: 0}
   team: 0
   health: 100
   healthRemain: 100
-  explosionEffect: {fileID: 1362822013187336473, guid: 71485555c39e1fc41a2caab498211993, type: 3}
+  explosionEffect: {fileID: 7270086744859371354, guid: 3f958cfa70c704a41af22aee83c9ce2a, type: 3}
   explosionRadius: 2
   range: 39
   turnSpeed: 10
@@ -587,7 +585,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3254800817455106145, guid: 90228459ee011a04f816883ed77bc560, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3254800817455106145, guid: 90228459ee011a04f816883ed77bc560, type: 3}
       propertyPath: m_LocalScale.x

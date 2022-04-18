@@ -609,7 +609,7 @@ MonoBehaviour:
   team: 0
   health: 200
   healthRemain: 200
-  explosionEffect: {fileID: 1362822013187336473, guid: 71485555c39e1fc41a2caab498211993, type: 3}
+  explosionEffect: {fileID: 7270086744859371354, guid: 3f958cfa70c704a41af22aee83c9ce2a, type: 3}
   explosionRadius: 2
   pushForce: 5
   fireCountDown: 0
@@ -648,7 +648,8 @@ MonoBehaviour:
   Synchronization: 3
   OwnershipTransfer: 0
   observableSearch: 0
-  ObservedComponents: []
+  ObservedComponents:
+  - {fileID: 0}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0

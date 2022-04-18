@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using Photon.Pun;
 using System.Linq;
 
-public class ElectricityGenerator : MonoBehaviour, IPunObservable
+public class EnergyGenerator : MonoBehaviour, IPunObservable
 {
     PhotonView PV;
     public GameObject forceShield;
@@ -45,21 +45,25 @@ public class ElectricityGenerator : MonoBehaviour, IPunObservable
         // if (!PV.IsMine) return;
         if (healthRemain <= 0)
         {
+            Debug.Log("some ");
             // Debug.Log(fsScript.generatorDestroyed);
             PV.RPC("RememberMe", RpcTarget.AllBuffered);
             //PhotonNetwork.Destroy(this.gameObject);
-            StartCoroutine(CreateExplosion());
+            CreateExplosion();
         }
 
     }
 
 
-    IEnumerator CreateExplosion()
+    void CreateExplosion()
     {
         GameObject explosion = PhotonNetwork.Instantiate(explosionEffect.name, transform.position, transform.rotation);
-        RepelNearbyPlayers();
-        yield return new WaitForSeconds(2);
-        PhotonNetwork.Destroy(explosion);
+        // Debug.Log("explosion instantiated");
+
+        // RepelNearbyPlayers();
+        // // yield return new WaitForSeconds(2);
+        // PhotonNetwork.Destroy(explosion);
+        // Debug.Log("destroy explosion instantiated");
     }
 
 
