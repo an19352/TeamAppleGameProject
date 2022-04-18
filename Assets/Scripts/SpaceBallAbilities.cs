@@ -293,7 +293,6 @@ namespace SpaceBallAbilities
             inventory = GetComponent<Inventory>();
             InventoryUIManager.inventory.AddUIElement(IEtag, inventory);
             cameraMain = Camera.main;
-            lm = LayerMask.GetMask("Hookable");
             
             shootTransform = inventory.shootTransform;
         }
