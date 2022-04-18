@@ -35,7 +35,8 @@ public class EnergyGenerator : MonoBehaviour, IPunObservable
         PV = this.GetComponent<PhotonView>();
         // Transform canvas = this.gameObject.transform.Find("Canvas");
         healthBarImage = healthBar.gameObject.GetComponent<Image>();
-        fsScript = forceShield.GetComponent<ForceShield>();
+        if (GameMechanics.gameMechanics == null) this.enabled = false;
+        else fsScript = forceShield.GetComponent<ForceShield>();
     }
 
 

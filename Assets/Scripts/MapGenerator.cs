@@ -80,7 +80,7 @@ public class MapGenerator : MonoBehaviour
             }
             tree = new List<TreeElement>();
 
-            Random.InitState(InitState);
+            //Random.InitState(InitState);
             if (method == 1) first_method();
             else if (method == 2) second_method();
             else if (method == 3) third_method();
@@ -171,14 +171,14 @@ public class MapGenerator : MonoBehaviour
         DrawLineOfPlatforms(tree[width / 2], Vector3.back, height / 2);
         ReplacePlatform(width / 2, specialPlatforms[0]);
 
-        DrawLineOfPlatforms(tree[width / 6], Vector3.back, 3, Mathf.PI / 36);
+        DrawLineOfPlatforms(tree[Random.Range(width/6, width/6 +2)], Vector3.back, 3, Mathf.PI / 36);
         ReplacePlatform(tree.Count - 2, specialPlatforms[0]);
         DrawLineOfPlatforms(tree[tree.Count - 2], Vector3.back, 2, 11 * Mathf.PI / 6);
         ReplacePlatform(tree.Count - 1, specialPlatforms[1]);
         Transform settingup = tree[tree.Count - 1].platform.transform;
         settingup.gameObject.GetComponent<BoardSetup>().Setup();
 
-        DrawLineOfPlatforms(tree[width / 6], Vector3.forward, 3, Mathf.PI / 36);
+        DrawLineOfPlatforms(tree[Random.Range(width / 6, width / 6 + 2)], Vector3.forward, 3, Mathf.PI / 36);
         ReplacePlatform(tree.Count - 2, specialPlatforms[0]);
         DrawLineOfPlatforms(tree[tree.Count - 2], Vector3.back, 2, 7* Mathf.PI / 6);
         ReplacePlatform(tree.Count - 1, specialPlatforms[1]);
