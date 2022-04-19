@@ -65,6 +65,11 @@ public class InventoryUIElement : MonoBehaviour
         selected = true;
     }
 
+    public void AddSeconds(float seconds)
+    {
+        timeToDie += Mathf.Abs(seconds);
+    }
+
     public void Deselect()
     {
         if (!selected) return;

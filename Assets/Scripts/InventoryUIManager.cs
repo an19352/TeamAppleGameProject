@@ -63,6 +63,18 @@ public class InventoryUIManager : MonoBehaviour
         UIelements.Add(_element);
     }
 
+    public void AddSecondsToPowerup(string tag, float seconds)
+    {
+        foreach(InventoryUIElement element in UIelements)
+        {
+            if(element.powerupName.text == tag)
+            {
+                element.AddSeconds(seconds);
+                return;
+            }
+        }
+    }
+
     public void RemoveUIElement(string tag)
     {
         for (int i = 0; i < UIelements.Count; i++)
