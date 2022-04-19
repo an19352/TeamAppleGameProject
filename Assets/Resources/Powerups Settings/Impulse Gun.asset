@@ -10,9 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a0f83309689e56f45ab790e28fe95efa, type: 3}
-  m_Name: Gravity Gun
+  m_Name: Impulse Gun
   m_EditorClassIdentifier: 
-  powerupName: Gravity Gun
-  icon: {fileID: 21300000, guid: 7170a3db44061d3438a8f619c34a7a29, type: 3}
-  Infinite: 0
-  timeToDie: 60
+  powerupName: Impulse Gun
+  icon: {fileID: 21300000, guid: 8da9042e74723154ebf0c2e618d71946, type: 3}
+  Infinite: 1
+  timeToDie: 0
+  associatedClass: ImpulseCannon
+  tooltipText: "Left Click to launch a sonic \nwave to push opponents and \nobjects
+    away. Use Right click \nto cancel."

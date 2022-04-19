@@ -10,9 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a0f83309689e56f45ab790e28fe95efa, type: 3}
-  m_Name: Impulse Gun
+  m_Name: Grenade
   m_EditorClassIdentifier: 
-  powerupName: Impulse Gun
-  icon: {fileID: 21300000, guid: 8da9042e74723154ebf0c2e618d71946, type: 3}
-  Infinite: 1
+  powerupName: Grenade
+  icon: {fileID: 0}
+  Infinite: 0
   timeToDie: 0
+  associatedClass: Grenade

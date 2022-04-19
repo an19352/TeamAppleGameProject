@@ -8,11 +8,12 @@ public class Inventory : MonoBehaviour
 {
     PhotonView PV;
     public static InventoryUIManager inventory;
-    List<System.Type> itemComponents = new List<System.Type> { typeof(SpaceBallAbilities.GravityGun), typeof(SpaceBallAbilities.Grapple),
-                                                                typeof(SpaceBallAbilities.ImpulseCannon), typeof(Grenade), typeof(Coin)};
+    
+    InventoryElement[] IEs;
     Dictionary<string, System.Type> typeLookUp = new Dictionary<string, System.Type>();
-    public List<GameObject> tooltips;
+    public GameObject tooltip;
     public Vector3 tooltipOffset;
+    public string firstPowerupTag = "Impulse Gun";
     Canvas worldCanvas;
 
     [Range(1, 5)]
@@ -52,11 +53,12 @@ public class Inventory : MonoBehaviour
         inventory = InventoryUIManager.inventory;
         if (!PV.IsMine) return;
 
-        typeLookUp.Add("Impulse Gun", typeof(SpaceBallAbilities.ImpulseCannon));
-        typeLookUp.Add("Grapple Gun", typeof(SpaceBallAbilities.Grapple));
-        typeLookUp.Add("Gravity Gun", typeof(SpaceBallAbilities.GravityGun));
-        typeLookUp.Add("Grenade", typeof(SpaceBallAbilities.Grenade));
-        typeLookUp.Add("Coin", typeof(Coin));
+        IEs = inventory.CloneIEs();
+        foreach(InventoryElement IE in IEs)
+        {
+            typeLookUp.Add(IE.powerupName, System.Type.GetType("SpaceBallAbilities."+IE.associatedClass));
+        }
+
         inventoryItems = new IAbility[inventorySize];
         worldCanvas = GameMechanics.gameMechanics.worldSpaceCanvas;
 
@@ -65,7 +67,8 @@ public class Inventory : MonoBehaviour
 
         inventoryMaxATM = 0;
         transform.GetChild(2).gameObject.SetActive(true);
-        activateItem("Impulse Gun");
+        activateItem(firstPowerupTag);
+
         //inventoryItems[0] = impulseGunHolder.AddComponent(itemComponents[2]) as IAbility;
         //inventoryItems[0].SetUp();
     }
@@ -110,10 +113,12 @@ public class Inventory : MonoBehaviour
 
         if (!notNewPowerups.Contains(tag))
         {
+            int tagIndex = 0;
             notNewPowerups.Add(tag);
-
-            GameObject tooltip = Instantiate(tooltips[itemComponents.IndexOf(typeLookUp[tag])], worldCanvas.transform);
-            tooltip.transform.position = transform.position + tooltipOffset;
+            for (int i = 0; i < IEs.Length; i++) if(IEs[i].powerupName == tag) tagIndex = i;
+            GameObject _tooltip = Instantiate(tooltip, worldCanvas.transform);
+            _tooltip.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = IEs[tagIndex].tooltipText;
+            _tooltip.transform.position = transform.position + tooltipOffset;
         }
 
         for (int i = 0; i < inventorySize; i++)
@@ -121,7 +126,7 @@ public class Inventory : MonoBehaviour
             if (inventoryItems[i] == null)
             {
                 inventoryItems[i] = gameObject.AddComponent(typeLookUp[tag]) as IAbility;
-                inventoryItems[i].SetUp();
+                inventoryItems[i].SetUp(tag);
                 inventoryMaxATM = i;
                 return;
             }

@@ -10,10 +10,9 @@ public class Powerup : MonoBehaviour
     PhotonView PV;
     public static PhotonRoom room;
     public static GameMechanics gameMechanics;
-    public enum Effects { Gravity_Gun, Grapple_Gun, Coin, Grenade };
-    public Effects _effect;
+    [Tooltip("Check the Resources/Powerup Settings folder for a Inventory Element")]
+    public InventoryElement powerup;
     public GameObject pickupEffect;
-    string effect;
     /*
     Dictionary<string, int> itemsLookup = new Dictionary<string, int>()
     {
@@ -32,8 +31,6 @@ public class Powerup : MonoBehaviour
         room = PhotonRoom.room;
 
         //thisPowerup = transform.gameObject;
-        effect = _effect.ToString().Replace("_", " ");
-        Debug.Log(effect);
     }
 
     //Makes powerup disappear when touched and writes to powerup text in UI
@@ -41,7 +38,7 @@ public class Powerup : MonoBehaviour
     {
         if (other.collider.CompareTag("Player"))
         {
-            PV.RPC("ActivateItem", RpcTarget.All, other.collider.GetComponent<Movement>().GetId(), effect);
+            PV.RPC("ActivateItem", RpcTarget.All, other.collider.GetComponent<Movement>().GetId(), powerup.powerupName);
             PV.RPC("Disable", RpcTarget.All, null);
         }
     }

@@ -8,7 +8,7 @@ public class InventoryUIManager : MonoBehaviour
 
     public Sprite prefabspr;
     public float verticalOffset = 0f;
-    public List<InventoryElement> IEs;
+    List<InventoryElement> IEs;
 
     public GameObject prefab;
     List<InventoryUIElement> UIelements;
@@ -37,6 +37,9 @@ public class InventoryUIManager : MonoBehaviour
 
     void Start()
     {
+        IEs = new List<InventoryElement>();
+        Object[] _objs = Resources.LoadAll("Powerups Settings", typeof(InventoryElement));
+        for (int i = 0; i < _objs.Length; i++) IEs.Add((InventoryElement)_objs[i]);
         UIelements = new List<InventoryUIElement>(); 
     }
 
@@ -99,5 +102,10 @@ public class InventoryUIManager : MonoBehaviour
                 return;
             }
         Debug.LogWarning(tag + " is not in inventory");
+    }
+
+    public InventoryElement[] CloneIEs()
+    {
+        return IEs.ToArray();
     }
 }

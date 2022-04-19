@@ -11,4 +11,7 @@ public class InventoryElement : ScriptableObject
 
     public bool Infinite;
     public float timeToDie;
+    public string associatedClass;
+    [TextArea(10, 100)]
+    public string tooltipText;
 }

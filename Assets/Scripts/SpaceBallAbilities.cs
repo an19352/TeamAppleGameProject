@@ -5,13 +5,19 @@ using Photon.Pun;
 
 namespace SpaceBallAbilities
 {
+    // If you want to add a new Powerup: 
+    //          - in this file create a new monobehaviour that inherets from IAbility
+    //          - in "Resources/Powerups Settings" create a new InventoryElement (Scriptable Object) for this powerup
+    //            This IE will contain everything from how long this powerup should last to its name and icon
+    //          - finally add, in Resources add the prefab that will spawn and be picked up.
+    //                          Give it the Powerup Script (don't forget to assign your IE here) and a Photon View
     public interface IAbility
     {
-        public void SetUp();
+        public void SetUp(string IEname); // Reads this player's settings for this weapon and creates UI element for it
 
         public void LeftClick();
         public void RightClick();
-        public InventoryElement GetIE();
+        public InventoryElement GetIE(); // Return the scriptable object associated with this component
     }
 
     public class GravityGun : MonoBehaviour, IAbility
@@ -19,14 +25,13 @@ namespace SpaceBallAbilities
         PhotonView PV;
         InventoryElement IE;
         Inventory inventory;
-        string IEtag = "Gravity Gun";
 
         float maxGrabDistance, throwForce;
         Transform objectHolder;
         int grabbedID;
         Rigidbody grabbedRB = null;
-
-        public void SetUp()
+        
+        public void SetUp(string IEtag)
         {
             PV = GetComponent<PhotonView>();
             IE = InventoryUIManager.inventory.GetIE(IEtag);
@@ -127,7 +132,6 @@ namespace SpaceBallAbilities
 
         InventoryElement IE;
         Inventory inventory;
-        string IEtag = "Grapple Gun";
 
         float stopPullDistance;
         GameObject hookPrefab;
@@ -143,7 +147,7 @@ namespace SpaceBallAbilities
         private int lm;
 
         // Start is called before the first frame update
-        public void SetUp()
+        public void SetUp(string IEtag)
         {
             IE = InventoryUIManager.inventory.GetIE(IEtag);
             rigid = GetComponent<Rigidbody>();
@@ -200,7 +204,6 @@ namespace SpaceBallAbilities
         PhotonView PV;
         InventoryElement IE;
         Inventory inventory;
-        string IEtag = "Impulse Gun";
         GameObject particleSystem;
         float timeToShoot = 0;
 
@@ -210,7 +213,7 @@ namespace SpaceBallAbilities
         List<int> toBePushed;
 
         // Start is called before the first frame update
-        public void SetUp()
+        public void SetUp(string IEtag)
         {
             PV = GetComponent<PhotonView>();
             IE = InventoryUIManager.inventory.GetIE(IEtag);
@@ -271,7 +274,6 @@ namespace SpaceBallAbilities
         
         InventoryElement IE;
         Inventory inventory;
-        string IEtag = "Grenade";
 
         public GameObject grenadePrefab;
         Transform shootTransform;
@@ -284,7 +286,7 @@ namespace SpaceBallAbilities
         private Quaternion lookRotation;
         private int lm;
         
-        public void SetUp()
+        public void SetUp(string IEtag)
         {
             countdown = delay;
             cameraMain = Camera.main;
@@ -345,8 +347,7 @@ namespace SpaceBallAbilities
     {
         InventoryElement IE;
         Inventory inventory;
-        string IEtag = "Coin";
-        public void SetUp()
+        public void SetUp(string IEtag)
         {
             IE = InventoryUIManager.inventory.GetIE(IEtag);
             transform.localScale.Scale(new Vector3(2, 2, 2));
