@@ -25,13 +25,13 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
 
     private void Awake()
     {
-        if(PhotonRoom.room == null)
+        if (PhotonRoom.room == null)
         {
             PhotonRoom.room = this;
         }
         else
         {
-            if(PhotonRoom.room != this)
+            if (PhotonRoom.room != this)
             {
                 Destroy(PhotonRoom.room.gameObject);
                 PhotonRoom.room = this;
