@@ -10,6 +10,11 @@ public class ForceShield : MonoBehaviour
     // green is 0 and red is 1
     public int team;
 
+    private void Awake()
+    {
+        generatorDestroyed = 0;
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -17,7 +22,7 @@ public class ForceShield : MonoBehaviour
         if (generatorDestroyed >= 3)
         {
             Instantiate(explosion, transform.position, transform.rotation);
-            Destroy(this.gameObject);
+            gameObject.SetActive(false);
         }
     }
 }
