@@ -401,6 +401,15 @@ public class GameMechanics : MonoBehaviour
         PV.RPC("EndGame", RpcTarget.AllBuffered);
     }
 
+    public GameObject GetLocalPlayer()
+    {
+        foreach(Player player in players)
+        {
+            if (player.obj.GetComponent<PhotonView>().IsMine) return player.obj;
+        }
+        return null;
+    }
+
     [PunRPC]
     void EndGame()
     {
