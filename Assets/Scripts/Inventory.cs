@@ -134,7 +134,7 @@ public class Inventory : MonoBehaviour
             if (inventoryItems[i].GetIE().powerupName == tag)
             {
                 // Reset timer or add to it or something
-                //inventory.AddSecondsToPowerup(tag, inventory.GetIE(tag).timeToDie / 2);
+                inventory.AddSecondsToPowerup(tag, inventory.GetIE(tag).timeToDie / 2);
                 return;
             }
         }
