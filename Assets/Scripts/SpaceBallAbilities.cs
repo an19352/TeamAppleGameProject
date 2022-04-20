@@ -30,7 +30,7 @@ namespace SpaceBallAbilities
         Transform objectHolder;
         int grabbedID;
         Rigidbody grabbedRB = null;
-        
+
         public void SetUp(string IEtag)
         {
             PV = GetComponent<PhotonView>();
@@ -43,7 +43,7 @@ namespace SpaceBallAbilities
             objectHolder = inventory.objectHolder;
         }
 
-        public void LeftClick() 
+        public void LeftClick()
         {
             if (grabbedRB)
             {
@@ -54,7 +54,8 @@ namespace SpaceBallAbilities
                 PV.RPC("AddSomeForce", RpcTarget.All, grabbedID, objectHolder.transform.forward * throwForce, ForceMode.VelocityChange);
                 grabbedRB = null;
             }
-            else {
+            else
+            {
                 RaycastHit hit;
                 Ray mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
 
@@ -76,7 +77,7 @@ namespace SpaceBallAbilities
             }
         }
 
-        public void RightClick() 
+        public void RightClick()
         {
             if (grabbedRB)
             {
@@ -89,10 +90,10 @@ namespace SpaceBallAbilities
         }
 
         public InventoryElement GetIE() { return IE; }
-        
+
         private void OnDestroy()
         {
-            RightClick();   
+            RightClick();
         }
 
         [PunRPC]
@@ -166,10 +167,10 @@ namespace SpaceBallAbilities
             hookPrefab = inventory.hookPrefab;
             shootTransform = inventory.shootTransform;
         }
-       
+
         public void LeftClick()
         {
-            if(hook == null)
+            if (hook == null)
             {
                 Ray mouseRay = cameraMain.ScreenPointToRay(Input.mousePosition);
                 if (Physics.Raycast(mouseRay, out RaycastHit hit, 1000f, lm))
@@ -271,7 +272,7 @@ namespace SpaceBallAbilities
         public float force;
         public GameObject explosionEffect;
         public float throwForce;
-        
+
         InventoryElement IE;
         Inventory inventory;
 
@@ -279,23 +280,23 @@ namespace SpaceBallAbilities
         Transform shootTransform;
         float countdown;
         bool hasExploded = false;
-        
+
         private Camera cameraMain;
         private Vector3 mouseLocation;
         private Vector3 lookDirection;
         private Quaternion lookRotation;
         private int lm;
-        
+
         public void SetUp(string IEtag)
         {
             countdown = delay;
             cameraMain = Camera.main;
-            
+
             IE = InventoryUIManager.inventory.GetIE(IEtag);
             inventory = GetComponent<Inventory>();
             InventoryUIManager.inventory.AddUIElement(IEtag, inventory);
             cameraMain = Camera.main;
-            
+
             shootTransform = inventory.shootTransform;
         }
 
@@ -304,15 +305,16 @@ namespace SpaceBallAbilities
             GameObject grenade = Instantiate(grenadePrefab, transform.position, transform.rotation);
             Rigidbody rb = grenade.GetComponent<Rigidbody>();
             rb.AddForce(transform.forward * throwForce, ForceMode.VelocityChange);
-            
+
             countdown -= Time.deltaTime;
             if (countdown <= 0f && !hasExploded)
             {
                 Explode();
                 hasExploded = true;
             }
-            
-            void Explode(){
+
+            void Explode()
+            {
 
                 // show effect
                 Instantiate(explosionEffect, transform.position, transform.rotation);
@@ -324,7 +326,7 @@ namespace SpaceBallAbilities
                 foreach (Collider nearbyObject in colliders)
                 {
                     Rigidbody rb = nearbyObject.GetComponent<Rigidbody>();
-                    if(rb != null)
+                    if (rb != null)
                     {
                         rb.AddExplosionForce(force, transform.position, radius);
                     }
@@ -338,9 +340,9 @@ namespace SpaceBallAbilities
         }
         public void LeftClick() { return; }
 
-        
+
         public InventoryElement GetIE() { return IE; }
-        
+
     }
 
     public class Coin : MonoBehaviour, IAbility
@@ -370,6 +372,60 @@ namespace SpaceBallAbilities
         public void RightClick()
         {
             return;
+        }
+
+        public InventoryElement GetIE() { return IE; }
+    }
+
+    public class Jetpack : MonoBehaviour, IAbility
+    {
+        InventoryElement IE;
+        Inventory inventory;
+
+        float gravity;
+        float antiGravity;
+
+        GameObject boosterFlamePrefab;
+        GameObject boosterFlame;
+
+
+        public void SetUp(string IEtag)
+        {
+            // PV = GetComponent<PhotonView>();
+            IE = InventoryUIManager.inventory.GetIE(IEtag);
+            inventory = GetComponent<Inventory>();
+            InventoryUIManager.inventory.AddUIElement(IEtag, inventory);
+            // fetch parameter settings about the power-up from the static reference to inventory
+            // (I guess) only store those variables that you want to expose to the editor in inventory
+            antiGravity = inventory.antiGravity;
+            boosterFlamePrefab = inventory.boosterFlame;
+
+            gravity = GetComponent<Movement>().gravityStrength;
+            boosterFlame = Instantiate(boosterFlamePrefab, transform);
+            boosterFlame.SetActive(false);
+        }
+
+
+
+        public void LeftClick()
+        {
+            GetComponent<Movement>().gravityStrength = antiGravity;
+            boosterFlame.SetActive(true);
+        }
+
+        public void RightClick()
+        {
+            GetComponent<Movement>().gravityStrength = gravity;
+            boosterFlame.SetActive(false);
+        }
+
+        public void Update()
+        {
+            if (Input.GetButtonUp("Fire1"))
+            {
+                GetComponent<Movement>().gravityStrength = gravity;
+                boosterFlame.SetActive(false);
+            }
         }
 
         public InventoryElement GetIE() { return IE; }

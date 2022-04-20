@@ -10245,9 +10245,9 @@ GameObject:
   - component: {fileID: 8521386507383712025}
   - component: {fileID: 8521386507383712026}
   - component: {fileID: 8521386507383712027}
-  - component: {fileID: -7131588376947766652}
   - component: {fileID: 8521386507383712021}
   - component: {fileID: 7291472432763749253}
+  - component: {fileID: -7131588376947766652}
   - component: {fileID: -3096326147471984968}
   - component: {fileID: 6608188565613503937}
   - component: {fileID: 4070538607894281487}
@@ -10350,39 +10350,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &-7131588376947766652
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8521386507383712022}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a0141c7149b65e40affa96177f22aa3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isNPC: 0
-  highlightedGreenMaterial: {fileID: 2100000, guid: 73306b8830f59e5418513cce5517dc55, type: 2}
-  highlightedRedMaterial: {fileID: 2100000, guid: 58bee26ced6c6f744b21f82aa1205cc4, type: 2}
-  playerBody: {fileID: 8521386507383712021}
-  speed: 26.5
-  frictionCoef: 40
-  gravityStrength: 13
-  jumpForce: 250
-  rotationSpeed: 50
-  horizontalAxis: Horizontal
-  verticalAxis: Vertical
-  mousecastPlane:
-    serializedVersion: 2
-    m_Bits: 131072
-  shadow: {fileID: 6782581534402815839, guid: 76b0d73376cac714dabdf8c7ec66cf3d, type: 3}
-  shadowMask:
-    serializedVersion: 2
-    m_Bits: 65544
-  maxDiscDistance: 6.5
-  currentPowerup: {fileID: 0}
-  hasPowerup: 0
 --- !u!54 &8521386507383712021
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -10422,6 +10389,39 @@ MonoBehaviour:
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &-7131588376947766652
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8521386507383712022}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a0141c7149b65e40affa96177f22aa3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isNPC: 0
+  highlightedGreenMaterial: {fileID: 2100000, guid: 73306b8830f59e5418513cce5517dc55, type: 2}
+  highlightedRedMaterial: {fileID: 2100000, guid: 58bee26ced6c6f744b21f82aa1205cc4, type: 2}
+  playerBody: {fileID: 8521386507383712021}
+  speed: 26.5
+  frictionCoef: 40
+  gravityStrength: 13
+  jumpForce: 250
+  rotationSpeed: 50
+  horizontalAxis: Horizontal
+  verticalAxis: Vertical
+  mousecastPlane:
+    serializedVersion: 2
+    m_Bits: 131072
+  shadow: {fileID: 6782581534402815839, guid: 76b0d73376cac714dabdf8c7ec66cf3d, type: 3}
+  shadowMask:
+    serializedVersion: 2
+    m_Bits: 65544
+  maxDiscDistance: 6.5
+  currentPowerup: {fileID: 0}
+  hasPowerup: 0
 --- !u!114 &-3096326147471984968
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10467,6 +10467,8 @@ MonoBehaviour:
   delay: 120
   radius: 5
   force: 700
+  antiGravity: -10
+  boosterFlame: {fileID: 7166044610272681018, guid: 646b9a69c9169214ca0779d539d92fb4, type: 3}
 --- !u!114 &4070538607894281487
 MonoBehaviour:
   m_ObjectHideFlags: 0

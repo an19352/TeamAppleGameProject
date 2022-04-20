@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a0f83309689e56f45ab790e28fe95efa, type: 3}
-  m_Name: Coin
+  m_Name: Jetpack
   m_EditorClassIdentifier: 
-  powerupName: Coin
-  icon: {fileID: 21300000, guid: 2b8ae05af5d28ce42be9aff156714e61, type: 3}
+  powerupName: Jetpack
+  icon: {fileID: -2413806693520163455, guid: 5d3b2a9a5e29a9b4f9e7044672dffbb8, type: 3}
   Infinite: 0
-  timeToDie: 30
-  associatedClass: Coin
-  tooltipText: 
+  timeToDie: 10
+  associatedClass: Jetpack
+  tooltipText: some text here

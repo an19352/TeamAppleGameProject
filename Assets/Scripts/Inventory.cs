@@ -8,7 +8,7 @@ public class Inventory : MonoBehaviour
 {
     PhotonView PV;
     public static InventoryUIManager inventory;
-    
+
     InventoryElement[] IEs;
     Dictionary<string, System.Type> typeLookUp = new Dictionary<string, System.Type>();
     public GameObject tooltip;
@@ -43,9 +43,13 @@ public class Inventory : MonoBehaviour
     [Header("Grenade Settings")]
     public float delay = 120f;
     public float radius = 5f;
-    public float force = 700f; 
+    public float force = 700f;
     //public float throwForce= 40f;
-    
+
+    [Header("Jetpack Settings")]
+
+    public float antiGravity;
+    public GameObject boosterFlame;
     // Start is called before the first frame update
     void Start()
     {
@@ -54,9 +58,9 @@ public class Inventory : MonoBehaviour
         if (!PV.IsMine) return;
 
         IEs = inventory.CloneIEs();
-        foreach(InventoryElement IE in IEs)
+        foreach (InventoryElement IE in IEs)
         {
-            typeLookUp.Add(IE.powerupName, System.Type.GetType("SpaceBallAbilities."+IE.associatedClass));
+            typeLookUp.Add(IE.powerupName, System.Type.GetType("SpaceBallAbilities." + IE.associatedClass));
         }
 
         inventoryItems = new IAbility[inventorySize];
@@ -115,7 +119,7 @@ public class Inventory : MonoBehaviour
         {
             int tagIndex = 0;
             notNewPowerups.Add(tag);
-            for (int i = 0; i < IEs.Length; i++) if(IEs[i].powerupName == tag) tagIndex = i;
+            for (int i = 0; i < IEs.Length; i++) if (IEs[i].powerupName == tag) tagIndex = i;
             GameObject _tooltip = Instantiate(tooltip, worldCanvas.transform);
             _tooltip.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = IEs[tagIndex].tooltipText;
             _tooltip.transform.position = transform.position + tooltipOffset;
@@ -147,7 +151,7 @@ public class Inventory : MonoBehaviour
         int i;
         for (i = 0; i < inventoryMaxATM; i++) if (inventoryItems[i].GetIE().powerupName == tag)
             {
-                Destroy(inventoryItems[i] as MonoBehaviour); 
+                Destroy(inventoryItems[i] as MonoBehaviour);
 
                 inventoryItems[i] = null;
                 inventory.RemoveUIElement(tag);
@@ -161,7 +165,7 @@ public class Inventory : MonoBehaviour
                 Destroy(inventoryItems[inventoryMaxATM] as MonoBehaviour);
                 inventoryItems[inventoryMaxATM] = null;
                 inventory.RemoveUIElement(tag);
-                if (selectedAbility == inventoryMaxATM) selectedAbility--; 
+                if (selectedAbility == inventoryMaxATM) selectedAbility--;
                 inventoryMaxATM--;
                 return;
             }
