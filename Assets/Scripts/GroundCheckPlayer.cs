@@ -21,11 +21,21 @@ public class GroundCheckPlayer : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         if (other.tag == "Ground")
+        {
             player.Ground(false);
+            //if (other.transform.parent == null) return;
+            //if (other.transform.parent.gameObject.TryGetComponent(out Animator animator))
+              //  animator.enabled = false;
+        } 
     }
     private void OnTriggerStay(Collider other)
     {
         if (other.tag == "Ground")
+        {
             player.Ground(true);
+            //if (other.transform.parent == null) return;
+            //if (other.transform.parent.gameObject.TryGetComponent(out Animator animator))
+              //  animator.enabled = true;
+        }
     }
 }
