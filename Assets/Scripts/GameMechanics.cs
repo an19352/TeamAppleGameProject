@@ -183,22 +183,32 @@ public class GameMechanics : MonoBehaviour
     [PunRPC]
     public void UpdateFlagUI()
     {
+        // 12 => icon + border
+        var redImgs = redFlags.gameObject.GetComponentsInChildren<Image>();
+        // 12 => icon + border
+        var greenImgs = greenFlags.gameObject.GetComponentsInChildren<Image>();
         foreach (Transform flag in greenFlags)
         {
-            flag.GetComponent<Image>().enabled = false;
+            var icons = flag.GetComponentsInChildren<Image>();
+            foreach (var icon in icons)
+            {
+                icon.enabled = false;
+            }
         }
         foreach (Transform flag in redFlags)
         {
-            flag.GetComponent<Image>().enabled = false;
+            var icons = flag.GetComponentsInChildren<Image>();
+            foreach (var icon in icons)
+            {
+                icon.enabled = false;
+            }
         }
-        for (int i = 0; i < flagObjectives[0].flagCount; i++)
+        for (int i = 0; i < flagObjectives[0].flagCount * 2; i++)
         {
-            redFlags.GetChild(i).gameObject.GetComponent<Image>().enabled = true;
+            redImgs[i].enabled = true;
+            greenImgs[i].enabled = true;
         }
-        for (int i = 0; i < flagObjectives[1].flagCount; i++)
-        {
-            greenFlags.GetChild(i).gameObject.GetComponent<Image>().enabled = true;
-        }
+
     }
 
     public void RPC_UpdateFlag(int teamID, bool isScore)
@@ -403,7 +413,7 @@ public class GameMechanics : MonoBehaviour
 
     public GameObject GetLocalPlayer()
     {
-        foreach(Player player in players)
+        foreach (Player player in players)
         {
             if (player.obj.GetComponent<PhotonView>().IsMine) return player.obj;
         }
