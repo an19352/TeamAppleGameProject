@@ -110,9 +110,10 @@ public class EnergyGenerator : MonoBehaviour, IPunObservable
     }
 
       private void OnEnable()
-     {
-          forceShield.SetActive(true); 
-          healthRemain = health;
+     { 
+         forceShield.SetActive(true); 
+         healthRemain = health;
+         healthBarImage = healthBar.gameObject.GetComponent<Image>();
          float fraction = healthRemain / health;
          healthBarImage.fillAmount = fraction;
      }
