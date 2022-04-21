@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Photon.Pun;
 using System.Linq;
+using ExitGames.Client.Photon.StructWrapping;
 
 public class EnergyGenerator : MonoBehaviour, IPunObservable
 {
@@ -78,30 +79,34 @@ public class EnergyGenerator : MonoBehaviour, IPunObservable
         int f = 0;
         foreach (GameObject gen in GameMechanics.gameMechanics.greengens)
         {
-            if (gen.transform == gameObject.transform.parent)
+            if (gen.transform == gameObject.transform)
             {
                 f = 1;
                 break;
             }
         }
 
-        int id = other.gameObject.GetComponent<Movement>().GetId();
-        int team = GameMechanics.gameMechanics.checkTeam(id);
-        
-        if (team != f)
+        if (other.gameObject.TryGetComponent<Movement>(out Movement mov))
         {
 
-            ContactPoint cp = other.GetContact(0);
-            Vector3 collisionVelocity = other.relativeVelocity;
-            Vector3 collisionNormal = cp.normal;
-            float mass = other.collider.attachedRigidbody.mass;
-            float force = Mathf.Abs(Vector3.Dot(cp.normal, collisionVelocity)) * mass;
+            int id = mov.GetId();
+            int teamid = GameMechanics.gameMechanics.checkTeam(id);
 
-            healthRemain -= force;
-            float fraction = healthRemain / health;
-            healthBarImage.fillAmount = fraction;
+            if (teamid != f)
+            {
+
+                ContactPoint cp = other.GetContact(0);
+                Vector3 collisionVelocity = other.relativeVelocity;
+                Vector3 collisionNormal = cp.normal;
+                float mass = other.collider.attachedRigidbody.mass;
+                float force = Mathf.Abs(Vector3.Dot(cp.normal, collisionVelocity)) * mass;
+
+                healthRemain -= force;
+                float fraction = healthRemain / health;
+                healthBarImage.fillAmount = fraction;
+            }
+            else return;
         }
-        else return;
     }
 
     void RepelNearbyPlayers()

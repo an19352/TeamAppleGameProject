@@ -51,7 +51,7 @@ public class Arrow : MonoBehaviour
             dist.Add(dist3, generator3);
         }
 
-        var list = dist.Keys.ToList();
+        List<float> list = dist.Keys.ToList();
         if (list.Count == 0)
         {
             if (this.gameObject.GetComponent<FlagHolder>().enabled)
