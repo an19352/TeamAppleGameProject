@@ -12,6 +12,7 @@ TagManager:
   - Meteor
   - ScoreTrigger
   - Turret
+  - Generator
   layers:
   - Default
   - TransparentFX
@@ -31,7 +32,7 @@ TagManager:
   - GreenForcefield
   - Ground
   - MousecastPlane
-  - 
+  - Minimap
   - 
   - 
   - 

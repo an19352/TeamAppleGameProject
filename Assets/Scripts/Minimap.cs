@@ -6,10 +6,17 @@ using Photon.Pun;
 
 public class Minimap : MonoBehaviour
 {
+    public Transform playerIcon;
+    public Transform generatorIcon;
+
+    private Transform playerIconRef;
+
     private LineRenderer lineRenderer;
     private GameObject player;
+    private GameObject[] generators;
     PhotonView PV;
     GameMechanics gameMechanics;
+
 
     // Start is called before the first frame update
     void Start()
@@ -18,13 +25,21 @@ public class Minimap : MonoBehaviour
         this.PV = GetComponent<PhotonView>();
         this.gameMechanics = GameMechanics.gameMechanics;
         lineRenderer = GetComponent<LineRenderer>();
+        playerIconRef = Instantiate(playerIcon, transform.position, transform.rotation);
+        generators = GameObject.FindGameObjectsWithTag("Generator");
 
+        foreach (var generator in generators)
+        {
+            Vector3 generatorPos = new Vector3(generator.transform.position.x, 60f, generator.transform.position.z);
+            Instantiate(generatorIcon, generatorPos, generatorIcon.rotation);
+        }
     }
 
     void Update()
     {
         if (player != null) return;
         player = gameMechanics.GetLocalPlayer();
+
     }
 
     // Update is called once per frame
@@ -37,6 +52,8 @@ public class Minimap : MonoBehaviour
             float tempZ = player.transform.position.z;
             transform.position = new Vector3(tempX, 80, tempZ);
             // TODO: add some ui indication of players pos and stuff
+            playerIconRef.position = new Vector3(tempX, 60, tempZ);
+
             //     lineRenderer.SetPositions(new Vector3[] {
             //     transform.position,
             //      transform.position,

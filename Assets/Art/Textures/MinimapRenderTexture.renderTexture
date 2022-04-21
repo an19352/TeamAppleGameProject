@@ -14,9 +14,9 @@ RenderTexture:
   m_DownscaleFallback: 0
   m_IsAlphaChannelOptional: 0
   serializedVersion: 3
-  m_Width: 440
-  m_Height: 440
-  m_AntiAliasing: 8
+  m_Width: 400
+  m_Height: 500
+  m_AntiAliasing: 1
   m_MipCount: -1
   m_DepthFormat: 0
   m_ColorFormat: 8
