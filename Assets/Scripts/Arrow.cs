@@ -22,13 +22,7 @@ public class Arrow : MonoBehaviour
 
     [HideInInspector]
     public GameObject home;
-
-    // private void Awake()
-    // {
-    //     arrow.SetActive(true);
-    // }
-
-    // Update is called once per frame
+    
     void Update()
     {
         if (!gameObject.GetComponent<PhotonView>().IsMine)
@@ -37,7 +31,7 @@ public class Arrow : MonoBehaviour
         float dist1;
         float dist2;
         float dist3;
-        var dist = new Dictionary<float, GameObject>();
+        Dictionary<float, GameObject> dist = new Dictionary<float, GameObject>();
 
         if (generator1 != null)
         {

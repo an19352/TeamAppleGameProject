@@ -75,15 +75,33 @@ public class EnergyGenerator : MonoBehaviour, IPunObservable
      */
     void OnCollisionEnter(Collision other)
     {
-        ContactPoint cp = other.GetContact(0);
-        Vector3 collisionVelocity = other.relativeVelocity;
-        Vector3 collisionNormal = cp.normal;
-        float mass = other.collider.attachedRigidbody.mass;
-        float force = Mathf.Abs(Vector3.Dot(cp.normal, collisionVelocity)) * mass;
+        int f = 0;
+        foreach (GameObject gen in GameMechanics.gameMechanics.greengens)
+        {
+            if (gen.transform == gameObject.transform.parent)
+            {
+                f = 1;
+                break;
+            }
+        }
 
-        healthRemain -= force;
-        float fraction = healthRemain / health;
-        healthBarImage.fillAmount = fraction;
+        int id = other.gameObject.GetComponent<Movement>().GetId();
+        int team = GameMechanics.gameMechanics.checkTeam(id);
+        
+        if (team != f)
+        {
+
+            ContactPoint cp = other.GetContact(0);
+            Vector3 collisionVelocity = other.relativeVelocity;
+            Vector3 collisionNormal = cp.normal;
+            float mass = other.collider.attachedRigidbody.mass;
+            float force = Mathf.Abs(Vector3.Dot(cp.normal, collisionVelocity)) * mass;
+
+            healthRemain -= force;
+            float fraction = healthRemain / health;
+            healthBarImage.fillAmount = fraction;
+        }
+        else return;
     }
 
     void RepelNearbyPlayers()
