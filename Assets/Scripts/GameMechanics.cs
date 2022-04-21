@@ -206,9 +206,11 @@ public class GameMechanics : MonoBehaviour
         for (int i = 0; i < flagObjectives[0].flagCount * 2; i++)
         {
             redImgs[i].enabled = true;
+        }
+        for (int i = 0; i < flagObjectives[1].flagCount * 2; i++)
+        {
             greenImgs[i].enabled = true;
         }
-
     }
 
     public void RPC_UpdateFlag(int teamID, bool isScore)
