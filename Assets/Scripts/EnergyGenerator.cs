@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -53,7 +54,6 @@ public class EnergyGenerator : MonoBehaviour, IPunObservable
             //PhotonNetwork.Destroy(this.gameObject);
             CreateExplosion();
         }
-
     }
 
 
@@ -109,6 +109,14 @@ public class EnergyGenerator : MonoBehaviour, IPunObservable
         }
     }
 
+      private void OnEnable()
+     {
+          forceShield.SetActive(true); 
+          healthRemain = health;
+         float fraction = healthRemain / health;
+         healthBarImage.fillAmount = fraction;
+     }
+
     void RepelNearbyPlayers()
     {
         Collider[] playersInRadius = Physics.OverlapSphere(transform.position, explosionRadius, players, 0);
@@ -125,7 +133,7 @@ public class EnergyGenerator : MonoBehaviour, IPunObservable
     void RememberMe()
     {
         fsScript.generatorDestroyed++;
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)

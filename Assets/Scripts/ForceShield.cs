@@ -10,7 +10,7 @@ public class ForceShield : MonoBehaviour
     // green is 0 and red is 1
     public int team;
 
-    private void Awake()
+    private void OnEnable()
     {
         generatorDestroyed = 0;
     }

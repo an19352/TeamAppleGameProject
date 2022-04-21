@@ -33,19 +33,19 @@ public class Arrow : MonoBehaviour
         float dist3;
         Dictionary<float, GameObject> dist = new Dictionary<float, GameObject>();
 
-        if (generator1 != null)
+        if (generator1.activeSelf)
         {
             dist1 = Vector3.Distance(player.transform.position, generator1.transform.position);
             dist.Add(dist1, generator1);
         }
 
-        if (generator2 != null)
+        if (generator2.activeSelf)
         {
             dist2 = Vector3.Distance(player.transform.position, generator2.transform.position);
             dist.Add(dist2, generator2);
         }
 
-        if (generator3 != null)
+        if (generator3.activeSelf)
         {
             dist3 = Vector3.Distance(player.transform.position, generator3.transform.position);
             dist.Add(dist3, generator3);
@@ -54,7 +54,7 @@ public class Arrow : MonoBehaviour
         List<float> list = dist.Keys.ToList();
         if (list.Count == 0)
         {
-            if (this.gameObject.GetComponent<FlagHolder>().enabled)
+            if (gameObject.GetComponent<FlagHolder>().enabled)
             {
                 generator = home;
             }

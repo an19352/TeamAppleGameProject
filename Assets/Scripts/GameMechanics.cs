@@ -170,6 +170,20 @@ public class GameMechanics : MonoBehaviour
                 else
                 {
                     flagObjectives[i].flagCount -= 1;
+                    if (teamID == 1)
+                    {
+                        for (int j = 0; j < 3; j++)
+                        {
+                            redgens[j].SetActive(true);
+                        }
+                    }
+                    else
+                    {
+                        for (int j = 0; j < 3; j++)
+                        {
+                            greengens[j].SetActive(true);
+                        } 
+                    }
                 }
             }
         }
