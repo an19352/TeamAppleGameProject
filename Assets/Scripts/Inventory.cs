@@ -148,6 +148,7 @@ public class Inventory : MonoBehaviour
         int i;
         for (i = 0; i < inventoryMaxATM; i++) if (inventoryItems[i].GetIE().powerupName == tag)
             {
+                inventoryItems[i].RightClick();
                 Destroy(inventoryItems[i] as MonoBehaviour);
 
                 inventoryItems[i] = null;
@@ -159,6 +160,7 @@ public class Inventory : MonoBehaviour
         {
             if (inventoryItems[inventoryMaxATM].GetIE().powerupName == tag)
             {
+                inventoryItems[inventoryMaxATM].RightClick();
                 Destroy(inventoryItems[inventoryMaxATM] as MonoBehaviour);
                 inventoryItems[inventoryMaxATM] = null;
                 inventory.RemoveUIElement(tag);
