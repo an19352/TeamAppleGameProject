@@ -68,11 +68,11 @@ public class Movement : MonoBehaviour, IPunObservable
             int team = gameMechanics.checkTeam(ID);
             if (team == 1)
             {
-                GetComponent<Renderer>().material = highlightedGreenMaterial;
+                //GetComponent<Renderer>().material = highlightedGreenMaterial;
             }
             else
             {
-                GetComponent<Renderer>().material = highlightedRedMaterial;
+                //GetComponent<Renderer>().material = highlightedRedMaterial;
             }
             cameraMain.GetComponent<FollowPlayer>().player = transform;
         }
