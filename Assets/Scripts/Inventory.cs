@@ -86,16 +86,10 @@ public class Inventory : MonoBehaviour
             return;
 
         if (Input.GetAxisRaw("Mouse ScrollWheel") > 0)
-        {
-            selectedAbility = Mathf.Min(selectedAbility + 1, inventoryMaxATM);
-            inventory.Select(inventoryItems[selectedAbility].GetIE().powerupName);
-        }
+            SelectAbility(selectedAbility + 1);
 
         if (Input.GetAxisRaw("Mouse ScrollWheel") < 0)
-        {
-            selectedAbility = Mathf.Max(0, selectedAbility - 1);
-            inventory.Select(inventoryItems[selectedAbility].GetIE().powerupName);
-        }
+            SelectAbility(selectedAbility - 1);
 
         if (Input.GetButtonDown("Fire1"))
             inventoryItems[selectedAbility].LeftClick();
@@ -132,6 +126,9 @@ public class Inventory : MonoBehaviour
                 inventoryItems[i] = gameObject.AddComponent(typeLookUp[tag]) as IAbility;
                 inventoryItems[i].SetUp(tag);
                 inventoryMaxATM = i;
+
+                SelectAbility(i);
+
                 return;
             }
 
@@ -194,5 +191,18 @@ public class Inventory : MonoBehaviour
         }
         selectedAbility = 0;
         inventoryMaxATM = 0;
+    }
+
+    void SelectAbility(int abilityIndex)
+    {
+        if(abilityIndex > inventoryMaxATM || abilityIndex < 0)
+        {
+            //Debug.LogError(abilityIndex + "is not in inventory");
+            return;
+        }
+
+        inventoryItems[selectedAbility].RightClick();
+        selectedAbility = abilityIndex;
+        inventory.Select(inventoryItems[selectedAbility].GetIE().powerupName);
     }
 }
