@@ -1,11 +1,18 @@
  using System.Collections;
  using System.Collections.Generic;
  using UnityEngine;
-
+using Photon.Pun;
 
  public class StickObjectToMe : MonoBehaviour
  {
      Dictionary<Transform, Transform> oldParentPhoneBook = new Dictionary<Transform, Transform>();
+    PhotonView PV;
+
+    private void Start()
+    {
+        PV = GetComponent<PhotonView>();
+        if (PhotonNetwork.IsMasterClient) GetComponent<Animator>().enabled = true;
+    }
 
     private void OnCollisionEnter(Collision collision)
     {
