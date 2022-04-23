@@ -45,10 +45,12 @@ public class GameMechanics : MonoBehaviour
     [Serializable]
     public struct FlagObjective
     {
+        public GameObject objective;
         public int flagCount;
         public int numOfDefenders;
         public int numOfAttackers;
     }
+
 
     public List<Team> teams;
     public List<Player> players;
@@ -82,10 +84,9 @@ public class GameMechanics : MonoBehaviour
 
         for (int i = 0; i < players.Count; i++)
             players[i].obj.GetComponent<Movement>().SetId(i);
-
         UpdateFlagUI();
-
     }
+
     /*
     private void Update()
     {
@@ -157,7 +158,6 @@ public class GameMechanics : MonoBehaviour
     [PunRPC]
     public void UpdateFlag(int teamID, bool isScore)
     {
-
         // if isScore is true, add one to flag count, else minus one 
         if (isScore)
         {
@@ -166,10 +166,15 @@ public class GameMechanics : MonoBehaviour
                 if (teamID == i)
                 {
                     flagObjectives[i].flagCount += 1;
+
                 }
                 else
                 {
                     flagObjectives[i].flagCount -= 1;
+                    // turn on the flag of the side who lost it
+                    flagObjectives[i].objective.GetComponent<ObjectiveFlag>().hasFlag = true;
+
+                    // restore generators
                     if (teamID == 1)
                     {
                         for (int j = 0; j < 3; j++)
@@ -182,7 +187,7 @@ public class GameMechanics : MonoBehaviour
                         for (int j = 0; j < 3; j++)
                         {
                             greengens[j].SetActive(true);
-                        } 
+                        }
                     }
                 }
             }

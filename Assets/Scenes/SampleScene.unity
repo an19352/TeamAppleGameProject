@@ -304,10 +304,12 @@ MonoBehaviour:
   greenFlags: {fileID: 1315923707}
   redFlags: {fileID: 1413677508}
   flagObjectives:
-  - flagCount: 3
+  - objective: {fileID: 991864231}
+    flagCount: 3
     numOfDefenders: 0
     numOfAttackers: 0
-  - flagCount: 3
+  - objective: {fileID: 1100069054}
+    flagCount: 3
     numOfDefenders: 0
     numOfAttackers: 0
 --- !u!4 &45342573
@@ -951,7 +953,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &149835648
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7159,6 +7161,11 @@ GameObject:
 --- !u!1 &1100069053 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3725601306088826322, guid: 4b9eef4794ac1084caf36e88645e744d, type: 3}
+  m_PrefabInstance: {fileID: 1100069049}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1100069054 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4855106600265033456, guid: 4b9eef4794ac1084caf36e88645e744d, type: 3}
   m_PrefabInstance: {fileID: 1100069049}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1110387025
