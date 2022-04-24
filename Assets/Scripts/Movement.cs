@@ -53,6 +53,8 @@ public class Movement : MonoBehaviour, IPunObservable
     [HideInInspector]
     public bool hasPowerup;
 
+    public GameObject plane;
+
     private void Start()
     {
         PV = GetComponent<PhotonView>();
@@ -64,7 +66,7 @@ public class Movement : MonoBehaviour, IPunObservable
 
         if (PV.IsMine && gameMechanics != null)
         {
-            transform.GetChild(8).gameObject.SetActive(true);
+            plane.SetActive(true);
             int team = gameMechanics.checkTeam(ID);
             if (team == 1)
             {
@@ -211,7 +213,7 @@ public class Movement : MonoBehaviour, IPunObservable
             }
         }
 
-        if(gameMechanics != null)
+        if (gameMechanics != null)
             GetComponent<Inventory>().ClearInventory();
         player.rotation = new Quaternion(0f, 0f, 0f, 0f);
         playerBody.angularVelocity = new Vector3(0f, 0f, 0f);

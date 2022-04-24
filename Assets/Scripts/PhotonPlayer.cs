@@ -62,8 +62,10 @@ public class PhotonPlayer : MonoBehaviourPunCallbacks
             myAvatar = PhotonNetwork.Instantiate(playerPrefab.name, new Vector3(x, 6, z), Quaternion.identity, 0);
             myAvatar.layer = playerLayer;
             gameMechanics.RPC_AddPlayer(myAvatar, team);
-            GameObject arrow = myAvatar.transform.GetChild(9).GetChild(0).gameObject;
-            arrow.SetActive(true);
+
+            Transform arrow = myAvatar.transform.Find("ArrowCanvas");
+            arrow.GetChild(0).gameObject.SetActive(true);
+
             if (team == 0)
             {
                 myAvatar.GetComponent<Arrow>().getgens(gameMechanics.greengens);

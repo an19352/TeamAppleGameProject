@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0f83309689e56f45ab790e28fe95efa, type: 3}
   m_Name: Jetpack
   m_EditorClassIdentifier: 
-  powerupName: Jetpack
+  powerupName: Jet Pack
   icon: {fileID: -2413806693520163455, guid: 5d3b2a9a5e29a9b4f9e7044672dffbb8, type: 3}
   Infinite: 0
   timeToDie: 10
