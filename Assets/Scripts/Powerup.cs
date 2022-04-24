@@ -39,6 +39,7 @@ public class Powerup : MonoBehaviour
         if (other.collider.CompareTag("Player"))
         {
             PV.RPC("ActivateItem", RpcTarget.All, other.collider.GetComponent<Movement>().GetId(), powerup.powerupName);
+            PhotonNetwork.Instantiate(pickupEffect.name, transform.position, transform.rotation);
             PV.RPC("Disable", RpcTarget.All, null);
         }
     }
