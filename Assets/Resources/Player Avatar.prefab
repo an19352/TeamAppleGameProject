@@ -5628,6 +5628,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   droppedBall: {fileID: 815355317453089143, guid: b2314e4357384b44693adcb971d71536, type: 3}
+  ball: {fileID: 2084328953684413084}
 --- !u!114 &2286949501575152505
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6311,6 +6312,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c840f08da9da8ec4f984dd0aa7b0067d, type: 3}
+--- !u!1 &2084328953684413084 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1409483690086418257, guid: c840f08da9da8ec4f984dd0aa7b0067d, type: 3}
+  m_PrefabInstance: {fileID: 1108584596253248973}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2084328953684413056 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1409483690086418253, guid: c840f08da9da8ec4f984dd0aa7b0067d, type: 3}

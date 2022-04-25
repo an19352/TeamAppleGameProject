@@ -27,7 +27,7 @@ public class BallRecover : MonoBehaviour
                 //gameMechanics.RPC_Destroy(gameObject);
 
                 // brute force LOL
-                PV.RPC("DestroyFlag", PV.Owner);
+                PV.RPC("DestroyFlag", RpcTarget.All);
 
             }
 
@@ -36,6 +36,6 @@ public class BallRecover : MonoBehaviour
     [PunRPC]
     void DestroyFlag()
     {
-        PhotonNetwork.Destroy(gameObject);
+        Destroy(gameObject);
     }
 }

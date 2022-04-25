@@ -10,6 +10,7 @@ public class FlagHolder : MonoBehaviour
     // public int flagTeam;
     // public int playerTeam;
     public Transform droppedBall;
+    public GameObject ball;
     PhotonView PV;
     // Start is called before the first frame update
     void Start()
@@ -19,11 +20,11 @@ public class FlagHolder : MonoBehaviour
 
     void OnDisable()
     {
-        transform.Find("Ball").gameObject.SetActive(false);
+        ball.SetActive(false);
     }
     void OnEnable()
     {
-        transform.Find("Ball").gameObject.SetActive(true);
+        ball.SetActive(true);
     }
 
     public void RespawnFlag(Vector3 dropPosition, Quaternion dropRotation)
