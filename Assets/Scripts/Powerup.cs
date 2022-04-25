@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Photon.Pun;
 
-public class Powerup : MonoBehaviour
+public class Powerup : MonoBehaviour//, IPunObservable
 {
     PhotonView PV;
     public static PhotonRoom room;
@@ -13,6 +13,11 @@ public class Powerup : MonoBehaviour
     [Tooltip("Check the Resources/Powerup Settings folder for a Inventory Element")]
     public InventoryElement powerup;
     public GameObject pickupEffect;
+
+    public float maxDiscrepencyDistance = 3f;
+    Rigidbody powerupRB;
+    Vector3 networkPosition;
+    Quaternion networkRotation;
     /*
     Dictionary<string, int> itemsLookup = new Dictionary<string, int>()
     {
@@ -26,12 +31,22 @@ public class Powerup : MonoBehaviour
     {
         PV = GetComponent<PhotonView>();
         gameMechanics = GameMechanics.gameMechanics;
+        powerupRB = GetComponent<Rigidbody>();
 
         if (PV == null) Debug.LogWarning(this.name + " does not have a PV");
         room = PhotonRoom.room;
 
         //thisPowerup = transform.gameObject;
     }
+
+/*    private void FixedUpdate()
+    {
+        if (Vector3.Distance(networkPosition, powerupRB.position) > maxDiscrepencyDistance)
+            powerupRB.position = networkPosition;
+        else powerupRB.position = Vector3.MoveTowards(powerupRB.position, networkPosition, Time.fixedDeltaTime * 100f);
+
+        powerupRB.rotation = Quaternion.RotateTowards(powerupRB.rotation, networkRotation, Time.fixedDeltaTime * 100f);
+    }*/
 
     //Makes powerup disappear when touched and writes to powerup text in UI
     private void OnCollisionEnter(Collision other)
@@ -63,30 +78,6 @@ public class Powerup : MonoBehaviour
     }
 
     [PunRPC]
-    public void GravityGun(int playerID)
-    {
-        GameObject playerObj = gameMechanics.players[playerID].obj;
-
-        playerObj.GetComponent<GravityGun>().enabled = true;
-        // player.GetComponent<Powerup>().enabled = true;
-
-    }
-
-    [PunRPC]
-    public void Grapple(int playerID)
-    {
-        gameMechanics.players[playerID].obj.GetComponent<Grapple>().enabled = true;
-    }
-
-    [PunRPC]
-    public void Coin(int playerID)
-    {
-        GameObject playerObj = gameMechanics.players[playerID].obj;
-        Vector3 scaleChange = new Vector3(0.5f, 0.5f, 0.5f);
-        playerObj.transform.localScale += scaleChange;
-    }
-
-    [PunRPC]
     public void NotifyMe()
     {
         gameMechanics.activePowerups.Add(PV.ViewID, transform.position);
@@ -99,4 +90,25 @@ public class Powerup : MonoBehaviour
             gameMechanics.activePowerups.Remove(PV.ViewID);
         transform.gameObject.SetActive(false);
     }
+
+/*    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)
+        {
+            stream.SendNext(gameObject.activeSelf);
+            stream.SendNext(powerupRB.position);
+            stream.SendNext(powerupRB.rotation);
+            stream.SendNext(powerupRB.velocity);
+        }
+        if (stream.IsReading)
+        {
+            gameObject.SetActive((bool)stream.ReceiveNext());
+            networkPosition = (Vector3)stream.ReceiveNext();
+            networkRotation = (Quaternion)stream.ReceiveNext();
+            powerupRB.velocity = (Vector3)stream.ReceiveNext();
+
+            float lag = Mathf.Abs((float)(PhotonNetwork.Time - info.timestamp));
+            networkPosition += powerupRB.velocity * lag;
+        }
+    }*/
 }

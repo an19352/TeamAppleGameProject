@@ -104,7 +104,7 @@ public class Movement : MonoBehaviour, IPunObservable
             playerBody.rotation = Quaternion.RotateTowards(playerBody.rotation, networkRotation, Time.fixedDeltaTime * 100f);
             return;
         }
-
+        Debug.Log(playerBody.velocity);
         currentVelocity = new Vector3(playerBody.velocity.x, 0, playerBody.velocity.z);   // #LeaveGravityAlone
 
         //Keyboard controls
@@ -256,6 +256,10 @@ public class Movement : MonoBehaviour, IPunObservable
             networkPosition = (Vector3)stream.ReceiveNext();
             networkRotation = (Quaternion)stream.ReceiveNext();
             playerBody.velocity = (Vector3)stream.ReceiveNext();
+
+            if (playerBody.transform.parent != null)
+                if (playerBody.transform.parent.gameObject.TryGetComponent(out AddConstantVelocity velocity))
+                    playerBody.velocity += velocity.force;
 
             float lag = Mathf.Abs((float)(PhotonNetwork.Time - info.timestamp));
             networkPosition += playerBody.velocity * lag;

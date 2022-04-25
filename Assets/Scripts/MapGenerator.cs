@@ -150,6 +150,8 @@ public class MapGenerator : MonoBehaviour
 
         Vector3 position;
         PlatformType chosen;
+        Transform settingup;
+        int top, bottom;
 
         position = new Vector3(0, 0, 0);
         chosen = platformTypes[Random.Range(0, platformTypes.Count - 1)];
@@ -158,24 +160,27 @@ public class MapGenerator : MonoBehaviour
         //Transform tr = Instantiate(chosen.prefab, position, Quaternion.identity).transform;
         //map[0, height / 2] = new Platform(tr, chosen);
 
-        DrawLineOfPlatforms(tree[0], Vector3.right, width - 1);
-        ReplacePlatform(0, specialPlatforms[0]);
-        ReplacePlatform(width - 1, specialPlatforms[0]);
+        DrawLineOfPlatforms(tree[0], Vector3.right, width - 1); // Draw a line from left to right
+        ReplacePlatform(0, specialPlatforms[0]);                
+        ReplacePlatform(width - 1, specialPlatforms[0]);        
 
         position = position + Vector3.left * 100f;
-        Instantiate(greenbase, position, Quaternion.identity);
+        Instantiate(greenbase, position, Quaternion.identity);                                                      // Add Green Base
         position = tree[width - 1].platform.transform.position + Vector3.right * 100f;
-        Instantiate(redbase, position, Quaternion.identity).transform.Rotate(new Vector3(0, 180, 0), Space.Self); 
+        Instantiate(redbase, position, Quaternion.identity).transform.Rotate(new Vector3(0, 180, 0), Space.Self);   // Add Red Base
 
-        DrawLineOfPlatforms(tree[width / 2], Vector3.forward, height / 2);
-        DrawLineOfPlatforms(tree[width / 2], Vector3.back, height / 2);
-        ReplacePlatform(width / 2, specialPlatforms[0]);
+        DrawLineOfPlatforms(tree[width / 2], Vector3.forward, height / 2); // Draw a line up
+        top = tree.Count - 1;
+        DrawLineOfPlatforms(tree[width / 2], Vector3.back, height / 2);    // Draw a line down
+        bottom = tree.Count - 1;
+        ReplacePlatform(width / 2, specialPlatforms[0]);                   // Mark middle
 
+        //while(Mathf.Abs(tree[tree.Count - 1].platform.transform.position.z - tree[bottom].platform.transform.position.z) > 20f) { 
         DrawLineOfPlatforms(tree[Random.Range(width/6, width/6 +2)], Vector3.back, 3, Mathf.PI / 36);
         ReplacePlatform(tree.Count - 2, specialPlatforms[0]);
         DrawLineOfPlatforms(tree[tree.Count - 2], Vector3.back, 2, 11 * Mathf.PI / 6);
         ReplacePlatform(tree.Count - 1, specialPlatforms[1]);
-        Transform settingup = tree[tree.Count - 1].platform.transform;
+        settingup = tree[tree.Count - 1].platform.transform;
         settingup.gameObject.GetComponent<BoardSetup>().Setup();
 
         DrawLineOfPlatforms(tree[Random.Range(width / 6, width / 6 + 2)], Vector3.forward, 3, Mathf.PI / 36);

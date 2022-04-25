@@ -28,6 +28,7 @@ public class PowerupGenerator : MonoBehaviour
     void GenerateRandomPowerup(int randPow, Vector3 randPosition)
     {
         newCube = poolOfObject.SpawnFromPool(powerupTags[randPow], randPosition, Quaternion.identity);
+        newCube.transform.position = randPosition;
     }
 
     //Coroutine to start generating random powerups every 5-10 seconds

@@ -92,6 +92,8 @@ MonoBehaviour:
   - DestroyFlagOnRecover
   - DestroyProperty
   - DestroyFlag
+  - RPC_AddComponent
+  - RPC_DestroyComponent
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

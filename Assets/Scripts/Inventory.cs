@@ -125,6 +125,7 @@ public class Inventory : MonoBehaviour
             {
                 inventoryItems[i] = gameObject.AddComponent(typeLookUp[tag]) as IAbility;
                 inventoryItems[i].SetUp(tag);
+                PV.RPC("RPC_AddComponent", RpcTarget.OthersBuffered, tag);
                 inventoryMaxATM = i;
 
                 SelectAbility(i);
@@ -149,7 +150,8 @@ public class Inventory : MonoBehaviour
         for (i = 0; i < inventoryMaxATM; i++) if (inventoryItems[i].GetIE().powerupName == tag)
             {
                 inventoryItems[i].RightClick();
-                Destroy(inventoryItems[i] as MonoBehaviour);
+                PV.RPC("RPC_DestroyComponent", RpcTarget.AllBuffered, (inventoryItems[i] as MonoBehaviour));
+                //Destroy(inventoryItems[i] as MonoBehaviour);
 
                 inventoryItems[i] = null;
                 inventory.RemoveUIElement(tag);
@@ -161,7 +163,8 @@ public class Inventory : MonoBehaviour
             if (inventoryItems[inventoryMaxATM].GetIE().powerupName == tag)
             {
                 inventoryItems[inventoryMaxATM].RightClick();
-                Destroy(inventoryItems[inventoryMaxATM] as MonoBehaviour);
+                PV.RPC("RPC_DestroyComponent", RpcTarget.AllBuffered, (inventoryItems[inventoryMaxATM] as MonoBehaviour));
+                //Destroy(inventoryItems[inventoryMaxATM] as MonoBehaviour);
                 inventoryItems[inventoryMaxATM] = null;
                 inventory.RemoveUIElement(tag);
                 if (selectedAbility == inventoryMaxATM) selectedAbility--;
@@ -187,7 +190,8 @@ public class Inventory : MonoBehaviour
         {
             inventory.RemoveUIElement(inventoryItems[i].GetIE().powerupName);
             inventoryItems[i].RightClick();
-            Destroy(inventoryItems[i] as MonoBehaviour);
+            PV.RPC("RPC_DestroyComponent", RpcTarget.AllBuffered, (inventoryItems[i] as MonoBehaviour));
+            //Destroy(inventoryItems[i] as MonoBehaviour);
 
             inventoryItems[i] = null;
         }
@@ -203,8 +207,22 @@ public class Inventory : MonoBehaviour
             return;
         }
 
+        if (abilityIndex == selectedAbility) return;
+
         inventoryItems[selectedAbility].RightClick();
         selectedAbility = abilityIndex;
         inventory.Select(inventoryItems[selectedAbility].GetIE().powerupName);
+    }
+
+    [PunRPC]
+    void RPC_AddComponent(string tag)
+    {
+        (gameObject.AddComponent(typeLookUp[tag]) as IAbility).SetUp(tag);
+    }
+
+    [PunRPC]
+    void RPC_DestroyComponent(MonoBehaviour MB)
+    {
+        Destroy(MB);
     }
 }

@@ -30,6 +30,8 @@ public class EnergyGenerator : MonoBehaviour, IPunObservable
     private ForceShield fsScript;
     private Image healthBarImage;
 
+    public MeshRenderer glowPart;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -39,6 +41,8 @@ public class EnergyGenerator : MonoBehaviour, IPunObservable
         healthBarImage = healthBar.gameObject.GetComponent<Image>();
         if (GameMechanics.gameMechanics == null) this.enabled = false;
         else fsScript = forceShield.GetComponent<ForceShield>();
+
+        glowPart.material = glowPart.materials[team];
     }
 
 
