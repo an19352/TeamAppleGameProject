@@ -24,10 +24,10 @@ public class BallRecover : MonoBehaviour
                 GameMechanics.gameMechanics.RPC_EnableFlagHolder(player.GetComponent<Movement>().GetId());
 
                 // strangely worked the first time
-                gameMechanics.RPC_Destroy(gameObject);
+                //gameMechanics.RPC_Destroy(gameObject);
 
                 // brute force LOL
-                // PV.RPC("DestroyFlag", RpcTarget.All);
+                PV.RPC("DestroyFlag", PV.Owner);
 
             }
 
