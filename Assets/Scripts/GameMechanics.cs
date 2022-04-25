@@ -321,10 +321,10 @@ public class GameMechanics : MonoBehaviour
         });
         players = _players;
 
-        foreach (Player _player in players)
+        /*foreach (Player _player in players)
         {
             _player.obj.GetComponent<MeshRenderer>().material = teamMaterials[_player.team];
-        }
+        }*/
 
         for (int i = 0; i < flagObjectives.Length; i++)
         {

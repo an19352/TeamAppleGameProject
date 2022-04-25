@@ -145,8 +145,7 @@ MonoBehaviour:
   Synchronization: 3
   OwnershipTransfer: 0
   observableSearch: 2
-  ObservedComponents:
-  - {fileID: 7760595203071438609}
+  ObservedComponents: []
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -632,7 +631,6 @@ GameObject:
   - component: {fileID: 2757098960302077115}
   - component: {fileID: 371144984962363839}
   - component: {fileID: 239346946884516538}
-  - component: {fileID: 7760595203071438609}
   m_Layer: 0
   m_Name: Particle System
   m_TagString: Untagged
@@ -5417,18 +5415,6 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
---- !u!114 &7760595203071438609
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6164135461106777563}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dbc28220269551441b2213d6f99e826a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &8521386507383712022
 GameObject:
   m_ObjectHideFlags: 0
@@ -5438,7 +5424,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8521386507383712024}
-  - component: {fileID: -4119483560597111595}
   - component: {fileID: 2117682174051099307}
   - component: {fileID: 8521386507383712021}
   - component: {fileID: 7291472432763749253}
@@ -5481,14 +5466,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &-4119483560597111595
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8521386507383712022}
-  m_Mesh: {fileID: 4711208715938537054, guid: 75c75d0a4c3eb3f488ba93f8c3726e81, type: 3}
 --- !u!135 &2117682174051099307
 SphereCollider:
   m_ObjectHideFlags: 0

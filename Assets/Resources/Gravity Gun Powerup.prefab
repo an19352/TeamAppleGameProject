@@ -48,6 +48,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   powerup: {fileID: 11400000, guid: 4aa99005c41ce2b439fbc15a5d568117, type: 2}
   pickupEffect: {fileID: 2970775562193714876, guid: cf2b8100bd0cef54cbf979ab6cdce6eb, type: 3}
+  maxDiscrepencyDistance: 3
 --- !u!114 &4502714479763640856
 MonoBehaviour:
   m_ObjectHideFlags: 0
