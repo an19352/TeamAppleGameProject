@@ -104,7 +104,7 @@ public class Movement : MonoBehaviour, IPunObservable
             playerBody.rotation = Quaternion.RotateTowards(playerBody.rotation, networkRotation, Time.fixedDeltaTime * 100f);
             return;
         }
-        Debug.Log(playerBody.velocity);
+        //Debug.Log(playerBody.velocity);
         currentVelocity = new Vector3(playerBody.velocity.x, 0, playerBody.velocity.z);   // #LeaveGravityAlone
 
         //Keyboard controls

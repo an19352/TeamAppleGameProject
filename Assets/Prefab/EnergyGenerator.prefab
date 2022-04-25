@@ -615,7 +615,7 @@ MonoBehaviour:
   pushForce: 5
   fireCountDown: 0
   healthBar: {fileID: 5119524586429548672}
-  glowPart: {fileID: 0}
+  glowPart: {fileID: 5595244343870840811}
 --- !u!54 &456197342566409726
 Rigidbody:
   m_ObjectHideFlags: 0
