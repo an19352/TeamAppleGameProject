@@ -5578,14 +5578,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tooltip: {fileID: 1560234478154502641, guid: 5006d189f7764434f94b7713801b80b1, type: 3}
   tooltipOffset: {x: 5, y: 0, z: 0}
-  firstPowerupTag: Impulse Gun
+  firstPowerupTag: Grapple Gun
   inventorySize: 8
   objectHolder: {fileID: 938504099680742854}
   maxGrabDistance: 3
   throwForce: 20
   lerpSpeed: 10
   shootTransform: {fileID: 5300319078667173437}
-  pullSpeed: 300
+  pullSpeed: 700
   maxShootDistance: 50
   stopPullDistance: 0
   hookLifetime: 8

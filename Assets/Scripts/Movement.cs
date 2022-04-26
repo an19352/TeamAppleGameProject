@@ -84,8 +84,8 @@ public class Movement : MonoBehaviour, IPunObservable
     {
         jumpInput = Input.GetButton("Jump");
 
-        xAxisInput = Input.GetAxis(horizontalAxis);
-        zAxisInput = Input.GetAxis(verticalAxis);
+        zAxisInput = -Input.GetAxis(horizontalAxis);
+        xAxisInput = Input.GetAxis(verticalAxis);
     }
 
     void FixedUpdate()
