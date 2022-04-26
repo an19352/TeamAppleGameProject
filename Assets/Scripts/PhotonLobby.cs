@@ -19,10 +19,13 @@ public class PhotonLobby : MonoBehaviourPunCallbacks
 
     public GameObject loadingCanvas;
     public GameObject lobbyCanvas;
+    public GameObject roomCanvas;
 
     public RoomItem roomItemPrefab;
     List<RoomItem> roomItemsList = new List<RoomItem>();
     public Transform contentObj;
+    public GameObject Nickname;
+    public teamSelectionScreenManager TSSM;
 
     public float timeBetweenUpdates = 1.5f;
     float nextUpdateTime;
@@ -30,6 +33,7 @@ public class PhotonLobby : MonoBehaviourPunCallbacks
 
     void Start()
     {
+        PhotonNetwork.AutomaticallySyncScene = true;
         PhotonNetwork.ConnectUsingSettings();
     }
 
@@ -54,7 +58,6 @@ public class PhotonLobby : MonoBehaviourPunCallbacks
         {
             PhotonNetwork.NickName = playerName.text;
             PhotonNetwork.CreateRoom("Room of " + playerName.text, new Photon.Realtime.RoomOptions() { MaxPlayers = maxPlayers });
-            
         }
     }
 
@@ -65,7 +68,8 @@ public class PhotonLobby : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom()
     {
-        SceneManager.LoadScene(1);
+        lobbyCanvas.SetActive(false);
+        roomCanvas.SetActive(true);
         base.OnJoinedRoom();
     }
 

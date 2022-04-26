@@ -12,12 +12,15 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
     private PhotonView PV;
 
     public GameObject prefab;
+    public int team;
 
     public int multiplayerSceneIndex = 1;
     private int currentSceneIndex;
 
     [HideInInspector]
     public int greenScore;
+    [HideInInspector]
+    public int myTeam;
     [HideInInspector]
     public int redScore;
 
@@ -57,14 +60,7 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
         SceneManager.sceneLoaded -= OnSceneFinishedLoading;
     }
 
-    public override void OnJoinedRoom()
-    {
-        base.OnJoinedRoom();
-        if (PhotonNetwork.IsMasterClient) return;
-        StartGame();
-    }
-
-    void StartGame()
+    public void StartGame()
     {
         PhotonNetwork.LoadLevel(multiplayerSceneIndex);
     }
@@ -72,12 +68,15 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
     void OnSceneFinishedLoading(Scene scene, LoadSceneMode mode)
     {
         currentSceneIndex = scene.buildIndex;
-        if (currentSceneIndex == multiplayerSceneIndex) CreatePlayer();
+        if (currentSceneIndex == multiplayerSceneIndex)
+        {
+            CreatePlayer();
+        }
     }
 
     void CreatePlayer()
     {
-        PhotonNetwork.Instantiate(prefab.name, transform.position, Quaternion.identity, 0);
+        PhotonNetwork.Instantiate(prefab.name, transform.position, Quaternion.identity, 0).GetComponent<PhotonPlayer>().SetTeam(team);
     }
 
     public void Reload()

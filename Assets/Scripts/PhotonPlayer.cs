@@ -13,6 +13,7 @@ public class PhotonPlayer : MonoBehaviourPunCallbacks
     public GameObject myAvatar;
 
     public GameObject playerPrefab;
+    int team = -1;
 
 
     // Start is called before the first frame update
@@ -21,8 +22,11 @@ public class PhotonPlayer : MonoBehaviourPunCallbacks
         PV = GetComponent<PhotonView>();
         gameMechanics = GameMechanics.gameMechanics;
 
-        gameMechanics.redButton.onClick.AddListener(delegate { InitiatePlayer(0); });
-        gameMechanics.greenButton.onClick.AddListener(delegate { InitiatePlayer(1); });
+        //gameMechanics.redButton.onClick.AddListener(delegate { InitiatePlayer(0); });
+        //gameMechanics.greenButton.onClick.AddListener(delegate { InitiatePlayer(1); });
+
+        if (team != -1)
+            InitiatePlayer(team);
 
         if (gameMechanics.activePowerups.Count > 0)
             foreach (KeyValuePair<int, UnityEngine.Vector3> powerupID in gameMechanics.activePowerups)
@@ -32,6 +36,8 @@ public class PhotonPlayer : MonoBehaviourPunCallbacks
                 powerup.transform.position = powerupID.Value;
             }
     }
+
+    public void SetTeam(int _team) { team = _team; }
 
     // Update is called once per frame
     public void InitiatePlayer(int team)

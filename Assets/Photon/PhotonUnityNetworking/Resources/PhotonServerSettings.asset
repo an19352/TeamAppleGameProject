@@ -94,6 +94,8 @@ MonoBehaviour:
   - DestroyFlag
   - RPC_AddComponent
   - RPC_DestroyComponent
+  - JoinTeam
+  - LeaveTeam
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1
