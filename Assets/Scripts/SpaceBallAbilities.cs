@@ -182,7 +182,7 @@ namespace SpaceBallAbilities
                 }
                 int IPPV = rigid.gameObject.GetComponent<PhotonView>().ViewID;
                 hook = PhotonNetwork.Instantiate(hookPrefab.name, shootTransform.position, Quaternion.identity).GetComponent<Hook>();
-                hook.PhotonInitialise(IPPV, shootTransform.forward, maxShootDistance, stopPullDistance, pullSpeed, antigravity, hookLifetime);
+                hook.PhotonInitialise(IPPV, mouseLocation, maxShootDistance, stopPullDistance, pullSpeed, antigravity, hookLifetime);
             }
         }
 

@@ -54,9 +54,9 @@ public class Hook : MonoBehaviour
         }
         else
         {
-            pullingForce = (transform.position - playerPosition).normalized * pullSpeed;
-            sin = (new Vector2(pullingForce.x, pullingForce.z).magnitude) / Vector3.Distance(transform.position, playerPosition);
-            player.PushMe(pullingForce + Vector3.up * (-sin * antigravity), ForceMode.Acceleration);
+            //pullingForce = (transform.position - playerPosition).normalized * pullSpeed;
+            //sin = (new Vector2(pullingForce.x, pullingForce.z).magnitude) / Vector3.Distance(transform.position, playerPosition);
+            player.PushMe((-playerPosition + transform.position).normalized * pullSpeed - player.gameObject.GetComponent<Rigidbody>().velocity, ForceMode.Acceleration);
         }
     }
 
@@ -66,12 +66,13 @@ public class Hook : MonoBehaviour
     }
 
     [PunRPC]
-    void Initialise(int rigidId, Vector3 _shootTransformForward, float _maxShootDistance, float _stopPullDistance, float _pullSpeed, float _antigravity, float _timeLife)
+    void Initialise(int rigidId, Vector3 targetPosition, float _maxShootDistance, float _stopPullDistance, float _pullSpeed, float _antigravity, float _timeLife)
     {
-        transform.forward = _shootTransformForward;
+        transform.LookAt(targetPosition);
 
         player = PhotonView.Find(rigidId).gameObject.GetComponent<Movement>();
-        rigid.AddForce(transform.forward * (hookForce) + player.playerBody.velocity, ForceMode.Impulse);
+        rigid.velocity = Vector3.zero;
+        rigid.AddForce(hookForce * transform.forward, ForceMode.Impulse);
         
         maxShootDistance = _maxShootDistance;
         stopPullDistance = _stopPullDistance;
