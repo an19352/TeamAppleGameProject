@@ -5585,7 +5585,7 @@ MonoBehaviour:
   throwForce: 20
   lerpSpeed: 10
   shootTransform: {fileID: 5300319078667173437}
-  pullSpeed: 300
+  pullSpeed: 700
   maxShootDistance: 50
   stopPullDistance: 0
   hookLifetime: 8

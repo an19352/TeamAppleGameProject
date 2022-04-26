@@ -8,19 +8,30 @@ public class FollowPlayer : MonoBehaviour
     public Transform player;
 
     public Vector3 offset;
-    public float Zoffset;
+    public Vector3 focalOffsets;
     public bool smoothMotion = false;
     public float smoothSpeed = 1.25f;
+    public bool attachToPlayer = false;
 
     // Update is called once per frame
     void FixedUpdate()
     {
         if (player == null) return;
 
-        if (smoothMotion)
-            MoveCameraSmoothly();
+        if (attachToPlayer)
+        {
+            transform.parent = player;
+            offset = player.position - transform.position;
+        }
         else
-            MoveCamera();
+        {
+            transform.parent = null;
+
+            if (smoothMotion)
+                MoveCameraSmoothly();
+            else
+                MoveCamera();
+        }
     }
 
     void MoveCamera() 
@@ -28,7 +39,7 @@ public class FollowPlayer : MonoBehaviour
         Vector3 newpos = new Vector3(player.position.x - offset.x, player.position.y - offset.y, player.position.z - offset.z);
         transform.position = newpos;
 
-        transform.LookAt(new Vector3(player.position.x, player.position.y, player.position.z + Zoffset));
+        transform.LookAt(player.position + focalOffsets);
     }
 
     void MoveCameraSmoothly()
@@ -37,6 +48,6 @@ public class FollowPlayer : MonoBehaviour
         Vector3 smoothPosition = Vector3.Lerp(transform.position, newpos, smoothSpeed * Time.deltaTime);
         transform.position = smoothPosition;
 
-        transform.LookAt(new Vector3(player.position.x, player.position.y, player.position.z + Zoffset));
+        transform.LookAt(player.position + focalOffsets);
     }
 }
