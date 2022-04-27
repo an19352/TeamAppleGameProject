@@ -13,15 +13,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: bc531c6b548d2400fa2a106979530e95, type: 3}
       propertyPath: m_LocalScale.x
-      value: 7
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: bc531c6b548d2400fa2a106979530e95, type: 3}
       propertyPath: m_LocalScale.y
-      value: 7
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: bc531c6b548d2400fa2a106979530e95, type: 3}
       propertyPath: m_LocalScale.z
-      value: 5
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: bc531c6b548d2400fa2a106979530e95, type: 3}
       propertyPath: m_LocalPosition.x
@@ -116,7 +116,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 563638b94c4ba4fd1a7404ecf4f078c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  grenadePrefab: {fileID: 0}
   delay: 120
   radius: 5
   force: 700
+  maxShootDistance: 20
   explosionEffect: {fileID: 1121192042590650, guid: e1b08032bec16ba4eb1ae23cbd572664, type: 3}
+  shootTransform: {fileID: 0}
+  throwForce: 0
+--- !u!114 &9107771312883043975
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6045759529378908636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 685be0310bfabad49a2a321ed23695d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  powerup: {fileID: 0}
+  pickupEffect: {fileID: 0}
+  maxDiscrepencyDistance: 3

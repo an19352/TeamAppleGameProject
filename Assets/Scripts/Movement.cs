@@ -10,7 +10,7 @@ public class Movement : MonoBehaviour, IPunObservable
     public static GameMechanics gameMechanics;
 
     public bool isNPC;
-    public Material highlightedGreenMaterial;
+    public Material highlightedBlueMaterial;
     public Material highlightedRedMaterial;
     public Rigidbody playerBody;
 
@@ -24,7 +24,7 @@ public class Movement : MonoBehaviour, IPunObservable
     Vector3 currentVelocity;
     bool isGrounded;
 
-    int ID;               // ID is private so it can't be changed from inspector
+    int ID;           // ID is private so it can't be changed from inspector
 
     public float rotationSpeed;
     Vector3 lookDirection;
@@ -61,6 +61,8 @@ public class Movement : MonoBehaviour, IPunObservable
         gameMechanics = GameMechanics.gameMechanics;
         shadowInsatance = Instantiate(shadow);
 
+        //Debug.Log(gameObject.transform.GetChild(9).GetChild(0).GetChild(2).GetChild(0).GetChild(11).GetChild(7).GetComponent<Renderer>().material);
+        
         player = transform;
         cameraMain = Camera.main;
 
@@ -71,10 +73,14 @@ public class Movement : MonoBehaviour, IPunObservable
             if (team == 1)
             {
                 //GetComponent<Renderer>().material = highlightedGreenMaterial;
+                //gameObject.transform.GetChild(9).GetChild(0).GetChild(0).GetChild(0).GetComponent<Renderer>().material = 
+                //gameObject.transform.GetComponent<robotRenderer>().teamcolor();
+                gameObject.transform.GetChild(9).GetChild(0).GetChild(2).GetChild(0).GetChild(11).GetChild(7)
+                    .GetComponent<Renderer>().material = highlightedBlueMaterial;
             }
             else
             {
-                //GetComponent<Renderer>().material = highlightedRedMaterial;
+                gameObject.transform.GetChild(9).GetChild(0).GetChild(2).GetChild(0).GetChild(11).GetChild(7).GetComponent<Renderer>().material = highlightedRedMaterial;
             }
             cameraMain.GetComponent<FollowPlayer>().player = transform;
         }
