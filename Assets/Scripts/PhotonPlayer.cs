@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PhotonPlayer : MonoBehaviourPunCallbacks
 {
@@ -25,8 +26,14 @@ public class PhotonPlayer : MonoBehaviourPunCallbacks
         //gameMechanics.redButton.onClick.AddListener(delegate { InitiatePlayer(0); });
         //gameMechanics.greenButton.onClick.AddListener(delegate { InitiatePlayer(1); });
 
-        if (team != -1)
-            InitiatePlayer(team);
+        if (team == -1)
+        {
+            PhotonNetwork.Disconnect();
+            PhotonNetwork.Destroy(PhotonRoom.room.gameObject);
+            SceneManager.LoadScene(0);
+        }
+        
+        InitiatePlayer(team);
 
         if (gameMechanics.activePowerups.Count > 0)
             foreach (KeyValuePair<int, UnityEngine.Vector3> powerupID in gameMechanics.activePowerups)

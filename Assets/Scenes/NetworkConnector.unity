@@ -1633,7 +1633,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefab: {fileID: 6455685791752893937, guid: 20863f06745c5b244a14af7da2b8392c, type: 3}
-  team: 0
+  team: -1
   multiplayerSceneIndex: 1
   greenScore: 0
   myTeam: 0

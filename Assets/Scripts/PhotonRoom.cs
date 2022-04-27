@@ -12,7 +12,7 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
     private PhotonView PV;
 
     public GameObject prefab;
-    public int team;
+    public int team = -1;
 
     public int multiplayerSceneIndex = 1;
     private int currentSceneIndex;
@@ -62,7 +62,9 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
 
     public void StartGame()
     {
-        PhotonNetwork.LoadLevel(multiplayerSceneIndex);
+        if (team == -1) PhotonNetwork.LeaveRoom();
+        else
+            PhotonNetwork.LoadLevel(multiplayerSceneIndex);
     }
 
     void OnSceneFinishedLoading(Scene scene, LoadSceneMode mode)

@@ -34,6 +34,7 @@ public class teamSelectionScreenManager : MonoBehaviour
     {
         PV.RPC("LeaveTeam", RpcTarget.AllBuffered, team, PhotonNetwork.LocalPlayer.ActorNumber - 1);
         buttons[team].gameObject.SetActive(true);
+        if (PR.team == team) PR.team = -1;
     }
 
     [PunRPC]
