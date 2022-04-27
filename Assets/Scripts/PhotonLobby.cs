@@ -49,6 +49,7 @@ public class PhotonLobby : MonoBehaviourPunCallbacks
 
         loadingCanvas.SetActive(false);
         lobbyCanvas.SetActive(true);
+        roomCanvas.SetActive(false);
         playerName.transform.parent.parent.gameObject.GetComponent<TMP_InputField>().Select();
     }
 

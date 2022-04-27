@@ -13,6 +13,10 @@ public class RoomItem : MonoBehaviour
     public void Start()
     {
         photonLobby = FindObjectOfType<PhotonLobby>();
+    }
+
+    private void OnEnable()
+    {
         if (PhotonNetwork.CurrentRoom != null)
             roomName.text = PhotonNetwork.CurrentRoom.Name;
     }
