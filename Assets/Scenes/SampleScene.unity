@@ -1823,7 +1823,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isNPC: 0
-  highlightedGreenMaterial: {fileID: 0}
+  highlightedBlueMaterial: {fileID: 0}
   highlightedRedMaterial: {fileID: 0}
   playerBody: {fileID: 0}
   speed: 12
@@ -6940,7 +6940,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isNPC: 0
-  highlightedGreenMaterial: {fileID: 0}
+  highlightedBlueMaterial: {fileID: 0}
   highlightedRedMaterial: {fileID: 0}
   playerBody: {fileID: 0}
   speed: 12
@@ -9036,11 +9036,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 563638b94c4ba4fd1a7404ecf4f078c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  grenadePrefab: {fileID: 0}
   delay: 3
   radius: 5
   force: 700
+  maxShootDistance: 20
   explosionEffect: {fileID: 5328056785043161592, guid: d82c50aad52bc0e41989d26d9703278e, type: 3}
   shootTransform: {fileID: 0}
+  throwForce: 0
 --- !u!1 &1818744406
 GameObject:
   m_ObjectHideFlags: 0
@@ -9182,16 +9185,16 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1907569585}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: -0.00035358305}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 866788125}
   m_RootOrder: 9
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -10, y: -10}
+  m_AnchoredPosition: {x: -120, y: -10}
   m_SizeDelta: {x: 110, y: 110}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &1907569587
