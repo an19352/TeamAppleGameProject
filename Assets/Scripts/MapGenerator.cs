@@ -61,10 +61,11 @@ public class MapGenerator : MonoBehaviour
 
     [Range(1, 4)]
     public int method = 3;
-    Platform[,] map;
+    //Platform[,] map;
 
     public GameObject greenbase;
     public GameObject redbase;
+    [SerializeField]
 
     public int InitState = 13;
     public bool Generate_Again = false;
@@ -92,7 +93,7 @@ public class MapGenerator : MonoBehaviour
 
     void Start()
     {
-        map = new Platform[width, height];
+        //map = new Platform[width, height];
         foreach (PlatformType plt in platformTypes) chanceSum += plt.chance;
 
         //Random.InitState(InitState);
@@ -161,11 +162,10 @@ public class MapGenerator : MonoBehaviour
         //map[0, height / 2] = new Platform(tr, chosen);
 
         DrawLineOfPlatforms(tree[0], Vector3.right, width - 1); // Draw a line from left to right
-        ReplacePlatform(0, specialPlatforms[0]);                
-        ReplacePlatform(width - 1, specialPlatforms[0]);        
+
 
         position = position + Vector3.left * 100f;
-        Instantiate(greenbase, position, Quaternion.identity);                                                      // Add Green Base
+        Instantiate(greenbase, position, Quaternion.identity);                                                      // Add Gree... I mean Blue Base
         position = tree[width - 1].platform.transform.position + Vector3.right * 100f;
         Instantiate(redbase, position, Quaternion.identity).transform.Rotate(new Vector3(0, 180, 0), Space.Self);   // Add Red Base
 
@@ -173,28 +173,49 @@ public class MapGenerator : MonoBehaviour
         top = tree.Count - 1;
         DrawLineOfPlatforms(tree[width / 2], Vector3.back, height / 2);    // Draw a line down
         bottom = tree.Count - 1;
-        ReplacePlatform(width / 2, specialPlatforms[0]);                   // Mark middle
+        ReplacePlatform(width / 2, specialPlatforms[2]);                   // Mark middle
 
-        //while(Mathf.Abs(tree[tree.Count - 1].platform.transform.position.z - tree[bottom].platform.transform.position.z) > 20f) { 
-        DrawLineOfPlatforms(tree[Random.Range(width/6, width/6 +2)], Vector3.back, 3, Mathf.PI / 36);
-        ReplacePlatform(tree.Count - 2, specialPlatforms[0]);
-        DrawLineOfPlatforms(tree[tree.Count - 2], Vector3.back, 2, 11 * Mathf.PI / 6);
-        ReplacePlatform(tree.Count - 1, specialPlatforms[1]);
-        settingup = tree[tree.Count - 1].platform.transform;
-        settingup.gameObject.GetComponent<BoardSetup>().Setup();
+        List<System.IFormattable[]> possibilities = new List<System.IFormattable[]>();
 
-        DrawLineOfPlatforms(tree[Random.Range(width / 6, width / 6 + 2)], Vector3.forward, 3, Mathf.PI / 36);
-        ReplacePlatform(tree.Count - 2, specialPlatforms[0]);
-        DrawLineOfPlatforms(tree[tree.Count - 2], Vector3.back, 2, 7* Mathf.PI / 6);
-        ReplacePlatform(tree.Count - 1, specialPlatforms[1]);
-        settingup = tree[tree.Count - 1].platform.transform;
-        settingup.gameObject.GetComponent<BoardSetup>().Setup();
-
-        for (int i = 1; i < width / 6; i++)
+        for (int i = 0; i < width / 6; i++)
         {
-            DrawLineOfPlatforms(tree[width / 6], Vector3.back, 3, Mathf.PI / 36);
-            DrawLineOfPlatforms(tree[width / 6], Vector3.forward, 3, Mathf.PI / 36);
+            possibilities.Add(new System.IFormattable[] { Vector3.back, 0, bottom, i * 3 });
+            possibilities.Add(new System.IFormattable[] { Vector3.forward, 340, top, i * 3 });
+            possibilities.Add(new System.IFormattable[] { Vector3.back, 350, bottom, width - 2 - i * 3 });
+            possibilities.Add(new System.IFormattable[] { Vector3.forward, 0, top, width - 2 - i * 3 });
         }
+
+        foreach (System.IFormattable[] combination in possibilities)
+        {
+            Vector3 towardsBase = Vector3.left;
+            if ((int)combination[3] > width/2) towardsBase = Vector3.right;
+            
+            DrawLineOfPlatforms(tree[Random.Range((int)combination[3], (int)combination[3] + 1)], (Vector3)combination[0], 3, (Mathf.PI / 180) * (Random.Range(5, 10) + (int)combination[1]));
+            while (Mathf.Abs(tree[tree.Count - 1].platform.transform.position.z) - Mathf.Abs(tree[(int)combination[2]].platform.transform.position.z) < -30f)
+            {
+                DrawLineOfPlatforms(tree[tree.Count - 2], towardsBase, 2, (Mathf.PI / 180) * (5 + (int)combination[1]));
+                DrawLineOfPlatforms(tree[tree.Count - 2], (Vector3)combination[0], 3, (Mathf.PI / 180) * (Random.Range(5, 10) + (int)combination[1]));
+            }
+            ReplacePlatform(tree.Count - 2, specialPlatforms[0]);
+            DrawLineOfPlatforms(tree[tree.Count - 2], towardsBase, 2, (Mathf.PI / 180) * (5 + (int)combination[1]));
+
+            if (possibilities.IndexOf(combination) < 4)
+            {
+                ReplacePlatform(tree.Count - 1, specialPlatforms[1]);
+                tree[tree.Count - 1].platform.transform.gameObject.GetComponent<BoardSetup>().Setup();
+            }
+        }
+
+        ReplacePlatform(0, specialPlatforms[0]);
+        ReplacePlatform(width - 1, specialPlatforms[0]);
+
+        DrawLineOfPlatforms(tree[width / 2], Vector3.left, 2);
+        ReplacePlatform(tree.Count - 1, specialPlatforms[1]);
+        tree[tree.Count - 1].platform.transform.gameObject.GetComponent<BoardSetup>().Setup(); 
+        
+        DrawLineOfPlatforms(tree[width / 2], Vector3.right, 2);
+        ReplacePlatform(tree.Count - 1, specialPlatforms[1]);
+        tree[tree.Count - 1].platform.transform.gameObject.GetComponent<BoardSetup>().Setup();
     }
 
     void fourth_method()
