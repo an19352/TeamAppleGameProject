@@ -21,6 +21,8 @@ public class PhotonPlayer : MonoBehaviourPunCallbacks
     void Start()
     {
         PV = GetComponent<PhotonView>();
+        if (!PV.IsMine) return;
+        
         gameMechanics = GameMechanics.gameMechanics;
 
         //gameMechanics.redButton.onClick.AddListener(delegate { InitiatePlayer(0); });
