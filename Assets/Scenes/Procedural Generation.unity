@@ -240,6 +240,7 @@ GameObject:
   m_Component:
   - component: {fileID: 506366124}
   - component: {fileID: 506366123}
+  - component: {fileID: 506366125}
   m_Layer: 0
   m_Name: Map Generator
   m_TagString: Untagged
@@ -259,20 +260,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0aea2a7cfd9a19c4c96142845c3fc430, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ones: 0
+  zeros: 0
+  difference: 0
   startingPosition: {x: 0, y: 0, z: 0}
   platformTypes:
   - prefab: {fileID: 2765404466157998811, guid: 90228459ee011a04f816883ed77bc560, type: 3}
     reach: 35
     verticalReach: 2.5
-    chance: 0.3
-  - prefab: {fileID: 3212951400544163311, guid: b18bda2c21ced9c45a3cb0688dc902f3, type: 3}
-    reach: 35
-    verticalReach: 2.5
-    chance: 0.1
-  - prefab: {fileID: 7108472697868761867, guid: 95b1554454eb9df41b749481067a5c5e, type: 3}
-    reach: 35
-    verticalReach: 2.5
-    chance: 0.3
+    chance: 0.7
   - prefab: {fileID: 7157000051020754708, guid: d26fbeaacf2ea498c98b40be19dd77b7, type: 3}
     reach: 35
     verticalReach: 2.5
@@ -318,6 +314,114 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &506366125
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 506366122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 4
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
+--- !u!1 &537854690
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 537854693}
+  - component: {fileID: 537854692}
+  - component: {fileID: 537854691}
+  m_Layer: 0
+  m_Name: GameMechanics
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &537854691
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 537854690}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da9dffc0eef88264783706dd16ec38a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  teams:
+  - name: ref
+    scoreText: {fileID: 0}
+    score: 0
+  - name: bluf
+    scoreText: {fileID: 0}
+    score: 0
+  players: []
+  spawnPpoints: []
+  teamMaterials: []
+  timer: {fileID: 0}
+  redgens: []
+  greengens: []
+  redButton: {fileID: 0}
+  greenButton: {fileID: 0}
+  menuItem: {fileID: 0}
+  worldSpaceCanvas: {fileID: 0}
+  greenFlags: {fileID: 0}
+  redFlags: {fileID: 0}
+  flagObjectives: []
+--- !u!114 &537854692
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 537854690}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 5
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
+--- !u!4 &537854693
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 537854690}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &934223748 stripped
 GameObject:

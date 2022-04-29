@@ -1,8 +1,12 @@
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class MapGenerator : MonoBehaviour
 {
+    PhotonView PV;
+    int indicator = 1;
+
     [System.Serializable]
     public struct PlatformType
     {
@@ -32,6 +36,9 @@ public class MapGenerator : MonoBehaviour
             board = type;
         }
     }
+    public int ones = 0;
+    public int zeros = 0;
+    public int difference = 0;
 
     public struct TreeElement
     {
@@ -70,7 +77,7 @@ public class MapGenerator : MonoBehaviour
     public int InitState = 13;
     public bool Generate_Again = false;
 
-    public void OnValidate()
+/*    public void OnValidate()
     {
         if (Generate_Again)
         {
@@ -89,18 +96,51 @@ public class MapGenerator : MonoBehaviour
 
             Generate_Again = false;
         }
-    }
+    }*/
 
     void Start()
     {
         //map = new Platform[width, height];
-        foreach (PlatformType plt in platformTypes) chanceSum += plt.chance;
+        //foreach (PlatformType plt in platformTypes) chanceSum += plt.chance;
 
-        //Random.InitState(InitState);
-        if (method == 1) first_method();
-        else if (method == 2) second_method();
-        else if (method == 3) third_method();
-        else if (method == 4) fourth_method();
+        PV = GetComponent<PhotonView>();
+
+        if (PhotonNetwork.IsMasterClient)
+        {
+            PV.RPC("firstStepGeneration", RpcTarget.AllBuffered, (int)Random.Range(0, 1000));
+        }
+
+/*        //Random.InitState(InitState);
+        if (Random.Range(0.0f, 1.0f) > 0.5f) second_method();
+        else third_method();*/
+    }
+
+    [PunRPC]
+    void firstStepGeneration(int seed)
+    {
+        Random.InitState(seed);
+
+        if (Random.Range(0.0f, 1.0f) > 0.5f) second_method();
+        else third_method();
+
+        if (!PhotonNetwork.IsMasterClient) PV.RPC("SignalMaster", RpcTarget.MasterClient);
+    }
+
+    [PunRPC]
+    void SignalMaster()
+    {
+        Debug.Log("escaped first generation");
+        if (!PhotonNetwork.IsMasterClient) return;
+
+        indicator++;
+
+        if (indicator >= PhotonNetwork.PlayerList.Length) secondStepGeneration();
+    }
+
+    void secondStepGeneration()
+    {
+        Debug.Log("Doing step two or whatever");
+        return;
     }
 
     void first_method()
