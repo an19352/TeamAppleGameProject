@@ -11,8 +11,6 @@ public class JumpPad : MonoBehaviour
 
     void Start()
     {
-        coolDown = 4.0f;
-        upwardForce = 1000.0f;
         arrowUp = gameObject.transform.GetChild(0).gameObject;
 
     }
