@@ -5682,6 +5682,7 @@ GameObject:
   - component: {fileID: 2286949501575152505}
   - component: {fileID: 8318884176616926482}
   - component: {fileID: 3289593609204160878}
+  - component: {fileID: 1154192683506617168}
   m_Layer: 0
   m_Name: Player Avatar
   m_TagString: Player
@@ -5924,6 +5925,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nameTag: {fileID: 8223327873385444411}
+--- !u!114 &1154192683506617168
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8521386507383712022}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c11d7a884fe14df43ab1de854c1357b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundBoard: {fileID: 0}
+  sounds: []
 --- !u!1 &8521386507560151343
 GameObject:
   m_ObjectHideFlags: 0
