@@ -254,6 +254,7 @@ MonoBehaviour:
   transforms:
   - {fileID: 6485973180631054158}
   - {fileID: 7650217875942565200}
+  - {fileID: 4399753431667282905}
 --- !u!1001 &8463275866268678901
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -335,3 +336,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ff08f3d22e1aa7a4c91f94c89bf534ee, type: 3}
+--- !u!4 &4399753431667282905 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5223200164382058796, guid: ff08f3d22e1aa7a4c91f94c89bf534ee, type: 3}
+  m_PrefabInstance: {fileID: 8463275866268678901}
+  m_PrefabAsset: {fileID: 0}
