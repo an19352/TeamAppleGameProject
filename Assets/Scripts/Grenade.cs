@@ -11,7 +11,7 @@ public class Grenade : MonoBehaviour
     public float delay = 3f;
     public float radius = 5f;
     public float force = 700f;
-    [SerializeField] float maxShootDistance = 20f;
+    //[SerializeField] float maxShootDistance = 20f;
     public GameObject explosionEffect;
     public Transform shootTransform;
     public float throwForce;

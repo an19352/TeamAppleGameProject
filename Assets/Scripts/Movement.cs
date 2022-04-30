@@ -267,7 +267,7 @@ public class Movement : MonoBehaviour, IPunObservable
                 if (playerBody.transform.parent.gameObject.TryGetComponent(out AddConstantVelocity velocity))
                     playerBody.velocity += velocity.force;
 
-            float lag = Mathf.Abs((float)(PhotonNetwork.Time - info.timestamp));
+            float lag = Mathf.Abs((float)(PhotonNetwork.Time - info.SentServerTime));
             networkPosition += playerBody.velocity * lag;
         }
     }

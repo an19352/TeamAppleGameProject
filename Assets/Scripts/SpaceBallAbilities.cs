@@ -205,7 +205,7 @@ namespace SpaceBallAbilities
         PhotonView PV;
         InventoryElement IE;
         Inventory inventory;
-        GameObject particleSystem;
+        new GameObject particleSystem;
         float timeToShoot = 0;
 
         float pushForce;
@@ -275,7 +275,7 @@ namespace SpaceBallAbilities
 
         public GameObject grenadePrefab;
         Transform shootTransform;
-        bool hasExploded = false;
+        //bool hasExploded = false;
 
         private Camera cameraMain;
         private Vector3 mouseLocation;

@@ -17,6 +17,7 @@ public class MapGenerator : MonoBehaviour
 
         public void modifyChance(float newChance)
         {
+            Debug.LogWarning("Chance modified for " + prefab.name + " from " + chance.ToString() + " to " + newChance.ToString());
             chance = newChance;
         }
     }
@@ -61,7 +62,7 @@ public class MapGenerator : MonoBehaviour
     public Vector3 startingPosition;
     public List<PlatformType> platformTypes;
     public List<PlatformType> specialPlatforms;
-    float chanceSum = 0f;
+    //float chanceSum = 0f;
 
     public int width = 15;
     public int height = 15;
@@ -191,7 +192,7 @@ public class MapGenerator : MonoBehaviour
 
         Vector3 position;
         PlatformType chosen;
-        Transform settingup;
+        //Transform settingup;
         int top, bottom;
 
         position = new Vector3(0, 0, 0);

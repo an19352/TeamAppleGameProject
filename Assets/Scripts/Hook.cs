@@ -19,7 +19,7 @@ public class Hook : MonoBehaviour
     float maxShootDistance;
     float stopPullDistance;
     float antigravity;
-    float sin = 0f;
+    //float sin = 0f;
 
     void Awake()
     { 
