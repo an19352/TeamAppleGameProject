@@ -75,12 +75,22 @@ public class Arrow : MonoBehaviour
         arrow.transform.localEulerAngles = new Vector3(0, 180, a);
     }
 
-    public void getgens(List<GameObject> gens)
+    public void getgens(List<GameObject> gens, GameObject redbase, GameObject greenbase, int t)
     {
         generator1 = gens[0];
         generator2 = gens[1];
         generator3 = gens[2];
-        flag = gens[3];
-        home = gens[4];
+        if (t == 0)
+        {
+            flag = greenbase.transform.GetChild(2).gameObject;
+            home = redbase.transform.GetChild(2).gameObject; 
+        }
+        else
+        {
+
+
+            flag = redbase.transform.GetChild(2).gameObject;
+            home = greenbase.transform.GetChild(2).gameObject;
+        }
     }
 }

@@ -83,11 +83,11 @@ public class PhotonPlayer : MonoBehaviourPunCallbacks
 
             if (team == 0)
             {
-                myAvatar.GetComponent<Arrow>().getgens(gameMechanics.greengens);
+                myAvatar.GetComponent<Arrow>().getgens(gameMechanics.greengens,gameMechanics.bases[0],gameMechanics.bases[1], team);
             }
             else
             {
-                myAvatar.GetComponent<Arrow>().getgens(gameMechanics.redgens);
+                myAvatar.GetComponent<Arrow>().getgens(gameMechanics.redgens, gameMechanics.bases[0], gameMechanics.bases[1], team);
             }
         }
     }
