@@ -202,6 +202,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3254800817455106145}
   - component: {fileID: 921623409}
+  - component: {fileID: 488281000438099665}
   m_Layer: 3
   m_Name: Board
   m_TagString: Ground
@@ -239,3 +240,18 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 0}
+--- !u!114 &488281000438099665
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2765404466157998811}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a424793e3232bcf449d4a423d46d392d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawns:
+  - obj: {fileID: 5446451121029927839, guid: f3971aa49eb6bb04b9676549e109707c, type: 3}
+    chance: 0
