@@ -140,6 +140,10 @@ public class MapGenerator : MonoBehaviour
 
     void secondStepGeneration()
     {
+        foreach (TreeElement TE in tree)
+            if (TE.platform.transform.gameObject.TryGetComponent(out SpawnSecondStep SSS))
+                SSS.SpawnObject();
+        
         Debug.Log("Doing step two or whatever");
         return;
     }
