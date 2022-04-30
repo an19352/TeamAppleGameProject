@@ -369,10 +369,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   teams:
   - name: Red
-    scoreText: {fileID: 0}
     score: 0
   - name: Blue
-    scoreText: {fileID: 0}
     score: 0
   players: []
   spawnPpoints: []
@@ -382,10 +380,7 @@ MonoBehaviour:
   timer: {fileID: 0}
   redgens: []
   greengens: []
-  redButton: {fileID: 0}
-  greenButton: {fileID: 0}
-  menuItem: {fileID: 0}
-  worldSpaceCanvas: {fileID: 0}
+  worldSpaceCanvas: {fileID: 1451163883}
   greenFlags: {fileID: 0}
   redFlags: {fileID: 0}
   flagObjectives: []
