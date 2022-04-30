@@ -42,19 +42,19 @@ public class EnergyGenerator : MonoBehaviour, IPunObservable
         healthBarImage = healthBar.gameObject.GetComponent<Image>();
         if (GameMechanics.gameMechanics == null) this.enabled = false;
 
-        float redDistance = Vector3.Distance(transform.position, gameMechanics.shields[0].transform.position);
-        float blueDistance = Vector3.Distance(transform.position, gameMechanics.shields[1].transform.position);
+        float redDistance = Vector3.Distance(transform.position, gameMechanics.bases[0].transform.position);
+        float blueDistance = Vector3.Distance(transform.position, gameMechanics.bases[1].transform.position);
 
         if (redDistance < blueDistance)
         {
             gameMechanics.redgens.Add(gameObject);
-            fsScript = gameMechanics.shields[0];
+            fsScript = gameMechanics.bases[0].GetComponentInChildren<ForceShield>();
             team = 0;
         }
         else 
         {
             gameMechanics.greengens.Add(gameObject);
-            fsScript = gameMechanics.shields[1];
+            fsScript = gameMechanics.bases[1].GetComponentInChildren<ForceShield>();
             team = 1; 
         }
 
@@ -69,7 +69,7 @@ public class EnergyGenerator : MonoBehaviour, IPunObservable
         // if (!PV.IsMine) return;
         if (healthRemain <= 0)
         {
-            Debug.Log("some ");
+            //Debug.Log("some ");
             // Debug.Log(fsScript.generatorDestroyed);
             PV.RPC("RememberMe", RpcTarget.AllBuffered);
             //PhotonNetwork.Destroy(this.gameObject);

@@ -216,8 +216,8 @@ public class MapGenerator : MonoBehaviour
         GameObject redBase = Instantiate(redbase, position, Quaternion.identity);
         redBase.transform.Rotate(new Vector3(0, 180, 0), Space.Self);   // Add Red Base
 
-        GameMechanics.gameMechanics.shields.Add(redBase.GetComponentInChildren<ForceShield>());
-        GameMechanics.gameMechanics.shields.Add(blueBase.GetComponentInChildren<ForceShield>());
+        GameMechanics.gameMechanics.bases.Add(redBase.gameObject);
+        GameMechanics.gameMechanics.bases.Add(blueBase.gameObject);
         GameMechanics.gameMechanics.flagObjectives = new GameMechanics.FlagObjective[2];
         GameMechanics.gameMechanics.flagObjectives[1] = new GameMechanics.FlagObjective(blueBase.transform.GetChild(2).gameObject);
         GameMechanics.gameMechanics.flagObjectives[0] = new GameMechanics.FlagObjective(redBase.transform.GetChild(2).gameObject);
@@ -357,12 +357,12 @@ public class MapGenerator : MonoBehaviour
 
         tr = Instantiate(redbase, pos, Quaternion.identity).transform;
         tr.Rotate(new Vector3(0, 180, 0),Space.Self);
-        GameMechanics.gameMechanics.shields.Add(tr.GetComponentInChildren<ForceShield>());
+        GameMechanics.gameMechanics.bases.Add(tr.gameObject);
         GameMechanics.gameMechanics.flagObjectives[0] = new GameMechanics.FlagObjective(tr.GetChild(2).gameObject);
 
         pos.x = -(pos.x);
         tr = Instantiate(greenbase, pos, Quaternion.identity).transform;
-        GameMechanics.gameMechanics.shields.Add(tr.GetComponentInChildren<ForceShield>());
+        GameMechanics.gameMechanics.bases.Add(tr.gameObject);
         GameMechanics.gameMechanics.flagObjectives[1] = new GameMechanics.FlagObjective(tr.GetChild(2).gameObject);
     }
 }

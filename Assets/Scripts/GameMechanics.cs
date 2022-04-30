@@ -72,7 +72,7 @@ public class GameMechanics : MonoBehaviour
     public Transform greenFlags;
     public Transform redFlags;
     public FlagObjective[] flagObjectives;
-    public List<ForceShield> shields;
+    public List<GameObject> bases;
 
     PhotonView PV;
 
