@@ -77,9 +77,6 @@ public class Arrow : MonoBehaviour
 
     public void getgens(List<GameObject> gens, GameObject redbase, GameObject greenbase, int t)
     {
-        generator1 = gens[0];
-        generator2 = gens[1];
-        generator3 = gens[2];
         if (t == 0)
         {
             flag = greenbase.transform.GetChild(2).gameObject;
@@ -87,10 +84,16 @@ public class Arrow : MonoBehaviour
         }
         else
         {
-
-
             flag = redbase.transform.GetChild(2).gameObject;
             home = greenbase.transform.GetChild(2).gameObject;
         }
+        Debug.Log(gens.Count);
+        generator1 = gens[0];
+        Debug.Log("hllo1");
+        generator2 = gens[1];
+        Debug.Log("hllo2");
+        generator3 = gens[2];
+        Debug.Log("hllo3");
+        
     }
 }
