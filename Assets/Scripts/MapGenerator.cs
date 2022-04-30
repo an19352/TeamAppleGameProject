@@ -140,11 +140,11 @@ public class MapGenerator : MonoBehaviour
 
     void secondStepGeneration()
     {
+        Debug.Log("Doing step two or whatever");
         foreach (TreeElement TE in tree)
             if (TE.platform.transform.gameObject.TryGetComponent(out SpawnSecondStep SSS))
                 SSS.SpawnObject();
         
-        Debug.Log("Doing step two or whatever");
         return;
     }
 
@@ -210,9 +210,13 @@ public class MapGenerator : MonoBehaviour
 
 
         position = position + Vector3.left * 100f;
-        Instantiate(greenbase, position, Quaternion.identity);                                                      // Add Gree... I mean Blue Base
+        GameObject blueBase = Instantiate(greenbase, position, Quaternion.identity);               // Add Gree... I mean Blue Base
         position = tree[width - 1].platform.transform.position + Vector3.right * 100f;
-        Instantiate(redbase, position, Quaternion.identity).transform.Rotate(new Vector3(0, 180, 0), Space.Self);   // Add Red Base
+        //GameMechanics.gameMechanics.shields.Add(
+        GameObject redBase = Instantiate(redbase, position, Quaternion.identity);
+        redBase.transform.Rotate(new Vector3(0, 180, 0), Space.Self);   // Add Red Base
+        GameMechanics.gameMechanics.shields.Add(redBase.GetComponentInChildren<ForceShield>());
+        GameMechanics.gameMechanics.shields.Add(blueBase.GetComponentInChildren<ForceShield>());
 
         DrawLineOfPlatforms(tree[width / 2], Vector3.forward, height / 2); // Draw a line up
         top = tree.Count - 1;
@@ -347,9 +351,10 @@ public class MapGenerator : MonoBehaviour
 
         tr = Instantiate(redbase, pos, Quaternion.identity).transform;
         tr.Rotate(new Vector3(0, 180, 0),Space.Self);
+        GameMechanics.gameMechanics.shields.Add(tr.GetComponentInChildren<ForceShield>());
 
         pos.x = -(pos.x);
-        Instantiate(greenbase, pos, Quaternion.identity);
+        GameMechanics.gameMechanics.shields.Add(Instantiate(greenbase, pos, Quaternion.identity).GetComponentInChildren<ForceShield>());
 
     }
 }

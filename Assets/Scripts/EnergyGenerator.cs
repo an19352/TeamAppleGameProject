@@ -10,6 +10,7 @@ using ExitGames.Client.Photon.StructWrapping;
 public class EnergyGenerator : MonoBehaviour, IPunObservable
 {
     PhotonView PV;
+    public static GameMechanics gameMechanics;
     public GameObject forceShield;
 
     [Header("Can mess with")]
@@ -35,13 +36,27 @@ public class EnergyGenerator : MonoBehaviour, IPunObservable
     // Start is called before the first frame update
     void Start()
     {
-
         PV = this.GetComponent<PhotonView>();
+        gameMechanics = GameMechanics.gameMechanics;
         // Transform canvas = this.gameObject.transform.Find("Canvas");
         healthBarImage = healthBar.gameObject.GetComponent<Image>();
         if (GameMechanics.gameMechanics == null) this.enabled = false;
-        else fsScript = forceShield.GetComponent<ForceShield>();
 
+        float redDistance = Vector3.Distance(transform.position, gameMechanics.shields[0].transform.position);
+        float blueDistance = Vector3.Distance(transform.position, gameMechanics.shields[1].transform.position);
+
+        if (redDistance < blueDistance)
+        {
+            gameMechanics.redgens.Add(gameObject);
+            team = 0;
+        }
+        else 
+        {
+            gameMechanics.greengens.Add(gameObject);
+            team = 1; 
+        }
+
+        fsScript = gameMechanics.shields[team];
         glowPart.material = glowPart.materials[team];
     }
 

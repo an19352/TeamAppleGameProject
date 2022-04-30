@@ -68,6 +68,7 @@ public class GameMechanics : MonoBehaviour
     public Transform greenFlags;
     public Transform redFlags;
     public FlagObjective[] flagObjectives;
+    public List<ForceShield> shields;
 
     PhotonView PV;
 
@@ -84,7 +85,7 @@ public class GameMechanics : MonoBehaviour
 
         for (int i = 0; i < players.Count; i++)
             players[i].obj.GetComponent<Movement>().SetId(i);
-        UpdateFlagUI();
+        //UpdateFlagUI();
     }
 
     /*
