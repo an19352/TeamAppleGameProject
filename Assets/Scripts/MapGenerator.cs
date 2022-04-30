@@ -5,7 +5,7 @@ using Photon.Pun;
 public class MapGenerator : MonoBehaviour
 {
     PhotonView PV;
-    int indicator = 1;
+    int indicator = 0;
 
     [System.Serializable]
     public struct PlatformType
@@ -58,6 +58,7 @@ public class MapGenerator : MonoBehaviour
     }
     public List<TreeElement> tree = new List<TreeElement>();
     public List<TreeElement> mirrortree = new List<TreeElement>();
+    List<BoardSetup.PhotonSpawnable> photonSpawnables = new List<BoardSetup.PhotonSpawnable>();
 
     public Vector3 startingPosition;
     public List<PlatformType> platformTypes;
@@ -124,7 +125,7 @@ public class MapGenerator : MonoBehaviour
         if (Random.Range(0.0f, 1.0f) > 0.5f) second_method();
         else third_method();
 
-        if (!PhotonNetwork.IsMasterClient) PV.RPC("SignalMaster", RpcTarget.MasterClient);
+        PV.RPC("SignalMaster", RpcTarget.MasterClient);
     }
 
     [PunRPC]
@@ -141,6 +142,10 @@ public class MapGenerator : MonoBehaviour
     void secondStepGeneration()
     {
         Debug.Log("Doing step two or whatever");
+
+        foreach (BoardSetup.PhotonSpawnable spawnable in photonSpawnables)
+            PhotonNetwork.Instantiate(spawnable.prefab, spawnable.position, spawnable.rotation);
+
         foreach (TreeElement TE in tree)
             if (TE.platform.transform.gameObject.TryGetComponent(out SpawnSecondStep SSS))
                 SSS.SpawnObject();
@@ -172,6 +177,7 @@ public class MapGenerator : MonoBehaviour
 
          DrawLineOfPlatforms(tree[1], Vector3.back, 3, Mathf.PI/36);
          ReplacePlatform(tree.Count - 1, specialPlatforms[1]);
+         photonSpawnables.AddRange(tree[tree.Count - 1].platform.transform.GetComponent<BoardSetup>().Setup());
 
          for (int i = 1; i < tree.Count; i++)
          {
@@ -183,7 +189,7 @@ public class MapGenerator : MonoBehaviour
             Transform settingup = mirrortree[mirrortree.Count - 1].platform.transform;
 
             if (settingup.gameObject.TryGetComponent(out BoardSetup BS))
-                BS.Setup();
+                photonSpawnables.AddRange(BS.Setup());
          }
 
          SpawnBases();
@@ -255,7 +261,7 @@ public class MapGenerator : MonoBehaviour
             if (possibilities.IndexOf(combination) < 4)
             {
                 ReplacePlatform(tree.Count - 1, specialPlatforms[1]);
-                tree[tree.Count - 1].platform.transform.gameObject.GetComponent<BoardSetup>().Setup();
+                photonSpawnables.AddRange(tree[tree.Count - 1].platform.transform.gameObject.GetComponent<BoardSetup>().Setup());
             }
         }
 
@@ -264,11 +270,11 @@ public class MapGenerator : MonoBehaviour
 
         DrawLineOfPlatforms(tree[width / 2], Vector3.left, 2);
         ReplacePlatform(tree.Count - 1, specialPlatforms[1]);
-        tree[tree.Count - 1].platform.transform.gameObject.GetComponent<BoardSetup>().Setup(); 
+        photonSpawnables.AddRange(tree[tree.Count - 1].platform.transform.gameObject.GetComponent<BoardSetup>().Setup()); 
         
         DrawLineOfPlatforms(tree[width / 2], Vector3.right, 2);
         ReplacePlatform(tree.Count - 1, specialPlatforms[1]);
-        tree[tree.Count - 1].platform.transform.gameObject.GetComponent<BoardSetup>().Setup();
+        photonSpawnables.AddRange(tree[tree.Count - 1].platform.transform.gameObject.GetComponent<BoardSetup>().Setup());
     }
 
     void fourth_method()

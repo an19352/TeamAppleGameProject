@@ -123,6 +123,8 @@ public class PhotonLobby : MonoBehaviourPunCallbacks
 
     private void Update()
     {
+        if (EventSystem.current.currentSelectedGameObject == null) return;
+
         if (Input.GetKeyDown(KeyCode.Return))
         {
             if(EventSystem.current.currentSelectedGameObject.TryGetComponent(out Button _button))
