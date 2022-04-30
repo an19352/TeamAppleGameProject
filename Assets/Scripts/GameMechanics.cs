@@ -29,7 +29,6 @@ public class GameMechanics : MonoBehaviour
     public struct Team           // This allows for Teams to be added via the inspector
     {
         public string name;
-        public Text scoreText;
 
         [HideInInspector]       // The score is hidden from inspector. This can be undone
         public int score;       // if we ever want teams to start with an advantage. Text will need change
@@ -61,9 +60,6 @@ public class GameMechanics : MonoBehaviour
 
     public List<GameObject> redgens;
     public List<GameObject> greengens;
-    public Button redButton;
-    public Button greenButton;
-    public GameObject menuItem;
     public Canvas worldSpaceCanvas;
     public Transform greenFlags;
     public Transform redFlags;
@@ -136,23 +132,6 @@ public class GameMechanics : MonoBehaviour
         GameObject _obj = _player.obj;
         players.Remove(_player);
         Destroy(_obj);
-    }
-
-    public void RPC_Score(int teamID)
-    {
-        PV.RPC("Score", RpcTarget.AllBuffered, teamID);
-    }
-
-    // Increments the score of a team by one
-    [PunRPC]
-    public void Score(int teamID)
-    {
-        string _name = teams[teamID].name;
-        int _score = teams[teamID].score + 1;
-        Text _text = teams[teamID].scoreText;
-        _text.text = _score.ToString();
-
-        teams[teamID] = new Team { name = _name, score = _score, scoreText = _text };
     }
 
     #region FlagStuff
@@ -302,7 +281,7 @@ public class GameMechanics : MonoBehaviour
     #endregion
 
     [PunRPC]
-    void Sync(float game_time, int[] playerViewIds, int[] playerTeams, string[] teamNames, int[] teamScores, int[] flagCounts, int[] numsOfAttackers, int[] numsOfDefenders, int[] scoreViewIDs)
+    void Sync(float game_time, int[] playerViewIds, int[] playerTeams, string[] teamNames, int[] teamScores, int[] flagCounts, int[] numsOfAttackers, int[] numsOfDefenders)
     {
         timer.UpdateTimer(game_time);
         List<Team> _teams = new List<Team>();
@@ -310,7 +289,6 @@ public class GameMechanics : MonoBehaviour
         {
             name = teamNames[i],
             score = teamScores[i],
-            scoreText = PhotonView.Find(scoreViewIDs[i]).gameObject.GetComponent<Text>(),
         });
 
         teams = _teams;
@@ -346,7 +324,6 @@ public class GameMechanics : MonoBehaviour
 
         string[] teamNames = new string[teams.Count];
         int[] teamScores = new int[teams.Count];
-        int[] scoreViewIDs = new int[teams.Count];
 
         int[] flagCounts = new int[teams.Count];
         int[] numsOfDefenders = new int[teams.Count];
@@ -368,7 +345,6 @@ public class GameMechanics : MonoBehaviour
         {
             teamNames[i] = teams[i].name;
             teamScores[i] = teams[i].score;
-            scoreViewIDs[i] = teams[i].scoreText.gameObject.GetComponent<PhotonView>().ViewID;
         }
 
         i = 0;
@@ -388,7 +364,7 @@ public class GameMechanics : MonoBehaviour
         }
 
 
-        PV.RPC("Sync", RpcTarget.Others, game_time, playerViewIds, playerTeams, teamNames, teamScores, flagCounts, numsOfAttackers, numsOfDefenders, scoreViewIDs);
+        PV.RPC("Sync", RpcTarget.Others, game_time, playerViewIds, playerTeams, teamNames, teamScores, flagCounts, numsOfAttackers, numsOfDefenders);
     }
 
     public void SyncPowerupsNow()

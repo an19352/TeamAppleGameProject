@@ -90,7 +90,5 @@ public class PhotonPlayer : MonoBehaviourPunCallbacks
                 myAvatar.GetComponent<Arrow>().getgens(gameMechanics.redgens);
             }
         }
-
-        gameMechanics.menuItem.SetActive(false);
     }
 }
