@@ -73,6 +73,7 @@ public class GameMechanics : MonoBehaviour
     public Transform redFlags;
     public FlagObjective[] flagObjectives;
     public List<GameObject> bases;
+    public PhotonPlayer PB;
 
     PhotonView PV;
 
@@ -448,4 +449,14 @@ public class GameMechanics : MonoBehaviour
             PhotonNetwork.Destroy(PhotonView.Find(PVID).gameObject);
     }
 
+    public void RPC_InitiatePlayer()
+    {
+        PV.RPC("InitiatePlayer", RpcTarget.All);
+    }
+
+    [PunRPC]
+    void InitiatePlayer()
+    {
+        PB.InitiatePlayer();
+    }
 }

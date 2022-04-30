@@ -34,8 +34,9 @@ public class PhotonPlayer : MonoBehaviourPunCallbacks
             PhotonNetwork.Destroy(PhotonRoom.room.gameObject);
             SceneManager.LoadScene(0);
         }
-        
-        InitiatePlayer(team);
+
+        //InitiatePlayer(team);
+        gameMechanics.PB = this;
 
         if (gameMechanics.activePowerups.Count > 0)
             foreach (KeyValuePair<int, UnityEngine.Vector3> powerupID in gameMechanics.activePowerups)
@@ -49,7 +50,7 @@ public class PhotonPlayer : MonoBehaviourPunCallbacks
     public void SetTeam(int _team) { team = _team; }
 
     // Update is called once per frame
-    public void InitiatePlayer(int team)
+    public void InitiatePlayer()
     {
         float x;
         float z;
