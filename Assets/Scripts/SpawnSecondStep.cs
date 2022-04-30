@@ -13,6 +13,7 @@ public class SpawnSecondStep : MonoBehaviour
     }
     
     public List<spawnable> spawns;
+    pub
 
 
     public void SpawnObject()
