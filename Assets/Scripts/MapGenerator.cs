@@ -215,8 +215,12 @@ public class MapGenerator : MonoBehaviour
         //GameMechanics.gameMechanics.shields.Add(
         GameObject redBase = Instantiate(redbase, position, Quaternion.identity);
         redBase.transform.Rotate(new Vector3(0, 180, 0), Space.Self);   // Add Red Base
+
         GameMechanics.gameMechanics.shields.Add(redBase.GetComponentInChildren<ForceShield>());
         GameMechanics.gameMechanics.shields.Add(blueBase.GetComponentInChildren<ForceShield>());
+        GameMechanics.gameMechanics.flagObjectives = new GameMechanics.FlagObjective[2];
+        GameMechanics.gameMechanics.flagObjectives[1] = new GameMechanics.FlagObjective(blueBase.transform.GetChild(2).gameObject);
+        GameMechanics.gameMechanics.flagObjectives[0] = new GameMechanics.FlagObjective(redBase.transform.GetChild(2).gameObject);
 
         DrawLineOfPlatforms(tree[width / 2], Vector3.forward, height / 2); // Draw a line up
         top = tree.Count - 1;
@@ -349,12 +353,16 @@ public class MapGenerator : MonoBehaviour
         pos = pos + Vector3.right.normalized * Random.Range(previous.reach * 1.85f, 2.1f * previous.reach);
         pos.y += Random.Range(-previous.verticalReach, previous.verticalReach);
 
+        GameMechanics.gameMechanics.flagObjectives = new GameMechanics.FlagObjective[2];
+
         tr = Instantiate(redbase, pos, Quaternion.identity).transform;
         tr.Rotate(new Vector3(0, 180, 0),Space.Self);
         GameMechanics.gameMechanics.shields.Add(tr.GetComponentInChildren<ForceShield>());
+        GameMechanics.gameMechanics.flagObjectives[0] = new GameMechanics.FlagObjective(tr.GetChild(2).gameObject);
 
         pos.x = -(pos.x);
-        GameMechanics.gameMechanics.shields.Add(Instantiate(greenbase, pos, Quaternion.identity).GetComponentInChildren<ForceShield>());
-
+        tr = Instantiate(greenbase, pos, Quaternion.identity).transform;
+        GameMechanics.gameMechanics.shields.Add(tr.GetComponentInChildren<ForceShield>());
+        GameMechanics.gameMechanics.flagObjectives[1] = new GameMechanics.FlagObjective(tr.GetChild(2).gameObject);
     }
 }

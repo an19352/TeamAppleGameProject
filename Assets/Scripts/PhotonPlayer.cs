@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 public class PhotonPlayer : MonoBehaviourPunCallbacks
 {
     private PhotonView PV;
-    public static GameMechanics gameMechanics;
+    GameMechanics gameMechanics;
 
     [HideInInspector]
     public GameObject myAvatar;

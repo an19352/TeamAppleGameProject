@@ -48,15 +48,17 @@ public class EnergyGenerator : MonoBehaviour, IPunObservable
         if (redDistance < blueDistance)
         {
             gameMechanics.redgens.Add(gameObject);
+            fsScript = gameMechanics.shields[0];
             team = 0;
         }
         else 
         {
             gameMechanics.greengens.Add(gameObject);
+            fsScript = gameMechanics.shields[1];
             team = 1; 
         }
 
-        fsScript = gameMechanics.shields[team];
+        forceShield = fsScript.gameObject;
         glowPart.material = glowPart.materials[team];
     }
 
@@ -129,7 +131,9 @@ public class EnergyGenerator : MonoBehaviour, IPunObservable
     }
 
       private void OnEnable()
-     { 
+     {
+        if (forceShield == null) return;
+
          forceShield.SetActive(true); 
          healthRemain = health;
          healthBarImage = healthBar.gameObject.GetComponent<Image>();

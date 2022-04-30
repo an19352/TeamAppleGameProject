@@ -48,6 +48,14 @@ public class GameMechanics : MonoBehaviour
         public int flagCount;
         public int numOfDefenders;
         public int numOfAttackers;
+
+        public FlagObjective(GameObject _obj)
+        {
+            objective = _obj;
+            flagCount = 3;
+            numOfAttackers = 0;
+            numOfDefenders = 0;
+        }
     }
 
 
@@ -215,9 +223,9 @@ public class GameMechanics : MonoBehaviour
 
     public void RPC_UpdateFlag(int teamID, bool isScore)
     {
-        PV.RPC("UpdateFlag", RpcTarget.AllBuffered, teamID, isScore);
+        PV.RPC("UpdateFlag", RpcTarget.All, teamID, isScore);
         // add something here to update the ui
-        PV.RPC("UpdateFlagUI", RpcTarget.AllBuffered);
+        PV.RPC("UpdateFlagUI", RpcTarget.All);
     }
 
     public void RPC_EnableFlagHolder(int playerID)
@@ -242,7 +250,7 @@ public class GameMechanics : MonoBehaviour
 
     public void RPC_UpdateAttackers(int teamID, bool addition)
     {
-        PV.RPC("UpdateAttackers", RpcTarget.AllBuffered, teamID, addition);
+        PV.RPC("UpdateAttackers", RpcTarget.All, teamID, addition);
     }
 
     [PunRPC]
