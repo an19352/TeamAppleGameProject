@@ -17,7 +17,7 @@ public class SpawnSecondStep : MonoBehaviour
 
     public void SpawnObject()
     {
-        PhotonNetwork.Instantiate(spawns[0].obj.name, transform.position + Vector3.zero, Quaternion.identity);
+        PhotonNetwork.Instantiate(spawns[0].obj.name, transform.position + Vector3.up, Quaternion.identity);
         return;
     }
 }

@@ -71,7 +71,7 @@ public class GameMechanics : MonoBehaviour
     public Canvas worldSpaceCanvas;
     public Transform greenFlags;
     public Transform redFlags;
-    public FlagObjective[] flagObjectives;
+    public FlagObjective[] flagObjectives = new FlagObjective[2];
     public List<GameObject> bases;
     public PhotonPlayer PB;
 
@@ -90,7 +90,7 @@ public class GameMechanics : MonoBehaviour
 
         for (int i = 0; i < players.Count; i++)
             players[i].obj.GetComponent<Movement>().SetId(i);
-        //UpdateFlagUI();
+        UpdateFlagUI();
     }
 
     /*

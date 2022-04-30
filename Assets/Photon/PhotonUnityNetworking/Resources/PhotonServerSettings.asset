@@ -99,6 +99,7 @@ MonoBehaviour:
   - mapGeneration
   - firstStepGeneration
   - SignalMaster
+  - InitiatePlayer
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

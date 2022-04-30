@@ -35,8 +35,8 @@ public class PhotonPlayer : MonoBehaviourPunCallbacks
             SceneManager.LoadScene(0);
         }
 
-        //InitiatePlayer(team);
-        gameMechanics.PB = this;
+        InitiatePlayer();
+       // gameMechanics.PB = this;
 
         if (gameMechanics.activePowerups.Count > 0)
             foreach (KeyValuePair<int, UnityEngine.Vector3> powerupID in gameMechanics.activePowerups)

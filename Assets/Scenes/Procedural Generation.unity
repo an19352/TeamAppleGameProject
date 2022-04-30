@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.1962879, g: 0.09740276, b: 0.11954967, a: 1}
+  m_IndirectSpecularColor: {r: 0.19634691, g: 0.09731356, b: 0.119633995, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -882,6 +882,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player Avatar
       objectReference: {fileID: 0}
+    - target: {fileID: 8521386507383712022, guid: ae4d1828886102a42aaad677976921a2, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8521386507383712024, guid: ae4d1828886102a42aaad677976921a2, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -1380,6 +1384,7 @@ MonoBehaviour:
   method: 3
   greenbase: {fileID: 4855106600265033456, guid: 4b9eef4794ac1084caf36e88645e744d, type: 3}
   redbase: {fileID: 4855106600265033456, guid: 1f1ac4a73097c5f41bb7a6413df2c86e, type: 3}
+  objectivePrefab: {fileID: 8176473694404092270, guid: d5fc2f8a923f3f5429eb9fc1ea2e2d41, type: 3}
   InitState: 13
   Generate_Again: 0
 --- !u!4 &506366124
@@ -1465,7 +1470,8 @@ MonoBehaviour:
   greenFlags: {fileID: 1124631354}
   redFlags: {fileID: 540473}
   flagObjectives: []
-  shields: []
+  bases: []
+  PB: {fileID: 0}
 --- !u!114 &537854692
 MonoBehaviour:
   m_ObjectHideFlags: 0

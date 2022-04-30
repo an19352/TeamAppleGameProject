@@ -74,6 +74,7 @@ public class MapGenerator : MonoBehaviour
 
     public GameObject greenbase;
     public GameObject redbase;
+    public GameObject objectivePrefab; 
     [SerializeField]
 
     public int InitState = 13;
@@ -150,7 +151,7 @@ public class MapGenerator : MonoBehaviour
             if (TE.platform.transform.gameObject.TryGetComponent(out SpawnSecondStep SSS))
                 SSS.SpawnObject();
 
-        GameMechanics.gameMechanics.RPC_InitiatePlayer();
+        //GameMechanics.gameMechanics.RPC_InitiatePlayer();
 
         return;
     }
@@ -364,13 +365,21 @@ public class MapGenerator : MonoBehaviour
         GameMechanics.gameMechanics.flagObjectives = new GameMechanics.FlagObjective[2];
 
         tr = Instantiate(redbase, pos, Quaternion.identity).transform;
-        tr.Rotate(new Vector3(0, 180, 0),Space.Self);
+        tr.Rotate(new Vector3(0, 180, 0), Space.Self);
         GameMechanics.gameMechanics.bases.Add(tr.gameObject);
-        GameMechanics.gameMechanics.flagObjectives[0] = new GameMechanics.FlagObjective(tr.GetChild(2).gameObject);
+        if (PhotonNetwork.IsMasterClient)
+            PhotonNetwork.Instantiate(objectivePrefab.name, tr.GetChild(2).position, tr.GetChild(2).rotation);
 
-        pos.x = -(pos.x);
+            pos.x = -(pos.x);
         tr = Instantiate(greenbase, pos, Quaternion.identity).transform;
         GameMechanics.gameMechanics.bases.Add(tr.gameObject);
-        GameMechanics.gameMechanics.flagObjectives[1] = new GameMechanics.FlagObjective(tr.GetChild(2).gameObject);
+
+        if (PhotonNetwork.IsMasterClient)
+        {
+            PhotonNetwork.Instantiate(objectivePrefab.name, tr.GetChild(2).position, tr.GetChild(2).rotation);
+
+            GameMechanics.gameMechanics.flagObjectives[0] = new GameMechanics.FlagObjective(tr.GetChild(2).gameObject);
+            GameMechanics.gameMechanics.flagObjectives[1] = new GameMechanics.FlagObjective(tr.GetChild(2).gameObject);
+        }
     }
 }
