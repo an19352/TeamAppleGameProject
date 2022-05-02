@@ -5269,7 +5269,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1386686421
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5309,7 +5309,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '''don''t wear your tems color, bleed them'''
+  m_text: '''don''t wear your teams color, bleed them'''
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 53bda6823d9a347bf991fac08e020103, type: 2}
   m_sharedMaterial: {fileID: -1189736206247428788, guid: 53bda6823d9a347bf991fac08e020103, type: 2}
@@ -5792,7 +5792,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1431380556
 RectTransform:
   m_ObjectHideFlags: 0
