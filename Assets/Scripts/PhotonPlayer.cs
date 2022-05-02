@@ -76,10 +76,8 @@ public class PhotonPlayer : MonoBehaviourPunCallbacks
 
             }
             myAvatar = PhotonNetwork.Instantiate(playerPrefab.name, new Vector3(x, 6, z), Quaternion.identity);
-            if (!PhotonNetwork.IsMasterClient)
-                PV.RPC("StopTime", RpcTarget.All);
             myAvatar.layer = playerLayer;
-            //gameMechanics.RPC_AddPlayer(myAvatar, team);
+            gameMechanics.RPC_AddPlayer(myAvatar, team);
 
             /*Transform arrow = myAvatar.transform.Find("ArrowCanvas");
             arrow.GetChild(0).gameObject.SetActive(true);
@@ -95,11 +93,5 @@ public class PhotonPlayer : MonoBehaviourPunCallbacks
             }
             Debug.Log(16);*/
         }
-    }
-
-    [PunRPC]
-    void StopTime()
-    {
-        Time.timeScale = 0;
     }
 }
