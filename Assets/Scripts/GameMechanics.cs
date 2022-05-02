@@ -65,7 +65,7 @@ public class GameMechanics : MonoBehaviour
     public Button greenButton;
     public GameObject menuItem;
     public Canvas worldSpaceCanvas;
-    public Transform greenFlags;
+    public Transform blueFlags;
     public Transform redFlags;
     public FlagObjective[] flagObjectives;
 
@@ -206,8 +206,8 @@ public class GameMechanics : MonoBehaviour
         // 12 => icon + border
         var redImgs = redFlags.gameObject.GetComponentsInChildren<Image>();
         // 12 => icon + border
-        var greenImgs = greenFlags.gameObject.GetComponentsInChildren<Image>();
-        foreach (Transform flag in greenFlags)
+        var greenImgs = blueFlags.gameObject.GetComponentsInChildren<Image>();
+        foreach (Transform flag in blueFlags)
         {
             var icons = flag.GetComponentsInChildren<Image>();
             foreach (var icon in icons)
@@ -445,8 +445,10 @@ public class GameMechanics : MonoBehaviour
     [PunRPC]
     void EndGame()
     {
+        PhotonRoom.room.redFlag = flagObjectives[0].flagCount;
+        PhotonRoom.room.blueFlag = flagObjectives[1].flagCount;
         PhotonRoom.room.redScore = teams[0].score;
-        PhotonRoom.room.greenScore = teams[1].score;
+        PhotonRoom.room.blueScore = teams[1].score;
         SceneManager.LoadScene(2);
     }
 

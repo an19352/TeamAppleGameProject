@@ -72,9 +72,6 @@ public class Movement : MonoBehaviour, IPunObservable
             int team = gameMechanics.checkTeam(ID);
             if (team == 1)
             {
-                //GetComponent<Renderer>().material = highlightedGreenMaterial;
-                //gameObject.transform.GetChild(9).GetChild(0).GetChild(0).GetChild(0).GetComponent<Renderer>().material = 
-                //gameObject.transform.GetComponent<robotRenderer>().teamcolor();
                 gameObject.transform.GetChild(9).GetChild(0).GetChild(2).GetChild(0).GetChild(11).GetChild(7)
                     .GetComponent<Renderer>().material = highlightedBlueMaterial;
             }
