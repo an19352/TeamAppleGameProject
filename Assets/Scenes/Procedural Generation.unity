@@ -3140,7 +3140,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 252266f82c592e34ba4dee26ff6fead1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 1972276918}
+  player: {fileID: 0}
   offset: {x: 20, y: -20, z: 0}
   focalOffsets: {x: 5, y: 0, z: 0}
   smoothMotion: 1
@@ -4487,11 +4487,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1916609525}
   m_CullTransparentMesh: 1
---- !u!4 &1972276918 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8521386507383712024, guid: ae4d1828886102a42aaad677976921a2, type: 3}
-  m_PrefabInstance: {fileID: 270550027}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2110674477
 GameObject:
   m_ObjectHideFlags: 0
