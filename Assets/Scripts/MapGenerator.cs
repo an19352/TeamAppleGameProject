@@ -135,13 +135,12 @@ public class MapGenerator : MonoBehaviour
         if (Random.Range(0.0f, 1.0f) > 0.5f) second_method();
         else third_method();
 
-        PV.RPC("SignalMaster", RpcTarget.MasterClient, PV.OwnerActorNr);
+        PV.RPC("SignalMaster", RpcTarget.MasterClient);
     }
 
     [PunRPC]
-    void SignalMaster(int OwnerId)
+    void SignalMaster()
     {
-        Debug.Log(OwnerId);
         if (!PhotonNetwork.IsMasterClient) return;
 
         indicator++;
@@ -164,7 +163,6 @@ public class MapGenerator : MonoBehaviour
             return;
 
         indicator = 0;
-        GameMechanics.gameMechanics.UpdateFlagUI();
         GameMechanics.gameMechanics.RPC_InitiatePlayer();
     }
 

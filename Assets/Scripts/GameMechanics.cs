@@ -473,8 +473,8 @@ public class GameMechanics : MonoBehaviour
     [PunRPC]
     void InitiatePlayer()
     {
+        UpdateFlagUI();
         readyToDeploy = true;
-        if (PB == null) return;
         PB.InitiatePlayer();
     }
 }
