@@ -79,6 +79,7 @@ public class MapGenerator : MonoBehaviour
 
     public int InitState = 13;
     public bool Generate_Again = false;
+    int[] PVIDs = new int[2];
 
 /*    public void OnValidate()
     {
@@ -278,6 +279,14 @@ public class MapGenerator : MonoBehaviour
         DrawLineOfPlatforms(tree[width / 2], Vector3.right, 2);
         ReplacePlatform(tree.Count - 1, specialPlatforms[1]);
         photonSpawnables.AddRange(tree[tree.Count - 1].platform.transform.gameObject.GetComponent<BoardSetup>().Setup());
+
+        if (PhotonNetwork.IsMasterClient)
+        {
+            PVIDs[0] = PhotonNetwork.Instantiate(objectivePrefab.name, redBase.transform.GetChild(2).position, redBase.transform.GetChild(2).rotation).GetComponent<PhotonView>().ViewID;
+            PVIDs[1] = PhotonNetwork.Instantiate(objectivePrefab.name, blueBase.transform.GetChild(2).position, blueBase.transform.GetChild(2).rotation).GetComponent<PhotonView>().ViewID;
+
+            PV.RPC("flagObjectiveSyc", RpcTarget.All, PVIDs);
+        }
     }
 
     void fourth_method()
@@ -368,18 +377,26 @@ public class MapGenerator : MonoBehaviour
         tr.Rotate(new Vector3(0, 180, 0), Space.Self);
         GameMechanics.gameMechanics.bases.Add(tr.gameObject);
         if (PhotonNetwork.IsMasterClient)
-            PhotonNetwork.Instantiate(objectivePrefab.name, tr.GetChild(2).position, tr.GetChild(2).rotation);
+            PVIDs[0] = PhotonNetwork.Instantiate(objectivePrefab.name, tr.GetChild(2).position, tr.GetChild(2).rotation).GetComponent<PhotonView>().ViewID;
 
-            pos.x = -(pos.x);
+        pos.x = -(pos.x);
         tr = Instantiate(greenbase, pos, Quaternion.identity).transform;
         GameMechanics.gameMechanics.bases.Add(tr.gameObject);
 
         if (PhotonNetwork.IsMasterClient)
         {
-            PhotonNetwork.Instantiate(objectivePrefab.name, tr.GetChild(2).position, tr.GetChild(2).rotation);
+            PVIDs[1] = PhotonNetwork.Instantiate(objectivePrefab.name, tr.GetChild(2).position, tr.GetChild(2).rotation).GetComponent<PhotonView>().ViewID;
 
-            GameMechanics.gameMechanics.flagObjectives[0] = new GameMechanics.FlagObjective(tr.GetChild(2).gameObject);
-            GameMechanics.gameMechanics.flagObjectives[1] = new GameMechanics.FlagObjective(tr.GetChild(2).gameObject);
+            PV.RPC("flagObjectiveSyc", RpcTarget.All, PVIDs);
         }
+    }
+
+    [PunRPC]
+    void flagObjectiveSyc(int[] PVIDs)
+    {
+        Debug.Log(PhotonView.Find(PVIDs[0]).gameObject);
+        Debug.Log(PhotonView.Find(PVIDs[1]).gameObject);
+        GameMechanics.gameMechanics.flagObjectives[0] = new GameMechanics.FlagObjective(PhotonView.Find(PVIDs[0]).gameObject);
+        GameMechanics.gameMechanics.flagObjectives[1] = new GameMechanics.FlagObjective(PhotonView.Find(PVIDs[1]).gameObject);
     }
 }

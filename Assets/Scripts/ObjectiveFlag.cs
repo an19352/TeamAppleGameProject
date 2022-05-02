@@ -50,8 +50,8 @@ public class ObjectiveFlag : MonoBehaviour
         float distanceRed = Vector3.Distance(transform.position, gameMechanics.bases[0].transform.position);
         float distanceBlue = Vector3.Distance(transform.position, gameMechanics.bases[1].transform.position);
 
-        if (distanceRed > distanceBlue) defendTeam = 0;
-        else defendTeam = 1;
+        if (distanceRed > distanceBlue) defendTeam = 1;
+        else defendTeam = 0;
 
         gameMechanics.flagObjectives[defendTeam] = new GameMechanics.FlagObjective(gameObject);
 
