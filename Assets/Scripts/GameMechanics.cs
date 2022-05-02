@@ -96,9 +96,12 @@ public class GameMechanics : MonoBehaviour
 
         //for (int i = 0; i < players.Count; i++)
           //  players[i].obj.GetComponent<Movement>().SetId(i);
-        UpdateFlagUI();
 
-        if (MG.indicator > 0) RPC_InitiatePlayer();
+        if (MG.indicator > 0)
+        {
+            UpdateFlagUI();
+            RPC_InitiatePlayer();
+        }
     }
 
     /*

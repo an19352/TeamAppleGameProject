@@ -157,6 +157,7 @@ public class MapGenerator : MonoBehaviour
             return;
 
         indicator = 0;
+        GameMechanics.gameMechanics.UpdateFlagUI();
         GameMechanics.gameMechanics.RPC_InitiatePlayer();
     }
 
