@@ -159,8 +159,8 @@ public class GameMechanics : MonoBehaviour
     #region FlagStuff   
     public void RPC_IncreaseFlag(int teamID)
     {
-        int commID = generateCommentary(teamID);
-        PlaySound.playSound.RPC_PlayVoice(commID);
+        int voiceID = GenerateCommentary(teamID);
+        PlaySound.playSound.QueueVoice(voiceID);
         PV.RPC("IncreaseFlag", RpcTarget.AllBuffered, teamID);
         PV.RPC("UpdateFlagUI", RpcTarget.AllBuffered);
     }
@@ -464,7 +464,7 @@ public class GameMechanics : MonoBehaviour
             PhotonNetwork.Destroy(PhotonView.Find(PVID).gameObject);
     }
 
-    int generateCommentary(int capTeamID)
+    int GenerateCommentary(int capTeamID)
     {
         int commentaryID = 0;
         Random ran = new Random();
