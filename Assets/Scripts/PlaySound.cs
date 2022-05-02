@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
 
 public class PlaySound : MonoBehaviour
 {
     
     public static PlaySound playSound;
+    private PhotonView PV;
 
     #region Singleton
 
@@ -27,6 +29,7 @@ public class PlaySound : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        PV = this.GetComponent<PhotonView>();
         sounds = soundBoard.GetComponents<AudioSource>();
     }
 
@@ -55,4 +58,17 @@ public class PlaySound : MonoBehaviour
      15 - R-FD2
      16 - R-FD3
      */
+
+    [PunRPC]
+    void PlayVoice(int soundID)
+    {
+        Debug.Log(soundID);
+        sounds[soundID].Play();
+    }
+
+    public void RPC_PlayVoice(int voiceID)
+    {
+        Debug.Log(voiceID);
+        PV.RPC("PlayVoice", RpcTarget.All, voiceID);
+    }
 }

@@ -4,25 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9d59a655-b95b-4264-984d-b993a5d47562" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.TeamAppleGameProject/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TeamAppleGameProject/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/GrabRotation.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/GrabRotation.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefab/Board.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefab/Board.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefab/Turret.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefab/Turret.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/SpawnSecondStep.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/SpawnSecondStep.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/StickObjectToMe.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/StickObjectToMe.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/WeaponWheelButtonController.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/WeaponWheelButtonController.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/WeaponWheelController.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/WeaponWheelController.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/rotateRandomly.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/rotateRandomly.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/teamSelectionScreenManager.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/teamSelectionScreenManager.cs.meta" beforeDir="false" />
-    </list>
+    <list default="true" id="9d59a655-b95b-4264-984d-b993a5d47562" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -37,9 +19,9 @@
     </file-type-list>
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@3.0.6/Scripts/Runtime/TextMeshProUGUI.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.render-pipelines.universal@10.8.1/Runtime/Passes/DrawSkyboxPass.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Nametag.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.render-pipelines.universal@10.8.1/Runtime/Passes/DrawSkyboxPass.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@3.0.6/Scripts/Runtime/TextMeshProUGUI.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -52,7 +34,11 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "node.js.selected.package.tslint": "(autodetect)"
+    "Discover.Launch.Via.Unity": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "rider.run.widget.enabled.cache": "false",
+    "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
@@ -131,6 +117,7 @@
       <workItem from="1651245989174" duration="41000" />
       <workItem from="1651248192179" duration="330000" />
       <workItem from="1651420349205" duration="26138000" />
+      <workItem from="1651510016111" duration="1413000" />
     </task>
     <servers />
   </component>

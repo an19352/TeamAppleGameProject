@@ -69,6 +69,7 @@ public class GameMechanics : MonoBehaviour
     public Transform blueFlags;
     public Transform redFlags;
     public FlagObjective[] flagObjectives;
+    
 
     PhotonView PV;
 
@@ -159,7 +160,8 @@ public class GameMechanics : MonoBehaviour
     public void RPC_IncreaseFlag(int teamID)
     {
         int commID = generateCommentary(teamID);
-        PV.RPC("IncreaseFlag", RpcTarget.AllBuffered, teamID, commID);
+        PlaySound.playSound.RPC_PlayVoice(commID);
+        PV.RPC("IncreaseFlag", RpcTarget.AllBuffered, teamID);
         PV.RPC("UpdateFlagUI", RpcTarget.AllBuffered);
     }
     public void RPC_DecreaseFlag(int teamID)
@@ -169,9 +171,8 @@ public class GameMechanics : MonoBehaviour
     }
 
     [PunRPC]
-    public void IncreaseFlag(int teamID, int commentatorID)
+    public void IncreaseFlag(int teamID)
     {
-        PlaySound.playSound.sounds[commentatorID].Play();
         flagObjectives[teamID].flagCount += 1;
 
 
@@ -473,13 +474,15 @@ public class GameMechanics : MonoBehaviour
         {
             if (flagObjectives[1].flagCount < flagObjectives[0].flagCount)
             {
-                randomNum = ran.Next(1, 5);
+                randomNum = ran.Next(1, 6);
             }
             
             else
             {
-                randomNum = ran.Next(1, 2);
+                randomNum = ran.Next(1, 3);
             }
+
+            Debug.Log(randomNum);
             
             if (randomNum == 1)
             {
