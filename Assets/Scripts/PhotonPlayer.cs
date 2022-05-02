@@ -75,23 +75,23 @@ public class PhotonPlayer : MonoBehaviourPunCallbacks
                 x = redX;
 
             }
-            myAvatar = PhotonNetwork.Instantiate(playerPrefab.name, new Vector3(x, 6, z), Quaternion.identity, 0);
+            myAvatar = PhotonNetwork.Instantiate(playerPrefab.name, new Vector3(x, 6, z), Quaternion.identity);
             myAvatar.layer = playerLayer;
             gameMechanics.RPC_AddPlayer(myAvatar, team);
 
-            Transform arrow = myAvatar.transform.Find("ArrowCanvas");
+            /*Transform arrow = myAvatar.transform.Find("ArrowCanvas");
             arrow.GetChild(0).gameObject.SetActive(true);
             Debug.Log(15);
 
-/*            if (team == 0)
+            if (team == 0)
             {
-                myAvatar.GetComponent<Arrow>().getgens(gameMechanics.greengens,gameMechanics.bases[0],gameMechanics.bases[1], team);
+                myAvatar.GetComponent<Arrow>().getgens(gameMechanics.greengens, gameMechanics.bases[0], gameMechanics.bases[1], team);
             }
             else
             {
                 myAvatar.GetComponent<Arrow>().getgens(gameMechanics.redgens, gameMechanics.bases[0], gameMechanics.bases[1], team);
-            }/*/
-            Debug.Log(16);
+            }
+            Debug.Log(16);*/
         }
     }
 }
