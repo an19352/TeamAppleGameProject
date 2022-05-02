@@ -1332,7 +1332,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &506366123
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1474,7 +1474,7 @@ MonoBehaviour:
   bases: []
   PB: {fileID: 0}
   readyToDeploy: 0
-  MG: {fileID: 506366123}
+  MapGenerator: {fileID: 506366122}
 --- !u!114 &537854692
 MonoBehaviour:
   m_ObjectHideFlags: 0

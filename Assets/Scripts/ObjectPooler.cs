@@ -57,7 +57,7 @@ public class ObjectPooler : MonoBehaviour
             }
         }
 
-        if (!PhotonNetwork.IsMasterClient)
+/*        if (!PhotonNetwork.IsMasterClient)
         {
             PV.RPC("SendPoolDic", RpcTarget.MasterClient);
             return;
@@ -77,7 +77,7 @@ public class ObjectPooler : MonoBehaviour
                     objectPool.Enqueue(obj);
                 }
                 poolDictionary.Add(pool.tag, objectPool);
-            }
+            }*/
     }
 
     public GameObject SpawnFromPool(string tag, Vector3 position, Quaternion rotation)

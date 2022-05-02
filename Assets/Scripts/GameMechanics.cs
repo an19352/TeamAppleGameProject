@@ -75,7 +75,7 @@ public class GameMechanics : MonoBehaviour
     public List<GameObject> bases;
     public PhotonPlayer PB;
     public bool readyToDeploy = false;
-    public MapGenerator MG;
+    public GameObject MapGenerator;
 
     PhotonView PV;
 
@@ -90,18 +90,20 @@ public class GameMechanics : MonoBehaviour
             Debug.Log("IT'S A NULL, BRO");
         else
             Debug.Log(PV.ViewID);
+        
         activePowerups = new Dictionary<int, UnityEngine.Vector3>();
-       // if (!PhotonNetwork.IsMasterClient)
-         //   PV.RPC("SendVariables", RpcTarget.MasterClient);
+        // if (!PhotonNetwork.IsMasterClient)
+        //   PV.RPC("SendVariables", RpcTarget.MasterClient);
 
         //for (int i = 0; i < players.Count; i++)
-          //  players[i].obj.GetComponent<Movement>().SetId(i);
+        //  players[i].obj.GetComponent<Movement>().SetId(i);
 
-        if (MG.indicator > 0)
-        {
-            UpdateFlagUI();
-            RPC_InitiatePlayer();
-        }
+    }
+
+    public void SetPB(PhotonPlayer _new)
+    {
+        PB = _new;
+        MapGenerator.SetActive(true);
     }
 
     /*

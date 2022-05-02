@@ -34,20 +34,17 @@ public class PhotonPlayer : MonoBehaviourPunCallbacks
             PhotonNetwork.Destroy(PhotonRoom.room.gameObject);
             SceneManager.LoadScene(0);
         }
-        
-        if (gameMechanics.readyToDeploy)
-            InitiatePlayer();
 
-        gameMechanics.PB = this;
+        GameMechanics.gameMechanics.SetPB(this);
         
 
-        if (gameMechanics.activePowerups.Count > 0)
+/*        if (gameMechanics.activePowerups.Count > 0)
             foreach (KeyValuePair<int, UnityEngine.Vector3> powerupID in gameMechanics.activePowerups)
             {
                 GameObject powerup = PhotonView.Find(powerupID.Key).gameObject;
                 powerup.SetActive(true);
                 powerup.transform.position = powerupID.Value;
-            }
+            }*/
     }
 
     public void SetTeam(int _team) { team = _team; }
