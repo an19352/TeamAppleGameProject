@@ -37,6 +37,7 @@ public class PhotonPlayer : MonoBehaviourPunCallbacks
         
         if (gameMechanics.readyToDeploy)
             InitiatePlayer();
+
         gameMechanics.PB = this;
         
 
@@ -83,15 +84,17 @@ public class PhotonPlayer : MonoBehaviourPunCallbacks
 
             Transform arrow = myAvatar.transform.Find("ArrowCanvas");
             arrow.GetChild(0).gameObject.SetActive(true);
+            Debug.Log(15);
 
-            if (team == 0)
+/*            if (team == 0)
             {
                 myAvatar.GetComponent<Arrow>().getgens(gameMechanics.greengens,gameMechanics.bases[0],gameMechanics.bases[1], team);
             }
             else
             {
                 myAvatar.GetComponent<Arrow>().getgens(gameMechanics.redgens, gameMechanics.bases[0], gameMechanics.bases[1], team);
-            }
+            }/*/
+            Debug.Log(16);
         }
     }
 }
