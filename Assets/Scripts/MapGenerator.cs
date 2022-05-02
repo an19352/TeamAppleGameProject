@@ -152,7 +152,7 @@ public class MapGenerator : MonoBehaviour
             if (TE.platform.transform.gameObject.TryGetComponent(out SpawnSecondStep SSS))
                 SSS.SpawnObject();
 
-        //GameMechanics.gameMechanics.RPC_InitiatePlayer();
+        GameMechanics.gameMechanics.RPC_InitiatePlayer();
 
         return;
     }

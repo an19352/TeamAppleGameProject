@@ -74,6 +74,7 @@ public class GameMechanics : MonoBehaviour
     public FlagObjective[] flagObjectives = new FlagObjective[2];
     public List<GameObject> bases;
     public PhotonPlayer PB;
+    public bool readyToDeploy = false;
 
     PhotonView PV;
 
@@ -457,6 +458,8 @@ public class GameMechanics : MonoBehaviour
     [PunRPC]
     void InitiatePlayer()
     {
+        readyToDeploy = true;
+        if (PB == null) return;
         PB.InitiatePlayer();
     }
 }
