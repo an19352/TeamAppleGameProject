@@ -6,6 +6,7 @@ public class Bullet : MonoBehaviour
 {
     public float travelSpeed;
     public float lifeTime;
+    public const float lifeTimeConst = 10;
     public float bulletForce;
     private Rigidbody rb;
 
@@ -13,6 +14,11 @@ public class Bullet : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+    }
+
+    void OnEnable()
+    {
+        lifeTime = lifeTimeConst;
     }
 
     // Update is called once per frame
