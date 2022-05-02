@@ -91,8 +91,8 @@ public class GameMechanics : MonoBehaviour
         else
             Debug.Log(PV.ViewID);
         activePowerups = new Dictionary<int, UnityEngine.Vector3>();
-        if (!PhotonNetwork.IsMasterClient)
-            PV.RPC("SendVariables", RpcTarget.MasterClient);
+       // if (!PhotonNetwork.IsMasterClient)
+         //   PV.RPC("SendVariables", RpcTarget.MasterClient);
 
         //for (int i = 0; i < players.Count; i++)
           //  players[i].obj.GetComponent<Movement>().SetId(i);
