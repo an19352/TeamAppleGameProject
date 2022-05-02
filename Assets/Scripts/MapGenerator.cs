@@ -128,13 +128,13 @@ public class MapGenerator : MonoBehaviour
         if (Random.Range(0.0f, 1.0f) > 0.5f) second_method();
         else third_method();
 
-        PV.RPC("SignalMaster", RpcTarget.MasterClient);
+        PV.RPC("SignalMaster", RpcTarget.MasterClient, PV.OwnerActorNr);
     }
 
     [PunRPC]
-    void SignalMaster()
+    void SignalMaster(int OwnerId)
     {
-        Debug.Log("escaped first generation");
+        Debug.Log(OwnerId);
         if (!PhotonNetwork.IsMasterClient) return;
 
         indicator++;
