@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Photon.Pun;
+using Random = System.Random;
 
 public class GameMechanics : MonoBehaviour
 {
@@ -157,7 +158,8 @@ public class GameMechanics : MonoBehaviour
     #region FlagStuff   
     public void RPC_IncreaseFlag(int teamID)
     {
-        PV.RPC("IncreaseFlag", RpcTarget.AllBuffered, teamID);
+        int commID = generateCommentary(teamID);
+        PV.RPC("IncreaseFlag", RpcTarget.AllBuffered, teamID, commID);
         PV.RPC("UpdateFlagUI", RpcTarget.AllBuffered);
     }
     public void RPC_DecreaseFlag(int teamID)
@@ -167,9 +169,9 @@ public class GameMechanics : MonoBehaviour
     }
 
     [PunRPC]
-    public void IncreaseFlag(int teamID)
+    public void IncreaseFlag(int teamID, int commentatorID)
     {
-        PlaySound.playSound.sounds[0].Play();
+        PlaySound.playSound.sounds[commentatorID].Play();
         flagObjectives[teamID].flagCount += 1;
 
 
@@ -195,7 +197,6 @@ public class GameMechanics : MonoBehaviour
     [PunRPC]
     public void DecreaseFlag(int teamID)
     {
-        PlaySound.playSound.sounds[0].Play();
         flagObjectives[teamID].flagCount -= 1;
     }
 
@@ -462,4 +463,69 @@ public class GameMechanics : MonoBehaviour
             PhotonNetwork.Destroy(PhotonView.Find(PVID).gameObject);
     }
 
+    int generateCommentary(int capTeamID)
+    {
+        int commentaryID = 0;
+        Random ran = new Random();
+        int randomNum;
+
+        if (capTeamID == 1)
+        {
+            if (flagObjectives[1].flagCount < flagObjectives[0].flagCount)
+            {
+                randomNum = ran.Next(1, 5);
+            }
+            
+            else
+            {
+                randomNum = ran.Next(1, 2);
+            }
+            
+            if (randomNum == 1)
+            {
+                commentaryID = 7;
+            }
+            
+            if (randomNum == 2)
+            {
+                commentaryID = 6;
+            }
+            
+            if (randomNum > 2)
+            {
+                commentaryID = 5;
+            }
+        }
+
+        if (capTeamID == 0)
+        {
+            if (flagObjectives[0].flagCount < flagObjectives[1].flagCount)
+            {
+                randomNum = ran.Next(1, 5);
+            }
+            
+            else
+            {
+                randomNum = ran.Next(1, 2);
+            }
+
+            if (randomNum == 1)
+            {
+                commentaryID = 10;
+            }
+            
+            if (randomNum == 2)
+            {
+                commentaryID = 9;
+            }
+            
+            if (randomNum > 2)
+            {
+                commentaryID = 8;
+            }
+        }
+
+        Debug.Log(commentaryID);
+        return commentaryID;
+    }
 }

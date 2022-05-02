@@ -35,4 +35,24 @@ public class PlaySound : MonoBehaviour
     {
         
     }
+    
+    /*
+     0 - intro
+     1 - B-AGD1
+     2 - B-AGD2
+     3 - R-AGD1
+     4 - R-AGD2
+     5 - B-FC1
+     6 - B-FC2
+     7 - B-FC3
+     8 - R-FC1
+     9 - R-FC2
+     10 - R-FC3
+     11 - B-FD1
+     12 - B-FD2
+     13 - B-FD3
+     14 - R-FD1
+     15 - R-FD2
+     16 - R-FD3
+     */
 }
