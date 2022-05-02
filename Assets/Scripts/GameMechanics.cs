@@ -240,14 +240,16 @@ public class GameMechanics : MonoBehaviour
         PV.RPC("UpdateFlagUI", RpcTarget.AllBuffered);
     }
 
-    public void RPC_EnableFlagHolder(int playerID)
+    public void RPC_EnableFlagHolder(int playerID, int TeamID)
     {
-        PV.RPC("EnableFlagHolder", RpcTarget.All, playerID);
+        PV.RPC("EnableFlagHolder", RpcTarget.All, playerID, TeamID);
     }
     [PunRPC]
-    public void EnableFlagHolder(int playerID)
+    public void EnableFlagHolder(int playerID, int TeamID)
     {
-        players[playerID].obj.GetComponent<FlagHolder>().enabled = true;
+        FlagHolder fh = players[playerID].obj.GetComponent<FlagHolder>();
+        fh.enabled = true;
+        fh.teamID = TeamID;
     }
 
     public void RPC_DisableFlagHolder(int playerID)

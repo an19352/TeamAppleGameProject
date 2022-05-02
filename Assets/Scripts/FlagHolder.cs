@@ -7,7 +7,7 @@ public class FlagHolder : MonoBehaviour
 {
     // stores which team's flag it is holding
 
-    // public int flagTeam;
+    public int teamID;
     // public int playerTeam;
     public Transform droppedBall;
     public GameObject ball;
@@ -34,7 +34,8 @@ public class FlagHolder : MonoBehaviour
         Transform respawnFLagPlatform = FindClosestDistance(platforms, dropPosition);
         Vector3 respawnFlagPosition = new Vector3(respawnFLagPlatform.position.x, respawnFLagPlatform.position.y + 10, respawnFLagPlatform.position.z);
         Quaternion respawnFLagRotation = Quaternion.identity;
-        PhotonNetwork.Instantiate(droppedBall.name, respawnFlagPosition, respawnFLagRotation);
+        GameObject db = PhotonNetwork.Instantiate(droppedBall.name, respawnFlagPosition, respawnFLagRotation);
+        db.GetComponent<BallRecover>().teamID = teamID;
     }
 
     Transform FindClosestDistance(GameObject[] platforms, Vector3 respawnFlagPosition)
