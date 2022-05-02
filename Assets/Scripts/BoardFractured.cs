@@ -13,6 +13,11 @@ public class BoardFractured : MonoBehaviour
             var nonRigidPieces = piecesList.FindAll(piece => !piece.GetComponent<Rigidbody>());
 
             int r = Random.Range(3, 6);
+
+            if (nonRigidPieces.Count < r)
+            {
+                r = nonRigidPieces.Count;
+            };
             for (int i = 0; i < r; i++)
             {
                 var rb = nonRigidPieces[i].gameObject.AddComponent<Rigidbody>();
