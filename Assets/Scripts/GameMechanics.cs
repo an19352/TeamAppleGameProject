@@ -467,7 +467,8 @@ public class GameMechanics : MonoBehaviour
 
     public void RPC_InitiatePlayer()
     {
-        PV.RPC("InitiatePlayer", RpcTarget.All);
+        foreach(Photon.Realtime.Player pl in PhotonNetwork.PlayerList)
+            PV.RPC("InitiatePlayer", pl);
     }
 
     [PunRPC]
