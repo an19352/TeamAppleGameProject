@@ -5,7 +5,8 @@ using Photon.Pun;
 public class MapGenerator : MonoBehaviour
 {
     PhotonView PV;
-    int indicator = 0;
+    [HideInInspector]
+    public int indicator = 0;
 
     [System.Serializable]
     public struct PlatformType
@@ -152,9 +153,11 @@ public class MapGenerator : MonoBehaviour
             if (TE.platform.transform.gameObject.TryGetComponent(out SpawnSecondStep SSS))
                 SSS.SpawnObject();
 
-        GameMechanics.gameMechanics.RPC_InitiatePlayer();
+        if (GameMechanics.gameMechanics.activePowerups == null)
+            return;
 
-        return;
+        indicator = 0;
+        GameMechanics.gameMechanics.RPC_InitiatePlayer();
     }
 
     void first_method()

@@ -75,6 +75,7 @@ public class GameMechanics : MonoBehaviour
     public List<GameObject> bases;
     public PhotonPlayer PB;
     public bool readyToDeploy = false;
+    public MapGenerator MG;
 
     PhotonView PV;
 
@@ -85,13 +86,19 @@ public class GameMechanics : MonoBehaviour
     public void Start()
     {
         PV = GetComponent<PhotonView>();
+        if (PV == null)
+            Debug.Log("IT'S A NULL, BRO");
+        else
+            Debug.Log(PV.ViewID);
         activePowerups = new Dictionary<int, UnityEngine.Vector3>();
         if (!PhotonNetwork.IsMasterClient)
             PV.RPC("SendVariables", RpcTarget.MasterClient);
 
-        for (int i = 0; i < players.Count; i++)
-            players[i].obj.GetComponent<Movement>().SetId(i);
+        //for (int i = 0; i < players.Count; i++)
+          //  players[i].obj.GetComponent<Movement>().SetId(i);
         UpdateFlagUI();
+
+        if (MG.indicator > 0) RPC_InitiatePlayer();
     }
 
     /*
@@ -125,9 +132,12 @@ public class GameMechanics : MonoBehaviour
     [PunRPC]
     public void Add_player(int playerViewId, int team)
     {
+        if (players.Count > 0)
+            Debug.Log(players[0].obj.GetComponent<PhotonView>().Owner.NickName + " has ID " + players[0].obj.GetComponent<Movement>().GetId());
         Player _player = new Player { obj = PhotonView.Find(playerViewId).gameObject, team = team };
         players.Add(_player);
         _player.obj.GetComponent<Movement>().SetId(players.Count - 1);
+        Debug.Log(players[players.Count - 1].obj.GetComponent<PhotonView>().Owner.NickName + " has ID " + players[players.Count - 1].obj.GetComponent<Movement>().GetId());
     }
 
     public void RPC_RemovePlayer(int playerID)

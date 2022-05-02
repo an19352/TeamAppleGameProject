@@ -88,6 +88,8 @@ public class Movement : MonoBehaviour, IPunObservable
 
     void Update()
     {
+        if (!PV.IsMine) return;
+        
         jumpInput = Input.GetButton("Jump");
 
         zAxisInput = -Input.GetAxis(horizontalAxis);
