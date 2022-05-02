@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.1962879, g: 0.09740276, b: 0.11954967, a: 1}
+  m_IndirectSpecularColor: {r: 0.19634691, g: 0.09731356, b: 0.119633995, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -4827,6 +4827,9 @@ MonoBehaviour:
   - tag: Jetpack
     prefab: {fileID: 6689642354982003532, guid: 96de9554712b1bb46a75c8d6dc4a1d02, type: 3}
     size: 10
+  - tag: Bullet
+    prefab: {fileID: 5034455422450631387, guid: 378ca747c01b2fc49a51012c12d1431b, type: 3}
+    size: 20
 --- !u!4 &934732152
 Transform:
   m_ObjectHideFlags: 0
@@ -4834,13 +4837,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 934732150}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0.0016608954, y: 0.0018454065, z: -0.0014356732, w: 0.99999595}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 21
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0.191, y: 0.211, z: -0.164}
 --- !u!114 &934732153
 MonoBehaviour:
   m_ObjectHideFlags: 0

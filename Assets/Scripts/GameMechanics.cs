@@ -154,51 +154,51 @@ public class GameMechanics : MonoBehaviour
         teams[teamID] = new Team { name = _name, score = _score, scoreText = _text };
     }
 
-    #region FlagStuff
+    #region FlagStuff   
+    public void RPC_IncreaseFlag(int teamID)
+    {
+        PV.RPC("IncreaseFlag", RpcTarget.AllBuffered, teamID);
+        PV.RPC("UpdateFlagUI", RpcTarget.AllBuffered);
+    }
+    public void RPC_DecreaseFlag(int teamID)
+    {
+        PV.RPC("DecreaseFlag", RpcTarget.AllBuffered, teamID);
+        PV.RPC("UpdateFlagUI", RpcTarget.AllBuffered);
+    }
+
     [PunRPC]
-    public void UpdateFlag(int teamID, bool isScore)
+    public void IncreaseFlag(int teamID)
     {
         PlaySound.playSound.sounds[0].Play();
-        // if isScore is true, add one to flag count, else minus one 
-        if (isScore)
+        flagObjectives[teamID].flagCount += 1;
+
+
+        // restore generators
+        if (teamID == 1)
         {
-            for (int i = 0; i < flagObjectives.Length; i++)
+            for (int j = 0; j < 3; j++)
             {
-                if (teamID == i)
-                {
-                    flagObjectives[i].flagCount += 1;
-
-                }
-                else
-                {
-                    flagObjectives[i].flagCount -= 1;
-                    // turn on the flag of the side who lost it
-                    flagObjectives[i].objective.GetComponent<ObjectiveFlag>().hasFlag = true;
-
-                    // restore generators
-                    if (teamID == 1)
-                    {
-                        for (int j = 0; j < 3; j++)
-                        {
-                            redgens[j].SetActive(true);
-                        }
-                    }
-                    else
-                    {
-                        for (int j = 0; j < 3; j++)
-                        {
-                            greengens[j].SetActive(true);
-                        }
-                    }
-                }
+                redgens[j].SetActive(true);
             }
         }
-        // retrieve back a stolen flag, so only increment friendly flag count
         else
         {
-            flagObjectives[teamID].flagCount += 1;
+            for (int j = 0; j < 3; j++)
+            {
+                greengens[j].SetActive(true);
+            }
         }
+
+
     }
+
+    [PunRPC]
+    public void DecreaseFlag(int teamID)
+    {
+        PlaySound.playSound.sounds[0].Play();
+        flagObjectives[teamID].flagCount -= 1;
+    }
+
 
     [PunRPC]
     public void UpdateFlagUI()
@@ -233,12 +233,7 @@ public class GameMechanics : MonoBehaviour
         }
     }
 
-    public void RPC_UpdateFlag(int teamID, bool isScore)
-    {
-        PV.RPC("UpdateFlag", RpcTarget.AllBuffered, teamID, isScore);
-        // add something here to update the ui
-        PV.RPC("UpdateFlagUI", RpcTarget.AllBuffered);
-    }
+
 
     public void RPC_EnableFlagHolder(int playerID, int TeamID)
     {

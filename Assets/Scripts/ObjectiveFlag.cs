@@ -7,6 +7,8 @@ public class ObjectiveFlag : MonoBehaviour
 {
     PhotonView PV;
     public int defendTeam;
+
+    public int otherTeam;
     public bool hasFlag;
     // set to the same value in the inspector
     public float captureDuration;
@@ -50,6 +52,8 @@ public class ObjectiveFlag : MonoBehaviour
         numOfDefenders = gameMechanics.flagObjectives[defendTeam].numOfDefenders;
         currentState = State.Idle;
         fieldRenderer = detectionField.GetComponent<Renderer>();
+
+        otherTeam = defendTeam == 0 ? 1 : 0;
     }
 
     // Update is called once per frame
@@ -139,6 +143,7 @@ public class ObjectiveFlag : MonoBehaviour
         yield return new WaitForSeconds(time);
         hasFlag = false;
         gameMechanics.RPC_EnableFlagHolder(playerID, defendTeam);
+        gameMechanics.RPC_DecreaseFlag(defendTeam);
     }
 
     void OnTriggerEnter(Collider other)
@@ -167,9 +172,13 @@ public class ObjectiveFlag : MonoBehaviour
                 {
 
                     gameMechanics.RPC_DisableFlagHolder(playerID);
-                    if (playerEntered.GetComponent<FlagHolder>().teamID != defendTeam)
-                    { gameMechanics.RPC_UpdateFlag(defendTeam, true); }
-                    else { gameMechanics.RPC_UpdateFlag(defendTeam, false); }
+                    // scoring an enemy flag
+                    // if (playerEntered.GetComponent<FlagHolder>().teamID != defendTeam)
+                    // {
+                    gameMechanics.RPC_IncreaseFlag(defendTeam);
+                    // }
+                    // return a friendly flag
+                    // else { gameMechanics.RPC_UpdateFlag(defendTeam, false); }
                 }
             }
             RPC_ApplyChangesOnState(playerID);

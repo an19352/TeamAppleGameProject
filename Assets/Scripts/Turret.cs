@@ -33,6 +33,7 @@ public class Turret : MonoBehaviour, IPunObservable
 
     private ForceShield fsScript;
     private Image healthBarImage;
+    ObjectPooler poolOfObject;
 
     // Start is called before the first frame update
     void Start()
@@ -41,7 +42,7 @@ public class Turret : MonoBehaviour, IPunObservable
         PV = this.GetComponent<PhotonView>();
         // Transform canvas = this.gameObject.transform.Find("Canvas");
         healthBarImage = healthBar.gameObject.GetComponent<Image>();
-
+        poolOfObject = ObjectPooler.OP;
         InvokeRepeating("UpdateTarget", 0f, 0.5f);
     }
 
@@ -76,7 +77,8 @@ public class Turret : MonoBehaviour, IPunObservable
 
     void Shoot()
     {
-        Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+        // Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+        poolOfObject.SpawnFromPool("Bullet", firePoint.position, firePoint.rotation);
     }
 
     IEnumerator CreateExplosion()

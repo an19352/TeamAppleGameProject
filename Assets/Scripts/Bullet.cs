@@ -18,7 +18,7 @@ public class Bullet : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (lifeTime <= 0) Destroy(gameObject);
+        if (lifeTime <= 0) gameObject.SetActive(false);
         else
         {
             rb.MovePosition(transform.position + -transform.forward * travelSpeed);
