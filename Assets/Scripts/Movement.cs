@@ -280,6 +280,7 @@ public class Movement : MonoBehaviour, IPunObservable
 
     private void OnDestroy()
     {
+        Debug.Log(PV.Owner.NickName + " has died horribly. Yey!");
         Destroy(shadowInsatance);
     }
 
