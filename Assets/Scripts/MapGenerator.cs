@@ -135,8 +135,9 @@ public class MapGenerator : MonoBehaviour
     {
         Random.InitState(seed);
 
-        if (Random.Range(0.0f, 1.0f) > 0.5f) second_method();
-        else third_method();
+        //if (Random.Range(0.0f, 1.0f) > 0.5f) second_method();
+        //else
+        third_method();
 
         PV.RPC("SignalMaster", RpcTarget.MasterClient);
     }

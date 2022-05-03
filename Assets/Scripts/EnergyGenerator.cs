@@ -47,14 +47,14 @@ public class EnergyGenerator : MonoBehaviour, IPunObservable
 
         if (redDistance < blueDistance)
         {
-            Debug.Log("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< red");
+            //Debug.Log("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< red");
             gameMechanics.redgens.Add(gameObject);
             fsScript = gameMechanics.bases[0].GetComponentInChildren<ForceShield>();
             team = 0;
         }
         else 
         {
-            Debug.Log("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< blue");
+            //Debug.Log("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< blue");
             gameMechanics.greengens.Add(gameObject);
             fsScript = gameMechanics.bases[1].GetComponentInChildren<ForceShield>();
             team = 1; 

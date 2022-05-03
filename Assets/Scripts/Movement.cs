@@ -62,7 +62,9 @@ public class Movement : MonoBehaviour, IPunObservable
         shadowInsatance = Instantiate(shadow);
 
         //Debug.Log(gameObject.transform.GetChild(9).GetChild(0).GetChild(2).GetChild(0).GetChild(11).GetChild(7).GetComponent<Renderer>().material);
-        
+
+        Debug.Log("_______________________________________________________________________________________________________________________");
+
         player = transform;
         cameraMain = Camera.main;
 
