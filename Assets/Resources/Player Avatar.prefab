@@ -5858,7 +5858,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3fb3fefdecf4c84bb63a8537bbb9439, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tooltip: {fileID: 1560234478154502641, guid: 5006d189f7764434f94b7713801b80b1, type: 3}
   tooltipOffset: {x: 5, y: 0, z: 0}
   firstPowerupTag: Impulse Gun
   inventorySize: 8
