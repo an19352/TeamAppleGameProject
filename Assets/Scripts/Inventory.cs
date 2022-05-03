@@ -41,10 +41,7 @@ public class Inventory : MonoBehaviour
     public float pushForce;
 
     [Header("Grenade Settings")]
-    public float delay = 120f;
-    public float radius = 5f;
-    public float force = 700f;
-    //public float throwForce= 40f;
+    public GameObject grenadePrefab;
 
     [Header("Jetpack Settings")]
 

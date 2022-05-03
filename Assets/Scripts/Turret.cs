@@ -141,6 +141,13 @@ public class Turret : MonoBehaviour, IPunObservable
         float fraction = healthRemain / health;
         healthBarImage.fillAmount = fraction;
     }
+    
+    public void applyForce(float force)
+    {
+        healthRemain -= force;
+        float fraction = healthRemain / health;
+        healthBarImage.fillAmount = fraction;
+    }
 
     void RepelNearbyPlayers()
     {

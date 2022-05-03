@@ -5875,10 +5875,8 @@ MonoBehaviour:
   hookPrefab: {fileID: 811725987498985675, guid: bcc80aa0fb390af498b85decde712816, type: 3}
   impulseGunHolder: {fileID: 1973076938037938879}
   particleSystem: {fileID: 6164135461106777563}
-  pushForce: 100
-  delay: 120
-  radius: 5
-  force: 700
+  pushForce: 40
+  grenadePrefab: {fileID: 6045759529378908636, guid: a2da29be360c84b1b80e96c2704e7ef8, type: 3}
   antiGravity: -10
   boosterFlame: {fileID: 7166044610272681018, guid: 646b9a69c9169214ca0779d539d92fb4, type: 3}
 --- !u!114 &4070538607894281487
