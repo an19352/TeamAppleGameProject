@@ -74,7 +74,7 @@ public class PlaySound : MonoBehaviour
         }
     }
 
-    void RPC_FadeBackground(int voiceID, Player[] target)
+    /*void RPC_FadeBackground(int voiceID, Player[] target)
     {
         foreach (Player p in target)
         {
@@ -97,7 +97,7 @@ public class PlaySound : MonoBehaviour
         sounds[17].volume = 1f;
         Debug.Log("end");
         yield return null;
-    }
+    }*/
     
     /*
      0 - intro
