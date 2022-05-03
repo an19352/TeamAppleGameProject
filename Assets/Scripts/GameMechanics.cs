@@ -144,16 +144,26 @@ public class GameMechanics : MonoBehaviour
        // _player.obj.GetComponent<Movement>().SetId(players.Count - 1);
         Debug.Log(players[players.Count - 1].obj.GetComponent<PhotonView>().Owner.NickName + " has made a player");
 
-        if(PV.IsMine)  
-            if(PV.OwnerActorNr < PhotonNetwork.PlayerList.Length)
+        if (PV.IsMine)
+        {
+            Debug.Log("I am " + PhotonNetwork.NickName);
+            if (PV.OwnerActorNr < PhotonNetwork.PlayerList.Length)
+            {
+                Debug.Log(PV.OwnerActorNr + " sent an awakening call to " + PV.OwnerActorNr + 1);
                 PV.RPC("InitiatePlayer", PhotonNetwork.PlayerList[PV.OwnerActorNr + 1]);
+            }
             else
+            {
+                Debug.Log(PV.OwnerActorNr + " is the last one!");
                 PV.RPC("ActivateMovement", RpcTarget.All);
+            }
+        }
     }
 
     [PunRPC]
     public void ActivateMovement()
     {
+        Debug.Log("Counting players!");
         for(int i = 0; i < players.Count; i++)
         {
             Movement mov = players[i].obj.GetComponent<Movement>();
@@ -492,6 +502,7 @@ public class GameMechanics : MonoBehaviour
     [PunRPC]
     void InitiatePlayer()
     {
+        Debug.Log(PhotonNetwork.NickName + " is awakening");
         UpdateFlagUI();
         readyToDeploy = true;
         PB.InitiatePlayer();
