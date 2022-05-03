@@ -5,7 +5,6 @@ using Photon.Pun;
 
 public class Grenade : MonoBehaviour
 {
-    PhotonView PV;
     public float delay;
     public float radius;
     public float force;
@@ -17,7 +16,6 @@ public class Grenade : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        PV = GetComponent<PhotonView>();
         rb = GetComponent<Rigidbody>();
         countdown = delay;
     }
@@ -25,8 +23,6 @@ public class Grenade : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!PV.IsMine) return;
-        
         countdown -= Time.deltaTime;
         if (countdown <= 0f && !hasExploded)
         {

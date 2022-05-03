@@ -282,7 +282,6 @@ namespace SpaceBallAbilities
 
     public class Grenade : MonoBehaviour, IAbility
     {
-        PhotonView PV;
         InventoryElement IE;
         Inventory inventory;
 
@@ -294,7 +293,6 @@ namespace SpaceBallAbilities
 
         public void SetUp(string IEtag)
         {
-            PV = GetComponent<PhotonView>();
             cameraMain = Camera.main;
             IE = InventoryUIManager.inventory.GetIE(IEtag);
             inventory = GetComponent<Inventory>();
@@ -314,7 +312,7 @@ namespace SpaceBallAbilities
             if (Physics.Raycast(mouseRay, out hit, 1000f))
             {
                 GameObject objectHit = hit.collider.gameObject;
-                Instantiate(grenadePrefab, objectHit.transform.position, objectHit.transform.rotation);
+                PhotonNetwork.Instantiate(grenadePrefab.name, objectHit.transform.position, objectHit.transform.rotation);
             }
         }
         public InventoryElement GetIE() { return IE; }

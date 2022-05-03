@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.19634691, g: 0.09731356, b: 0.119633995, a: 1}
+  m_IndirectSpecularColor: {r: 0.1962879, g: 0.09740276, b: 0.11954967, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -6697,19 +6697,19 @@ MonoBehaviour:
   pools:
   - tag: Gravity Gun
     prefab: {fileID: 1916769908316382501, guid: 9b4bfa22c7d1e9843aaf701c9a8fb1af, type: 3}
-    size: 5
+    size: 1
   - tag: Grapple
     prefab: {fileID: 1007300472740371085, guid: 407a3cdf98fd07e45afed8dfb7cd6e9c, type: 3}
-    size: 5
+    size: 1
   - tag: Meteor
     prefab: {fileID: 4493169287405100905, guid: 88f9fd67ab7fe264ca160fc3e09f16fa, type: 3}
-    size: 10
+    size: 1
   - tag: Jetpack
     prefab: {fileID: 6689642354982003532, guid: 96de9554712b1bb46a75c8d6dc4a1d02, type: 3}
-    size: 10
+    size: 1
   - tag: Bullet
     prefab: {fileID: 5034455422450631387, guid: 378ca747c01b2fc49a51012c12d1431b, type: 3}
-    size: 20
+    size: 1
   - tag: Grenade
     prefab: {fileID: 1916769908316382501, guid: 2b08a1de1f2b44448a4fe1bad4af1c63, type: 3}
     size: 20
