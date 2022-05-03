@@ -24,17 +24,17 @@ public class PlaySound : MonoBehaviour
 
     #endregion
 
-    public struct SoundCommand
+    /*public struct SoundCommand
     {
         public int voiceNo;
         public Player[] _target;
-    }
+    }*/
 
     public GameObject soundBoard;
     public AudioSource[] sounds;
     private PhotonView PV;
-    private Queue<SoundCommand> voiceQueue = new Queue<SoundCommand>();
-    private SoundCommand lastPlayed = new SoundCommand();
+    private Queue<int> voiceQueue = new Queue<int>();
+    private int lastPlayed;
 
 
     // Start is called before the first frame update
@@ -43,19 +43,19 @@ public class PlaySound : MonoBehaviour
         PV = this.GetComponent<PhotonView>();
         sounds = soundBoard.GetComponents<AudioSource>();
         
-        QueueVoice(0, PhotonNetwork.PlayerList);
+        RPC_QueueVoice(0, PhotonNetwork.PlayerList);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (sounds[lastPlayed.voiceNo].isPlaying == false)
+        if (sounds[lastPlayed].isPlaying == false)
         {
             if (voiceQueue.Count > 0)
             {
                 Debug.Log("play queue");
                 lastPlayed = voiceQueue.Dequeue();
-                RPC_PlayVoice(lastPlayed.voiceNo, lastPlayed._target);
+                sounds[lastPlayed].Play();
                 Debug.Log("finished");
             }
 
@@ -121,7 +121,7 @@ public class PlaySound : MonoBehaviour
      18 - Capture Sound
      */
 
-    [PunRPC]
+/*    [PunRPC]
     void PlayVoice(int voiceID)
     {
         sounds[voiceID].Play();
@@ -134,13 +134,19 @@ public class PlaySound : MonoBehaviour
             PV.RPC("PlayVoice", p, voiceID);
             //PV.RPC("StartFadeBackground", p, sounds[voiceID].clip.length);
         }
+    }*/
+
+    public void RPC_QueueVoice(int voiceID, Player[] target)
+    {
+        foreach (Player p in target)
+        {
+            PV.RPC("QueueVoice", p, voiceID);
+        }
     }
 
-    public void QueueVoice(int voiceID, Player[] target)
+    [PunRPC]
+    public void QueueVoice(int voiceID)
     {
-        SoundCommand command = new SoundCommand();
-        command.voiceNo = voiceID;
-        command._target = target;
-        voiceQueue.Enqueue(command);
+        voiceQueue.Enqueue(voiceID);
     }
 }

@@ -161,7 +161,7 @@ public class GameMechanics : MonoBehaviour
     public void RPC_IncreaseFlag(int teamID)
     {
         int voiceID = GenerateCommentary(teamID);
-        PlaySound.playSound.QueueVoice(voiceID, PhotonNetwork.PlayerList);
+        PlaySound.playSound.RPC_QueueVoice(voiceID, PhotonNetwork.PlayerList);
         PV.RPC("IncreaseFlag", RpcTarget.AllBuffered, teamID);
         PV.RPC("UpdateFlagUI", RpcTarget.AllBuffered);
     }
