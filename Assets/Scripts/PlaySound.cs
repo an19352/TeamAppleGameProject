@@ -51,7 +51,7 @@ public class PlaySound : MonoBehaviour
 
     IEnumerator FadeBackground()
     {
-        sounds[17].volume = 0.5f;
+        sounds[17].volume = 0.3f;
         yield return new WaitForSeconds(sounds[lastPlayed].clip.length);
         sounds[17].volume = 1f;
         yield return null;
