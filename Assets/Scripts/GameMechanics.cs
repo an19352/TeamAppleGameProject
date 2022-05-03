@@ -146,18 +146,26 @@ public class GameMechanics : MonoBehaviour
 
         if (PV.IsMine)
         {
-            Debug.Log("I am " + PV.Owner.NickName);
-            if (PV.OwnerActorNr < PhotonNetwork.PlayerList.Length)
-            {
-                int next = ((int)PV.OwnerActorNr);
-                Debug.Log(PV.Owner.NickName + " sent an awakening call to " + PhotonNetwork.PlayerList[next].NickName);
-                PV.RPC("InitiatePlayer", PhotonNetwork.PlayerList[next]);
-            }
-            else
-            {
-                Debug.Log(PV.Owner.NickName + " is the last one!");
-                PV.RPC("ActivateMovement", RpcTarget.All);
-            }
+            ActivateCooldown(10);
+        }
+    }
+
+    IEnumerator ActivateCooldown(int time)
+    {
+        yield return new WaitForSeconds(time);
+
+
+        Debug.Log("I am " + PV.Owner.NickName);
+        if (PV.OwnerActorNr < PhotonNetwork.PlayerList.Length)
+        {
+            int next = ((int)PV.OwnerActorNr);
+            Debug.Log(PV.Owner.NickName + " sent an awakening call to " + PhotonNetwork.PlayerList[next].NickName);
+            PV.RPC("InitiatePlayer", PhotonNetwork.PlayerList[next]);
+        }
+        else
+        {
+            Debug.Log(PV.Owner.NickName + " is the last one!");
+            PV.RPC("ActivateMovement", RpcTarget.All);
         }
     }
 
