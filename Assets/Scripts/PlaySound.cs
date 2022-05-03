@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Photon.Pun;
+using Photon.Realtime;
 using Unity.Mathematics;
 using UnityEngine;
 
@@ -23,11 +24,17 @@ public class PlaySound : MonoBehaviour
 
     #endregion
 
+    public struct SoundCommand
+    {
+        public int voiceNo;
+        public Player[] _target;
+    }
+
     public GameObject soundBoard;
     public AudioSource[] sounds;
     private PhotonView PV;
-    private Queue<int> voiceQueue = new Queue<int>();
-    private int lastPlayed = 0;
+    private Queue<SoundCommand> voiceQueue = new Queue<SoundCommand>();
+    private SoundCommand lastPlayed = new SoundCommand();
 
 
     // Start is called before the first frame update
@@ -35,25 +42,60 @@ public class PlaySound : MonoBehaviour
     {
         PV = this.GetComponent<PhotonView>();
         sounds = soundBoard.GetComponents<AudioSource>();
-        QueueVoice(0);
+        
+        QueueVoice(0, PhotonNetwork.PlayerList);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (sounds[lastPlayed].isPlaying == false && voiceQueue.Count > 0)
+        if (sounds[lastPlayed.voiceNo].isPlaying == false)
         {
-            lastPlayed = voiceQueue.Dequeue();
-            RPC_PlayVoice(lastPlayed);
-            StartCoroutine(FadeBackground());
+            if (voiceQueue.Count > 0)
+            {
+                Debug.Log("play queue");
+                lastPlayed = voiceQueue.Dequeue();
+                RPC_PlayVoice(lastPlayed.voiceNo, lastPlayed._target);
+                Debug.Log("finished");
+            }
+
+            if (sounds[17].volume != 1)
+            {
+                sounds[17].volume = 1;
+            }
+        }
+
+        else
+        {
+            if (sounds[17].volume == 1)
+            {
+                sounds[17].volume = 0.3f;
+            }   
         }
     }
 
-    IEnumerator FadeBackground()
+    void RPC_FadeBackground(int voiceID, Player[] target)
     {
+        foreach (Player p in target)
+        {
+            PV.RPC("StartFadeBackground", p, voiceID);
+        }
+    }
+
+    [PunRPC]
+    void StartFadeBackgroud(float time)
+    {
+        StartCoroutine(FadeBackground(time));
+    }
+    
+    [PunRPC]
+    IEnumerator FadeBackground(float time)
+    {
+        Debug.Log("called");
         sounds[17].volume = 0.3f;
-        yield return new WaitForSeconds(sounds[lastPlayed].clip.length);
+        yield return new WaitForSeconds(time);
         sounds[17].volume = 1f;
+        Debug.Log("end");
         yield return null;
     }
     
@@ -76,23 +118,29 @@ public class PlaySound : MonoBehaviour
      15 - R-FD2
      16 - R-FD3
      17 - Background Music
+     18 - Capture Sound
      */
 
     [PunRPC]
     void PlayVoice(int voiceID)
     {
-        Debug.Log(voiceID);
         sounds[voiceID].Play();
     }
 
-    public void RPC_PlayVoice(int voiceID)
+    public void RPC_PlayVoice(int voiceID, Player[] target)
     {
-        Debug.Log(voiceID);
-        PV.RPC("PlayVoice", RpcTarget.All, voiceID);
+        foreach (Player p in target)
+        {
+            PV.RPC("PlayVoice", p, voiceID);
+            //PV.RPC("StartFadeBackground", p, sounds[voiceID].clip.length);
+        }
     }
 
-    public void QueueVoice(int voiceID)
+    public void QueueVoice(int voiceID, Player[] target)
     {
-        voiceQueue.Enqueue(voiceID);
+        SoundCommand command = new SoundCommand();
+        command.voiceNo = voiceID;
+        command._target = target;
+        voiceQueue.Enqueue(command);
     }
 }

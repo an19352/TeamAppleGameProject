@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using Photon.Realtime;
 
 public class ObjectiveFlag : MonoBehaviour
 {
@@ -172,6 +173,8 @@ public class ObjectiveFlag : MonoBehaviour
                 {
 
                     gameMechanics.RPC_DisableFlagHolder(playerID);
+                    Player[] target = {playerEntered.GetComponent<PhotonView>().Owner};
+                    PlaySound.playSound.QueueVoice(18, target);
                     // scoring an enemy flag
                     // if (playerEntered.GetComponent<FlagHolder>().teamID != defendTeam)
                     // {

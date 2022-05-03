@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Photon.Pun;
+using UnityEditor.Experimental.GraphView;
 using Random = System.Random;
 
 public class GameMechanics : MonoBehaviour
@@ -160,7 +161,7 @@ public class GameMechanics : MonoBehaviour
     public void RPC_IncreaseFlag(int teamID)
     {
         int voiceID = GenerateCommentary(teamID);
-        PlaySound.playSound.QueueVoice(voiceID);
+        PlaySound.playSound.QueueVoice(voiceID, PhotonNetwork.PlayerList);
         PV.RPC("IncreaseFlag", RpcTarget.AllBuffered, teamID);
         PV.RPC("UpdateFlagUI", RpcTarget.AllBuffered);
     }
@@ -475,12 +476,20 @@ public class GameMechanics : MonoBehaviour
         {
             if (flagObjectives[1].flagCount < flagObjectives[0].flagCount)
             {
-                randomNum = ran.Next(1, 6);
+                randomNum = ran.Next(2, 6);
             }
 
             else
             {
-                randomNum = ran.Next(1, 3);
+                if (flagObjectives[1].flagCount > (flagObjectives[0].flagCount + 1))
+                {
+                    randomNum = ran.Next(1, 3);
+                }
+                else
+                {
+                    randomNum = 2;
+                }
+
             }
 
             Debug.Log(randomNum);
@@ -505,12 +514,20 @@ public class GameMechanics : MonoBehaviour
         {
             if (flagObjectives[0].flagCount < flagObjectives[1].flagCount)
             {
-                randomNum = ran.Next(1, 5);
+                randomNum = ran.Next(2, 6);
             }
 
             else
             {
-                randomNum = ran.Next(1, 2);
+                if (flagObjectives[0].flagCount > (flagObjectives[1].flagCount + 1))
+                {
+                    randomNum = ran.Next(1, 3);
+                }
+                else
+                {
+                    randomNum = 2;
+                }
+
             }
 
             if (randomNum == 1)
