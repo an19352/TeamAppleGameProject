@@ -109,7 +109,7 @@ public class MapGenerator : MonoBehaviour
         //foreach (PlatformType plt in platformTypes) chanceSum += plt.chance;
 
         PV = GetComponent<PhotonView>();
-        PV.RPC("Awaken", RpcTarget.MasterClient);
+        PV.RPC("Awaken", RpcTarget.All);
 
 /*        //Random.InitState(InitState);
         if (Random.Range(0.0f, 1.0f) > 0.5f) second_method();
@@ -119,6 +119,8 @@ public class MapGenerator : MonoBehaviour
     [PunRPC]
     void Awaken()
     {
+        if(!PhotonNetwork.IsMasterClient) return;
+
         indicator++;
 
         if (indicator < PhotonNetwork.PlayerList.Length) return;
@@ -135,7 +137,7 @@ public class MapGenerator : MonoBehaviour
         if (Random.Range(0.0f, 1.0f) > 0.5f) second_method();
         else third_method();
 
-        PV.RPC("SignalMaster", RpcTarget.MasterClient);
+        PV.RPC("SignalMaster", RpcTarget.All);
     }
 
     [PunRPC]
@@ -160,7 +162,7 @@ public class MapGenerator : MonoBehaviour
                 SSS.SpawnObject();
         
 
-        GameMechanics.gameMechanics.UpdateFlagUI();
+        GameMechanics.gameMechanics.RPC_InitiatePlayer();
     }
 
     void first_method()
