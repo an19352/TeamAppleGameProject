@@ -145,7 +145,7 @@ public class GameMechanics : MonoBehaviour
         Debug.Log(players[players.Count - 1].obj.GetComponent<PhotonView>().Owner.NickName + " has made a player");
 
         if(PV.IsMine)  
-            if(PV.OwnerActorNr < PhotonNetwork.PlayerList.Count)
+            if(PV.OwnerActorNr < PhotonNetwork.PlayerList.Length)
                 PV.RPC("InitiatePlayer", PhotonNetwork.PlayerList[PV.OwnerActorNr + 1]);
             else
                 PV.RPC("ActivateMovement", RpcTarget.All);
@@ -225,8 +225,8 @@ public class GameMechanics : MonoBehaviour
     [PunRPC]
     public void UpdateFlagUI()
     {
-        redFlags.SetActive(true);
-        greenFlags.SetActive(true);
+        redFlags.gameObject.SetActive(true);
+        greenFlags.gameObject.SetActive(true);
         // 12 => icon + border
         var redImgs = redFlags.gameObject.GetComponentsInChildren<Image>();
         // 12 => icon + border
