@@ -29,6 +29,7 @@ namespace SpaceBallAbilities
         float maxGrabDistance, throwForce;
         Transform objectHolder;
         int grabbedID;
+        //private Grenade _grenade;
         Rigidbody grabbedRB = null;
 
         public void SetUp(string IEtag)
@@ -267,51 +268,42 @@ namespace SpaceBallAbilities
 
     public class Grenade : MonoBehaviour, IAbility
     {
-        float maxShootDistance;
-        public float throwForce;
-
+        PhotonView PV;
         InventoryElement IE;
         Inventory inventory;
 
+        Transform objectHolder;
         public GameObject grenadePrefab;
-        Transform shootTransform;
         bool hasExploded = false;
-
         private Camera cameraMain;
         private Vector3 mouseLocation;
-        private Vector3 lookDirection;
-        private Quaternion lookRotation;
-        private int lm;
 
         public void SetUp(string IEtag)
         {
+            PV = GetComponent<PhotonView>();
             cameraMain = Camera.main;
-
             IE = InventoryUIManager.inventory.GetIE(IEtag);
             inventory = GetComponent<Inventory>();
             InventoryUIManager.inventory.AddUIElement(IEtag, inventory);
-            cameraMain = Camera.main;
-            
-            maxShootDistance = inventory.maxShootDistance;
-            shootTransform = inventory.shootTransform;
+            grenadePrefab = inventory.grenadePrefab;
+            mouseLocation = Input.mousePosition;
         }
 
         public void RightClick() { return; }
 
         public void LeftClick()
         {
-            mouseLocation = transform.forward;
-            GameObject grenade = Instantiate(grenadePrefab, transform.position, transform.rotation);
-            Rigidbody rb = grenade.GetComponent<Rigidbody>();
-            rb.AddForce(transform.forward * throwForce, ForceMode.VelocityChange);
+            RaycastHit hit;
+            Ray mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-            
-            
+            //int lm = LayerMask.GetMask("Ground");
+            if (Physics.Raycast(mouseRay, out hit, 1000f))
+            {
+                GameObject objectHit = hit.collider.gameObject;
+                Instantiate(grenadePrefab, objectHit.transform.position, objectHit.transform.rotation);
+            }
         }
-
-
         public InventoryElement GetIE() { return IE; }
-
     }
 
     public class Coin : MonoBehaviour, IAbility
