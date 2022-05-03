@@ -149,7 +149,7 @@ public class GameMechanics : MonoBehaviour
             Debug.Log("I am " + PV.Owner.NickName);
             if (PV.OwnerActorNr < PhotonNetwork.PlayerList.Length)
             {
-                int next = ((int)PV.OwnerActorNr) + 1;
+                int next = ((int)PV.OwnerActorNr);
                 Debug.Log(PV.OwnerActorNr + " sent an awakening call to " + next);
                 PV.RPC("InitiatePlayer", PhotonNetwork.PlayerList[next]);
             }
@@ -497,8 +497,8 @@ public class GameMechanics : MonoBehaviour
 
     public void RPC_InitiatePlayer()
     {
-        PV.RPC("InitiatePlayer", PhotonNetwork.PlayerList[0]);
         Debug.Log(PhotonNetwork.PlayerList.Length);
+        PV.RPC("InitiatePlayer", PhotonNetwork.PlayerList[0]);
     }
 
     [PunRPC]
