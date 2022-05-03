@@ -22,7 +22,7 @@ public class BoardFractured : MonoBehaviour
             {
                 var rb = nonRigidPieces[i].gameObject.AddComponent<Rigidbody>();
                 rb.isKinematic = false;
-                rb.useGravity = true;
+                rb.useGravity = false;
             }
 
         };

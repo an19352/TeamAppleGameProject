@@ -1431,6 +1431,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Boxes (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 2882062777319072628, guid: deba92b159be39e4690def3f8ff43d31, type: 3}
+      propertyPath: sceneViewId
+      value: 48
+      objectReference: {fileID: 0}
     - target: {fileID: 2910959263911598287, guid: deba92b159be39e4690def3f8ff43d31, type: 3}
       propertyPath: sceneViewId
       value: 9
@@ -1483,9 +1487,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7987079794678181259, guid: deba92b159be39e4690def3f8ff43d31, type: 3}
+      propertyPath: sceneViewId
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 8505537666191311847, guid: deba92b159be39e4690def3f8ff43d31, type: 3}
       propertyPath: sceneViewId
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8760442066856982620, guid: deba92b159be39e4690def3f8ff43d31, type: 3}
+      propertyPath: sceneViewId
+      value: 49
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: deba92b159be39e4690def3f8ff43d31, type: 3}
@@ -5646,6 +5658,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Boxes (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 2882062777319072628, guid: deba92b159be39e4690def3f8ff43d31, type: 3}
+      propertyPath: sceneViewId
+      value: 45
+      objectReference: {fileID: 0}
     - target: {fileID: 2910959263911598287, guid: deba92b159be39e4690def3f8ff43d31, type: 3}
       propertyPath: sceneViewId
       value: 24
@@ -5698,9 +5714,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7987079794678181259, guid: deba92b159be39e4690def3f8ff43d31, type: 3}
+      propertyPath: sceneViewId
+      value: 47
+      objectReference: {fileID: 0}
     - target: {fileID: 8505537666191311847, guid: deba92b159be39e4690def3f8ff43d31, type: 3}
       propertyPath: sceneViewId
       value: 23
+      objectReference: {fileID: 0}
+    - target: {fileID: 8760442066856982620, guid: deba92b159be39e4690def3f8ff43d31, type: 3}
+      propertyPath: sceneViewId
+      value: 46
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: deba92b159be39e4690def3f8ff43d31, type: 3}
@@ -8583,6 +8607,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Boxes
       objectReference: {fileID: 0}
+    - target: {fileID: 2882062777319072628, guid: deba92b159be39e4690def3f8ff43d31, type: 3}
+      propertyPath: sceneViewId
+      value: 42
+      objectReference: {fileID: 0}
     - target: {fileID: 2910959263911598287, guid: deba92b159be39e4690def3f8ff43d31, type: 3}
       propertyPath: sceneViewId
       value: 15
@@ -8635,9 +8663,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7987079794678181259, guid: deba92b159be39e4690def3f8ff43d31, type: 3}
+      propertyPath: sceneViewId
+      value: 44
+      objectReference: {fileID: 0}
     - target: {fileID: 8505537666191311847, guid: deba92b159be39e4690def3f8ff43d31, type: 3}
       propertyPath: sceneViewId
       value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 8760442066856982620, guid: deba92b159be39e4690def3f8ff43d31, type: 3}
+      propertyPath: sceneViewId
+      value: 43
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: deba92b159be39e4690def3f8ff43d31, type: 3}
@@ -10900,6 +10936,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Boxes (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2882062777319072628, guid: deba92b159be39e4690def3f8ff43d31, type: 3}
+      propertyPath: sceneViewId
+      value: 39
+      objectReference: {fileID: 0}
     - target: {fileID: 2910959263911598287, guid: deba92b159be39e4690def3f8ff43d31, type: 3}
       propertyPath: sceneViewId
       value: 21
@@ -10952,9 +10992,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7987079794678181259, guid: deba92b159be39e4690def3f8ff43d31, type: 3}
+      propertyPath: sceneViewId
+      value: 41
+      objectReference: {fileID: 0}
     - target: {fileID: 8505537666191311847, guid: deba92b159be39e4690def3f8ff43d31, type: 3}
       propertyPath: sceneViewId
       value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 8760442066856982620, guid: deba92b159be39e4690def3f8ff43d31, type: 3}
+      propertyPath: sceneViewId
+      value: 40
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: deba92b159be39e4690def3f8ff43d31, type: 3}
