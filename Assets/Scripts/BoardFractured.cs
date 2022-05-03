@@ -12,7 +12,7 @@ public class BoardFractured : MonoBehaviour
             var piecesList = new List<Transform>(pieces);
             var nonRigidPieces = piecesList.FindAll(piece => !piece.GetComponent<Rigidbody>());
 
-            int r = Random.Range(3, 6);
+            int r = Random.Range(20, 20);
 
             if (nonRigidPieces.Count < r)
             {

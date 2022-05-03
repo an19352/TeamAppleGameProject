@@ -69,7 +69,7 @@ public class GameMechanics : MonoBehaviour
     public Transform blueFlags;
     public Transform redFlags;
     public FlagObjective[] flagObjectives;
-    
+
 
     PhotonView PV;
 
@@ -168,6 +168,7 @@ public class GameMechanics : MonoBehaviour
     {
         PV.RPC("DecreaseFlag", RpcTarget.AllBuffered, teamID);
         PV.RPC("UpdateFlagUI", RpcTarget.AllBuffered);
+        flagObjectives[teamID].objective.GetComponent<ObjectiveFlag>().hasFlag = true;
     }
 
     [PunRPC]
@@ -476,24 +477,24 @@ public class GameMechanics : MonoBehaviour
             {
                 randomNum = ran.Next(1, 6);
             }
-            
+
             else
             {
                 randomNum = ran.Next(1, 3);
             }
 
             Debug.Log(randomNum);
-            
+
             if (randomNum == 1)
             {
                 commentaryID = 7;
             }
-            
+
             if (randomNum == 2)
             {
                 commentaryID = 6;
             }
-            
+
             if (randomNum > 2)
             {
                 commentaryID = 5;
@@ -506,7 +507,7 @@ public class GameMechanics : MonoBehaviour
             {
                 randomNum = ran.Next(1, 5);
             }
-            
+
             else
             {
                 randomNum = ran.Next(1, 2);
@@ -516,12 +517,12 @@ public class GameMechanics : MonoBehaviour
             {
                 commentaryID = 10;
             }
-            
+
             if (randomNum == 2)
             {
                 commentaryID = 9;
             }
-            
+
             if (randomNum > 2)
             {
                 commentaryID = 8;

@@ -240,7 +240,13 @@ namespace SpaceBallAbilities
                 if (PhotonView.Find(toBePushed[i]) != null)
                 {
                     GameObject _obj = PhotonView.Find(toBePushed[i]).gameObject;
-                    _obj.GetComponent<Movement>().PushMe(transform.forward * pushForce, ForceMode.VelocityChange);
+                    Debug.Log(_obj);
+                    _obj.GetComponent<Rigidbody>().AddForce(transform.forward * pushForce, ForceMode.VelocityChange);
+                    if (_obj.GetComponent<Movement>() != null)
+                    {
+                        _obj.GetComponent<Movement>().PushMe(transform.forward * pushForce, ForceMode.VelocityChange);
+
+                    }
                 }
             }
         }
@@ -253,7 +259,11 @@ namespace SpaceBallAbilities
         {
             if (other.CompareTag("Detector") && other.transform.parent != this.transform)
             {
-                toBePushed.Add(other.gameObject.transform.parent.gameObject.GetComponent<PhotonView>().ViewID);
+                toBePushed.Add(other.transform.parent.GetComponent<PhotonView>().ViewID);
+            }
+            if (other.CompareTag("DetectorNonPlayer"))
+            {
+                toBePushed.Add(other.gameObject.GetComponent<PhotonView>().ViewID);
             }
         }
 
@@ -261,7 +271,11 @@ namespace SpaceBallAbilities
         {
             if (other.CompareTag("Detector") && other.transform.parent != this.transform)
             {
-                toBePushed.Remove(other.gameObject.transform.parent.gameObject.GetComponent<PhotonView>().ViewID);
+                toBePushed.Remove(other.gameObject.GetComponent<PhotonView>().ViewID);
+            }
+            if (other.CompareTag("DetectorNonPlayer"))
+            {
+                toBePushed.Remove(other.gameObject.GetComponent<PhotonView>().ViewID);
             }
         }
     }

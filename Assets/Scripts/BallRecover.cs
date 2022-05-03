@@ -30,7 +30,6 @@ public class BallRecover : MonoBehaviour
 
                 // brute force LOL
                 PV.RPC("DestroyFlag", RpcTarget.All);
-
             }
 
         }
@@ -38,6 +37,6 @@ public class BallRecover : MonoBehaviour
     [PunRPC]
     void DestroyFlag()
     {
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 }

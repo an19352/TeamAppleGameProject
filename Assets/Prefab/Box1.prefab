@@ -11,12 +11,11 @@ GameObject:
   - component: {fileID: 4674312949722253605}
   - component: {fileID: 3547137338039295629}
   - component: {fileID: 6560244544408264553}
-  - component: {fileID: 3488439510165096141}
   - component: {fileID: 6263493016085037432}
-  - component: {fileID: 7034610396365809246}
+  - component: {fileID: 1112056252597051431}
   m_Layer: 11
   m_Name: Box1
-  m_TagString: Detector
+  m_TagString: DetectorNonPlayer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -66,28 +65,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &3488439510165096141
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5446451121029927839}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 3
-  OwnershipTransfer: 0
-  observableSearch: 2
-  ObservedComponents: []
-  sceneViewId: 0
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
 --- !u!114 &6263493016085037432
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -102,7 +79,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   floatStrength: 2
   randomRotationStrength: 2
---- !u!114 &7034610396365809246
+--- !u!114 &1112056252597051431
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

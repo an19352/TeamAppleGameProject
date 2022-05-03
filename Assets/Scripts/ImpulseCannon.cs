@@ -7,7 +7,7 @@ using Photon.Pun;
 public class ImpulseCannon : MonoBehaviour
 {
     PhotonView PV;
-    
+
     public float pushForce;
     private float distance;
 
@@ -20,7 +20,7 @@ public class ImpulseCannon : MonoBehaviour
         toBePushed = new List<int>();
         if (PV.IsMine)
         {
-            transform.GetChild(2).gameObject.SetActive(true);  
+            transform.GetChild(2).gameObject.SetActive(true);
         }
     }
 
@@ -41,7 +41,7 @@ public class ImpulseCannon : MonoBehaviour
         }
         PV.RPC("RPC_Cannon", RpcTarget.All, pushNow, transform.forward * pushForce);
     }
-    
+
     [PunRPC]
     void RPC_Cannon(int[] pushNow, Vector3 pushFactor)
     {
@@ -59,6 +59,7 @@ public class ImpulseCannon : MonoBehaviour
         {
             toBePushed.Add(other.gameObject.transform.parent.gameObject.GetComponent<PhotonView>().ViewID);
         }
+        Debug.Log(toBePushed);
     }
 
     private void OnTriggerExit(Collider other)

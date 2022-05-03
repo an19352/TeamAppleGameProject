@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 7917219148617731882}
   - component: {fileID: -2628298789953457472}
   - component: {fileID: 7401030950618335322}
+  - component: {fileID: 5331674023094949274}
   m_Layer: 0
   m_Name: Hook
   m_TagString: Hook
@@ -248,3 +249,17 @@ MonoBehaviour:
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &5331674023094949274
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 811725987498985675}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c644c976505f3aa46900b15986e9b9b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  floatStrength: 2
+  randomRotationStrength: 2

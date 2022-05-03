@@ -13,6 +13,7 @@ TagManager:
   - ScoreTrigger
   - Turret
   - Generator
+  - DetectorNonPlayer
   layers:
   - Default
   - TransparentFX

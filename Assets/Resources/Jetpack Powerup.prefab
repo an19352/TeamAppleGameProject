@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6689642354982003533}
   - component: {fileID: -6342246706673173260}
   - component: {fileID: 9048767722571605335}
+  - component: {fileID: 2235948197866297455}
   m_Layer: 0
   m_Name: Jetpack Powerup
   m_TagString: Powerup
@@ -87,6 +88,20 @@ MonoBehaviour:
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &2235948197866297455
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6689642354982003532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c644c976505f3aa46900b15986e9b9b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  floatStrength: 0.2
+  randomRotationStrength: 1
 --- !u!1001 &4299354370619845026
 PrefabInstance:
   m_ObjectHideFlags: 0
