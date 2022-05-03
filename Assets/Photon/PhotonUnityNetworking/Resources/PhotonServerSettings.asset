@@ -100,6 +100,9 @@ MonoBehaviour:
   - IncreaseFlag
   - RPC_PlayVoice
   - PlayVoice
+  - StartFadeBackgroud
+  - FadeBackground
+  - QueueVoice
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1
