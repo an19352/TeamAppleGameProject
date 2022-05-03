@@ -35,8 +35,8 @@ public class PhotonPlayer : MonoBehaviourPunCallbacks
             SceneManager.LoadScene(0);
         }
 
-        InitiatePlayer();
-        //GameMechanics.gameMechanics.SetPB(this);
+        //InitiatePlayer();
+        GameMechanics.gameMechanics.SetPB(this);
         
 
 /*        if (gameMechanics.activePowerups.Count > 0)

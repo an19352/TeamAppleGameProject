@@ -141,8 +141,25 @@ public class GameMechanics : MonoBehaviour
           //  Debug.Log(players[0].obj.GetComponent<PhotonView>().Owner.NickName + " has ID " + players[0].obj.GetComponent<PhotonView>().OwnerActorNr);
         Player _player = new Player { obj = PhotonView.Find(playerViewId).gameObject, team = team };
         players.Add(_player);
-        _player.obj.GetComponent<Movement>().SetId(players.Count - 1);
+       // _player.obj.GetComponent<Movement>().SetId(players.Count - 1);
         Debug.Log(players[players.Count - 1].obj.GetComponent<PhotonView>().Owner.NickName + " has made a player");
+
+        if(PV.IsMine)  
+            if(PV.OwnerActorNr < PhotonNetwork.PlayerList.Count)
+                PV.RPC("InitiatePlayer", PhotonNetwork.PlayerList[PV.OwnerActorNr + 1]);
+            else
+                PV.RPC("ActivateMovement", RpcTarget.All);
+    }
+
+    [PunRPC]
+    public void ActivateMovement()
+    {
+        for(int i = 0; i < players.Count; i++)
+        {
+            Movement mov = players[i].obj.GetComponent<Movement>();
+            mov.enabled = true;
+            mov.SetId(i);
+        }
     }
 
     public void RPC_RemovePlayer(int playerID)
@@ -208,6 +225,8 @@ public class GameMechanics : MonoBehaviour
     [PunRPC]
     public void UpdateFlagUI()
     {
+        redFlags.SetActive(true);
+        greenFlags.SetActive(true);
         // 12 => icon + border
         var redImgs = redFlags.gameObject.GetComponentsInChildren<Image>();
         // 12 => icon + border
@@ -467,15 +486,14 @@ public class GameMechanics : MonoBehaviour
 
     public void RPC_InitiatePlayer()
     {
-        foreach(Photon.Realtime.Player pl in PhotonNetwork.PlayerList)
-            PV.RPC("InitiatePlayer", pl);
+        PV.RPC("InitiatePlayer", PhotonNetwork.PlayerList[0]);
     }
 
     [PunRPC]
     void InitiatePlayer()
     {
         UpdateFlagUI();
-        //readyToDeploy = true;
-        //PB.InitiatePlayer();
+        readyToDeploy = true;
+        PB.InitiatePlayer();
     }
 }

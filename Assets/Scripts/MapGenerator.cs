@@ -109,7 +109,7 @@ public class MapGenerator : MonoBehaviour
         //foreach (PlatformType plt in platformTypes) chanceSum += plt.chance;
 
         PV = GetComponent<PhotonView>();
-        PV.RPC("Awaken", RpcTarget.All);
+        PV.RPC("Awaken", RpcTarget.MasterClient);
 
 /*        //Random.InitState(InitState);
         if (Random.Range(0.0f, 1.0f) > 0.5f) second_method();
@@ -137,7 +137,7 @@ public class MapGenerator : MonoBehaviour
         if (Random.Range(0.0f, 1.0f) > 0.5f) second_method();
         else third_method();
 
-        PV.RPC("SignalMaster", RpcTarget.All);
+        PV.RPC("SignalMaster", RpcTarget.MasterClient);
     }
 
     [PunRPC]
@@ -162,7 +162,7 @@ public class MapGenerator : MonoBehaviour
                 SSS.SpawnObject();
         
 
-       // GameMechanics.gameMechanics.RPC_InitiatePlayer();
+        GameMechanics.gameMechanics.RPC_InitiatePlayer();
     }
 
     void first_method()
@@ -236,9 +236,9 @@ public class MapGenerator : MonoBehaviour
 
         GameMechanics.gameMechanics.bases.Add(redBase.gameObject);
         GameMechanics.gameMechanics.bases.Add(blueBase.gameObject);
-       // GameMechanics.gameMechanics.flagObjectives = new GameMechanics.FlagObjective[2];
-        //GameMechanics.gameMechanics.flagObjectives[1] = new GameMechanics.FlagObjective(blueBase.transform.GetChild(2).gameObject);
-        //GameMechanics.gameMechanics.flagObjectives[0] = new GameMechanics.FlagObjective(redBase.transform.GetChild(2).gameObject);
+        GameMechanics.gameMechanics.flagObjectives = new GameMechanics.FlagObjective[2];
+        GameMechanics.gameMechanics.flagObjectives[1] = new GameMechanics.FlagObjective(blueBase.transform.GetChild(2).gameObject);
+        GameMechanics.gameMechanics.flagObjectives[0] = new GameMechanics.FlagObjective(redBase.transform.GetChild(2).gameObject);
 
         DrawLineOfPlatforms(tree[width / 2], Vector3.forward, height / 2); // Draw a line up
         top = tree.Count - 1;
@@ -379,7 +379,7 @@ public class MapGenerator : MonoBehaviour
         pos = pos + Vector3.right.normalized * Random.Range(previous.reach * 1.85f, 2.1f * previous.reach);
         pos.y += Random.Range(-previous.verticalReach, previous.verticalReach);
 
-        //GameMechanics.gameMechanics.flagObjectives = new GameMechanics.FlagObjective[2];
+        GameMechanics.gameMechanics.flagObjectives = new GameMechanics.FlagObjective[2];
 
         tr = Instantiate(redbase, pos, Quaternion.identity).transform;
         tr.Rotate(new Vector3(0, 180, 0), Space.Self);
@@ -402,9 +402,9 @@ public class MapGenerator : MonoBehaviour
     [PunRPC]
     void flagObjectiveSyc(int[] PVIDs)
     {
-        //Debug.Log(PhotonView.Find(PVIDs[0]).gameObject);
-        //Debug.Log(PhotonView.Find(PVIDs[1]).gameObject);
-        //GameMechanics.gameMechanics.flagObjectives[0] = new GameMechanics.FlagObjective(PhotonView.Find(PVIDs[0]).gameObject);
-        //GameMechanics.gameMechanics.flagObjectives[1] = new GameMechanics.FlagObjective(PhotonView.Find(PVIDs[1]).gameObject);
+        Debug.Log(PhotonView.Find(PVIDs[0]).gameObject);
+        Debug.Log(PhotonView.Find(PVIDs[1]).gameObject);
+        GameMechanics.gameMechanics.flagObjectives[0] = new GameMechanics.FlagObjective(PhotonView.Find(PVIDs[0]).gameObject);
+        GameMechanics.gameMechanics.flagObjectives[1] = new GameMechanics.FlagObjective(PhotonView.Find(PVIDs[1]).gameObject);
     }
 }
