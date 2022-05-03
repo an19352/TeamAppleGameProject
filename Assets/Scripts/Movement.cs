@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Photon.Pun;
+using Cinemachine;
+
 
 public class Movement : MonoBehaviour, IPunObservable
 {
@@ -16,6 +18,9 @@ public class Movement : MonoBehaviour, IPunObservable
 
     Transform player;
     private Camera cameraMain;
+
+    public GameObject cameraCM;
+    public Transform followPlayer;
 
     public float speed = 5f;
     public float frictionCoef = 1.2f;
@@ -62,7 +67,7 @@ public class Movement : MonoBehaviour, IPunObservable
         shadowInsatance = Instantiate(shadow);
 
         //Debug.Log(gameObject.transform.GetChild(9).GetChild(0).GetChild(2).GetChild(0).GetChild(11).GetChild(7).GetComponent<Renderer>().material);
-        
+
         player = transform;
         cameraMain = Camera.main;
 
@@ -80,6 +85,11 @@ public class Movement : MonoBehaviour, IPunObservable
                 gameObject.transform.GetChild(9).GetChild(0).GetChild(2).GetChild(0).GetChild(11).GetChild(7).GetComponent<Renderer>().material = highlightedRedMaterial;
             }
             cameraMain.GetComponent<FollowPlayer>().player = transform;
+
+            cameraCM = GameObject.Find("cameraCM");
+            if (cameraCM == null) return;
+            cameraCM.GetComponent<CinemachineVirtualCamera>().Follow = transform;
+            cameraCM.GetComponent<CinemachineVirtualCamera>().LookAt = followPlayer;
         }
     }
 

@@ -553,6 +553,36 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &3181953028370279175
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1609508732572140421}
+  m_Layer: 0
+  m_Name: followPlayer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1609508732572140421
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3181953028370279175}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 1.023}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_Children: []
+  m_Father: {fileID: 8521386507383712024}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3870454273781675388
 GameObject:
   m_ObjectHideFlags: 0
@@ -5712,6 +5742,7 @@ Transform:
   - {fileID: 4437260531889516099}
   - {fileID: 2084328953684413056}
   - {fileID: 3685503338649915622}
+  - {fileID: 1609508732572140421}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5783,6 +5814,8 @@ MonoBehaviour:
   highlightedBlueMaterial: {fileID: 2100000, guid: 641804f865b4bc842a582f010811360a, type: 2}
   highlightedRedMaterial: {fileID: 2100000, guid: 9f8af320ff02940a69574c6c42eda6d0, type: 2}
   playerBody: {fileID: 8521386507383712021}
+  cameraCM: {fileID: 5950118882056293912, guid: 0c12361c44562f04bb857457255a08e5, type: 3}
+  followPlayer: {fileID: 1609508732572140421}
   speed: 26.5
   frictionCoef: 40
   gravityStrength: 13

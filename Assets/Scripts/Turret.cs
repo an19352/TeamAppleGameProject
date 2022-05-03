@@ -46,7 +46,6 @@ public class Turret : MonoBehaviour, IPunObservable
         InvokeRepeating("UpdateTarget", 0f, 0.5f);
     }
 
-
     // Update is called once per frame
     void Update()
     {
@@ -69,7 +68,6 @@ public class Turret : MonoBehaviour, IPunObservable
             {
                 Shoot();
                 fireCountDown = 1 / fireRate;
-
             }
             fireCountDown -= Time.deltaTime;
         }
