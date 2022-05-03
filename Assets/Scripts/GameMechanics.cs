@@ -149,8 +149,9 @@ public class GameMechanics : MonoBehaviour
             Debug.Log("I am " + PhotonNetwork.NickName);
             if (PV.OwnerActorNr < PhotonNetwork.PlayerList.Length)
             {
-                Debug.Log(PV.OwnerActorNr + " sent an awakening call to " + PV.OwnerActorNr + 1);
-                PV.RPC("InitiatePlayer", PhotonNetwork.PlayerList[PV.OwnerActorNr + 1]);
+                int next = ((int)PV.OwnerActorNr) + 1;
+                Debug.Log(PV.OwnerActorNr + " sent an awakening call to " + next);
+                PV.RPC("InitiatePlayer", PhotonNetwork.PlayerList[next]);
             }
             else
             {
