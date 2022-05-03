@@ -140,16 +140,16 @@ public class PlaySound : MonoBehaviour
     {
         foreach (Player p in target)
         {
-            PV.RPC("QueueVoice", p, voiceID);
+            if (PV.IsMine)
+            {
+                PV.RPC("QueueVoice", p, voiceID);
+            }
         }
     }
 
     [PunRPC]
     public void QueueVoice(int voiceID)
     {
-        if (PV.IsMine)
-        {
-            voiceQueue.Enqueue(voiceID);   
-        }
+        voiceQueue.Enqueue(voiceID);
     }
 }
