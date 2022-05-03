@@ -147,6 +147,9 @@ public class PlaySound : MonoBehaviour
     [PunRPC]
     public void QueueVoice(int voiceID)
     {
-        voiceQueue.Enqueue(voiceID);
+        if (PV.IsMine)
+        {
+            voiceQueue.Enqueue(voiceID);   
+        }
     }
 }
