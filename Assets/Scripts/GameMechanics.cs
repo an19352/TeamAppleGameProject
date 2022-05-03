@@ -146,15 +146,17 @@ public class GameMechanics : MonoBehaviour
 
         if (players.Count == PhotonNetwork.CountOfPlayers) ActivateMovement();
 
-        if (PV.IsMine)
+        PhotonView PPV = PhotonView.Find(playerViewId);
+
+        if (PPV.IsMine)
         {
-            Debug.Log("I am " + PV.Owner.NickName);
-            Debug.Log(PV.OwnerActorNr);
+            Debug.Log("I am " + PPV.Owner.NickName);
+            Debug.Log(PPV.OwnerActorNr);
             Debug.Log(PhotonNetwork.PlayerList.Length);
-            if (PV.OwnerActorNr < PhotonNetwork.PlayerList.Length)
+            if (PPV.OwnerActorNr < PhotonNetwork.PlayerList.Length)
             {
-                int next = ((int)PV.OwnerActorNr);
-                Debug.Log(PV.Owner.NickName + " sent an awakening call to " + PhotonNetwork.PlayerList[next].NickName);
+                int next = ((int)PPV.OwnerActorNr);
+                Debug.Log(PPV.Owner.NickName + " sent an awakening call to " + PhotonNetwork.PlayerList[next].NickName);
                 PV.RPC("InitiatePlayer", PhotonNetwork.PlayerList[next]);
             }
         }
