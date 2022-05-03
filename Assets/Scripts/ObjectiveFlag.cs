@@ -145,6 +145,7 @@ public class ObjectiveFlag : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         if (!PhotonNetwork.IsConnected) return;
+        if (PV == null) return;
         if (!PV.IsMine) return;
         // track players as they enter the detection field
         if (other.gameObject.CompareTag("Player") && !playerList.Exists(player => player.obj == other.gameObject))

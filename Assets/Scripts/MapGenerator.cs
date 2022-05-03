@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 using Photon.Pun;
 
@@ -160,7 +161,13 @@ public class MapGenerator : MonoBehaviour
         foreach (TreeElement TE in tree)
             if (TE.platform.transform.gameObject.TryGetComponent(out SpawnSecondStep SSS))
                 SSS.SpawnObject();
-        
+
+        StartCoroutine(ActivateCooldown(1));
+    }
+
+    IEnumerator ActivateCooldown(int time)
+    {
+        yield return new WaitForSeconds(time);
 
         GameMechanics.gameMechanics.RPC_InitiatePlayer();
     }

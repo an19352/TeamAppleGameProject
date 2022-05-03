@@ -66,8 +66,8 @@ public class GameMechanics : MonoBehaviour
 
     public Timer timer;
 
-    public List<GameObject> redgens;
-    public List<GameObject> greengens;
+    public List<GameObject> redgens = new List<GameObject>();
+    public List<GameObject> greengens = new List<GameObject>();
     public Canvas worldSpaceCanvas;
     public Transform greenFlags;
     public Transform redFlags;
@@ -144,30 +144,23 @@ public class GameMechanics : MonoBehaviour
        // _player.obj.GetComponent<Movement>().SetId(players.Count - 1);
         Debug.Log(players[players.Count - 1].obj.GetComponent<PhotonView>().Owner.NickName + " has made a player");
 
+        if (players.Count == PhotonNetwork.CountOfPlayers) ActivateMovement();
+
         if (PV.IsMine)
         {
-            ActivateCooldown(10);
+            Debug.Log("I am " + PV.Owner.NickName);
+            Debug.Log(PV.OwnerActorNr);
+            Debug.Log(PhotonNetwork.PlayerList.Length);
+            if (PV.OwnerActorNr < PhotonNetwork.PlayerList.Length)
+            {
+                int next = ((int)PV.OwnerActorNr);
+                Debug.Log(PV.Owner.NickName + " sent an awakening call to " + PhotonNetwork.PlayerList[next].NickName);
+                PV.RPC("InitiatePlayer", PhotonNetwork.PlayerList[next]);
+            }
         }
     }
 
-    IEnumerator ActivateCooldown(int time)
-    {
-        yield return new WaitForSeconds(time);
 
-
-        Debug.Log("I am " + PV.Owner.NickName);
-        if (PV.OwnerActorNr < PhotonNetwork.PlayerList.Length)
-        {
-            int next = ((int)PV.OwnerActorNr);
-            Debug.Log(PV.Owner.NickName + " sent an awakening call to " + PhotonNetwork.PlayerList[next].NickName);
-            PV.RPC("InitiatePlayer", PhotonNetwork.PlayerList[next]);
-        }
-        else
-        {
-            Debug.Log(PV.Owner.NickName + " is the last one!");
-            PV.RPC("ActivateMovement", RpcTarget.All);
-        }
-    }
 
     [PunRPC]
     public void ActivateMovement()

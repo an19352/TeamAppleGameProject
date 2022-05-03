@@ -48,10 +48,10 @@ public class PhotonPlayer : MonoBehaviourPunCallbacks
             }*/
     }
 
-    private void Update()
+/*    private void Update()
     {
         if (Input.GetKeyDown(KeyCode.S)) InitiatePlayer();
-    }
+    }*/
 
     public void SetTeam(int _team) { team = _team; }
 
@@ -85,9 +85,9 @@ public class PhotonPlayer : MonoBehaviourPunCallbacks
             myAvatar.layer = playerLayer;
             gameMechanics.RPC_AddPlayer(myAvatar, team);
 
-            /*Transform arrow = myAvatar.transform.Find("ArrowCanvas");
+            Transform arrow = myAvatar.transform.Find("ArrowCanvas");
             arrow.GetChild(0).gameObject.SetActive(true);
-            Debug.Log(15);
+            //Debug.Log(15);
 
             if (team == 0)
             {
@@ -97,7 +97,7 @@ public class PhotonPlayer : MonoBehaviourPunCallbacks
             {
                 myAvatar.GetComponent<Arrow>().getgens(gameMechanics.redgens, gameMechanics.bases[0], gameMechanics.bases[1], team);
             }
-            Debug.Log(16);*/
+            //Debug.Log(16);
         }
     }
 }

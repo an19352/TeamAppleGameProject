@@ -10,7 +10,7 @@ using ExitGames.Client.Photon.StructWrapping;
 public class EnergyGenerator : MonoBehaviour, IPunObservable
 {
     PhotonView PV;
-    public static GameMechanics gameMechanics;
+    GameMechanics gameMechanics;
     public GameObject forceShield;
 
     [Header("Can mess with")]
@@ -47,12 +47,14 @@ public class EnergyGenerator : MonoBehaviour, IPunObservable
 
         if (redDistance < blueDistance)
         {
+            Debug.Log("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< red");
             gameMechanics.redgens.Add(gameObject);
             fsScript = gameMechanics.bases[0].GetComponentInChildren<ForceShield>();
             team = 0;
         }
         else 
         {
+            Debug.Log("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< blue");
             gameMechanics.greengens.Add(gameObject);
             fsScript = gameMechanics.bases[1].GetComponentInChildren<ForceShield>();
             team = 1; 
