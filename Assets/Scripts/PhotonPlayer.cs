@@ -48,6 +48,11 @@ public class PhotonPlayer : MonoBehaviourPunCallbacks
             }*/
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.S)) InitiatePlayer();
+    }
+
     public void SetTeam(int _team) { team = _team; }
 
     // Update is called once per frame
