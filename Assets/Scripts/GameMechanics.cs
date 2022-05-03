@@ -475,7 +475,7 @@ public class GameMechanics : MonoBehaviour
     void InitiatePlayer()
     {
         UpdateFlagUI();
-        readyToDeploy = true;
-        PB.InitiatePlayer();
+        //readyToDeploy = true;
+        //PB.InitiatePlayer();
     }
 }

@@ -35,7 +35,8 @@ public class PhotonPlayer : MonoBehaviourPunCallbacks
             SceneManager.LoadScene(0);
         }
 
-        GameMechanics.gameMechanics.SetPB(this);
+        InitiatePlayer();
+        //GameMechanics.gameMechanics.SetPB(this);
         
 
 /*        if (gameMechanics.activePowerups.Count > 0)
@@ -75,7 +76,7 @@ public class PhotonPlayer : MonoBehaviourPunCallbacks
                 x = redX;
 
             }
-            myAvatar = PhotonNetwork.Instantiate(playerPrefab.name + PhotonNetwork.LocalPlayer.ActorNumber.ToString(), new Vector3(x, 6, z), Quaternion.identity, 0);
+            myAvatar = PhotonNetwork.Instantiate(playerPrefab.name, new Vector3(x, 6, z), Quaternion.identity, 0);
             myAvatar.layer = playerLayer;
             gameMechanics.RPC_AddPlayer(myAvatar, team);
 

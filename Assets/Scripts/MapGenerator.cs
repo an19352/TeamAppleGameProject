@@ -158,8 +158,9 @@ public class MapGenerator : MonoBehaviour
         foreach (TreeElement TE in tree)
             if (TE.platform.transform.gameObject.TryGetComponent(out SpawnSecondStep SSS))
                 SSS.SpawnObject();
+        
 
-        GameMechanics.gameMechanics.RPC_InitiatePlayer();
+        GameMechanics.gameMechanics.UpdateFlagUI();
     }
 
     void first_method()
