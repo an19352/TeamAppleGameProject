@@ -75,7 +75,7 @@ public class PhotonPlayer : MonoBehaviourPunCallbacks
                 x = redX;
 
             }
-            myAvatar = PhotonNetwork.Instantiate(playerPrefab.name, new Vector3(x, 6, z), Quaternion.identity);
+            myAvatar = PhotonNetwork.Instantiate(playerPrefab.name, new Vector3(x, 6, z), Quaternion.identity, 0);
             myAvatar.layer = playerLayer;
             gameMechanics.RPC_AddPlayer(myAvatar, team);
 

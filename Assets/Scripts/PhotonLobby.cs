@@ -45,7 +45,7 @@ public class PhotonLobby : MonoBehaviourPunCallbacks
     public override void OnJoinedLobby()
     {
         base.OnJoinedLobby();
-
+        //Debug.Log(PhotonNetwork.lobby.ToString());
 
         loadingCanvas.SetActive(false);
         lobbyCanvas.SetActive(true);
@@ -113,6 +113,15 @@ public class PhotonLobby : MonoBehaviourPunCallbacks
         {
             PhotonNetwork.NickName = playerName.text;
             PhotonNetwork.JoinRoom(roomName);
+        }
+    }
+
+    public void JoinRoom(TextMeshProUGUI roomName)
+    {
+        if (playerName.text.Length > 1)
+        {
+            PhotonNetwork.NickName = playerName.text;
+            Debug.Log(PhotonNetwork.JoinRoom("Room of " + roomName.text));
         }
     }
 
