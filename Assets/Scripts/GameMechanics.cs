@@ -146,7 +146,7 @@ public class GameMechanics : MonoBehaviour
 
         if (PV.IsMine)
         {
-            Debug.Log("I am " + PhotonNetwork.NickName);
+            Debug.Log("I am " + PV.Owner.NickName);
             if (PV.OwnerActorNr < PhotonNetwork.PlayerList.Length)
             {
                 int next = ((int)PV.OwnerActorNr) + 1;
@@ -498,6 +498,7 @@ public class GameMechanics : MonoBehaviour
     public void RPC_InitiatePlayer()
     {
         PV.RPC("InitiatePlayer", PhotonNetwork.PlayerList[0]);
+        Debug.Log(PhotonNetwork.PlayerList.Length);
     }
 
     [PunRPC]
