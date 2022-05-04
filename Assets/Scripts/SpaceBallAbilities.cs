@@ -308,11 +308,11 @@ namespace SpaceBallAbilities
             RaycastHit hit;
             Ray mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-            //int lm = LayerMask.GetMask("Ground");
+            //wdint lm = LayerMask.GetMask("Ground");
             if (Physics.Raycast(mouseRay, out hit, 1000f))
             {
-                GameObject objectHit = hit.collider.gameObject;
-                PhotonNetwork.Instantiate(grenadePrefab.name, objectHit.transform.position, objectHit.transform.rotation);
+                Vector3 objectHit = hit.point;
+                PhotonNetwork.Instantiate(grenadePrefab.name, objectHit, Quaternion.identity);
             }
         }
         public InventoryElement GetIE() { return IE; }
