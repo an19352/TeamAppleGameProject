@@ -86,10 +86,6 @@ public class GameMechanics : MonoBehaviour
     public void Start()
     {
         PV = GetComponent<PhotonView>();
-        if (PV == null)
-            Debug.Log("IT'S A NULL, BRO");
-        else
-            Debug.Log(PV.ViewID);
         
         activePowerups = new Dictionary<int, UnityEngine.Vector3>();
          if (!PhotonNetwork.IsMasterClient)
@@ -141,39 +137,16 @@ public class GameMechanics : MonoBehaviour
           //  Debug.Log(players[0].obj.GetComponent<PhotonView>().Owner.NickName + " has ID " + players[0].obj.GetComponent<PhotonView>().OwnerActorNr);
         Player _player = new Player { obj = PhotonView.Find(playerViewId).gameObject, team = team };
         players.Add(_player);
-       // _player.obj.GetComponent<Movement>().SetId(players.Count - 1);
-        Debug.Log(players[players.Count - 1].obj.GetComponent<PhotonView>().Owner.NickName + " has made a player");
-
-        if (players.Count == PhotonNetwork.CountOfPlayers) ActivateMovement();
+        _player.obj.GetComponent<Movement>().SetId(players.Count - 1);
 
         PhotonView PPV = PhotonView.Find(playerViewId);
 
         if (PPV.IsMine)
-        {
-            Debug.Log("I am " + PPV.Owner.NickName);
-            Debug.Log(PPV.OwnerActorNr);
-            Debug.Log(PhotonNetwork.PlayerList.Length);
             if (PPV.OwnerActorNr < PhotonNetwork.PlayerList.Length)
             {
                 int next = ((int)PPV.OwnerActorNr);
-                Debug.Log(PPV.Owner.NickName + " sent an awakening call to " + PhotonNetwork.PlayerList[next].NickName);
                 PV.RPC("InitiatePlayer", PhotonNetwork.PlayerList[next]);
             }
-        }
-    }
-
-
-
-    [PunRPC]
-    public void ActivateMovement()
-    {
-        Debug.Log("Counting players!");
-        for(int i = 0; i < players.Count; i++)
-        {
-            Movement mov = players[i].obj.GetComponent<Movement>();
-            mov.enabled = true;
-            mov.SetId(i);
-        }
     }
 
     public void RPC_RemovePlayer(int playerID)
@@ -499,16 +472,13 @@ public class GameMechanics : MonoBehaviour
 
     public void RPC_InitiatePlayer()
     {
-        Debug.Log(PhotonNetwork.PlayerList.Length);
         PV.RPC("InitiatePlayer", PhotonNetwork.PlayerList[0]);
     }
 
     [PunRPC]
     void InitiatePlayer()
     {
-        Debug.Log(PhotonNetwork.NickName + " is awakening");
         UpdateFlagUI();
-        readyToDeploy = true;
         PB.InitiatePlayer();
     }
 }

@@ -63,8 +63,6 @@ public class Movement : MonoBehaviour, IPunObservable
 
         //Debug.Log(gameObject.transform.GetChild(9).GetChild(0).GetChild(2).GetChild(0).GetChild(11).GetChild(7).GetComponent<Renderer>().material);
 
-        Debug.Log("_______________________________________________________________________________________________________________________");
-
         player = transform;
         cameraMain = Camera.main;
 
@@ -72,7 +70,9 @@ public class Movement : MonoBehaviour, IPunObservable
         {
             plane.SetActive(true);
             int team = gameMechanics.checkTeam(ID);
-            if (team == 1)
+            PV.RPC("SetColour", RpcTarget.All, team);
+            
+            /*if (team == 1)
             {
                 //GetComponent<Renderer>().material = highlightedGreenMaterial;
                 //gameObject.transform.GetChild(9).GetChild(0).GetChild(0).GetChild(0).GetComponent<Renderer>().material = 
@@ -83,8 +83,23 @@ public class Movement : MonoBehaviour, IPunObservable
             else
             {
                 gameObject.transform.GetChild(9).GetChild(0).GetChild(2).GetChild(0).GetChild(11).GetChild(7).GetComponent<Renderer>().material = highlightedRedMaterial;
-            }
+            }*/
             cameraMain.GetComponent<FollowPlayer>().player = transform;
+        }
+    }
+
+    [PunRPC]
+    public void SetColour(int _team)
+    {
+        if (_team == 1)
+        {
+            gameObject.transform.GetChild(9).GetChild(0).GetChild(2).GetChild(0).GetChild(11).GetChild(7)
+                .GetComponent<Renderer>().material = highlightedBlueMaterial;
+        }
+        else
+        {
+            gameObject.transform.GetChild(9).GetChild(0).GetChild(2).GetChild(0).GetChild(11).GetChild(7)
+                .GetComponent<Renderer>().material = highlightedRedMaterial;
         }
     }
 
@@ -280,7 +295,6 @@ public class Movement : MonoBehaviour, IPunObservable
 
     private void OnDestroy()
     {
-        Debug.Log(PV.Owner.NickName + " has died horribly. Yey!");
         Destroy(shadowInsatance);
     }
 

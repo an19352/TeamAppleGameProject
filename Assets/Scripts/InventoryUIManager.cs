@@ -30,7 +30,6 @@ public class InventoryUIManager : MonoBehaviour
                 InventoryUIManager.inventory = this;
             }
         }
-        DontDestroyOnLoad(this.gameObject);
     }
 
     #endregion

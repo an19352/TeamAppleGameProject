@@ -13,11 +13,19 @@ public class SpawnSecondStep : MonoBehaviour
     }
 
     public List<spawnable> spawns;
-
+    public float nothingChance = 0.3f;
 
     public void SpawnObject()
     {
-        PhotonNetwork.Instantiate(spawns[0].obj.name, transform.position + Vector3.up, Quaternion.identity);
-        return;
+        if (Random.Range(0.0f, 1.0f) <= nothingChance) return;
+
+        float choice = Random.Range(0.0f, 1.0f);
+        foreach (spawnable chosen in spawns)
+            if (choice > chosen.chance) choice -= chosen.chance;
+            else
+            {
+                PhotonNetwork.Instantiate(chosen.obj.name, transform.position + Vector3.up, Quaternion.identity);
+                return;
+            }
     }
 }

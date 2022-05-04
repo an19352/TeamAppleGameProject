@@ -78,7 +78,6 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
 
     void CreatePlayer()
     {
-        foreach (Player pl in PhotonNetwork.PlayerList) Debug.Log(pl.NickName + " has ID " + pl.ActorNumber);
         PhotonNetwork.Instantiate(prefab.name, transform.position, Quaternion.identity, 0).GetComponent<PhotonPlayer>().SetTeam(team);
     }
 

@@ -154,16 +154,16 @@ public class MapGenerator : MonoBehaviour
 
     void secondStepGeneration()
     {
-        Debug.Log("Doing step two or whatever");
-
         foreach (BoardSetup.PhotonSpawnable spawnable in photonSpawnables)
             PhotonNetwork.Instantiate(spawnable.prefab, spawnable.position, spawnable.rotation);
-
+        
         foreach (TreeElement TE in tree)
             if (TE.platform.transform.gameObject.TryGetComponent(out SpawnSecondStep SSS))
                 SSS.SpawnObject();
 
         StartCoroutine(ActivateCooldown(1));
+        //GameMechanics.gameMechanics.RPC_InitiatePlayer();
+
     }
 
     IEnumerator ActivateCooldown(int time)
@@ -410,8 +410,6 @@ public class MapGenerator : MonoBehaviour
     [PunRPC]
     void flagObjectiveSyc(int[] PVIDs)
     {
-        Debug.Log(PhotonView.Find(PVIDs[0]).gameObject);
-        Debug.Log(PhotonView.Find(PVIDs[1]).gameObject);
         GameMechanics.gameMechanics.flagObjectives[0] = new GameMechanics.FlagObjective(PhotonView.Find(PVIDs[0]).gameObject);
         GameMechanics.gameMechanics.flagObjectives[1] = new GameMechanics.FlagObjective(PhotonView.Find(PVIDs[1]).gameObject);
     }

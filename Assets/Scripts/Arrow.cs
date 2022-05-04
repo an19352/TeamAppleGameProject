@@ -87,13 +87,8 @@ public class Arrow : MonoBehaviour
             flag = redbase.transform.GetChild(2).gameObject;
             home = greenbase.transform.GetChild(2).gameObject;
         }
-        Debug.Log(gens.Count);
         generator1 = gens[0];
-        Debug.Log("hllo1");
         generator2 = gens[1];
-        Debug.Log("hllo2");
         generator3 = gens[2];
-        Debug.Log("hllo3");
-        
     }
 }
