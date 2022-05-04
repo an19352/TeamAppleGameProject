@@ -5859,7 +5859,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tooltipOffset: {x: 5, y: 0, z: 0}
-  firstPowerupTag: Impulse Gun
+  firstPowerupTag: Grenade
   inventorySize: 8
   objectHolder: {fileID: 938504099680742854}
   maxGrabDistance: 3
