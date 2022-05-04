@@ -33,6 +33,7 @@ public class Turret : MonoBehaviour, IPunObservable
 
     private ForceShield fsScript;
     private Image healthBarImage;
+    ObjectPooler poolOfObject;
 
     // Start is called before the first frame update
     void Start()
@@ -41,10 +42,9 @@ public class Turret : MonoBehaviour, IPunObservable
         PV = this.GetComponent<PhotonView>();
         // Transform canvas = this.gameObject.transform.Find("Canvas");
         healthBarImage = healthBar.gameObject.GetComponent<Image>();
-
+        poolOfObject = ObjectPooler.OP;
         InvokeRepeating("UpdateTarget", 0f, 0.5f);
     }
-
 
     // Update is called once per frame
     void Update()
@@ -68,7 +68,6 @@ public class Turret : MonoBehaviour, IPunObservable
             {
                 Shoot();
                 fireCountDown = 1 / fireRate;
-
             }
             fireCountDown -= Time.deltaTime;
         }
@@ -76,7 +75,8 @@ public class Turret : MonoBehaviour, IPunObservable
 
     void Shoot()
     {
-        Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+        // Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+        poolOfObject.SpawnFromPool("Bullet", firePoint.position, firePoint.rotation);
     }
 
     IEnumerator CreateExplosion()
@@ -137,6 +137,13 @@ public class Turret : MonoBehaviour, IPunObservable
         float mass = other.collider.attachedRigidbody.mass;
         float force = Mathf.Abs(Vector3.Dot(cp.normal, collisionVelocity)) * mass;
 
+        healthRemain -= force;
+        float fraction = healthRemain / health;
+        healthBarImage.fillAmount = fraction;
+    }
+    
+    public void applyForce(float force)
+    {
         healthRemain -= force;
         float fraction = healthRemain / health;
         healthBarImage.fillAmount = fraction;

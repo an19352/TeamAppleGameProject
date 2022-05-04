@@ -6,6 +6,7 @@ public class Bullet : MonoBehaviour
 {
     public float travelSpeed;
     public float lifeTime;
+    public const float lifeTimeConst = 10;
     public float bulletForce;
     private Rigidbody rb;
 
@@ -15,10 +16,15 @@ public class Bullet : MonoBehaviour
         rb = GetComponent<Rigidbody>();
     }
 
+    void OnEnable()
+    {
+        lifeTime = lifeTimeConst;
+    }
+
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (lifeTime <= 0) Destroy(gameObject);
+        if (lifeTime <= 0) gameObject.SetActive(false);
         else
         {
             rb.MovePosition(transform.position + -transform.forward * travelSpeed);

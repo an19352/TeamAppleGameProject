@@ -20,7 +20,7 @@ public class InventoryUIElement : MonoBehaviour
     public Image largeIcon;
     public Text powerupName;
     public Text largeTimerText;
-
+    public Text tooltip; 
     public void SetPowerup(InventoryElement _powerup, Inventory _inv)
     {
         powerup = _powerup;
@@ -30,6 +30,7 @@ public class InventoryUIElement : MonoBehaviour
         largeIcon.sprite = powerup.icon;
 
         powerupName.text = powerup.powerupName;
+        tooltip.text = powerup.tooltipText;
 
         timeToDie = powerup.timeToDie + Time.time;
 

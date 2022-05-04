@@ -11,7 +11,7 @@ public class Inventory : MonoBehaviour
 
     InventoryElement[] IEs;
     Dictionary<string, System.Type> typeLookUp = new Dictionary<string, System.Type>();
-    public GameObject tooltip;
+    //public GameObject tooltip;
     public Vector3 tooltipOffset;
     public string firstPowerupTag = "Impulse Gun";
     Canvas worldCanvas;
@@ -41,10 +41,7 @@ public class Inventory : MonoBehaviour
     public float pushForce;
 
     [Header("Grenade Settings")]
-    public float delay = 120f;
-    public float radius = 5f;
-    public float force = 700f;
-    //public float throwForce= 40f;
+    public GameObject grenadePrefab;
 
     [Header("Jetpack Settings")]
 
@@ -114,9 +111,9 @@ public class Inventory : MonoBehaviour
             int tagIndex = 0;
             notNewPowerups.Add(tag);
             for (int i = 0; i < IEs.Length; i++) if (IEs[i].powerupName == tag) tagIndex = i;
-            GameObject _tooltip = Instantiate(tooltip, worldCanvas.transform);
-            _tooltip.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = IEs[tagIndex].tooltipText;
-            _tooltip.transform.position = transform.position + tooltipOffset;
+            //GameObject _tooltip = Instantiate(tooltip, worldCanvas.transform);
+            //_tooltip.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = IEs[tagIndex].tooltipText;
+            //_tooltip.transform.position = transform.position + tooltipOffset;
         }
 
         for (int i = 0; i < inventorySize; i++)

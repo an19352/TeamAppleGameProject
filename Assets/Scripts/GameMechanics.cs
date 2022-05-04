@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Photon.Pun;
+using Random = System.Random;
 
 public class GameMechanics : MonoBehaviour
 {
@@ -69,13 +70,14 @@ public class GameMechanics : MonoBehaviour
     public List<GameObject> redgens = new List<GameObject>();
     public List<GameObject> greengens = new List<GameObject>();
     public Canvas worldSpaceCanvas;
-    public Transform greenFlags;
+    public Transform blueFlags;
     public Transform redFlags;
     public FlagObjective[] flagObjectives = new FlagObjective[2];
     public List<GameObject> bases;
     public PhotonPlayer PB;
     public bool readyToDeploy = false;
     public GameObject MapGenerator;
+
 
     PhotonView PV;
 
@@ -86,7 +88,7 @@ public class GameMechanics : MonoBehaviour
     public void Start()
     {
         PV = GetComponent<PhotonView>();
-        
+
         activePowerups = new Dictionary<int, UnityEngine.Vector3>();
          if (!PhotonNetwork.IsMasterClient)
            PV.RPC("SendVariables", RpcTarget.MasterClient);
@@ -163,50 +165,69 @@ public class GameMechanics : MonoBehaviour
         Destroy(_obj);
     }
 
-    #region FlagStuff
-    [PunRPC]
-    public void UpdateFlag(int teamID, bool isScore)
+    public void RPC_Score(int teamID)
     {
-        // if isScore is true, add one to flag count, else minus one 
-        if (isScore)
+        PV.RPC("Score", RpcTarget.AllBuffered, teamID);
+    }
+
+    // Increments the score of a team by one
+    [PunRPC]
+    public void Score(int teamID)
+    {
+        string _name = teams[teamID].name;
+        int _score = teams[teamID].score + 1;
+        Text _text = teams[teamID].scoreText;
+        _text.text = _score.ToString();
+
+        teams[teamID] = new Team { name = _name, score = _score, scoreText = _text };
+    }
+
+    #region FlagStuff
+    public void RPC_IncreaseFlag(int teamID)
+    {
+        int voiceID = GenerateCommentary(teamID);
+        PlaySound.playSound.RPC_QueueVoice(voiceID, PhotonNetwork.PlayerList);
+        PV.RPC("IncreaseFlag", RpcTarget.AllBuffered, teamID);
+        PV.RPC("UpdateFlagUI", RpcTarget.AllBuffered);
+    }
+    public void RPC_DecreaseFlag(int teamID)
+    {
+        PV.RPC("DecreaseFlag", RpcTarget.AllBuffered, teamID);
+        PV.RPC("UpdateFlagUI", RpcTarget.AllBuffered);
+        flagObjectives[teamID].objective.GetComponent<ObjectiveFlag>().hasFlag = true;
+    }
+
+    [PunRPC]
+    public void IncreaseFlag(int teamID)
+    {
+        flagObjectives[teamID].flagCount += 1;
+
+
+        // restore generators
+        if (teamID == 1)
         {
-            for (int i = 0; i < flagObjectives.Length; i++)
+            for (int j = 0; j < 3; j++)
             {
-                if (teamID == i)
-                {
-                    flagObjectives[i].flagCount += 1;
-
-                }
-                else
-                {
-                    flagObjectives[i].flagCount -= 1;
-                    // turn on the flag of the side who lost it
-                    flagObjectives[i].objective.GetComponent<ObjectiveFlag>().hasFlag = true;
-
-                    // restore generators
-                    if (teamID == 1)
-                    {
-                        for (int j = 0; j < 3; j++)
-                        {
-                            redgens[j].SetActive(true);
-                        }
-                    }
-                    else
-                    {
-                        for (int j = 0; j < 3; j++)
-                        {
-                            greengens[j].SetActive(true);
-                        }
-                    }
-                }
+                redgens[j].SetActive(true);
             }
         }
-        // retrieve back a stolen flag, so only increment friendly flag count
         else
         {
-            flagObjectives[teamID].flagCount += 1;
+            for (int j = 0; j < 3; j++)
+            {
+                greengens[j].SetActive(true);
+            }
         }
+
+
     }
+
+    [PunRPC]
+    public void DecreaseFlag(int teamID)
+    {
+        flagObjectives[teamID].flagCount -= 1;
+    }
+
 
     [PunRPC]
     public void UpdateFlagUI()
@@ -216,8 +237,8 @@ public class GameMechanics : MonoBehaviour
         // 12 => icon + border
         var redImgs = redFlags.gameObject.GetComponentsInChildren<Image>();
         // 12 => icon + border
-        var greenImgs = greenFlags.gameObject.GetComponentsInChildren<Image>();
-        foreach (Transform flag in greenFlags)
+        var greenImgs = blueFlags.gameObject.GetComponentsInChildren<Image>();
+        foreach (Transform flag in blueFlags)
         {
             var icons = flag.GetComponentsInChildren<Image>();
             foreach (var icon in icons)
@@ -243,21 +264,18 @@ public class GameMechanics : MonoBehaviour
         }
     }
 
-    public void RPC_UpdateFlag(int teamID, bool isScore)
-    {
-        PV.RPC("UpdateFlag", RpcTarget.All, teamID, isScore);
-        // add something here to update the ui
-        PV.RPC("UpdateFlagUI", RpcTarget.All);
-    }
 
-    public void RPC_EnableFlagHolder(int playerID)
+
+    public void RPC_EnableFlagHolder(int playerID, int TeamID)
     {
-        PV.RPC("EnableFlagHolder", RpcTarget.All, playerID);
+        PV.RPC("EnableFlagHolder", RpcTarget.All, playerID, TeamID);
     }
     [PunRPC]
-    public void EnableFlagHolder(int playerID)
+    public void EnableFlagHolder(int playerID, int TeamID)
     {
-        players[playerID].obj.GetComponent<FlagHolder>().enabled = true;
+        FlagHolder fh = players[playerID].obj.GetComponent<FlagHolder>();
+        fh.enabled = true;
+        fh.teamID = TeamID;
     }
 
     public void RPC_DisableFlagHolder(int playerID)
@@ -452,8 +470,10 @@ public class GameMechanics : MonoBehaviour
     [PunRPC]
     void EndGame()
     {
-        PhotonRoom.room.redScore = teams[0].score;
-        PhotonRoom.room.greenScore = teams[1].score;
+        PhotonRoom.room.redFlag = flagObjectives[0].flagCount;
+        PhotonRoom.room.blueFlag = flagObjectives[1].flagCount;
+        PhotonRoom.room.redScore = teams[1].score;
+        PhotonRoom.room.blueScore = teams[0].score;
         SceneManager.LoadScene(2);
     }
 
@@ -468,6 +488,90 @@ public class GameMechanics : MonoBehaviour
     {
         if (PhotonNetwork.IsMasterClient)
             PhotonNetwork.Destroy(PhotonView.Find(PVID).gameObject);
+    }
+
+    int GenerateCommentary(int capTeamID)
+    {
+        int commentaryID = 0;
+        Random ran = new Random();
+        int randomNum;
+
+        if (capTeamID == 1)
+        {
+            if (flagObjectives[1].flagCount < flagObjectives[0].flagCount)
+            {
+                randomNum = ran.Next(2, 6);
+            }
+
+            else
+            {
+                if (flagObjectives[1].flagCount > (flagObjectives[0].flagCount + 1))
+                {
+                    randomNum = ran.Next(1, 3);
+                }
+                else
+                {
+                    randomNum = 2;
+                }
+
+            }
+
+            Debug.Log(randomNum);
+
+            if (randomNum == 1)
+            {
+                commentaryID = 7;
+            }
+
+            if (randomNum == 2)
+            {
+                commentaryID = 6;
+            }
+
+            if (randomNum > 2)
+            {
+                commentaryID = 5;
+            }
+        }
+
+        if (capTeamID == 0)
+        {
+            if (flagObjectives[0].flagCount < flagObjectives[1].flagCount)
+            {
+                randomNum = ran.Next(2, 6);
+            }
+
+            else
+            {
+                if (flagObjectives[0].flagCount > (flagObjectives[1].flagCount + 1))
+                {
+                    randomNum = ran.Next(1, 3);
+                }
+                else
+                {
+                    randomNum = 2;
+                }
+
+            }
+
+            if (randomNum == 1)
+            {
+                commentaryID = 10;
+            }
+
+            if (randomNum == 2)
+            {
+                commentaryID = 9;
+            }
+
+            if (randomNum > 2)
+            {
+                commentaryID = 8;
+            }
+        }
+
+        Debug.Log(commentaryID);
+        return commentaryID;
     }
 
     public void RPC_InitiatePlayer()

@@ -11,18 +11,18 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9f3758f8f58fdef43803eb9be1df0608, type: 3}
   m_Name: PhotonServerSettings
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier:
   AppSettings:
     AppIdRealtime: 17c25373-3a2a-4ca7-82ee-b11b5a10e7c2
-    AppIdFusion: 
-    AppIdChat: 
-    AppIdVoice: 
-    AppVersion: 
+    AppIdFusion:
+    AppIdChat:
+    AppIdVoice:
+    AppVersion:
     UseNameServer: 1
     FixedRegion: eu
-    Server: 
+    Server:
     Port: 0
-    ProxyServer: 
+    ProxyServer:
     Protocol: 0
     EnableProtocolFallback: 1
     AuthMode: 0
@@ -96,6 +96,13 @@ MonoBehaviour:
   - RPC_DestroyComponent
   - JoinTeam
   - LeaveTeam
+  - DecreaseFlag
+  - IncreaseFlag
+  - RPC_PlayVoice
+  - PlayVoice
+  - StartFadeBackgroud
+  - FadeBackground
+  - QueueVoice
   - mapGeneration
   - firstStepGeneration
   - SignalMaster

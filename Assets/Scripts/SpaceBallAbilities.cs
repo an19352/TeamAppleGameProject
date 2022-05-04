@@ -5,7 +5,7 @@ using Photon.Pun;
 
 namespace SpaceBallAbilities
 {
-    // If you want to add a new Powerup: 
+    // If you want to add a new Powerup:
     //          - in this file create a new monobehaviour that inherets from IAbility
     //          - in "Resources/Powerups Settings" create a new InventoryElement (Scriptable Object) for this powerup
     //            This IE will contain everything from how long this powerup should last to its name and icon
@@ -29,6 +29,7 @@ namespace SpaceBallAbilities
         float maxGrabDistance, throwForce;
         Transform objectHolder;
         int grabbedID;
+        //private Grenade _grenade;
         Rigidbody grabbedRB = null;
 
         public void SetUp(string IEtag)
@@ -65,7 +66,7 @@ namespace SpaceBallAbilities
                 {
                     GameObject objectHit = hit.collider.gameObject;
                     float dist = Vector3.Distance(objectHolder.position, objectHit.transform.position);
-                    // make sure to only grab objects that are within a certain distance to the player 
+                    // make sure to only grab objects that are within a certain distance to the player
                     if (dist <= maxGrabDistance)
                     {
                         grabbedRB = objectHit.GetComponent<Rigidbody>();
@@ -239,7 +240,13 @@ namespace SpaceBallAbilities
                 if (PhotonView.Find(toBePushed[i]) != null)
                 {
                     GameObject _obj = PhotonView.Find(toBePushed[i]).gameObject;
-                    _obj.GetComponent<Movement>().PushMe(transform.forward * pushForce, ForceMode.VelocityChange);
+                    Debug.Log(_obj);
+                    _obj.GetComponent<Rigidbody>().AddForce(transform.forward * pushForce, ForceMode.VelocityChange);
+                    if (_obj.GetComponent<Movement>() != null)
+                    {
+                        _obj.GetComponent<Movement>().PushMe(transform.forward * pushForce, ForceMode.VelocityChange);
+
+                    }
                 }
             }
         }
@@ -252,7 +259,11 @@ namespace SpaceBallAbilities
         {
             if (other.CompareTag("Detector") && other.transform.parent != this.transform)
             {
-                toBePushed.Add(other.gameObject.transform.parent.gameObject.GetComponent<PhotonView>().ViewID);
+                toBePushed.Add(other.transform.parent.GetComponent<PhotonView>().ViewID);
+            }
+            if (other.CompareTag("DetectorNonPlayer"))
+            {
+                toBePushed.Add(other.gameObject.GetComponent<PhotonView>().ViewID);
             }
         }
 
@@ -260,58 +271,51 @@ namespace SpaceBallAbilities
         {
             if (other.CompareTag("Detector") && other.transform.parent != this.transform)
             {
-                toBePushed.Remove(other.gameObject.transform.parent.gameObject.GetComponent<PhotonView>().ViewID);
+                toBePushed.Remove(other.gameObject.GetComponent<PhotonView>().ViewID);
+            }
+            if (other.CompareTag("DetectorNonPlayer"))
+            {
+                toBePushed.Remove(other.gameObject.GetComponent<PhotonView>().ViewID);
             }
         }
     }
 
     public class Grenade : MonoBehaviour, IAbility
     {
-        float maxShootDistance;
-        public float throwForce;
-
         InventoryElement IE;
         Inventory inventory;
 
+        Transform objectHolder;
         public GameObject grenadePrefab;
-        Transform shootTransform;
-        //bool hasExploded = false;
-
+        bool hasExploded = false;
         private Camera cameraMain;
         private Vector3 mouseLocation;
-        private Vector3 lookDirection;
-        private Quaternion lookRotation;
-        private int lm;
 
         public void SetUp(string IEtag)
         {
             cameraMain = Camera.main;
-
             IE = InventoryUIManager.inventory.GetIE(IEtag);
             inventory = GetComponent<Inventory>();
             InventoryUIManager.inventory.AddUIElement(IEtag, inventory);
-            cameraMain = Camera.main;
-            
-            maxShootDistance = inventory.maxShootDistance;
-            shootTransform = inventory.shootTransform;
+            grenadePrefab = inventory.grenadePrefab;
+            mouseLocation = Input.mousePosition;
         }
 
         public void RightClick() { return; }
 
         public void LeftClick()
         {
-            mouseLocation = transform.forward;
-            GameObject grenade = Instantiate(grenadePrefab, transform.position, transform.rotation);
-            Rigidbody rb = grenade.GetComponent<Rigidbody>();
-            rb.AddForce(transform.forward * throwForce, ForceMode.VelocityChange);
+            RaycastHit hit;
+            Ray mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-            
-            
+            //int lm = LayerMask.GetMask("Ground");
+            if (Physics.Raycast(mouseRay, out hit, 1000f))
+            {
+                GameObject objectHit = hit.collider.gameObject;
+                PhotonNetwork.Instantiate(grenadePrefab.name, objectHit.transform.position, objectHit.transform.rotation);
+            }
         }
-
-
         public InventoryElement GetIE() { return IE; }
-
     }
 
     public class Coin : MonoBehaviour, IAbility

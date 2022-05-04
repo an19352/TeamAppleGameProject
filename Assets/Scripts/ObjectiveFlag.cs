@@ -2,11 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using Photon.Realtime;
 
 public class ObjectiveFlag : MonoBehaviour
 {
     PhotonView PV;
     public int defendTeam;
+
+    public int otherTeam;
     public bool hasFlag;
     // set to the same value in the inspector
     public float captureDuration;
@@ -57,6 +60,8 @@ public class ObjectiveFlag : MonoBehaviour
 
         currentState = State.Idle;
         fieldRenderer = detectionField.GetComponent<Renderer>();
+
+        otherTeam = defendTeam == 0 ? 1 : 0;
     }
 
     State EvaluateState()
@@ -123,7 +128,7 @@ public class ObjectiveFlag : MonoBehaviour
             case State.Capture:
                 fieldRenderer.material = captureMaterial;
                 // start the capture counter
-                StartCoroutine(StartCaptureCountDown(captureDuration, playerID));
+                StartCoroutine(StartCaptureCountDown(captureDuration, playerID, defendTeam));
                 break;
             case State.Return:
                 fieldRenderer.material = returnMaterial;
@@ -135,11 +140,12 @@ public class ObjectiveFlag : MonoBehaviour
         }
     }
 
-    IEnumerator StartCaptureCountDown(float time, int playerID)
+    IEnumerator StartCaptureCountDown(float time, int playerID, int defendTeam)
     {
         yield return new WaitForSeconds(time);
         hasFlag = false;
-        gameMechanics.RPC_EnableFlagHolder(playerID);
+        gameMechanics.RPC_EnableFlagHolder(playerID, defendTeam);
+        gameMechanics.RPC_DecreaseFlag(defendTeam);
     }
 
     void OnTriggerEnter(Collider other)
@@ -167,9 +173,17 @@ public class ObjectiveFlag : MonoBehaviour
                 gameMechanics.RPC_UpdateDefenders(teamID, true);
                 if (playerEntered.GetComponent<FlagHolder>().enabled)
                 {
-                    gameMechanics.RPC_DisableFlagHolder(playerID);
-                    gameMechanics.RPC_UpdateFlag(defendTeam, true);
 
+                    gameMechanics.RPC_DisableFlagHolder(playerID);
+                    Player[] target = {playerEntered.GetComponent<PhotonView>().Owner};
+                    PlaySound.playSound.RPC_QueueVoice(18, target);
+                    // scoring an enemy flag
+                    // if (playerEntered.GetComponent<FlagHolder>().teamID != defendTeam)
+                    // {
+                    gameMechanics.RPC_IncreaseFlag(defendTeam);
+                    // }
+                    // return a friendly flag
+                    // else { gameMechanics.RPC_UpdateFlag(defendTeam, false); }
                 }
             }
             RPC_ApplyChangesOnState(playerID);

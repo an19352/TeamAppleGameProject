@@ -132,6 +132,13 @@ public class EnergyGenerator : MonoBehaviour, IPunObservable
         }
     }
 
+    public void applyForce(float force)
+    {
+        healthRemain -= force;
+        float fraction = healthRemain / health;
+        healthBarImage.fillAmount = fraction;
+    }
+
       private void OnEnable()
      {
         if (forceShield == null) return;

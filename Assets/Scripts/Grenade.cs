@@ -5,41 +5,24 @@ using Photon.Pun;
 
 public class Grenade : MonoBehaviour
 {
-    PhotonView PV;
-    public GameObject grenadePrefab;
-
-    public float delay = 3f;
-    public float radius = 5f;
-    public float force = 700f;
-    //[SerializeField] float maxShootDistance = 20f;
+    public float delay;
+    public float radius;
+    public float force;
     public GameObject explosionEffect;
-    public Transform shootTransform;
-    public float throwForce;
     float countdown;
     bool hasExploded = false;
     private Rigidbody rb;
-    private Camera cameraMain;
-    private Vector3 mouseLocation;
-    private Vector3 lookDirection;
-    private Quaternion lookRotation;
-    private int lm;
 
     // Start is called before the first frame update
     void Start()
     {
-        PV = GetComponent<PhotonView>();
         rb = GetComponent<Rigidbody>();
         countdown = delay;
-        cameraMain = Camera.main;
-
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!PV.IsMine) return;
-
-        
         countdown -= Time.deltaTime;
         if (countdown <= 0f && !hasExploded)
         {
@@ -47,28 +30,27 @@ public class Grenade : MonoBehaviour
             hasExploded = true;
         }
     }
-    
     void Explode()
     {
-
         // show effect
-        GameObject explosion = Instantiate(explosionEffect, transform.position, transform.rotation);
-
+        GameObject explosion = PhotonNetwork.Instantiate(explosionEffect.name, transform.position, transform.rotation);
+        Debug.Log("explosion instantiated");
         //get nearbyb objects
         Collider[] colliders = Physics.OverlapSphere(transform.position, radius);
 
         // Add force
         foreach (Collider nearbyObject in colliders)
         {
+            //Debug.Log(nearbyObject.tag);
             rb = nearbyObject.GetComponent<Rigidbody>();
+
             if (rb != null)
             {
+                if (nearbyObject.tag == "Generator") nearbyObject.GetComponent<EnergyGenerator>().applyForce(force);
+                if (nearbyObject.tag == "Turret") nearbyObject.GetComponent<Turret>().applyForce(force);
                 rb.AddExplosionForce(force, transform.position, radius);
             }
         }
-
-        //  damage
-
         // remove grenade
         Destroy(gameObject);
         Destroy(explosion);

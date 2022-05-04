@@ -553,6 +553,36 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &3181953028370279175
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1609508732572140421}
+  m_Layer: 0
+  m_Name: followPlayer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1609508732572140421
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3181953028370279175}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 1.023}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_Children: []
+  m_Father: {fileID: 8521386507383712024}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3870454273781675388
 GameObject:
   m_ObjectHideFlags: 0
@@ -618,7 +648,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: New Text
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 53bda6823d9a347bf991fac08e020103, type: 2}
   m_sharedMaterial: {fileID: -1189736206247428788, guid: 53bda6823d9a347bf991fac08e020103, type: 2}
@@ -645,7 +675,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 112.3
+  m_fontSize: 36
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -5712,6 +5742,7 @@ Transform:
   - {fileID: 4437260531889516099}
   - {fileID: 2084328953684413056}
   - {fileID: 3685503338649915622}
+  - {fileID: 1609508732572140421}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5783,6 +5814,8 @@ MonoBehaviour:
   highlightedBlueMaterial: {fileID: 2100000, guid: 641804f865b4bc842a582f010811360a, type: 2}
   highlightedRedMaterial: {fileID: 2100000, guid: 9f8af320ff02940a69574c6c42eda6d0, type: 2}
   playerBody: {fileID: 8521386507383712021}
+  cameraCM: {fileID: 5950118882056293912, guid: 0c12361c44562f04bb857457255a08e5, type: 3}
+  followPlayer: {fileID: 1609508732572140421}
   speed: 26.5
   frictionCoef: 40
   gravityStrength: 13
@@ -5825,7 +5858,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3fb3fefdecf4c84bb63a8537bbb9439, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tooltip: {fileID: 1560234478154502641, guid: 5006d189f7764434f94b7713801b80b1, type: 3}
   tooltipOffset: {x: 5, y: 0, z: 0}
   firstPowerupTag: Impulse Gun
   inventorySize: 8
@@ -5843,9 +5875,7 @@ MonoBehaviour:
   impulseGunHolder: {fileID: 1973076938037938879}
   particleSystem: {fileID: 6164135461106777563}
   pushForce: 40
-  delay: 120
-  radius: 5
-  force: 700
+  grenadePrefab: {fileID: 6045759529378908636, guid: a2da29be360c84b1b80e96c2704e7ef8, type: 3}
   antiGravity: -10
   boosterFlame: {fileID: 7166044610272681018, guid: 646b9a69c9169214ca0779d539d92fb4, type: 3}
 --- !u!114 &4070538607894281487
@@ -5876,6 +5906,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab7a4a62fb829d548897e1e94c7a9c74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  teamID: 0
   droppedBall: {fileID: 815355317453089143, guid: b2314e4357384b44693adcb971d71536, type: 3}
   ball: {fileID: 2084328953684413084}
 --- !u!114 &2286949501575152505
@@ -5898,7 +5929,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8521386507383712022}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 07b4a6206377d4593a93b5d2e3553647, type: 3}
   m_Name: 
@@ -6005,7 +6036,7 @@ Transform:
   m_GameObject: {fileID: 9193128472575831851}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
   m_Children:
   - {fileID: 1052997774889286010}
   m_Father: {fileID: 8521386507383712024}

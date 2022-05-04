@@ -18,11 +18,16 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
     private int currentSceneIndex;
 
     [HideInInspector]
-    public int greenScore;
+    public int blueScore;
     [HideInInspector]
     public int myTeam;
     [HideInInspector]
     public int redScore;
+    [HideInInspector]
+    public int blueFlag;
+    [HideInInspector]
+    public int redFlag;
+    
 
     #region Singleton
 
