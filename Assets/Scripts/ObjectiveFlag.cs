@@ -146,6 +146,7 @@ public class ObjectiveFlag : MonoBehaviour
         hasFlag = false;
         gameMechanics.RPC_EnableFlagHolder(playerID, defendTeam);
         gameMechanics.RPC_DecreaseFlag(defendTeam);
+        
     }
 
     void OnTriggerEnter(Collider other)

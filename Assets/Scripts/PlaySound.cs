@@ -118,6 +118,8 @@ public class PlaySound : MonoBehaviour
      17 - Background Music
      18 - Capture Sound
      19 - Generator Explosion
+     20 - Flag Pickup
+     21 - Shields Down
      */
 
 /*    [PunRPC]

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using Unity.Mathematics;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -24,6 +25,7 @@ public class ForceShield : MonoBehaviour
         if (generatorDestroyed >= 3)
         {
             //Instantiate(explosion, transform.position, transform.rotation);
+            PlaySound.playSound.RPC_QueueVoice(21, PhotonNetwork.PlayerList);
             gameObject.SetActive(false);
         }
     }
