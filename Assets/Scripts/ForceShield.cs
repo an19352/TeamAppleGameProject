@@ -24,9 +24,16 @@ public class ForceShield : MonoBehaviour
 
         if (generatorDestroyed >= 3)
         {
-            //Instantiate(explosion, transform.position, transform.rotation);
-            PlaySound.playSound.RPC_QueueVoice(21, PhotonNetwork.PlayerList);
-            gameObject.SetActive(false);
+            StartCoroutine(GeneratorsDown());
         }
+    }
+
+    IEnumerator GeneratorsDown()
+    {
+        //Instantiate(explosion, transform.position, transform.rotation);
+        yield return new WaitForSeconds(PlaySound.playSound.sounds[19].clip.length);
+        PlaySound.playSound.RPC_QueueVoice(21, PhotonNetwork.PlayerList);
+        gameObject.SetActive(false);
+        yield return null;
     }
 }
