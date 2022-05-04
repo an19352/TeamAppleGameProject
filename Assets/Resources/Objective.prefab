@@ -5191,6 +5191,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defendTeam: 0
+  otherTeam: 0
   hasFlag: 0
   captureDuration: 5
   captureCounter: 5

@@ -165,7 +165,7 @@ public class GameMechanics : MonoBehaviour
         Destroy(_obj);
     }
 
-    public void RPC_Score(int teamID)
+/*   public void RPC_Score(int teamID)
     {
         PV.RPC("Score", RpcTarget.AllBuffered, teamID);
     }
@@ -180,7 +180,7 @@ public class GameMechanics : MonoBehaviour
         _text.text = _score.ToString();
 
         teams[teamID] = new Team { name = _name, score = _score, scoreText = _text };
-    }
+    }*/
 
     #region FlagStuff
     public void RPC_IncreaseFlag(int teamID)
@@ -233,7 +233,7 @@ public class GameMechanics : MonoBehaviour
     public void UpdateFlagUI()
     {
         redFlags.gameObject.SetActive(true);
-        greenFlags.gameObject.SetActive(true);
+        blueFlags.gameObject.SetActive(true);
         // 12 => icon + border
         var redImgs = redFlags.gameObject.GetComponentsInChildren<Image>();
         // 12 => icon + border

@@ -1468,7 +1468,7 @@ MonoBehaviour:
   redgens: []
   greengens: []
   worldSpaceCanvas: {fileID: 1451163883}
-  greenFlags: {fileID: 1124631354}
+  blueFlags: {fileID: 1124631354}
   redFlags: {fileID: 540473}
   flagObjectives: []
   bases: []
@@ -2756,7 +2756,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1124631354}
   m_Layer: 5
-  m_Name: GreenFlags
+  m_Name: BlueFlags
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
