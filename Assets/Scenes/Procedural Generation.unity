@@ -4942,10 +4942,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
-  offset: {x: 20, y: -20, z: 0}
-  focalOffsets: {x: 5, y: 0, z: 0}
+  offset: {x: 0, y: -13, z: 20}
+  focalOffsets: {x: 0, y: 0, z: 0}
   smoothMotion: 1
-  smoothSpeed: 4.2
+  smoothSpeed: 1.5
   attachToPlayer: 0
 --- !u!1001 &1295678934
 PrefabInstance:

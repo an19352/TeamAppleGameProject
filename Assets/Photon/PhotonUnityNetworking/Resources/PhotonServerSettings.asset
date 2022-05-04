@@ -112,6 +112,7 @@ MonoBehaviour:
   - ActivateMovement
   - SetColour
   - SetSpawnPoint
+  - SendQueue
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

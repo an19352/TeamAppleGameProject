@@ -11,6 +11,7 @@ public class FollowPlayer : MonoBehaviour
     public Vector3 focalOffsets;
     public bool smoothMotion = false;
     public float smoothSpeed = 1.25f;
+    public float rubberBand = 1f;
     public bool attachToPlayer = false;
 
     // Update is called once per frame
