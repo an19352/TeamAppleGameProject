@@ -33,9 +33,8 @@ public class Grenade : MonoBehaviour
     void Explode()
     {
         // show effect
-        Debug.Log("call");
-        GameObject explosion = Instantiate(explosionEffect, transform.position, transform.rotation);
-        Debug.Log("called");
+        GameObject explosion = PhotonNetwork.Instantiate(explosionEffect.name, transform.position, transform.rotation);
+        Debug.Log("explosion instantiated");
         //get nearbyb objects
         Collider[] colliders = Physics.OverlapSphere(transform.position, radius);
         

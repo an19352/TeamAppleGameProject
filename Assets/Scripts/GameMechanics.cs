@@ -447,8 +447,8 @@ public class GameMechanics : MonoBehaviour
     {
         PhotonRoom.room.redFlag = flagObjectives[0].flagCount;
         PhotonRoom.room.blueFlag = flagObjectives[1].flagCount;
-        PhotonRoom.room.redScore = teams[0].score;
-        PhotonRoom.room.blueScore = teams[1].score;
+        PhotonRoom.room.redScore = teams[1].score;
+        PhotonRoom.room.blueScore = teams[0].score;
         SceneManager.LoadScene(2);
     }
 

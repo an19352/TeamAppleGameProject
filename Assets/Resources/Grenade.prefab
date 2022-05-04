@@ -175,4 +175,4 @@ MonoBehaviour:
   delay: 3
   radius: 5
   force: 50
-  explosionEffect: {fileID: 7270086744859371354, guid: 35f496de0970443698bd8c2d00b66624, type: 3}
+  explosionEffect: {fileID: 5163739055296440128, guid: 41a0234baffd74ec2ab5a3b1bdccaefa, type: 3}
