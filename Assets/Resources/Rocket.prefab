@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 162807523679362662}
   - component: {fileID: -7982857937698082331}
+  - component: {fileID: 3532503464005831573}
+  - component: {fileID: 1487758413029343267}
   m_Layer: 0
   m_Name: Rocket
   m_TagString: Untagged
@@ -67,6 +69,36 @@ MonoBehaviour:
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!54 &3532503464005831573
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 651254172277736668}
+  serializedVersion: 2
+  m_Mass: 60
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!64 &1487758413029343267
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 651254172277736668}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 1934444970998904435, guid: ceab0248a08874d539025d250d50433a, type: 3}
 --- !u!1 &831520842932852178
 GameObject:
   m_ObjectHideFlags: 0
