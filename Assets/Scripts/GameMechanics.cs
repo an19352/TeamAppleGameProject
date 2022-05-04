@@ -194,6 +194,7 @@ public class GameMechanics : MonoBehaviour
     [PunRPC]
     public void UpdateFlag(int teamID, bool isScore)
     {
+        PlaySound.playSound.sounds[0].Play();
         // if isScore is true, add one to flag count, else minus one 
         if (isScore)
         {
