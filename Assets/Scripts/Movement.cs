@@ -73,7 +73,6 @@ public class Movement : MonoBehaviour, IPunObservable
 
         player = transform;
         cameraMain = Camera.main;
-
         if (PV.IsMine && gameMechanics != null)
         {
             transform.GetChild(0).gameObject.SetActive(true);
@@ -120,8 +119,8 @@ public class Movement : MonoBehaviour, IPunObservable
         
         jumpInput = Input.GetButton("Jump");
 
-        zAxisInput = -Input.GetAxis(horizontalAxis);
-        xAxisInput = Input.GetAxis(verticalAxis);
+        zAxisInput = Input.GetAxis(verticalAxis);
+        xAxisInput = Input.GetAxis(horizontalAxis);
     }
 
     void FixedUpdate()
