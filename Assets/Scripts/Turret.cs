@@ -49,7 +49,7 @@ public class Turret : MonoBehaviour, IPunObservable
     // Update is called once per frame
     void Update()
     {
-        // if (!PV.IsMine) return;
+        if (!PV.IsMine) return;
         if (healthRemain <= 0)
         {
             // Debug.Log(fsScript.generatorDestroyed);
@@ -66,13 +66,14 @@ public class Turret : MonoBehaviour, IPunObservable
             partToRotate.rotation = Quaternion.Euler(0f, smoothRotation.eulerAngles.y, 0f);
             if (fireCountDown <= 0)
             {
-                Shoot();
+                PV.RPC("Shoot",RpcTarget.All);
                 fireCountDown = 1 / fireRate;
             }
             fireCountDown -= Time.deltaTime;
         }
     }
 
+    [PunRPC]
     void Shoot()
     {
         // Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
@@ -154,9 +155,9 @@ public class Turret : MonoBehaviour, IPunObservable
         Collider[] playersInRadius = Physics.OverlapSphere(transform.position, explosionRadius, players, 0);
         foreach (Collider player in playersInRadius)
         {
-            Debug.Log(player);
+            //Debug.Log(player);
             Vector3 pushFactor = (player.transform.position - transform.position).normalized * pushForce;
-            Debug.Log(pushFactor);
+            //Debug.Log(pushFactor);
             player.GetComponent<Movement>().RPC_PushMe(pushFactor, ForceMode.Impulse);
         }
     }

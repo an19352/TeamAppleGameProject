@@ -36,7 +36,7 @@ public class Bullet : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            other.attachedRigidbody.AddForce(rb.velocity * bulletForce, ForceMode.Force);
+            other.GetComponent<Movement>().RPC_PushMe(rb.velocity * bulletForce, ForceMode.Force);
         }
     }
 }
