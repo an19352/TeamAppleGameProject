@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.1962879, g: 0.09740276, b: 0.11954967, a: 1}
+  m_IndirectSpecularColor: {r: 0.19634691, g: 0.09731356, b: 0.119633995, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3485,6 +3485,10 @@ MonoBehaviour:
     reach: 35
     verticalReach: 2.5
     chance: 0.06
+  - prefab: {fileID: 4821233131761326416, guid: 1228a0c565c214fd6a26155a0881b3d5, type: 3}
+    reach: 35
+    verticalReach: 2.5
+    chance: 0.14
   specialPlatforms:
   - prefab: {fileID: 2479892074112479611, guid: d0309f77de521c44482a6b3b2913322b, type: 3}
     reach: 25
