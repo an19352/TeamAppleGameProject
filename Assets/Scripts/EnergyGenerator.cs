@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using Photon.Pun;
 using System.Linq;
 using ExitGames.Client.Photon.StructWrapping;
+using Photon.Realtime;
 
 public class EnergyGenerator : MonoBehaviour, IPunObservable
 {
@@ -26,7 +27,7 @@ public class EnergyGenerator : MonoBehaviour, IPunObservable
     [Header("Do not mess with")]
     public Transform healthBar;
 
-    private LayerMask players;
+    public LayerMask players;
 
     private ForceShield fsScript;
     private Image healthBarImage;
@@ -83,6 +84,8 @@ public class EnergyGenerator : MonoBehaviour, IPunObservable
     void CreateExplosion()
     {
         GameObject explosion = PhotonNetwork.Instantiate(explosionEffect.name, transform.position, transform.rotation);
+        NotifyNearbyPlayers();
+        Debug.Log("exploded");
         // Debug.Log("explosion instantiated");
 
         // RepelNearbyPlayers();
@@ -159,6 +162,18 @@ public class EnergyGenerator : MonoBehaviour, IPunObservable
             Vector3 pushFactor = (player.transform.position - transform.position).normalized * pushForce;
             Debug.Log(pushFactor);
             player.GetComponent<Movement>().RPC_PushMe(pushFactor, ForceMode.Impulse);
+        }
+    }
+    
+    void NotifyNearbyPlayers()
+    {
+        Debug.Log(transform.position);
+        Collider[] playersInRadius = Physics.OverlapSphere(transform.position, explosionRadius, players, 0);
+        foreach (Collider player in playersInRadius)
+        {
+            Player[] target = {player.GetComponent<PhotonView>().Owner};
+            PlaySound.playSound.RPC_QueueVoice(19, target);
+            Debug.Log(player);
         }
     }
 

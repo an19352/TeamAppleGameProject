@@ -53,10 +53,8 @@ public class PlaySound : MonoBehaviour
         {
             if (voiceQueue.Count > 0)
             {
-                Debug.Log("play queue");
                 lastPlayed = voiceQueue.Dequeue();
                 sounds[lastPlayed].Play();
-                Debug.Log("finished");
             }
 
             if (sounds[17].volume != 1)
@@ -119,6 +117,7 @@ public class PlaySound : MonoBehaviour
      16 - R-FD3
      17 - Background Music
      18 - Capture Sound
+     19 - Generator Explosion
      */
 
 /*    [PunRPC]
