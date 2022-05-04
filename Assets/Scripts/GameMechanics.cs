@@ -267,6 +267,8 @@ public class GameMechanics : MonoBehaviour
 
     public void RPC_EnableFlagHolder(int playerID, int TeamID)
     {
+        Photon.Realtime.Player[] target = { players[playerID].obj.GetComponent<PhotonView>().Owner };
+        PlaySound.playSound.RPC_QueueVoice(20, target);
         PV.RPC("EnableFlagHolder", RpcTarget.All, playerID, TeamID);
     }
     [PunRPC]
