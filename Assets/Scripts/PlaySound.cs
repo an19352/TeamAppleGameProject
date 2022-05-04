@@ -9,13 +9,13 @@ public class PlaySound : MonoBehaviour
     
     #region Singleton
 
-    private void Awake()
-    {
-        if (PlaySound.playSound == null) PlaySound.playSound = this;
-        else if (PlaySound.playSound != this)
-        {
-            Destroy(PlaySound.playSound.gameObject);
-            PlaySound.playSound = this;
+    private void Awake()      //PlaySound is on the Player Avatar
+    {   
+        if (PlaySound.playSound == null) PlaySound.playSound = this; //if there is no playSound, this one becomes the main one
+        else if (PlaySound.playSound != this) 
+        { // if a PlaySound already existing (on a different player avatar) ...
+            Destroy(PlaySound.playSound.gameObject);  // ... destroy the different player avatar
+            PlaySound.playSound = this;  // and this PlaySound takes its place as the main one.
         }
     }
 
