@@ -76,6 +76,7 @@ public class Movement : MonoBehaviour, IPunObservable
 
         if (PV.IsMine && gameMechanics != null)
         {
+            transform.GetChild(0).gameObject.SetActive(true);
             plane.SetActive(true);
             int team = gameMechanics.checkTeam(ID);
             PV.RPC("SetColour", RpcTarget.All, team);
