@@ -257,7 +257,7 @@ namespace SpaceBallAbilities
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.CompareTag("Detector") && other.transform.parent != this.transform)
+            if (other.CompareTag("Detector") && other.transform.parent != transform)
             {
                 toBePushed.Add(other.transform.parent.GetComponent<PhotonView>().ViewID);
             }
@@ -269,9 +269,9 @@ namespace SpaceBallAbilities
 
         private void OnTriggerExit(Collider other)
         {
-            if (other.CompareTag("Detector") && other.transform.parent != this.transform)
+            if (other.CompareTag("Detector") && other.transform.parent != transform)
             {
-                toBePushed.Remove(other.gameObject.GetComponent<PhotonView>().ViewID);
+                toBePushed.Remove(other.transform.parent.GetComponent<PhotonView>().ViewID);
             }
             if (other.CompareTag("DetectorNonPlayer"))
             {
