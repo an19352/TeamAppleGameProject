@@ -244,16 +244,16 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2764346035584721172}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.8, y: 0.8, z: 1}
+  m_LocalScale: {x: 1.6000001, y: 1.6000001, z: 2}
   m_Children: []
-  m_Father: {fileID: 2764346035856869374}
-  m_RootOrder: 2
+  m_Father: {fileID: 8975350660829879184}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 2}
+  m_AnchoredPosition: {x: 0, y: 8.43}
   m_SizeDelta: {x: 2, y: 0.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2764346035584721169
@@ -326,7 +326,6 @@ RectTransform:
   m_Children:
   - {fileID: 2764346036526336685}
   - {fileID: 2764346034826726440}
-  - {fileID: 2764346035584721171}
   m_Father: {fileID: 8975350660829879184}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -601,6 +600,7 @@ Transform:
   - {fileID: 8962771171832102526}
   - {fileID: 1605851495195203859}
   - {fileID: 2764346035856869374}
+  - {fileID: 2764346035584721171}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
@@ -640,6 +640,7 @@ MonoBehaviour:
   observableSearch: 2
   ObservedComponents:
   - {fileID: 7921339610122198978}
+  - {fileID: 6546335722337937719}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -673,6 +674,7 @@ MonoBehaviour:
   players:
     serializedVersion: 2
     m_Bits: 0
+  healthBarImage: {fileID: 2764346035584721170}
 --- !u!136 &8910636885802292225
 CapsuleCollider:
   m_ObjectHideFlags: 0

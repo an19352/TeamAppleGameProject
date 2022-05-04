@@ -32,7 +32,7 @@ public class Turret : MonoBehaviour, IPunObservable
     public LayerMask players;
 
     private ForceShield fsScript;
-    private Image healthBarImage;
+    public Image healthBarImage;
     ObjectPooler poolOfObject;
 
     // Start is called before the first frame update
@@ -41,7 +41,7 @@ public class Turret : MonoBehaviour, IPunObservable
 
         PV = this.GetComponent<PhotonView>();
         // Transform canvas = this.gameObject.transform.Find("Canvas");
-        healthBarImage = healthBar.gameObject.GetComponent<Image>();
+        //healthBarImage = healthBar.gameObject.GetComponent<Image>();
         poolOfObject = ObjectPooler.OP;
         InvokeRepeating("UpdateTarget", 0f, 0.5f);
     }
