@@ -36,6 +36,8 @@ public class Movement : MonoBehaviour, IPunObservable
     Quaternion lookRotation;
     Vector3 mouseLocation;
 
+    Vector3 SpawningPosition;
+
     public string horizontalAxis;
     public string verticalAxis;
     public LayerMask mousecastPlane;
@@ -65,6 +67,7 @@ public class Movement : MonoBehaviour, IPunObservable
         PV = GetComponent<PhotonView>();
         gameMechanics = GameMechanics.gameMechanics;
         shadowInsatance = Instantiate(shadow);
+        SpawningPosition = transform.position;
 
         //Debug.Log(gameObject.transform.GetChild(9).GetChild(0).GetChild(2).GetChild(0).GetChild(11).GetChild(7).GetComponent<Renderer>().material);
 
@@ -215,38 +218,14 @@ public class Movement : MonoBehaviour, IPunObservable
     // ReSpawn mechanic
     public void Spawn(int spawnPointID = -1)
     {
-
-        float greenX = Random.Range(-145, -145);
-        float greenZ = Random.Range(-16, 16);
-        float redX = Random.Range(145, 145);
-        float redZ = Random.Range(-16, 16);
-        int team = 0;
-
         if (gameMechanics == null)
-        {
             player.position = new Vector3(0, 4, 0);
-        }
         else
-        {
-            team = gameMechanics.checkTeam(ID);
-
-            /*if (spawnPointID < 0)
-                player.position = new Vector3(0f, 4f, 0f);
-            else
-                player.position = gameMechanics.spawnPpoints[spawnPointID].position;*/
-
-            if (team == 1)
-            {
-                player.position = new Vector3(greenX, 6, greenZ);
-            }
-            else
-            {
-                player.position = new Vector3(redX, 6, redZ);
-            }
-        }
+            player.position = SpawningPosition;
 
         if (gameMechanics != null)
             GetComponent<Inventory>().ClearInventory();
+
         player.rotation = new Quaternion(0f, 0f, 0f, 0f);
         playerBody.angularVelocity = new Vector3(0f, 0f, 0f);
         playerBody.velocity = new Vector3(0f, 0f, 0f);

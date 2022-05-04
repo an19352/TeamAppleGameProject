@@ -90,8 +90,7 @@ public class GameMechanics : MonoBehaviour
         PV = GetComponent<PhotonView>();
 
         activePowerups = new Dictionary<int, UnityEngine.Vector3>();
-         if (!PhotonNetwork.IsMasterClient)
-           PV.RPC("SendVariables", RpcTarget.MasterClient);
+
 
         //for (int i = 0; i < players.Count; i++)
         //  players[i].obj.GetComponent<Movement>().SetId(i);
@@ -583,6 +582,10 @@ public class GameMechanics : MonoBehaviour
     void InitiatePlayer()
     {
         UpdateFlagUI();
+
+        if (PhotonNetwork.IsMasterClient)
+            SendVariables();
+
         PB.InitiatePlayer();
     }
 }

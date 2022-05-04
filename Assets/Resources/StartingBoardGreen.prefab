@@ -9638,6 +9638,66 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
+--- !u!1 &4108229486282354446
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2090546900714287814}
+  m_Layer: 0
+  m_Name: PlayerSpawningPoint1
+  m_TagString: Untagged
+  m_Icon: {fileID: 1206586993520771344, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2090546900714287814
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4108229486282354446}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.5, y: 0.1, z: -0.2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 3044513262249292885}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4130173214339991816
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4567289705410201284}
+  m_Layer: 0
+  m_Name: PlayerSpawningPoint0
+  m_TagString: Untagged
+  m_Icon: {fileID: 1206586993520771344, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4567289705410201284
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4130173214339991816}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.5, y: 0.1, z: -0.29}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 3044513262249292885}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4735223619352859789
 GameObject:
   m_ObjectHideFlags: 0
@@ -14451,6 +14511,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4993819792352137872}
+  - component: {fileID: 3330406190159901121}
   m_Layer: 0
   m_Name: StartingBoardGreen
   m_TagString: Ground
@@ -14475,6 +14536,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3330406190159901121
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4855106600265033456}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcc7fa91f5eef11479dec79f709b1532, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerSpawningPoints:
+  - {fileID: 4567289705410201284}
+  - {fileID: 2090546900714287814}
+  - {fileID: 6540572870943259064}
 --- !u!1 &7233580317739088708
 GameObject:
   m_ObjectHideFlags: 0
@@ -19279,6 +19356,36 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
+--- !u!1 &8295023690356641113
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6540572870943259064}
+  m_Layer: 0
+  m_Name: PlayerSpawningPoint2
+  m_TagString: Untagged
+  m_Icon: {fileID: 1206586993520771344, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6540572870943259064
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8295023690356641113}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.295, z: -1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 3044513262249292885}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &9039489979565750640
 GameObject:
   m_ObjectHideFlags: 0
@@ -19399,14 +19506,14 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: -6429665713675441687, guid: bd78a2a15475a1d4698780a7d85602de, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: bd78a2a15475a1d4698780a7d85602de, type: 3}
---- !u!1 &1270729531498153093 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 807309145668344836, guid: bd78a2a15475a1d4698780a7d85602de, type: 3}
-  m_PrefabInstance: {fileID: 1915906307374160001}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1939179426901892671 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 36015364941547198, guid: bd78a2a15475a1d4698780a7d85602de, type: 3}
+  m_PrefabInstance: {fileID: 1915906307374160001}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1270729531498153093 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 807309145668344836, guid: bd78a2a15475a1d4698780a7d85602de, type: 3}
   m_PrefabInstance: {fileID: 1915906307374160001}
   m_PrefabAsset: {fileID: 0}
 --- !u!64 &861601461855915012
@@ -19530,14 +19637,14 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 338787324af13b44c99d0f2d2eb7a930, type: 3}
   m_PrefabInstance: {fileID: 3299715565692179390}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &8551904893493654338 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: -2637831870033305348, guid: 338787324af13b44c99d0f2d2eb7a930, type: 3}
-  m_PrefabInstance: {fileID: 3299715565692179390}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &7343277037552369787 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5197855854186943429, guid: 338787324af13b44c99d0f2d2eb7a930, type: 3}
+  m_PrefabInstance: {fileID: 3299715565692179390}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8551904893493654338 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -2637831870033305348, guid: 338787324af13b44c99d0f2d2eb7a930, type: 3}
   m_PrefabInstance: {fileID: 3299715565692179390}
   m_PrefabAsset: {fileID: 0}
 --- !u!64 &7162589366259691828

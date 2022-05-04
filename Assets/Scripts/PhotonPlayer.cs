@@ -9,6 +9,7 @@ public class PhotonPlayer : MonoBehaviourPunCallbacks
 {
     private PhotonView PV;
     GameMechanics gameMechanics;
+    Transform spawningPoint;
 
     [HideInInspector]
     public GameObject myAvatar;
@@ -58,30 +59,14 @@ public class PhotonPlayer : MonoBehaviourPunCallbacks
     // Update is called once per frame
     public void InitiatePlayer()
     {
-        float x;
-        float z;
-        float greenX = Random.Range(-145, -145);
-        float greenZ = Random.Range(-16, 16);
-        float redX = Random.Range(145, 145);
-        float redZ = Random.Range(-16, 16);
         int playerLayer;
 
         if (PV.IsMine)
         {
-            if (team == 1)
-            {
-                playerLayer = 13;
-                z = greenZ;
-                x = greenX;
-            }
-            else
-            {
-                playerLayer = 12;
-                z = redZ;
-                x = redX;
+            PV.RPC("SetSpawnPoint", RpcTarget.All, team);
+            playerLayer = 12 + team;
 
-            }
-            myAvatar = PhotonNetwork.Instantiate(playerPrefab.name, new Vector3(x, 6, z), Quaternion.identity, 0);
+            myAvatar = PhotonNetwork.Instantiate(playerPrefab.name, spawningPoint.position, spawningPoint.rotation, 0);
             myAvatar.layer = playerLayer;
             gameMechanics.RPC_AddPlayer(myAvatar, team);
 
@@ -99,5 +84,11 @@ public class PhotonPlayer : MonoBehaviourPunCallbacks
             }
             //Debug.Log(16);
         }
+    }
+
+    [PunRPC]
+    public void SetSpawnPoint(int _team)
+    {
+        spawningPoint = GameMechanics.gameMechanics.bases[_team].GetComponent<ListSpawningPoints>().BookSpawn();
     }
 }
