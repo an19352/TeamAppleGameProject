@@ -57,27 +57,25 @@ public class ObjectPooler : MonoBehaviour
             }
         }
 
-/*        if (!PhotonNetwork.IsMasterClient)
-        {
-            PV.RPC("SendPoolDic", RpcTarget.MasterClient);
+        if (!PhotonNetwork.IsMasterClient)
             return;
-        }
-
-        synced = true;
 
         foreach (Pool pool in pools)
             if (pool.prefab.GetComponent<PhotonView>())
             {
+                int[] queueViewIDs = new int[pool.size];
                 Queue<GameObject> objectPool = new Queue<GameObject>();
 
                 for (int i = 0; i < pool.size; i++)
                 {
                     obj = PhotonNetwork.Instantiate(pool.prefab.name, transform.position, Quaternion.identity);
+                    queueViewIDs[i] = obj.GetComponent<PhotonView>().ViewID;
                     obj.SetActive(false);
                     objectPool.Enqueue(obj);
                 }
                 poolDictionary.Add(pool.tag, objectPool);
-            }*/
+                PV.RPC("SendQueue", RpcTarget.Others, pool.tag, queueViewIDs);
+            }
     }
 
     public GameObject SpawnFromPool(string tag, Vector3 position, Quaternion rotation)
@@ -104,6 +102,19 @@ public class ObjectPooler : MonoBehaviour
     }
 
     [PunRPC]
+    void SendQueue(string tag, int[] queueViewID)
+    {
+        Queue<GameObject> _queue = new Queue<GameObject>();
+        for (int i = 0; i < queueViewID.Length; i++)
+        {
+            GameObject _obj = PhotonView.Find(queueViewID[i]).gameObject;
+            _obj.SetActive(false);
+            _queue.Enqueue(_obj);
+        }
+        poolDictionary.Add(tag, _queue);
+    }
+
+/*    [PunRPC]
     void SyncPoolDic(string[] tags, int[] queueViewID, int[] queueLengths)
     {
         if (synced) return;
@@ -157,5 +168,5 @@ public class ObjectPooler : MonoBehaviour
         }
 
         PV.RPC("SyncPoolDic", RpcTarget.Others, tags, queueViewIDs, queueLengths);
-    }
+    }*/
 }
