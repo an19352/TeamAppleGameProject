@@ -50,7 +50,7 @@ public class Grenade : MonoBehaviour
                 if (nearbyObject.tag == "Turret") nearbyObject.GetComponent<Turret>().applyForce(force);
                 if (nearbyObject.tag == "Player")
                 {
-                    Vector3 pforce = (rb.position - transform.position) * force;
+                    Vector3 pforce = (rb.position - transform.position).normalized * force;
                     nearbyObject.GetComponent<Movement>().PushMe(pforce,ForceMode.VelocityChange);
                 }
                 //rb.AddExplosionForce(force, transform.position, radius);
