@@ -33,19 +33,19 @@ public class Arrow : MonoBehaviour
         float dist3;
         Dictionary<float, GameObject> dist = new Dictionary<float, GameObject>();
 
-        if (generator1.activeSelf)
+        if (generator1 !=null && generator1.activeSelf)
         {
             dist1 = Vector3.Distance(player.transform.position, generator1.transform.position);
             dist.Add(dist1, generator1);
         }
 
-        if (generator2.activeSelf)
+        if (generator1 !=null && generator2.activeSelf)
         {
             dist2 = Vector3.Distance(player.transform.position, generator2.transform.position);
             dist.Add(dist2, generator2);
         }
 
-        if (generator3.activeSelf)
+        if (generator1 !=null && generator3.activeSelf)
         {
             dist3 = Vector3.Distance(player.transform.position, generator3.transform.position);
             dist.Add(dist3, generator3);
@@ -75,12 +75,20 @@ public class Arrow : MonoBehaviour
         arrow.transform.localEulerAngles = new Vector3(0, 180, a);
     }
 
-    public void getgens(List<GameObject> gens)
+    public void getgens(List<GameObject> gens, GameObject redbase, GameObject greenbase, int t)
     {
+        if (t == 0)
+        {
+            flag = greenbase.transform.GetChild(2).gameObject;
+            home = redbase.transform.GetChild(2).gameObject; 
+        }
+        else
+        {
+            flag = redbase.transform.GetChild(2).gameObject;
+            home = greenbase.transform.GetChild(2).gameObject;
+        }
         generator1 = gens[0];
         generator2 = gens[1];
         generator3 = gens[2];
-        flag = gens[3];
-        home = gens[4];
     }
 }

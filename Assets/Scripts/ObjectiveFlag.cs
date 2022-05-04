@@ -19,15 +19,15 @@ public class ObjectiveFlag : MonoBehaviour
     public Material stalemateMaterial;
     public Material returnMaterial;
     // red <-> green 
-    public GameObject otherObjectiveFlag;
+   // public GameObject otherObjectiveFlag;
 
     public List<GameMechanics.Player> playerList;
-    public int numOfAttackers, numOfDefenders;
+    public int numOfAttackers = 0, numOfDefenders = 0;
     public int firstEnteredId;
 
 
-    private GameObject flag;
-    private GameObject detectionField;
+    public GameObject flag;
+    public GameObject detectionField;
     private GameMechanics gameMechanics;
     private enum State
     {
@@ -45,22 +45,23 @@ public class ObjectiveFlag : MonoBehaviour
     {
         PV = GetComponent<PhotonView>();
         hasFlag = true;
-        flag = transform.Find("Ball").gameObject;
-        detectionField = transform.Find("DetectionField").gameObject;
+        //flag = transform.Find("Ball").gameObject;
+        //detectionField = transform.Find("DetectionField").gameObject;
         gameMechanics = GameMechanics.gameMechanics;
         if (gameMechanics == null) return;
-        numOfAttackers = gameMechanics.flagObjectives[defendTeam].numOfAttackers;
-        numOfDefenders = gameMechanics.flagObjectives[defendTeam].numOfDefenders;
+
+        float distanceRed = Vector3.Distance(transform.position, gameMechanics.bases[0].transform.position);
+        float distanceBlue = Vector3.Distance(transform.position, gameMechanics.bases[1].transform.position);
+
+        if (distanceRed > distanceBlue) defendTeam = 1;
+        else defendTeam = 0;
+
+        gameMechanics.flagObjectives[defendTeam] = new GameMechanics.FlagObjective(gameObject);
+
         currentState = State.Idle;
         fieldRenderer = detectionField.GetComponent<Renderer>();
 
         otherTeam = defendTeam == 0 ? 1 : 0;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (!PV.IsMine) return;
     }
 
     State EvaluateState()
@@ -150,6 +151,7 @@ public class ObjectiveFlag : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         if (!PhotonNetwork.IsConnected) return;
+        if (PV == null) return;
         if (!PV.IsMine) return;
         // track players as they enter the detection field
         if (other.gameObject.CompareTag("Player") && !playerList.Exists(player => player.obj == other.gameObject))

@@ -1,8 +1,14 @@
 using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
+using Photon.Pun;
 
 public class MapGenerator : MonoBehaviour
 {
+    PhotonView PV;
+    [HideInInspector]
+    public int indicator = 0;
+
     [System.Serializable]
     public struct PlatformType
     {
@@ -13,6 +19,7 @@ public class MapGenerator : MonoBehaviour
 
         public void modifyChance(float newChance)
         {
+            Debug.LogWarning("Chance modified for " + prefab.name + " from " + chance.ToString() + " to " + newChance.ToString());
             chance = newChance;
         }
     }
@@ -32,6 +39,9 @@ public class MapGenerator : MonoBehaviour
             board = type;
         }
     }
+    public int ones = 0;
+    public int zeros = 0;
+    public int difference = 0;
 
     public struct TreeElement
     {
@@ -50,11 +60,12 @@ public class MapGenerator : MonoBehaviour
     }
     public List<TreeElement> tree = new List<TreeElement>();
     public List<TreeElement> mirrortree = new List<TreeElement>();
+    List<BoardSetup.PhotonSpawnable> photonSpawnables = new List<BoardSetup.PhotonSpawnable>();
 
     public Vector3 startingPosition;
     public List<PlatformType> platformTypes;
     public List<PlatformType> specialPlatforms;
-    float chanceSum = 0f;
+    //float chanceSum = 0f;
 
     public int width = 15;
     public int height = 15;
@@ -65,12 +76,14 @@ public class MapGenerator : MonoBehaviour
 
     public GameObject greenbase;
     public GameObject redbase;
+    public GameObject objectivePrefab; 
     [SerializeField]
 
     public int InitState = 13;
     public bool Generate_Again = false;
+    int[] PVIDs = new int[2];
 
-    public void OnValidate()
+/*    public void OnValidate()
     {
         if (Generate_Again)
         {
@@ -89,18 +102,75 @@ public class MapGenerator : MonoBehaviour
 
             Generate_Again = false;
         }
-    }
+    }*/
 
     void Start()
     {
         //map = new Platform[width, height];
-        foreach (PlatformType plt in platformTypes) chanceSum += plt.chance;
+        //foreach (PlatformType plt in platformTypes) chanceSum += plt.chance;
 
-        //Random.InitState(InitState);
-        if (method == 1) first_method();
-        else if (method == 2) second_method();
-        else if (method == 3) third_method();
-        else if (method == 4) fourth_method();
+        PV = GetComponent<PhotonView>();
+        PV.RPC("Awaken", RpcTarget.MasterClient);
+
+/*        //Random.InitState(InitState);
+        if (Random.Range(0.0f, 1.0f) > 0.5f) second_method();
+        else third_method();*/
+    }
+
+    [PunRPC]
+    void Awaken()
+    {
+        if(!PhotonNetwork.IsMasterClient) return;
+
+        indicator++;
+
+        if (indicator < PhotonNetwork.PlayerList.Length) return;
+
+        indicator = 0;
+        PV.RPC("firstStepGeneration", RpcTarget.All, (int)Random.Range(0, 1000));
+    }
+
+    [PunRPC]
+    void firstStepGeneration(int seed)
+    {
+        Random.InitState(seed);
+
+        //if (Random.Range(0.0f, 1.0f) > 0.5f) second_method();
+        //else
+        third_method();
+
+        PV.RPC("SignalMaster", RpcTarget.MasterClient);
+    }
+
+    [PunRPC]
+    void SignalMaster()
+    {
+        if (!PhotonNetwork.IsMasterClient) return;
+
+        indicator++;
+
+        if (indicator >= PhotonNetwork.PlayerList.Length) secondStepGeneration();
+    }
+
+    void secondStepGeneration()
+    {
+        foreach (BoardSetup.PhotonSpawnable spawnable in photonSpawnables)
+            PhotonNetwork.Instantiate(spawnable.prefab, spawnable.position, spawnable.rotation);
+        
+        foreach (TreeElement TE in tree)
+            if (TE.platform.transform.gameObject.TryGetComponent(out SpawnSecondStep SSS))
+                SSS.SpawnObject();
+
+        StartCoroutine(ActivateCooldown(1));
+        //GameMechanics.gameMechanics.RPC_InitiatePlayer();
+
+    }
+
+    IEnumerator ActivateCooldown(int time)
+    {
+        yield return new WaitForSeconds(time);
+
+        GameMechanics.gameMechanics.RPC_InitiatePlayer();
     }
 
     void first_method()
@@ -127,6 +197,7 @@ public class MapGenerator : MonoBehaviour
 
          DrawLineOfPlatforms(tree[1], Vector3.back, 3, Mathf.PI/36);
          ReplacePlatform(tree.Count - 1, specialPlatforms[1]);
+         photonSpawnables.AddRange(tree[tree.Count - 1].platform.transform.GetComponent<BoardSetup>().Setup());
 
          for (int i = 1; i < tree.Count; i++)
          {
@@ -138,7 +209,7 @@ public class MapGenerator : MonoBehaviour
             Transform settingup = mirrortree[mirrortree.Count - 1].platform.transform;
 
             if (settingup.gameObject.TryGetComponent(out BoardSetup BS))
-                BS.Setup();
+                photonSpawnables.AddRange(BS.Setup());
          }
 
          SpawnBases();
@@ -151,7 +222,7 @@ public class MapGenerator : MonoBehaviour
 
         Vector3 position;
         PlatformType chosen;
-        Transform settingup;
+        //Transform settingup;
         int top, bottom;
 
         position = new Vector3(0, 0, 0);
@@ -165,9 +236,17 @@ public class MapGenerator : MonoBehaviour
 
 
         position = position + Vector3.left * 100f;
-        Instantiate(greenbase, position, Quaternion.identity);                                                      // Add Gree... I mean Blue Base
+        GameObject blueBase = Instantiate(greenbase, position, Quaternion.identity);               // Add Gree... I mean Blue Base
         position = tree[width - 1].platform.transform.position + Vector3.right * 100f;
-        Instantiate(redbase, position, Quaternion.identity).transform.Rotate(new Vector3(0, 180, 0), Space.Self);   // Add Red Base
+        //GameMechanics.gameMechanics.shields.Add(
+        GameObject redBase = Instantiate(redbase, position, Quaternion.identity);
+        redBase.transform.Rotate(new Vector3(0, 180, 0), Space.Self);   // Add Red Base
+
+        GameMechanics.gameMechanics.bases.Add(redBase.gameObject);
+        GameMechanics.gameMechanics.bases.Add(blueBase.gameObject);
+        GameMechanics.gameMechanics.flagObjectives = new GameMechanics.FlagObjective[2];
+        GameMechanics.gameMechanics.flagObjectives[1] = new GameMechanics.FlagObjective(blueBase.transform.GetChild(2).gameObject);
+        GameMechanics.gameMechanics.flagObjectives[0] = new GameMechanics.FlagObjective(redBase.transform.GetChild(2).gameObject);
 
         DrawLineOfPlatforms(tree[width / 2], Vector3.forward, height / 2); // Draw a line up
         top = tree.Count - 1;
@@ -202,7 +281,7 @@ public class MapGenerator : MonoBehaviour
             if (possibilities.IndexOf(combination) < 4)
             {
                 ReplacePlatform(tree.Count - 1, specialPlatforms[1]);
-                tree[tree.Count - 1].platform.transform.gameObject.GetComponent<BoardSetup>().Setup();
+                photonSpawnables.AddRange(tree[tree.Count - 1].platform.transform.gameObject.GetComponent<BoardSetup>().Setup());
             }
         }
 
@@ -211,11 +290,19 @@ public class MapGenerator : MonoBehaviour
 
         DrawLineOfPlatforms(tree[width / 2], Vector3.left, 2);
         ReplacePlatform(tree.Count - 1, specialPlatforms[1]);
-        tree[tree.Count - 1].platform.transform.gameObject.GetComponent<BoardSetup>().Setup(); 
+        photonSpawnables.AddRange(tree[tree.Count - 1].platform.transform.gameObject.GetComponent<BoardSetup>().Setup()); 
         
         DrawLineOfPlatforms(tree[width / 2], Vector3.right, 2);
         ReplacePlatform(tree.Count - 1, specialPlatforms[1]);
-        tree[tree.Count - 1].platform.transform.gameObject.GetComponent<BoardSetup>().Setup();
+        photonSpawnables.AddRange(tree[tree.Count - 1].platform.transform.gameObject.GetComponent<BoardSetup>().Setup());
+
+        if (PhotonNetwork.IsMasterClient)
+        {
+            PVIDs[0] = PhotonNetwork.Instantiate(objectivePrefab.name, redBase.transform.GetChild(2).position, redBase.transform.GetChild(2).rotation).GetComponent<PhotonView>().ViewID;
+            PVIDs[1] = PhotonNetwork.Instantiate(objectivePrefab.name, blueBase.transform.GetChild(2).position, blueBase.transform.GetChild(2).rotation).GetComponent<PhotonView>().ViewID;
+
+            PV.RPC("flagObjectiveSyc", RpcTarget.All, PVIDs);
+        }
     }
 
     void fourth_method()
@@ -300,11 +387,30 @@ public class MapGenerator : MonoBehaviour
         pos = pos + Vector3.right.normalized * Random.Range(previous.reach * 1.85f, 2.1f * previous.reach);
         pos.y += Random.Range(-previous.verticalReach, previous.verticalReach);
 
+        GameMechanics.gameMechanics.flagObjectives = new GameMechanics.FlagObjective[2];
+
         tr = Instantiate(redbase, pos, Quaternion.identity).transform;
-        tr.Rotate(new Vector3(0, 180, 0),Space.Self);
+        tr.Rotate(new Vector3(0, 180, 0), Space.Self);
+        GameMechanics.gameMechanics.bases.Add(tr.gameObject);
+        if (PhotonNetwork.IsMasterClient)
+            PVIDs[0] = PhotonNetwork.Instantiate(objectivePrefab.name, tr.GetChild(2).position, tr.GetChild(2).rotation).GetComponent<PhotonView>().ViewID;
 
         pos.x = -(pos.x);
-        Instantiate(greenbase, pos, Quaternion.identity);
+        tr = Instantiate(greenbase, pos, Quaternion.identity).transform;
+        GameMechanics.gameMechanics.bases.Add(tr.gameObject);
 
+        if (PhotonNetwork.IsMasterClient)
+        {
+            PVIDs[1] = PhotonNetwork.Instantiate(objectivePrefab.name, tr.GetChild(2).position, tr.GetChild(2).rotation).GetComponent<PhotonView>().ViewID;
+
+            PV.RPC("flagObjectiveSyc", RpcTarget.All, PVIDs);
+        }
+    }
+
+    [PunRPC]
+    void flagObjectiveSyc(int[] PVIDs)
+    {
+        GameMechanics.gameMechanics.flagObjectives[0] = new GameMechanics.FlagObjective(PhotonView.Find(PVIDs[0]).gameObject);
+        GameMechanics.gameMechanics.flagObjectives[1] = new GameMechanics.FlagObjective(PhotonView.Find(PVIDs[1]).gameObject);
     }
 }

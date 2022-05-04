@@ -30,7 +30,6 @@ public class GameMechanics : MonoBehaviour
     public struct Team           // This allows for Teams to be added via the inspector
     {
         public string name;
-        public Text scoreText;
 
         [HideInInspector]       // The score is hidden from inspector. This can be undone
         public int score;       // if we ever want teams to start with an advantage. Text will need change
@@ -50,6 +49,14 @@ public class GameMechanics : MonoBehaviour
         public int flagCount;
         public int numOfDefenders;
         public int numOfAttackers;
+
+        public FlagObjective(GameObject _obj)
+        {
+            objective = _obj;
+            flagCount = 3;
+            numOfAttackers = 0;
+            numOfDefenders = 0;
+        }
     }
 
 
@@ -60,15 +67,16 @@ public class GameMechanics : MonoBehaviour
 
     public Timer timer;
 
-    public List<GameObject> redgens;
-    public List<GameObject> greengens;
-    public Button redButton;
-    public Button greenButton;
-    public GameObject menuItem;
+    public List<GameObject> redgens = new List<GameObject>();
+    public List<GameObject> greengens = new List<GameObject>();
     public Canvas worldSpaceCanvas;
     public Transform blueFlags;
     public Transform redFlags;
-    public FlagObjective[] flagObjectives;
+    public FlagObjective[] flagObjectives = new FlagObjective[2];
+    public List<GameObject> bases;
+    public PhotonPlayer PB;
+    public bool readyToDeploy = false;
+    public GameObject MapGenerator;
 
 
     PhotonView PV;
@@ -80,13 +88,20 @@ public class GameMechanics : MonoBehaviour
     public void Start()
     {
         PV = GetComponent<PhotonView>();
-        activePowerups = new Dictionary<int, UnityEngine.Vector3>();
-        if (!PhotonNetwork.IsMasterClient)
-            PV.RPC("SendVariables", RpcTarget.MasterClient);
 
-        for (int i = 0; i < players.Count; i++)
-            players[i].obj.GetComponent<Movement>().SetId(i);
-        UpdateFlagUI();
+        activePowerups = new Dictionary<int, UnityEngine.Vector3>();
+         if (!PhotonNetwork.IsMasterClient)
+           PV.RPC("SendVariables", RpcTarget.MasterClient);
+
+        //for (int i = 0; i < players.Count; i++)
+        //  players[i].obj.GetComponent<Movement>().SetId(i);
+
+    }
+
+    public void SetPB(PhotonPlayer _new)
+    {
+        PB = _new;
+        MapGenerator.SetActive(true);
     }
 
     /*
@@ -120,9 +135,20 @@ public class GameMechanics : MonoBehaviour
     [PunRPC]
     public void Add_player(int playerViewId, int team)
     {
+        //if (players.Count > 0)
+          //  Debug.Log(players[0].obj.GetComponent<PhotonView>().Owner.NickName + " has ID " + players[0].obj.GetComponent<PhotonView>().OwnerActorNr);
         Player _player = new Player { obj = PhotonView.Find(playerViewId).gameObject, team = team };
         players.Add(_player);
         _player.obj.GetComponent<Movement>().SetId(players.Count - 1);
+
+        PhotonView PPV = PhotonView.Find(playerViewId);
+
+        if (PPV.IsMine)
+            if (PPV.OwnerActorNr < PhotonNetwork.PlayerList.Length)
+            {
+                int next = ((int)PPV.OwnerActorNr);
+                PV.RPC("InitiatePlayer", PhotonNetwork.PlayerList[next]);
+            }
     }
 
     public void RPC_RemovePlayer(int playerID)
@@ -139,7 +165,7 @@ public class GameMechanics : MonoBehaviour
         Destroy(_obj);
     }
 
-    public void RPC_Score(int teamID)
+/*   public void RPC_Score(int teamID)
     {
         PV.RPC("Score", RpcTarget.AllBuffered, teamID);
     }
@@ -154,9 +180,9 @@ public class GameMechanics : MonoBehaviour
         _text.text = _score.ToString();
 
         teams[teamID] = new Team { name = _name, score = _score, scoreText = _text };
-    }
+    }*/
 
-    #region FlagStuff   
+    #region FlagStuff
     public void RPC_IncreaseFlag(int teamID)
     {
         int voiceID = GenerateCommentary(teamID);
@@ -206,6 +232,8 @@ public class GameMechanics : MonoBehaviour
     [PunRPC]
     public void UpdateFlagUI()
     {
+        redFlags.gameObject.SetActive(true);
+        blueFlags.gameObject.SetActive(true);
         // 12 => icon + border
         var redImgs = redFlags.gameObject.GetComponentsInChildren<Image>();
         // 12 => icon + border
@@ -262,7 +290,7 @@ public class GameMechanics : MonoBehaviour
 
     public void RPC_UpdateAttackers(int teamID, bool addition)
     {
-        PV.RPC("UpdateAttackers", RpcTarget.AllBuffered, teamID, addition);
+        PV.RPC("UpdateAttackers", RpcTarget.All, teamID, addition);
     }
 
     [PunRPC]
@@ -301,7 +329,7 @@ public class GameMechanics : MonoBehaviour
     #endregion
 
     [PunRPC]
-    void Sync(float game_time, int[] playerViewIds, int[] playerTeams, string[] teamNames, int[] teamScores, int[] flagCounts, int[] numsOfAttackers, int[] numsOfDefenders, int[] scoreViewIDs)
+    void Sync(float game_time, int[] playerViewIds, int[] playerTeams, string[] teamNames, int[] teamScores, int[] flagCounts, int[] numsOfAttackers, int[] numsOfDefenders)
     {
         timer.UpdateTimer(game_time);
         List<Team> _teams = new List<Team>();
@@ -309,7 +337,6 @@ public class GameMechanics : MonoBehaviour
         {
             name = teamNames[i],
             score = teamScores[i],
-            scoreText = PhotonView.Find(scoreViewIDs[i]).gameObject.GetComponent<Text>(),
         });
 
         teams = _teams;
@@ -345,7 +372,6 @@ public class GameMechanics : MonoBehaviour
 
         string[] teamNames = new string[teams.Count];
         int[] teamScores = new int[teams.Count];
-        int[] scoreViewIDs = new int[teams.Count];
 
         int[] flagCounts = new int[teams.Count];
         int[] numsOfDefenders = new int[teams.Count];
@@ -367,7 +393,6 @@ public class GameMechanics : MonoBehaviour
         {
             teamNames[i] = teams[i].name;
             teamScores[i] = teams[i].score;
-            scoreViewIDs[i] = teams[i].scoreText.gameObject.GetComponent<PhotonView>().ViewID;
         }
 
         i = 0;
@@ -387,7 +412,7 @@ public class GameMechanics : MonoBehaviour
         }
 
 
-        PV.RPC("Sync", RpcTarget.Others, game_time, playerViewIds, playerTeams, teamNames, teamScores, flagCounts, numsOfAttackers, numsOfDefenders, scoreViewIDs);
+        PV.RPC("Sync", RpcTarget.Others, game_time, playerViewIds, playerTeams, teamNames, teamScores, flagCounts, numsOfAttackers, numsOfDefenders);
     }
 
     public void SyncPowerupsNow()
@@ -547,5 +572,17 @@ public class GameMechanics : MonoBehaviour
 
         Debug.Log(commentaryID);
         return commentaryID;
+    }
+
+    public void RPC_InitiatePlayer()
+    {
+        PV.RPC("InitiatePlayer", PhotonNetwork.PlayerList[0]);
+    }
+
+    [PunRPC]
+    void InitiatePlayer()
+    {
+        UpdateFlagUI();
+        PB.InitiatePlayer();
     }
 }

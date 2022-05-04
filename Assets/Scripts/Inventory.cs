@@ -37,7 +37,7 @@ public class Inventory : MonoBehaviour
 
     [Header("Impulse Gun Settings")]
     public GameObject impulseGunHolder;
-    public GameObject particleSystem;
+    public new GameObject particleSystem;
     public float pushForce;
 
     [Header("Grenade Settings")]

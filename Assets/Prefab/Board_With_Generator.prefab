@@ -9,7 +9,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1337687631739204256, guid: deba92b159be39e4690def3f8ff43d31, type: 3}
       propertyPath: m_Name
-      value: Boxes (4)
+      value: Boxes
       objectReference: {fileID: 0}
     - target: {fileID: 2910959263911598287, guid: deba92b159be39e4690def3f8ff43d31, type: 3}
       propertyPath: sceneViewId
@@ -227,7 +227,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 488281000438099665, guid: 90228459ee011a04f816883ed77bc560, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 90228459ee011a04f816883ed77bc560, type: 3}
 --- !u!1 &6225837053503751009 stripped
 GameObject:

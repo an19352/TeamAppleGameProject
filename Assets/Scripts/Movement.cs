@@ -75,7 +75,9 @@ public class Movement : MonoBehaviour, IPunObservable
         {
             plane.SetActive(true);
             int team = gameMechanics.checkTeam(ID);
-            if (team == 1)
+            PV.RPC("SetColour", RpcTarget.All, team);
+            
+            /*if (team == 1)
             {
                 gameObject.transform.GetChild(9).GetChild(0).GetChild(2).GetChild(0).GetChild(11).GetChild(7)
                     .GetComponent<Renderer>().material = highlightedBlueMaterial;
@@ -83,7 +85,7 @@ public class Movement : MonoBehaviour, IPunObservable
             else
             {
                 gameObject.transform.GetChild(9).GetChild(0).GetChild(2).GetChild(0).GetChild(11).GetChild(7).GetComponent<Renderer>().material = highlightedRedMaterial;
-            }
+            }*/
             cameraMain.GetComponent<FollowPlayer>().player = transform;
 
             cameraCM = GameObject.Find("cameraCM");
@@ -93,8 +95,25 @@ public class Movement : MonoBehaviour, IPunObservable
         }
     }
 
+    [PunRPC]
+    public void SetColour(int _team)
+    {
+        if (_team == 1)
+        {
+            gameObject.transform.GetChild(9).GetChild(0).GetChild(2).GetChild(0).GetChild(11).GetChild(7)
+                .GetComponent<Renderer>().material = highlightedBlueMaterial;
+        }
+        else
+        {
+            gameObject.transform.GetChild(9).GetChild(0).GetChild(2).GetChild(0).GetChild(11).GetChild(7)
+                .GetComponent<Renderer>().material = highlightedRedMaterial;
+        }
+    }
+
     void Update()
     {
+        if (!PV.IsMine) return;
+        
         jumpInput = Input.GetButton("Jump");
 
         zAxisInput = -Input.GetAxis(horizontalAxis);
@@ -274,7 +293,7 @@ public class Movement : MonoBehaviour, IPunObservable
                 if (playerBody.transform.parent.gameObject.TryGetComponent(out AddConstantVelocity velocity))
                     playerBody.velocity += velocity.force;
 
-            float lag = Mathf.Abs((float)(PhotonNetwork.Time - info.timestamp));
+            float lag = Mathf.Abs((float)(PhotonNetwork.Time - info.SentServerTime));
             networkPosition += playerBody.velocity * lag;
         }
     }

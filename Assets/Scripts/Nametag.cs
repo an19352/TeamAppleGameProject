@@ -13,11 +13,11 @@ public class Nametag : MonoBehaviour
     void Start()
     {
         PV = GetComponent<PhotonView>();
-        if (!PV.IsMine) return;
+       // if (!PV.IsMine) return;
         SetName();
     }
 
-    private void SetName() => nameTag.text = PhotonNetwork.NickName;
+    private void SetName() => nameTag.text = PV.Owner.NickName;
     // Update is called once per frame
     
 }

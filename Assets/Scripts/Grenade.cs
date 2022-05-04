@@ -37,13 +37,13 @@ public class Grenade : MonoBehaviour
         Debug.Log("explosion instantiated");
         //get nearbyb objects
         Collider[] colliders = Physics.OverlapSphere(transform.position, radius);
-        
+
         // Add force
         foreach (Collider nearbyObject in colliders)
         {
             //Debug.Log(nearbyObject.tag);
             rb = nearbyObject.GetComponent<Rigidbody>();
-            
+
             if (rb != null)
             {
                 if (nearbyObject.tag == "Generator") nearbyObject.GetComponent<EnergyGenerator>().applyForce(force);

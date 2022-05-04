@@ -10,6 +10,7 @@ using ExitGames.Client.Photon.StructWrapping;
 public class EnergyGenerator : MonoBehaviour, IPunObservable
 {
     PhotonView PV;
+    GameMechanics gameMechanics;
     public GameObject forceShield;
 
     [Header("Can mess with")]
@@ -35,13 +36,31 @@ public class EnergyGenerator : MonoBehaviour, IPunObservable
     // Start is called before the first frame update
     void Start()
     {
-
         PV = this.GetComponent<PhotonView>();
+        gameMechanics = GameMechanics.gameMechanics;
         // Transform canvas = this.gameObject.transform.Find("Canvas");
         healthBarImage = healthBar.gameObject.GetComponent<Image>();
         if (GameMechanics.gameMechanics == null) this.enabled = false;
-        else fsScript = forceShield.GetComponent<ForceShield>();
 
+        float redDistance = Vector3.Distance(transform.position, gameMechanics.bases[0].transform.position);
+        float blueDistance = Vector3.Distance(transform.position, gameMechanics.bases[1].transform.position);
+
+        if (redDistance < blueDistance)
+        {
+            //Debug.Log("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< red");
+            gameMechanics.redgens.Add(gameObject);
+            fsScript = gameMechanics.bases[0].GetComponentInChildren<ForceShield>();
+            team = 0;
+        }
+        else 
+        {
+            //Debug.Log("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< blue");
+            gameMechanics.greengens.Add(gameObject);
+            fsScript = gameMechanics.bases[1].GetComponentInChildren<ForceShield>();
+            team = 1; 
+        }
+
+        forceShield = fsScript.gameObject;
         glowPart.material = glowPart.materials[team];
     }
 
@@ -52,7 +71,7 @@ public class EnergyGenerator : MonoBehaviour, IPunObservable
         // if (!PV.IsMine) return;
         if (healthRemain <= 0)
         {
-            Debug.Log("some ");
+            //Debug.Log("some ");
             // Debug.Log(fsScript.generatorDestroyed);
             PV.RPC("RememberMe", RpcTarget.AllBuffered);
             //PhotonNetwork.Destroy(this.gameObject);
@@ -121,7 +140,9 @@ public class EnergyGenerator : MonoBehaviour, IPunObservable
     }
 
       private void OnEnable()
-     { 
+     {
+        if (forceShield == null) return;
+
          forceShield.SetActive(true); 
          healthRemain = health;
          healthBarImage = healthBar.gameObject.GetComponent<Image>();

@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 public class PhotonPlayer : MonoBehaviourPunCallbacks
 {
     private PhotonView PV;
-    public static GameMechanics gameMechanics;
+    GameMechanics gameMechanics;
 
     [HideInInspector]
     public GameObject myAvatar;
@@ -34,22 +34,29 @@ public class PhotonPlayer : MonoBehaviourPunCallbacks
             PhotonNetwork.Destroy(PhotonRoom.room.gameObject);
             SceneManager.LoadScene(0);
         }
-        
-        InitiatePlayer(team);
 
-        if (gameMechanics.activePowerups.Count > 0)
+        //InitiatePlayer();
+        GameMechanics.gameMechanics.SetPB(this);
+        
+
+/*        if (gameMechanics.activePowerups.Count > 0)
             foreach (KeyValuePair<int, UnityEngine.Vector3> powerupID in gameMechanics.activePowerups)
             {
                 GameObject powerup = PhotonView.Find(powerupID.Key).gameObject;
                 powerup.SetActive(true);
                 powerup.transform.position = powerupID.Value;
-            }
+            }*/
     }
+
+/*    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.S)) InitiatePlayer();
+    }*/
 
     public void SetTeam(int _team) { team = _team; }
 
     // Update is called once per frame
-    public void InitiatePlayer(int team)
+    public void InitiatePlayer()
     {
         float x;
         float z;
@@ -80,17 +87,17 @@ public class PhotonPlayer : MonoBehaviourPunCallbacks
 
             Transform arrow = myAvatar.transform.Find("ArrowCanvas");
             arrow.GetChild(0).gameObject.SetActive(true);
+            //Debug.Log(15);
 
             if (team == 0)
             {
-                myAvatar.GetComponent<Arrow>().getgens(gameMechanics.greengens);
+                myAvatar.GetComponent<Arrow>().getgens(gameMechanics.greengens, gameMechanics.bases[0], gameMechanics.bases[1], team);
             }
             else
             {
-                myAvatar.GetComponent<Arrow>().getgens(gameMechanics.redgens);
+                myAvatar.GetComponent<Arrow>().getgens(gameMechanics.redgens, gameMechanics.bases[0], gameMechanics.bases[1], team);
             }
+            //Debug.Log(16);
         }
-
-        gameMechanics.menuItem.SetActive(false);
     }
 }

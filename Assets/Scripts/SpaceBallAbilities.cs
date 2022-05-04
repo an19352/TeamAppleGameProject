@@ -5,7 +5,7 @@ using Photon.Pun;
 
 namespace SpaceBallAbilities
 {
-    // If you want to add a new Powerup: 
+    // If you want to add a new Powerup:
     //          - in this file create a new monobehaviour that inherets from IAbility
     //          - in "Resources/Powerups Settings" create a new InventoryElement (Scriptable Object) for this powerup
     //            This IE will contain everything from how long this powerup should last to its name and icon
@@ -66,7 +66,7 @@ namespace SpaceBallAbilities
                 {
                     GameObject objectHit = hit.collider.gameObject;
                     float dist = Vector3.Distance(objectHolder.position, objectHit.transform.position);
-                    // make sure to only grab objects that are within a certain distance to the player 
+                    // make sure to only grab objects that are within a certain distance to the player
                     if (dist <= maxGrabDistance)
                     {
                         grabbedRB = objectHit.GetComponent<Rigidbody>();
@@ -206,7 +206,7 @@ namespace SpaceBallAbilities
         PhotonView PV;
         InventoryElement IE;
         Inventory inventory;
-        GameObject particleSystem;
+        new GameObject particleSystem;
         float timeToShoot = 0;
 
         float pushForce;
