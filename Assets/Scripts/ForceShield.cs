@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Photon.Pun;
 using Unity.Mathematics;
 using UnityEngine;
-using Random = UnityEngine.Random;
+using Random = System.Random;
 
 public class ForceShield : MonoBehaviour
 {
@@ -33,7 +33,24 @@ public class ForceShield : MonoBehaviour
         //Instantiate(explosion, transform.position, transform.rotation);
         yield return new WaitForSeconds(PlaySound.playSound.sounds[19].clip.length);
         PlaySound.playSound.RPC_QueueVoice(21, PhotonNetwork.PlayerList);
+        PlaySound.playSound.RPC_QueueVoice(GenerateCommentaryID(), PhotonNetwork.PlayerList);
         gameObject.SetActive(false);
         yield return null;
+    }
+
+    int GenerateCommentaryID()
+    {
+        int commID = 0;
+        Random ran = new Random();
+
+        if (gameObject.layer == 14)
+        {
+            commID = ran.Next(3, 5);
+        }
+        else
+        {
+            commID = ran.Next(1,3);
+        }
+        return commID;
     }
 }
