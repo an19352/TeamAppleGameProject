@@ -816,7 +816,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7571215ddb7e7fb4b95ad3578a55d7c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  totalTime: 10
+  totalTime: 450
 --- !u!114 &203353930
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3708,9 +3708,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   indicator: 0
-  ones: 0
-  zeros: 0
-  difference: 0
   startingPosition: {x: 0, y: 0, z: 0}
   platformTypes:
   - prefab: {fileID: 2765404466157998811, guid: 90228459ee011a04f816883ed77bc560, type: 3}
