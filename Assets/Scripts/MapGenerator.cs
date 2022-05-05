@@ -39,7 +39,7 @@ public class MapGenerator : MonoBehaviour
             board = type;
         }
     }
-
+    
     public struct TreeElement
     {
         public int index, root;
@@ -68,36 +68,36 @@ public class MapGenerator : MonoBehaviour
 
     [Range(1, 4)]
     public int method = 3;
-
+    
     public GameObject greenbase;
     public GameObject redbase;
-    public GameObject objectivePrefab;
+    public GameObject objectivePrefab; 
     [SerializeField]
 
     public int InitState = 13;
     public bool Generate_Again = false;
     int[] PVIDs = new int[2];
 
-    /*    public void OnValidate()
+/*    public void OnValidate()
+    {
+        if (Generate_Again)
         {
-            if (Generate_Again)
+
+            foreach (TreeElement TE in tree)
             {
-
-                foreach (TreeElement TE in tree)
-                {
-                    Destroy(TE.platform.transform.gameObject);
-                }
-                tree = new List<TreeElement>();
-
-                //Random.InitState(InitState);
-                if (method == 1) first_method();
-                else if (method == 2) second_method();
-                else if (method == 3) third_method();
-                else if (method == 4) fourth_method();
-
-                Generate_Again = false;
+                Destroy(TE.platform.transform.gameObject);
             }
-        }*/
+            tree = new List<TreeElement>();
+
+            //Random.InitState(InitState);
+            if (method == 1) first_method();
+            else if (method == 2) second_method();
+            else if (method == 3) third_method();
+            else if (method == 4) fourth_method();
+
+            Generate_Again = false;
+        }
+    }*/
 
     void Start()
     {
@@ -106,15 +106,15 @@ public class MapGenerator : MonoBehaviour
         PV = GetComponent<PhotonView>();
         PV.RPC("Awaken", RpcTarget.MasterClient);
 
-        /*        //Random.InitState(InitState);
-                if (Random.Range(0.0f, 1.0f) > 0.5f) second_method();
-                else third_method();*/
+/*        //Random.InitState(InitState);
+        if (Random.Range(0.0f, 1.0f) > 0.5f) second_method();
+        else third_method();*/
     }
 
     [PunRPC]
     void Awaken()
     {
-        if (!PhotonNetwork.IsMasterClient) return;
+        if(!PhotonNetwork.IsMasterClient) return;
 
         indicator++;
 
@@ -150,7 +150,7 @@ public class MapGenerator : MonoBehaviour
     {
         foreach (BoardSetup.PhotonSpawnable spawnable in photonSpawnables)
             PhotonNetwork.Instantiate(spawnable.prefab, spawnable.position, spawnable.rotation);
-
+        
         foreach (TreeElement TE in tree)
             if (TE.platform.transform.gameObject.TryGetComponent(out SpawnSecondStep SSS))
                 SSS.SpawnObject();
@@ -165,7 +165,7 @@ public class MapGenerator : MonoBehaviour
         yield return new WaitForSeconds(time);
         GameMechanics.gameMechanics.RPC_InitiatePlayer();
     }
-
+    
 
     void second_method()
     {
@@ -178,32 +178,32 @@ public class MapGenerator : MonoBehaviour
         chosen = platformTypes[Random.Range(0, platformTypes.Count - 1)];
         tree.Add(new TreeElement(position, Quaternion.identity, chosen, 0));
 
-        DrawLineOfPlatforms(tree[0], Vector3.right, width);
-        DrawLineOfPlatforms(tree[width / 2], Vector3.forward, height / 2);
-        DrawLineOfPlatforms(tree[width / 2], Vector3.back, height / 2);
-        ReplacePlatform(width / 2, specialPlatforms[0]);
+         DrawLineOfPlatforms(tree[0], Vector3.right, width);
+         DrawLineOfPlatforms(tree[width / 2], Vector3.forward, height / 2);
+         DrawLineOfPlatforms(tree[width / 2], Vector3.back, height / 2);
+         ReplacePlatform(width / 2, specialPlatforms[0]);
 
-        DrawLineOfPlatforms(tree[1], Vector3.back, 3, Mathf.PI / 36);
-        ReplacePlatform(tree.Count - 1, specialPlatforms[1]);
-        photonSpawnables.AddRange(tree[tree.Count - 1].platform.transform.GetComponent<BoardSetup>().Setup());
+         DrawLineOfPlatforms(tree[1], Vector3.back, 3, Mathf.PI/36);
+         ReplacePlatform(tree.Count - 1, specialPlatforms[1]);
+         photonSpawnables.AddRange(tree[tree.Count - 1].platform.transform.GetComponent<BoardSetup>().Setup());
 
-        for (int i = 1; i < tree.Count; i++)
-        {
-            position = tree[i].platform.transform.position;
-            position.x = -(position.x);
-            chosen = tree[i].platform.board;
+         for (int i = 1; i < tree.Count; i++)
+         {
+             position = tree[i].platform.transform.position;
+             position.x = -(position.x);
+             chosen = tree[i].platform.board;
 
             mirrortree.Add(new TreeElement(position, Quaternion.identity, chosen, tree[i].index, tree[i].root));
             Transform settingup = mirrortree[mirrortree.Count - 1].platform.transform;
 
             if (settingup.gameObject.TryGetComponent(out BoardSetup BS))
                 photonSpawnables.AddRange(BS.Setup());
-        }
+         }
 
-        SpawnBases();
+         SpawnBases();
 
     }
-
+    
 
     void third_method()
     {
@@ -256,8 +256,8 @@ public class MapGenerator : MonoBehaviour
         foreach (System.IFormattable[] combination in possibilities)
         {
             Vector3 towardsBase = Vector3.left;
-            if ((int)combination[3] > width / 2) towardsBase = Vector3.right;
-
+            if ((int)combination[3] > width/2) towardsBase = Vector3.right;
+            
             DrawLineOfPlatforms(tree[Random.Range((int)combination[3], (int)combination[3] + 1)], (Vector3)combination[0], 3, (Mathf.PI / 180) * (Random.Range(5, 10) + (int)combination[1]));
             while (Mathf.Abs(tree[tree.Count - 1].platform.transform.position.z) - Mathf.Abs(tree[(int)combination[2]].platform.transform.position.z) < -30f)
             {
@@ -279,8 +279,8 @@ public class MapGenerator : MonoBehaviour
 
         DrawLineOfPlatforms(tree[width / 2], Vector3.left, 2);
         ReplacePlatform(tree.Count - 1, specialPlatforms[1]);
-        photonSpawnables.AddRange(tree[tree.Count - 1].platform.transform.gameObject.GetComponent<BoardSetup>().Setup());
-
+        photonSpawnables.AddRange(tree[tree.Count - 1].platform.transform.gameObject.GetComponent<BoardSetup>().Setup()); 
+        
         DrawLineOfPlatforms(tree[width / 2], Vector3.right, 2);
         ReplacePlatform(tree.Count - 1, specialPlatforms[1]);
         photonSpawnables.AddRange(tree[tree.Count - 1].platform.transform.gameObject.GetComponent<BoardSetup>().Setup());
@@ -330,9 +330,9 @@ public class MapGenerator : MonoBehaviour
 
             position = previous.transform.position + direction.normalized * Random.Range(previous.reach * 0.75f, previous.reach);
             if (previous.verticalReach > 4f) position.y += Random.Range(3 * previous.verticalReach / 2, previous.verticalReach);
-            else position.y += Random.Range(-previous.verticalReach, previous.verticalReach);
+            else position.y += Random.Range(-previous.verticalReach, previous.verticalReach);   
             float num = Random.Range(0f, 1f);
-            for (int i = 0; i < platformTypes.Count; i++)
+            for(int i = 0; i < platformTypes.Count; i++)
             {
                 if (num > platformTypes[i].chance) num -= platformTypes[i].chance;
                 else
