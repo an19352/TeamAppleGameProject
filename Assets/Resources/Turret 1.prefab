@@ -660,7 +660,7 @@ MonoBehaviour:
   health: 100
   healthRemain: 100
   explosionEffect: {fileID: 7270086744859371354, guid: 3f958cfa70c704a41af22aee83c9ce2a, type: 3}
-  explosionRadius: 2
+  explosionRadius: 20
   range: 39
   turnSpeed: 10
   pushForce: 5

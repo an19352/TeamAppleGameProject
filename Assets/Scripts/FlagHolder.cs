@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using UnityEngine;
 using Photon.Pun;
+using Random = System.Random;
 
 public class FlagHolder : MonoBehaviour
 {
@@ -36,6 +38,7 @@ public class FlagHolder : MonoBehaviour
         Quaternion respawnFLagRotation = Quaternion.identity;
         GameObject db = PhotonNetwork.Instantiate(droppedBall.name, respawnFlagPosition, respawnFLagRotation);
         db.GetComponent<BallRecover>().teamID = teamID;
+        PlaySound.playSound.RPC_QueueVoice(GenerateCommentary(teamID), PhotonNetwork.PlayerList);
     }
 
     Transform FindClosestDistance(GameObject[] platforms, Vector3 respawnFlagPosition)
@@ -54,5 +57,21 @@ public class FlagHolder : MonoBehaviour
             }
         }
         return closestPlatform.transform;
+    }
+
+    int GenerateCommentary(int teamNo)
+    {
+        Random ran = new Random();
+        int commID;
+        if (teamNo == 0)
+        {
+            commID = ran.Next(14, 17);
+        }
+        else
+        {
+            commID = ran.Next(11, 14);
+        }
+
+        return commID;
     }
 }
