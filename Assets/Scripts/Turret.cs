@@ -49,7 +49,7 @@ public class Turret : MonoBehaviour, IPunObservable
     // Update is called once per frame
     void Update()
     {
-        if (!PV.IsMine) return;
+        //if (!PV.IsMine) return;
         if (healthRemain <= 0)
         {
             // Debug.Log(fsScript.generatorDestroyed);
@@ -66,6 +66,7 @@ public class Turret : MonoBehaviour, IPunObservable
             partToRotate.rotation = Quaternion.Euler(0f, smoothRotation.eulerAngles.y, 0f);
             if (fireCountDown <= 0)
             {
+                if(PV.IsMine)
                 PV.RPC("Shoot",RpcTarget.All);
                 fireCountDown = 1 / fireRate;
             }
