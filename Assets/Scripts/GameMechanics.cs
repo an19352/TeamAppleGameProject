@@ -164,7 +164,7 @@ public class GameMechanics : MonoBehaviour
         Destroy(_obj);
     }
 
-/*   public void RPC_Score(int teamID)
+    public void RPC_Score(int teamID)
     {
         PV.RPC("Score", RpcTarget.AllBuffered, teamID);
     }
@@ -175,11 +175,9 @@ public class GameMechanics : MonoBehaviour
     {
         string _name = teams[teamID].name;
         int _score = teams[teamID].score + 1;
-        Text _text = teams[teamID].scoreText;
-        _text.text = _score.ToString();
 
-        teams[teamID] = new Team { name = _name, score = _score, scoreText = _text };
-    }*/
+        teams[teamID] = new Team { name = _name, score = _score};
+    }
 
     #region FlagStuff
     public void RPC_IncreaseFlag(int teamID)
