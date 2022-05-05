@@ -67,18 +67,18 @@ public class EnergyGenerator : MonoBehaviour, IPunObservable
 
 
     // Update is called once per frame
-    void Update()
+/*    void Update()
     {
         // if (!PV.IsMine) return;
         if (healthRemain <= 0)
         {
             //Debug.Log("some ");
             // Debug.Log(fsScript.generatorDestroyed);
-            PV.RPC("RememberMe", RpcTarget.AllBuffered);
+            PV.RPC("RememberMe", RpcTarget.All);
             //PhotonNetwork.Destroy(this.gameObject);
             CreateExplosion();
         }
-    }
+    }*/
 
 
     void CreateExplosion()
@@ -115,9 +115,7 @@ public class EnergyGenerator : MonoBehaviour, IPunObservable
                 float mass = other.collider.attachedRigidbody.mass;
                 float force = Mathf.Abs(Vector3.Dot(cp.normal, collisionVelocity)) * mass;
 
-                healthRemain -= force;
-                float fraction = healthRemain / health;
-                healthBarImage.fillAmount = fraction;
+                applyForce(force);
             }
             else return;
         }
@@ -125,6 +123,7 @@ public class EnergyGenerator : MonoBehaviour, IPunObservable
 
     private void OnDisable()
     {
+        fsScript.generatorDestroyed++;
         Debug.Log("disable");
         NotifyNearbyPlayers();
     }
@@ -134,6 +133,12 @@ public class EnergyGenerator : MonoBehaviour, IPunObservable
         healthRemain -= force;
         float fraction = healthRemain / health;
         healthBarImage.fillAmount = fraction;
+
+        if (healthRemain <= 0)
+        {
+            PV.RPC("RememberMe", RpcTarget.All);
+            CreateExplosion();
+        }
     }
 
       private void OnEnable()
@@ -171,7 +176,6 @@ public class EnergyGenerator : MonoBehaviour, IPunObservable
     [PunRPC]
     void RememberMe()
     {
-        fsScript.generatorDestroyed++;
         gameObject.SetActive(false);
     }
 
