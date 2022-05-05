@@ -581,12 +581,12 @@ public class GameMechanics : MonoBehaviour
     [PunRPC]
     void InitiatePlayer()
     {
-        mini.SetActive(true);
         UpdateFlagUI();
 
         if (PhotonNetwork.IsMasterClient)
             SendVariables();
 
         PB.InitiatePlayer();
+        mini.SetActive(true);
     }
 }

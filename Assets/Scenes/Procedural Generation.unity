@@ -3751,7 +3751,6 @@ MonoBehaviour:
   width: 7
   height: 7
   method: 3
-  mini: {fileID: 416563655}
   greenbase: {fileID: 4855106600265033456, guid: 4b9eef4794ac1084caf36e88645e744d, type: 3}
   redbase: {fileID: 4855106600265033456, guid: 1f1ac4a73097c5f41bb7a6413df2c86e, type: 3}
   objectivePrefab: {fileID: 8176473694404092270, guid: d5fc2f8a923f3f5429eb9fc1ea2e2d41, type: 3}
@@ -3844,6 +3843,7 @@ MonoBehaviour:
   PB: {fileID: 0}
   readyToDeploy: 0
   MapGenerator: {fileID: 506366122}
+  mini: {fileID: 416563655}
 --- !u!114 &537854692
 MonoBehaviour:
   m_ObjectHideFlags: 0
