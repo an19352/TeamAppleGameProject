@@ -99,15 +99,6 @@ public class EnergyGenerator : MonoBehaviour, IPunObservable
      */
     void OnCollisionEnter(Collision other)
     {
-        int f = 0;
-        foreach (GameObject gen in GameMechanics.gameMechanics.greengens)
-        {
-            if (gen.transform == gameObject.transform)
-            {
-                f = 1;
-                break;
-            }
-        }
 
         if (other.gameObject.TryGetComponent<Movement>(out Movement mov))
         {
@@ -115,7 +106,7 @@ public class EnergyGenerator : MonoBehaviour, IPunObservable
             int id = mov.GetId();
             int teamid = GameMechanics.gameMechanics.checkTeam(id);
 
-            if (teamid != f)
+            if (teamid != team)
             {
 
                 ContactPoint cp = other.GetContact(0);
