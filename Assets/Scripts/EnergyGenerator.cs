@@ -164,12 +164,14 @@ public class EnergyGenerator : MonoBehaviour, IPunObservable
     
     void NotifyNearbyPlayers()
     {
-        Collider[] playersInRadius = Physics.OverlapSphere(transform.position, explosionRadius, players, 0);
-        foreach (Collider player in playersInRadius)
+        Collider[] playersInRadius = Physics.OverlapSphere(transform.position, explosionRadius, ~0, 0);
+        foreach (Collider col in playersInRadius)
         {
-            Player[] target = {player.GetComponent<PhotonView>().Owner};
-            Debug.Log(target[0]);
-            PlaySound.playSound.RPC_QueueVoice(19, target);
+            if (col.CompareTag("Player"))
+            {
+                Player[] target = { col.GetComponent<PhotonView>().Owner };
+                PlaySound.playSound.RPC_QueueVoice(19, target);
+            }
         }
     }
 
