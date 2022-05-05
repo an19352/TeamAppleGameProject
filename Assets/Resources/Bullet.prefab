@@ -112,7 +112,7 @@ MonoBehaviour:
   travelSpeed: 2
   lifeTime: 10
   bulletForce: 20
-  soundRadius: 1000
+  soundRadius: 35
   players:
     serializedVersion: 2
     m_Bits: 12288

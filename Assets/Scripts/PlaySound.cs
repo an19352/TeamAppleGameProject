@@ -96,6 +96,7 @@ public class PlaySound : MonoBehaviour
      20 - Flag Pickup
      21 - Shields Down
      22 - Laser
+     23 - Turret Explosion
      */
 
     [PunRPC]
