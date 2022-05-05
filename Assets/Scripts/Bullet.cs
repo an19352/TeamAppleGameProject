@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
+using Photon.Realtime;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour
@@ -9,6 +11,8 @@ public class Bullet : MonoBehaviour
     public const float lifeTimeConst = 10;
     public float bulletForce;
     private Rigidbody rb;
+    public float soundRadius;
+    public LayerMask players;
 
     // Start is called before the first frame update
     void Start()
@@ -19,6 +23,7 @@ public class Bullet : MonoBehaviour
     void OnEnable()
     {
         lifeTime = lifeTimeConst;
+        NotifyNearbyPlayers();
     }
 
     // Update is called once per frame
@@ -37,6 +42,17 @@ public class Bullet : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             other.GetComponent<Movement>().RPC_PushMe(rb.velocity * bulletForce, ForceMode.Force);
+        }
+    }
+    
+    void NotifyNearbyPlayers()
+    {
+        Collider[] playersInRadius = Physics.OverlapSphere(transform.position, soundRadius, players, 0);
+        foreach (Collider player in playersInRadius)
+        {
+            Player[] target = {player.GetComponent<PhotonView>().Owner};
+            PlaySound.playSound.RPC_InstantSound(22, target);
+            Debug.Log(player);
         }
     }
 }

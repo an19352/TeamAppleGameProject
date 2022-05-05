@@ -5892,7 +5892,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ignoredLayers:
     serializedVersion: 2
-    m_Bits: 131072
+    m_Bits: 458751
   meteorFallForce: 30
 --- !u!114 &6366128571172061808
 MonoBehaviour:
