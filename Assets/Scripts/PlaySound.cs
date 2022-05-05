@@ -71,31 +71,6 @@ public class PlaySound : MonoBehaviour
             }   
         }
     }
-
-    /*void RPC_FadeBackground(int voiceID, Player[] target)
-    {
-        foreach (Player p in target)
-        {
-            PV.RPC("StartFadeBackground", p, voiceID);
-        }
-    }
-
-    [PunRPC]
-    void StartFadeBackgroud(float time)
-    {
-        StartCoroutine(FadeBackground(time));
-    }
-    
-    [PunRPC]
-    IEnumerator FadeBackground(float time)
-    {
-        Debug.Log("called");
-        sounds[17].volume = 0.3f;
-        yield return new WaitForSeconds(time);
-        sounds[17].volume = 1f;
-        Debug.Log("end");
-        yield return null;
-    }*/
     
     /*
      0 - intro
@@ -120,22 +95,22 @@ public class PlaySound : MonoBehaviour
      19 - Generator Explosion
      20 - Flag Pickup
      21 - Shields Down
+     22 - Laser
      */
 
-/*    [PunRPC]
+    [PunRPC]
     void PlayVoice(int voiceID)
     {
         sounds[voiceID].Play();
     }
 
-    public void RPC_PlayVoice(int voiceID, Player[] target)
+    public void RPC_InstantSound(int voiceID, Player[] target)
     {
         foreach (Player p in target)
         {
             PV.RPC("PlayVoice", p, voiceID);
-            //PV.RPC("StartFadeBackground", p, sounds[voiceID].clip.length);
         }
-    }*/
+    }
 
     public void RPC_QueueVoice(int voiceID, Player[] target)
     {
