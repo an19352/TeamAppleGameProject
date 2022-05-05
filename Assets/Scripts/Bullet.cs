@@ -24,6 +24,7 @@ public class Bullet : MonoBehaviour
     {
         lifeTime = lifeTimeConst;
         NotifyNearbyPlayers();
+
     }
 
     // Update is called once per frame

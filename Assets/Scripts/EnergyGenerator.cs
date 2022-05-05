@@ -125,6 +125,7 @@ public class EnergyGenerator : MonoBehaviour, IPunObservable
 
     private void OnDisable()
     {
+        Debug.Log("disable");
         NotifyNearbyPlayers();
     }
 
@@ -152,7 +153,6 @@ public class EnergyGenerator : MonoBehaviour, IPunObservable
         foreach (Collider player in playersInRadius)
         {
             Vector3 pushFactor = (player.transform.position - transform.position).normalized * pushForce;
-            Debug.Log(pushFactor);
             player.GetComponent<Movement>().RPC_PushMe(pushFactor, ForceMode.Impulse);
         }
     }
@@ -163,8 +163,8 @@ public class EnergyGenerator : MonoBehaviour, IPunObservable
         foreach (Collider player in playersInRadius)
         {
             Player[] target = {player.GetComponent<PhotonView>().Owner};
+            Debug.Log(target[0]);
             PlaySound.playSound.RPC_QueueVoice(19, target);
-            Debug.Log(player);
         }
     }
 
