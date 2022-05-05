@@ -43,7 +43,7 @@ public class Turret : MonoBehaviour, IPunObservable
         // Transform canvas = this.gameObject.transform.Find("Canvas");
         //healthBarImage = healthBar.gameObject.GetComponent<Image>();
         poolOfObject = ObjectPooler.OP;
-        InvokeRepeating("UpdateTarget", 0f, 0.5f);
+        InvokeRepeating("UpdateTarget", 0f, 0.1f);
 
         float distanceRed = Vector3.Distance(transform.position, GameMechanics.gameMechanics.bases[0].transform.position);
         float distanceBlue = Vector3.Distance(transform.position, GameMechanics.gameMechanics.bases[1].transform.position);
