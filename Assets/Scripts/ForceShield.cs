@@ -26,8 +26,6 @@ public class ForceShield : MonoBehaviour
         {
             StartCoroutine(GeneratorsDown());
         }
-
-        Debug.Log(gameObject.layer);
     }
 
     IEnumerator GeneratorsDown()

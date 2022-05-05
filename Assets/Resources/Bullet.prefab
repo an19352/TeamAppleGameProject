@@ -112,10 +112,10 @@ MonoBehaviour:
   travelSpeed: 2
   lifeTime: 10
   bulletForce: 20
-  soundRadius: 1000
+  soundRadius: 100
   players:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 12288
 --- !u!54 &-1498149483246588006
 Rigidbody:
   m_ObjectHideFlags: 0

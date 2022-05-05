@@ -84,9 +84,6 @@ public class EnergyGenerator : MonoBehaviour, IPunObservable
     void CreateExplosion()
     {
         GameObject explosion = PhotonNetwork.Instantiate(explosionEffect.name, transform.position, transform.rotation);
-        NotifyNearbyPlayers();
-        Debug.Log("exploded");
-        // Debug.Log("explosion instantiated");
 
         // RepelNearbyPlayers();
         // // yield return new WaitForSeconds(2);
@@ -135,6 +132,11 @@ public class EnergyGenerator : MonoBehaviour, IPunObservable
         }
     }
 
+    private void OnDisable()
+    {
+        NotifyNearbyPlayers();
+    }
+
     public void applyForce(float force)
     {
         healthRemain -= force;
@@ -158,7 +160,6 @@ public class EnergyGenerator : MonoBehaviour, IPunObservable
         Collider[] playersInRadius = Physics.OverlapSphere(transform.position, explosionRadius, players, 0);
         foreach (Collider player in playersInRadius)
         {
-            Debug.Log(player);
             Vector3 pushFactor = (player.transform.position - transform.position).normalized * pushForce;
             Debug.Log(pushFactor);
             player.GetComponent<Movement>().RPC_PushMe(pushFactor, ForceMode.Impulse);
@@ -167,9 +168,7 @@ public class EnergyGenerator : MonoBehaviour, IPunObservable
     
     void NotifyNearbyPlayers()
     {
-        Debug.Log("notified");
         Collider[] playersInRadius = Physics.OverlapSphere(transform.position, explosionRadius, players, 0);
-        Debug.Log(playersInRadius.Length);
         foreach (Collider player in playersInRadius)
         {
             Player[] target = {player.GetComponent<PhotonView>().Owner};
