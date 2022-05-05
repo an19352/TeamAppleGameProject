@@ -68,8 +68,7 @@ public class MapGenerator : MonoBehaviour
 
     [Range(1, 4)]
     public int method = 3;
-
-    public GameObject mini;
+    
     public GameObject greenbase;
     public GameObject redbase;
     public GameObject objectivePrefab; 
@@ -164,7 +163,6 @@ public class MapGenerator : MonoBehaviour
     IEnumerator ActivateCooldown(int time)
     {
         yield return new WaitForSeconds(time);
-        mini.SetActive(true);
         GameMechanics.gameMechanics.RPC_InitiatePlayer();
     }
     

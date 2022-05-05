@@ -76,7 +76,7 @@ public class GameMechanics : MonoBehaviour
     public PhotonPlayer PB;
     public bool readyToDeploy = false;
     public GameObject MapGenerator;
-
+    public GameObject mini;
 
     PhotonView PV;
 
@@ -581,6 +581,7 @@ public class GameMechanics : MonoBehaviour
     [PunRPC]
     void InitiatePlayer()
     {
+        mini.SetActive(true);
         UpdateFlagUI();
 
         if (PhotonNetwork.IsMasterClient)
