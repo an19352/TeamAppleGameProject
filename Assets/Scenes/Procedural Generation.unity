@@ -3507,7 +3507,7 @@ MonoBehaviour:
   method: 3
   greenbase: {fileID: 4855106600265033456, guid: 4b9eef4794ac1084caf36e88645e744d, type: 3}
   redbase: {fileID: 4855106600265033456, guid: 1f1ac4a73097c5f41bb7a6413df2c86e, type: 3}
-  objectivePrefab: {fileID: 8176473694404092270, guid: d5fc2f8a923f3f5429eb9fc1ea2e2d41, type: 3}
+  objectivePrefab: {fileID: 0}
   InitState: 13
   Generate_Again: 0
 --- !u!4 &506366124
@@ -3590,13 +3590,13 @@ MonoBehaviour:
   redgens: []
   greengens: []
   worldSpaceCanvas: {fileID: 1451163883}
-  blueFlags: {fileID: 1124631354}
+  blueFlags: {fileID: 0}
   redFlags: {fileID: 540473}
   flagObjectives: []
   bases: []
   PB: {fileID: 0}
   readyToDeploy: 0
-  MapGenerator: {fileID: 506366122}
+  MapGenerator: {fileID: 0}
 --- !u!114 &537854692
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5115,6 +5115,8 @@ GameObject:
   - component: {fileID: 1177996982}
   - component: {fileID: 1177996985}
   - component: {fileID: 1177996986}
+  - component: {fileID: 1177996987}
+  - component: {fileID: 1177996988}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -5204,7 +5206,7 @@ MonoBehaviour:
   m_RequiresOpaqueTextureOption: 2
   m_CameraType: 0
   m_Cameras: []
-  m_RendererIndex: -1
+  m_RendererIndex: 0
   m_VolumeLayerMask:
     serializedVersion: 2
     m_Bits: 1
@@ -5239,6 +5241,54 @@ MonoBehaviour:
   smoothSpeed: 1.5
   rubberBand: 1
   attachToPlayer: 0
+--- !u!114 &1177996987
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1177996981}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72ece51f2901e7445ab60da3685d6b5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShowDebugText: 0
+  m_ShowCameraFrustum: 1
+  m_IgnoreTimeScale: 0
+  m_WorldUpOverride: {fileID: 0}
+  m_UpdateMethod: 2
+  m_BlendUpdateMethod: 1
+  m_DefaultBlend:
+    m_Style: 1
+    m_Time: 2
+    m_CustomCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+  m_CustomBlends: {fileID: 0}
+  m_CameraCutEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_CameraActivatedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &1177996988
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1177996981}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d660e2632d1999045b73188414175b11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cameraCM: {fileID: 0}
+  shutDownTime: 9
 --- !u!1001 &1295678934
 PrefabInstance:
   m_ObjectHideFlags: 0
