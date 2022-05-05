@@ -166,7 +166,7 @@ public class GameMechanics : MonoBehaviour
 
     public void RPC_Score(int teamID)
     {
-        PV.RPC("Score", RpcTarget.AllBuffered, teamID);
+        PV.RPC("Score", RpcTarget.All, teamID);
     }
 
     // Increments the score of a team by one
@@ -184,13 +184,13 @@ public class GameMechanics : MonoBehaviour
     {
         int voiceID = GenerateCommentary(teamID);
         PlaySound.playSound.RPC_QueueVoice(voiceID, PhotonNetwork.PlayerList);
-        PV.RPC("IncreaseFlag", RpcTarget.AllBuffered, teamID);
-        PV.RPC("UpdateFlagUI", RpcTarget.AllBuffered);
+        PV.RPC("IncreaseFlag", RpcTarget.All, teamID);
+        PV.RPC("UpdateFlagUI", RpcTarget.All);
     }
     public void RPC_DecreaseFlag(int teamID)
     {
-        PV.RPC("DecreaseFlag", RpcTarget.AllBuffered, teamID);
-        PV.RPC("UpdateFlagUI", RpcTarget.AllBuffered);
+        PV.RPC("DecreaseFlag", RpcTarget.All, teamID);
+        PV.RPC("UpdateFlagUI", RpcTarget.All);
         flagObjectives[teamID].objective.GetComponent<ObjectiveFlag>().hasFlag = true;
     }
 
@@ -308,7 +308,7 @@ public class GameMechanics : MonoBehaviour
 
     public void RPC_UpdateDefenders(int teamID, bool addition)
     {
-        PV.RPC("UpdateDefenders", RpcTarget.AllBuffered, teamID, addition);
+        PV.RPC("UpdateDefenders", RpcTarget.All, teamID, addition);
     }
 
     [PunRPC]
@@ -454,7 +454,7 @@ public class GameMechanics : MonoBehaviour
 
     public void End_Game()
     {
-        PV.RPC("EndGame", RpcTarget.AllBuffered);
+        PV.RPC("EndGame", RpcTarget.All);
     }
 
     public GameObject GetLocalPlayer()
