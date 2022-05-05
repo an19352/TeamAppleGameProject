@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Photon.Pun;
 
@@ -13,22 +14,22 @@ public class Minimap : MonoBehaviour
 
     private LineRenderer lineRenderer;
     private GameObject player;
-    private GameObject[] generators;
+    private List <GameObject> generators;
     PhotonView PV;
     GameMechanics gameMechanics;
 
 
     // Start is called before the first frame update
-    void Start()
+    void OnEnable()
     {
         // find the transform of the player whoes owner is the same as the camera
         this.PV = GetComponent<PhotonView>();
         this.gameMechanics = GameMechanics.gameMechanics;
         lineRenderer = GetComponent<LineRenderer>();
         playerIconRef = Instantiate(playerIcon, transform.position, transform.rotation);
-        generators = GameObject.FindGameObjectsWithTag("Generator");
-
-        foreach (var generator in generators)
+        generators = gameMechanics.greengens;
+        generators.AddRange(gameMechanics.redgens);
+        foreach (GameObject generator in generators)
         {
             Vector3 generatorPos = new Vector3(generator.transform.position.x, 60f, generator.transform.position.z);
             Instantiate(generatorIcon, generatorPos, generatorIcon.rotation);

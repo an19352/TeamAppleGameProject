@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.19634691, g: 0.09731356, b: 0.119633995, a: 1}
+  m_IndirectSpecularColor: {r: 0.1962879, g: 0.09740276, b: 0.11954967, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3469,6 +3469,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MinimapCamera
       objectReference: {fileID: 0}
+    - target: {fileID: 7805278361457090338, guid: 908af0a07bd8e9248b524c4bfb6b4bd4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7805278361457090340, guid: 908af0a07bd8e9248b524c4bfb6b4bd4, type: 3}
       propertyPath: playerIcon
       value: 
@@ -3527,6 +3531,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 908af0a07bd8e9248b524c4bfb6b4bd4, type: 3}
+--- !u!1 &416563655 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7805278361457090338, guid: 908af0a07bd8e9248b524c4bfb6b4bd4, type: 3}
+  m_PrefabInstance: {fileID: 416563654}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &490597324
 GameObject:
   m_ObjectHideFlags: 0
@@ -3708,9 +3717,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   indicator: 0
-  ones: 0
-  zeros: 0
-  difference: 0
   startingPosition: {x: 0, y: 0, z: 0}
   platformTypes:
   - prefab: {fileID: 2765404466157998811, guid: 90228459ee011a04f816883ed77bc560, type: 3}
@@ -3745,6 +3751,7 @@ MonoBehaviour:
   width: 7
   height: 7
   method: 3
+  mini: {fileID: 416563655}
   greenbase: {fileID: 4855106600265033456, guid: 4b9eef4794ac1084caf36e88645e744d, type: 3}
   redbase: {fileID: 4855106600265033456, guid: 1f1ac4a73097c5f41bb7a6413df2c86e, type: 3}
   objectivePrefab: {fileID: 8176473694404092270, guid: d5fc2f8a923f3f5429eb9fc1ea2e2d41, type: 3}

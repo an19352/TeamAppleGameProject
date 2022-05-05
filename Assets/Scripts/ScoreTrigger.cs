@@ -41,7 +41,7 @@ public class ScoreTrigger : MonoBehaviour
 
             if (offline) return;
 
-
+            gameMechanics.RPC_Score((gameMechanics.checkTeam(mov.GetId()) + 1)%2);
         }
     }
 }

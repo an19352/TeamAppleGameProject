@@ -39,10 +39,7 @@ public class MapGenerator : MonoBehaviour
             board = type;
         }
     }
-    public int ones = 0;
-    public int zeros = 0;
-    public int difference = 0;
-
+    
     public struct TreeElement
     {
         public int index, root;
@@ -65,15 +62,14 @@ public class MapGenerator : MonoBehaviour
     public Vector3 startingPosition;
     public List<PlatformType> platformTypes;
     public List<PlatformType> specialPlatforms;
-    //float chanceSum = 0f;
 
     public int width = 15;
     public int height = 15;
 
     [Range(1, 4)]
     public int method = 3;
-    //Platform[,] map;
 
+    public GameObject mini;
     public GameObject greenbase;
     public GameObject redbase;
     public GameObject objectivePrefab; 
@@ -106,7 +102,6 @@ public class MapGenerator : MonoBehaviour
 
     void Start()
     {
-        //map = new Platform[width, height];
         //foreach (PlatformType plt in platformTypes) chanceSum += plt.chance;
 
         PV = GetComponent<PhotonView>();
@@ -169,15 +164,10 @@ public class MapGenerator : MonoBehaviour
     IEnumerator ActivateCooldown(int time)
     {
         yield return new WaitForSeconds(time);
-
+        mini.SetActive(true);
         GameMechanics.gameMechanics.RPC_InitiatePlayer();
     }
-
-    void first_method()
-    {
-        // Horizontal line + trees
-        return;
-    }
+    
 
     void second_method()
     {
@@ -215,6 +205,7 @@ public class MapGenerator : MonoBehaviour
          SpawnBases();
 
     }
+    
 
     void third_method()
     {
@@ -303,12 +294,6 @@ public class MapGenerator : MonoBehaviour
 
             PV.RPC("flagObjectiveSyc", RpcTarget.All, PVIDs);
         }
-    }
-
-    void fourth_method()
-    {
-        // Grid strike out (graph theory)
-        return;
     }
 
     int FindPlatform(Transform _transform)

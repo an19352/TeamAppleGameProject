@@ -163,22 +163,20 @@ public class GameMechanics : MonoBehaviour
         Destroy(_obj);
     }
 
-    /*   public void RPC_Score(int teamID)
-        {
-            PV.RPC("Score", RpcTarget.AllBuffered, teamID);
-        }
+    public void RPC_Score(int teamID)
+    {
+        PV.RPC("Score", RpcTarget.All, teamID);
+    }
 
-        // Increments the score of a team by one
-        [PunRPC]
-        public void Score(int teamID)
-        {
-            string _name = teams[teamID].name;
-            int _score = teams[teamID].score + 1;
-            Text _text = teams[teamID].scoreText;
-            _text.text = _score.ToString();
+    // Increments the score of a team by one
+    [PunRPC]
+    public void Score(int teamID)
+    {
+        string _name = teams[teamID].name;
+        int _score = teams[teamID].score + 1;
 
-            teams[teamID] = new Team { name = _name, score = _score, scoreText = _text };
-        }*/
+        teams[teamID] = new Team { name = _name, score = _score };
+    }
 
     #region FlagStuff
     public void RPC_IncreaseFlag(int teamID)
@@ -310,7 +308,7 @@ public class GameMechanics : MonoBehaviour
 
     public void RPC_UpdateDefenders(int teamID, bool addition)
     {
-        PV.RPC("UpdateDefenders", RpcTarget.AllBuffered, teamID, addition);
+        PV.RPC("UpdateDefenders", RpcTarget.All, teamID, addition);
     }
 
     [PunRPC]
@@ -456,7 +454,7 @@ public class GameMechanics : MonoBehaviour
 
     public void End_Game()
     {
-        PV.RPC("EndGame", RpcTarget.AllBuffered);
+        PV.RPC("EndGame", RpcTarget.All);
     }
 
     public GameObject GetLocalPlayer()

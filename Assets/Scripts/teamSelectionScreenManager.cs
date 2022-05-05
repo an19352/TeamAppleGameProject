@@ -27,9 +27,13 @@ public class teamSelectionScreenManager : MonoBehaviour
     private void Start()
     {
         PV = GetComponent<PhotonView>();
-
-        if (PhotonNetwork.IsMasterClient) startButton.interactable = true;  
     }
+
+    private void OnEnable()
+    {
+        if (PhotonNetwork.IsMasterClient) startButton.interactable = true;
+    }
+
     public void RPC_LeaveTeam(int team)
     {
         PV.RPC("LeaveTeam", RpcTarget.AllBuffered, team, PhotonNetwork.LocalPlayer.ActorNumber - 1);
@@ -85,5 +89,10 @@ public class teamSelectionScreenManager : MonoBehaviour
         team = (team + 1) % 2;
         if (redplayers.Count + blueplayers.Count == maxPeoplePerTeam * 2 && PhotonNetwork.IsMasterClient) 
             Debug.Log("Now you'd be able to start the game");
+    }
+
+    private void OnDisable()
+    {
+        startButton.interactable = false;
     }
 }
