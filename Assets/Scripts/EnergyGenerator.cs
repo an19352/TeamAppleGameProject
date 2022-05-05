@@ -167,7 +167,9 @@ public class EnergyGenerator : MonoBehaviour, IPunObservable
     
     void NotifyNearbyPlayers()
     {
+        Debug.Log("notified");
         Collider[] playersInRadius = Physics.OverlapSphere(transform.position, explosionRadius, players, 0);
+        Debug.Log(playersInRadius.Length);
         foreach (Collider player in playersInRadius)
         {
             Player[] target = {player.GetComponent<PhotonView>().Owner};
