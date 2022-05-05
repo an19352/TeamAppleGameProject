@@ -185,6 +185,9 @@ public class GameMechanics : MonoBehaviour
         PlaySound.playSound.RPC_QueueVoice(voiceID, PhotonNetwork.PlayerList);
         PV.RPC("IncreaseFlag", RpcTarget.All, teamID);
         PV.RPC("UpdateFlagUI", RpcTarget.All);
+        int otherTeam = teamID == 0 ? 1 : 0;
+        flagObjectives[otherTeam].objective.GetComponent<ObjectiveFlag>().hasFlag = true;
+
     }
     public void RPC_DecreaseFlag(int teamID)
     {
