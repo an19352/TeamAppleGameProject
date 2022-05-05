@@ -29,11 +29,8 @@ public class Minimap : MonoBehaviour
         playerIconRef = Instantiate(playerIcon, transform.position, transform.rotation);
         generators = gameMechanics.greengens;
         generators.AddRange(gameMechanics.redgens);
-        Debug.Log(generators[0]);
         foreach (GameObject generator in generators)
         {
-            Debug.Log("somefw");
-            Debug.Log(generator);
             Vector3 generatorPos = new Vector3(generator.transform.position.x, 60f, generator.transform.position.z);
             Instantiate(generatorIcon, generatorPos, generatorIcon.rotation);
         }
