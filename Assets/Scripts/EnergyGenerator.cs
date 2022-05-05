@@ -123,6 +123,7 @@ public class EnergyGenerator : MonoBehaviour, IPunObservable
 
     private void OnDisable()
     {
+        if(PV == null) return;
         fsScript.generatorDestroyed++;
         Debug.Log("disable");
         NotifyNearbyPlayers();
