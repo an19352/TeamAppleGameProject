@@ -48,12 +48,14 @@ public class Bullet : MonoBehaviour
     
     void NotifyNearbyPlayers()
     {
-        Collider[] playersInRadius = Physics.OverlapSphere(transform.position, soundRadius, players, 0);
-        foreach (Collider player in playersInRadius)
+        Collider[] playersInRadius = Physics.OverlapSphere(transform.position, soundRadius, ~0, 0);
+        foreach (Collider col in playersInRadius)
         {
-            Player[] target = {player.GetComponent<PhotonView>().Owner};
-            PlaySound.playSound.RPC_InstantSound(22, target);
-            Debug.Log(player);
+            if (col.CompareTag("Player"))
+            {
+                Player[] target = { col.GetComponent<PhotonView>().Owner };
+                PlaySound.playSound.RPC_InstantSound(22, target);
+            }
         }
     }
 }
