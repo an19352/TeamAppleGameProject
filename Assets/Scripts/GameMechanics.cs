@@ -59,7 +59,6 @@ public class GameMechanics : MonoBehaviour
         }
     }
 
-
     public List<Team> teams;
     public List<Player> players;
     public List<Transform> spawnPpoints;
@@ -135,7 +134,7 @@ public class GameMechanics : MonoBehaviour
     public void Add_player(int playerViewId, int team)
     {
         //if (players.Count > 0)
-          //  Debug.Log(players[0].obj.GetComponent<PhotonView>().Owner.NickName + " has ID " + players[0].obj.GetComponent<PhotonView>().OwnerActorNr);
+        //  Debug.Log(players[0].obj.GetComponent<PhotonView>().Owner.NickName + " has ID " + players[0].obj.GetComponent<PhotonView>().OwnerActorNr);
         Player _player = new Player { obj = PhotonView.Find(playerViewId).gameObject, team = team };
         players.Add(_player);
         _player.obj.GetComponent<Movement>().SetId(players.Count - 1);
@@ -164,36 +163,36 @@ public class GameMechanics : MonoBehaviour
         Destroy(_obj);
     }
 
-/*   public void RPC_Score(int teamID)
-    {
-        PV.RPC("Score", RpcTarget.AllBuffered, teamID);
-    }
+    /*   public void RPC_Score(int teamID)
+        {
+            PV.RPC("Score", RpcTarget.AllBuffered, teamID);
+        }
 
-    // Increments the score of a team by one
-    [PunRPC]
-    public void Score(int teamID)
-    {
-        string _name = teams[teamID].name;
-        int _score = teams[teamID].score + 1;
-        Text _text = teams[teamID].scoreText;
-        _text.text = _score.ToString();
+        // Increments the score of a team by one
+        [PunRPC]
+        public void Score(int teamID)
+        {
+            string _name = teams[teamID].name;
+            int _score = teams[teamID].score + 1;
+            Text _text = teams[teamID].scoreText;
+            _text.text = _score.ToString();
 
-        teams[teamID] = new Team { name = _name, score = _score, scoreText = _text };
-    }*/
+            teams[teamID] = new Team { name = _name, score = _score, scoreText = _text };
+        }*/
 
     #region FlagStuff
     public void RPC_IncreaseFlag(int teamID)
     {
         int voiceID = GenerateCommentary(teamID);
         PlaySound.playSound.RPC_QueueVoice(voiceID, PhotonNetwork.PlayerList);
-        PV.RPC("IncreaseFlag", RpcTarget.AllBuffered, teamID);
-        PV.RPC("UpdateFlagUI", RpcTarget.AllBuffered);
+        PV.RPC("IncreaseFlag", RpcTarget.All, teamID);
+        PV.RPC("UpdateFlagUI", RpcTarget.All);
     }
     public void RPC_DecreaseFlag(int teamID)
     {
-        PV.RPC("DecreaseFlag", RpcTarget.AllBuffered, teamID);
-        PV.RPC("UpdateFlagUI", RpcTarget.AllBuffered);
-        flagObjectives[teamID].objective.GetComponent<ObjectiveFlag>().hasFlag = true;
+        PV.RPC("DecreaseFlag", RpcTarget.All, teamID);
+        PV.RPC("UpdateFlagUI", RpcTarget.All);
+        flagObjectives[teamID].objective.GetComponent<ObjectiveFlag>().hasFlag = false;
     }
 
     [PunRPC]
@@ -225,6 +224,7 @@ public class GameMechanics : MonoBehaviour
     public void DecreaseFlag(int teamID)
     {
         flagObjectives[teamID].flagCount -= 1;
+        flagObjectives[teamID].objective.GetComponent<ObjectiveFlag>().hasFlag = false;
     }
 
 

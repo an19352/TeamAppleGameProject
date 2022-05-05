@@ -19,7 +19,7 @@ public class ObjectiveFlag : MonoBehaviour
     public Material stalemateMaterial;
     public Material returnMaterial;
     // red <-> green 
-   // public GameObject otherObjectiveFlag;
+    // public GameObject otherObjectiveFlag;
 
     public List<GameMechanics.Player> playerList;
     public int numOfAttackers = 0, numOfDefenders = 0;
@@ -35,7 +35,7 @@ public class ObjectiveFlag : MonoBehaviour
         // Capture: attacker getting the flag
         // Stalemate: same/less amount of attackers & defenders
         // Return: defender returning the flag / attacker returning the flag
-        Idle, Capture, Stalemate, Return
+        Idle, Capture, Stalemate
     };
 
     [SerializeField]
@@ -45,8 +45,6 @@ public class ObjectiveFlag : MonoBehaviour
     {
         PV = GetComponent<PhotonView>();
         hasFlag = true;
-        //flag = transform.Find("Ball").gameObject;
-        //detectionField = transform.Find("DetectionField").gameObject;
         gameMechanics = GameMechanics.gameMechanics;
         if (gameMechanics == null) return;
 
@@ -97,21 +95,13 @@ public class ObjectiveFlag : MonoBehaviour
         }
         else
         {
-            // check if a defender has the flag from its own team to return 
-            foreach (var pair in playerList)
-            {
-                if (pair.obj.transform.Find("Flag") != null)
-                {
-                    return State.Return;
-                };
-            }
             return State.Idle;
         }
     }
 
     public void RPC_ApplyChangesOnState(int playerID)
     {
-        PV.RPC("ApplyChangesOnState", RpcTarget.All, playerID);
+        PV.RPC("ApplyChangesOnState", RpcTarget.MasterClient, playerID);
     }
 
     // based on the current state, apply changes
@@ -119,6 +109,7 @@ public class ObjectiveFlag : MonoBehaviour
     void ApplyChangesOnState(int playerID)
     {
         currentState = EvaluateState();
+        Debug.Log(currentState);
         switch (currentState)
         {
             case State.Idle:
@@ -130,9 +121,6 @@ public class ObjectiveFlag : MonoBehaviour
                 // start the capture counter
                 StartCoroutine(StartCaptureCountDown(captureDuration, playerID, defendTeam));
                 break;
-            case State.Return:
-                fieldRenderer.material = returnMaterial;
-                break;
             case State.Stalemate:
                 fieldRenderer.material = stalemateMaterial;
                 StopAllCoroutines();
@@ -143,10 +131,10 @@ public class ObjectiveFlag : MonoBehaviour
     IEnumerator StartCaptureCountDown(float time, int playerID, int defendTeam)
     {
         yield return new WaitForSeconds(time);
-        hasFlag = false;
-        gameMechanics.RPC_EnableFlagHolder(playerID, defendTeam);
+        GameMechanics.Player firstPlayerEntered = playerList.Find(player => player.team == otherTeam);
+        int firstPlayerId = firstPlayerEntered.obj.GetComponent<Movement>().GetId();
+        gameMechanics.RPC_EnableFlagHolder(firstPlayerId, firstPlayerEntered.team);
         gameMechanics.RPC_DecreaseFlag(defendTeam);
-        
     }
 
     void OnTriggerEnter(Collider other)
@@ -154,6 +142,7 @@ public class ObjectiveFlag : MonoBehaviour
         if (!PhotonNetwork.IsConnected) return;
         if (PV == null) return;
         if (!PV.IsMine) return;
+
         // track players as they enter the detection field
         if (other.gameObject.CompareTag("Player") && !playerList.Exists(player => player.obj == other.gameObject))
         {
@@ -161,22 +150,22 @@ public class ObjectiveFlag : MonoBehaviour
 
             int playerID = playerEntered.GetComponent<Movement>().GetId();
             int teamID = gameMechanics.checkTeam(playerID);
-
             playerList.Add(new GameMechanics.Player { team = teamID, obj = other.gameObject });
-            // attacking
+
+            // an enemy enter 
             if (teamID != defendTeam)
             {
                 gameMechanics.RPC_UpdateAttackers(defendTeam, true);
             }
-            // defending
+            // a friendly player enter 
             else
             {
                 gameMechanics.RPC_UpdateDefenders(teamID, true);
+                // if the friendly player enters with a flag
                 if (playerEntered.GetComponent<FlagHolder>().enabled)
                 {
-
                     gameMechanics.RPC_DisableFlagHolder(playerID);
-                    Player[] target = {playerEntered.GetComponent<PhotonView>().Owner};
+                    Player[] target = { playerEntered.GetComponent<PhotonView>().Owner };
                     PlaySound.playSound.RPC_QueueVoice(18, target);
                     // scoring an enemy flag
                     // if (playerEntered.GetComponent<FlagHolder>().teamID != defendTeam)
@@ -193,21 +182,27 @@ public class ObjectiveFlag : MonoBehaviour
 
     void OnTriggerExit(Collider other)
     {
+        if (!PhotonNetwork.IsConnected) return;
+        if (PV == null) return;
         if (!PV.IsMine) return;
+
         // Untrack players as they leave the detection field
         if (other.gameObject.CompareTag("Player"))
         {
             GameObject playerExited = other.gameObject;
             int playerID = other.gameObject.GetComponent<Movement>().GetId();
             int teamID = gameMechanics.checkTeam(playerID);
+            // an enemy player exits 
             if (teamID != defendTeam)
             {
                 gameMechanics.RPC_UpdateAttackers(defendTeam, false);
             }
+            // a friendly player exits 
             else
             {
                 gameMechanics.RPC_UpdateDefenders(defendTeam, false);
             }
+            // remove the player exit from the list
             playerList.RemoveAll(player => player.obj == other.gameObject);
             RPC_ApplyChangesOnState(playerID);
         }
