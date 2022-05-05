@@ -84,9 +84,6 @@ public class EnergyGenerator : MonoBehaviour, IPunObservable
     void CreateExplosion()
     {
         GameObject explosion = PhotonNetwork.Instantiate(explosionEffect.name, transform.position, transform.rotation);
-        NotifyNearbyPlayers();
-        Debug.Log("exploded");
-        // Debug.Log("explosion instantiated");
 
         // RepelNearbyPlayers();
         // // yield return new WaitForSeconds(2);
@@ -102,15 +99,6 @@ public class EnergyGenerator : MonoBehaviour, IPunObservable
      */
     void OnCollisionEnter(Collision other)
     {
-        int f = 0;
-        foreach (GameObject gen in GameMechanics.gameMechanics.greengens)
-        {
-            if (gen.transform == gameObject.transform)
-            {
-                f = 1;
-                break;
-            }
-        }
 
         if (other.gameObject.TryGetComponent<Movement>(out Movement mov))
         {
@@ -118,7 +106,7 @@ public class EnergyGenerator : MonoBehaviour, IPunObservable
             int id = mov.GetId();
             int teamid = GameMechanics.gameMechanics.checkTeam(id);
 
-            if (teamid != f)
+            if (teamid != team)
             {
 
                 ContactPoint cp = other.GetContact(0);
@@ -133,6 +121,11 @@ public class EnergyGenerator : MonoBehaviour, IPunObservable
             }
             else return;
         }
+    }
+
+    private void OnDisable()
+    {
+        NotifyNearbyPlayers();
     }
 
     public void applyForce(float force)
@@ -158,7 +151,6 @@ public class EnergyGenerator : MonoBehaviour, IPunObservable
         Collider[] playersInRadius = Physics.OverlapSphere(transform.position, explosionRadius, players, 0);
         foreach (Collider player in playersInRadius)
         {
-            Debug.Log(player);
             Vector3 pushFactor = (player.transform.position - transform.position).normalized * pushForce;
             Debug.Log(pushFactor);
             player.GetComponent<Movement>().RPC_PushMe(pushFactor, ForceMode.Impulse);
