@@ -15,11 +15,7 @@ MonoBehaviour:
   powerupName: Grenade
   icon: {fileID: 21300000, guid: 9d2f4f7edbbaee548bab82919f10b704, type: 3}
   Infinite: 1
-  timeToDie: 0
+  timeToDie: 10
   associatedClass: Grenade
-  tooltipText: 'Left Click to throw the grenade.
-
-    Can be used to destroy
-
-    generators
-    and turrets.'
+  tooltipText: "Left Click to throw the grenade.\nCan be used against enemies\n&
+    to destroy generators \nand turrets."
