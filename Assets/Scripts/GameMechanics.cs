@@ -263,6 +263,10 @@ public class GameMechanics : MonoBehaviour
         {
             greenImgs[i].enabled = true;
         }
+
+        if (PhotonNetwork.IsMasterClient)
+            if (flagObjectives[0].flagCount == 6 || flagObjectives[1].flagCount == 6)
+                End_Game();
     }
 
 
