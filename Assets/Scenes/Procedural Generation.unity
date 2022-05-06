@@ -5764,10 +5764,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
-  offset: {x: 0, y: -13, z: 20}
+  offset: {x: 0, y: -35, z: 50}
   focalOffsets: {x: 0, y: 0, z: 0}
   smoothMotion: 1
-  smoothSpeed: 1.5
+  smoothSpeed: 1
   rubberBand: 1
   attachToPlayer: 0
 --- !u!114 &1177996987
