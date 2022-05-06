@@ -12,6 +12,7 @@ public class PowerupGenerator : MonoBehaviour
     private PhotonView PV;
 
     public string powerupTag = "Powerup";
+    [HideInInspector]
     public List<Transform> spawiningPoints;
     public GameObject powerupUpdatePender;
     public GameObject spawnEffect;
@@ -50,7 +51,7 @@ public class PowerupGenerator : MonoBehaviour
     }
 
     // Start is called before the first frame update
-    void Start()
+    void OnEnable()
     {
         PV = GetComponent<PhotonView>();
         poolOfObject = ObjectPooler.OP;
@@ -62,6 +63,7 @@ public class PowerupGenerator : MonoBehaviour
             return;
         }
 
+        spawiningPoints = GameMechanics.gameMechanics.spawnPpoints;
         SetPowerupTags();
         ParentPowerups();
         StartCoroutine(StartGenerator());

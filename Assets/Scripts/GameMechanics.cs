@@ -77,6 +77,7 @@ public class GameMechanics : MonoBehaviour
     public bool readyToDeploy = false;
     public GameObject MapGenerator;
     public GameObject mini;
+    public GameObject Powerupgens;
 
     PhotonView PV;
 
@@ -591,5 +592,6 @@ public class GameMechanics : MonoBehaviour
 
         PB.InitiatePlayer();
         mini.SetActive(true);
+        Powerupgens.SetActive(true);
     }
 }

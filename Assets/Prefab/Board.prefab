@@ -254,11 +254,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawns:
   - obj: {fileID: 5446451121029927839, guid: f3971aa49eb6bb04b9676549e109707c, type: 3}
-    chance: 0.2
+    chance: 0
   - obj: {fileID: 651254172277736668, guid: cd4a1609e103e5a49b9928ce227443de, type: 3}
     chance: 0.2
   - obj: {fileID: 1337687631739204256, guid: deba92b159be39e4690def3f8ff43d31, type: 3}
     chance: 0.15
   - obj: {fileID: 8630314654677418282, guid: ebaf9c3d5436c40b4b120e153d21d4d0, type: 3}
     chance: 0.45
+  - obj: {fileID: 65340535879613375, guid: e3cd1439a340f41cc945319e0a8feb88, type: 3}
+    chance: 0.2
   nothingChance: 0.3
