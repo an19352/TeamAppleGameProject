@@ -14,9 +14,10 @@ using Photon.Pun;
         if (PhotonNetwork.IsMasterClient) GetComponent<Animator>().enabled = true;
     }
 
-    private void OnCollisionEnter(Collision collision)
+
+    private void OnTriggerEnter(Collider collision)
     {
-        Transform target = collision.collider.transform;
+        Transform target = collision.transform;
         if (oldParentPhoneBook.ContainsKey(target)) return;
 
         if (target.Equals(GameMechanics.gameMechanics.GetLocalPlayer().transform)) Camera.main.transform.SetParent(transform);
@@ -25,9 +26,9 @@ using Photon.Pun;
         target.SetParent(transform);
     }
 
-    private void OnCollisionExit(Collision collision)
+    private void OnTriggerExit(Collider collision)
      {
-         Transform other = collision.collider.transform;
+         Transform other = collision.transform;
          if (oldParentPhoneBook.ContainsKey(other))
          {
              other.SetParent(oldParentPhoneBook[other]);
