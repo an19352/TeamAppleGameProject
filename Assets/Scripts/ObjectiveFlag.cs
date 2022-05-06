@@ -133,7 +133,7 @@ public class ObjectiveFlag : MonoBehaviour
         yield return new WaitForSeconds(time);
         GameMechanics.Player firstPlayerEntered = playerList.Find(player => player.team == otherTeam);
         int firstPlayerId = firstPlayerEntered.obj.GetComponent<Movement>().GetId();
-        gameMechanics.RPC_EnableFlagHolder(firstPlayerId, firstPlayerEntered.team);
+        gameMechanics.RPC_EnableFlagHolder(firstPlayerId);
         gameMechanics.RPC_DecreaseFlag(defendTeam);
     }
 

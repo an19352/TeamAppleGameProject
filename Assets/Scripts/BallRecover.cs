@@ -21,17 +21,18 @@ public class BallRecover : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             GameObject player = other.gameObject;
-            if (!player.GetComponent<FlagHolder>().enabled)
+            // if (!player.GetComponent<FlagHolder>().enabled)
             {
-                GameMechanics.gameMechanics.RPC_EnableFlagHolder(player.GetComponent<Movement>().GetId(), teamID);
-
-                // strangely worked the first time
-                //gameMechanics.RPC_Destroy(gameObject);
-
-                gameObject.SetActive(false);
+                GameMechanics.gameMechanics.RPC_EnableFlagHolder(player.GetComponent<Movement>().GetId());
+                PV.RPC("DisableDroppedFlag", RpcTarget.All);
             }
 
         }
+    }
+    [PunRPC]
+    void DisableDroppedFlag()
+    {
+        this.gameObject.SetActive(false);
     }
 
 }

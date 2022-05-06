@@ -114,6 +114,10 @@ MonoBehaviour:
   - SetSpawnPoint
   - SendQueue
   - Shoot
+  - DisableDroppedFlag
+  - RPC_RespawnFlag
+  - RPC_SpawnDroppedBall
+  - RPC_SpawnDroppedFlag
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

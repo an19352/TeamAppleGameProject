@@ -38,10 +38,15 @@ public class FlagHolder : MonoBehaviour
         Transform respawnFLagPlatform = FindClosestDistance(platforms, dropPosition);
         Vector3 respawnFlagPosition = new Vector3(respawnFLagPlatform.position.x, respawnFLagPlatform.position.y + 10, respawnFLagPlatform.position.z);
         Quaternion respawnFLagRotation = Quaternion.identity;
-        // GameObject db = PhotonNetwork.Instantiate(droppedBall.name, );
-        poolOfObject.SpawnFromPool("DroppedFlag", respawnFlagPosition, respawnFLagRotation);
+        PV.RPC("RPC_SpawnDroppedFlag", RpcTarget.All, respawnFlagPosition, respawnFLagRotation);
         PlaySound.playSound.RPC_QueueVoice(GenerateCommentary(teamID), PhotonNetwork.PlayerList);
     }
+    [PunRPC]
+    public void RPC_SpawnDroppedFlag(Vector3 respawnFlagPosition, Quaternion respawnFLagRotation)
+    {
+        poolOfObject.SpawnFromPool("DroppedFlag", respawnFlagPosition, respawnFLagRotation);
+    }
+
 
     Transform FindClosestDistance(GameObject[] platforms, Vector3 respawnFlagPosition)
     {

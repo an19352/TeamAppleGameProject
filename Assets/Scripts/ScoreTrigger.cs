@@ -32,7 +32,7 @@ public class ScoreTrigger : MonoBehaviour
                 if (fh.enabled == true)
                 {
                     fh.RespawnFlag(other.transform.position, other.transform.rotation);
-                    fh.enabled = false;
+                    gameMechanics.RPC_DisableFlagHolder(mov.GetId());
                 }
             }
 
@@ -41,7 +41,7 @@ public class ScoreTrigger : MonoBehaviour
 
             if (offline) return;
 
-            gameMechanics.RPC_Score((gameMechanics.checkTeam(mov.GetId()) + 1)%2);
+            gameMechanics.RPC_Score((gameMechanics.checkTeam(mov.GetId()) + 1) % 2);
         }
     }
 }
