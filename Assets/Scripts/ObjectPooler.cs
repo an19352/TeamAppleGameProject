@@ -34,11 +34,9 @@ public class ObjectPooler : MonoBehaviour
 
     GameObject obj;
     PhotonView PV;
-    bool synced;
 
     private void Start()
     {
-        synced = false;
         PV = GetComponent<PhotonView>();
         poolDictionary = new Dictionary<string, Queue<GameObject>>();
 
@@ -98,7 +96,7 @@ public class ObjectPooler : MonoBehaviour
 
     public bool isSynced()
     {
-        return synced;
+        return poolDictionary.Count == pools.Count;
     }
 
     [PunRPC]
