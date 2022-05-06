@@ -103,8 +103,10 @@ public class Turret : MonoBehaviour, IPunObservable
     void UpdateTarget()
     {
         List<GameMechanics.Player> players = new List<GameMechanics.Player>();
-        players = GameMechanics.gameMechanics.players;
-
+        foreach (GameMechanics.Player pl in GameMechanics.gameMechanics.players)
+        {
+            if(pl.obj != null) players.Add(pl);
+        }
 
         float closestDistance = Mathf.Infinity;
         GameObject closestEnemy = null;
