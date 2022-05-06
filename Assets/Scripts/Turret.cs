@@ -44,7 +44,7 @@ public class Turret : MonoBehaviour, IPunObservable
         // Transform canvas = this.gameObject.transform.Find("Canvas");
         //healthBarImage = healthBar.gameObject.GetComponent<Image>();
         poolOfObject = ObjectPooler.OP;
-        InvokeRepeating("UpdateTarget", 0f, 0.1f);
+        //InvokeRepeating("UpdateTarget", 0f, 0.1f);
 
         float distanceRed = Vector3.Distance(transform.position, GameMechanics.gameMechanics.bases[0].transform.position);
         float distanceBlue = Vector3.Distance(transform.position, GameMechanics.gameMechanics.bases[1].transform.position);
@@ -65,7 +65,9 @@ public class Turret : MonoBehaviour, IPunObservable
             //PhotonNetwork.Destroy(this.gameObject);
 
         }
-
+        
+        UpdateTarget();
+        
         if (target != null)
         {
             Vector3 direction = transform.position - target.position;
