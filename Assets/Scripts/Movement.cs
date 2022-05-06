@@ -67,7 +67,7 @@ public class Movement : MonoBehaviour, IPunObservable
         PV = GetComponent<PhotonView>();
         gameMechanics = GameMechanics.gameMechanics;
         shadowInsatance = Instantiate(shadow);
-        SpawningPosition = transform.position;
+        //SpawningPosition = transform.position;
 
         //Debug.Log(gameObject.transform.GetChild(9).GetChild(0).GetChild(2).GetChild(0).GetChild(11).GetChild(7).GetComponent<Renderer>().material);
 
@@ -121,6 +121,7 @@ public class Movement : MonoBehaviour, IPunObservable
 
         zAxisInput = Input.GetAxis(verticalAxis);
         xAxisInput = Input.GetAxis(horizontalAxis);
+        if (isGrounded) SpawningPosition = transform.position;
     }
 
     void FixedUpdate()
