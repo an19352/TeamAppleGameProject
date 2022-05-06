@@ -74,8 +74,8 @@ public class Turret : MonoBehaviour, IPunObservable
             partToRotate.rotation = Quaternion.Euler(0f, smoothRotation.eulerAngles.y, 0f);
             if (fireCountDown <= 0)
             {
-                if(PV.IsMine)
-                PV.RPC("Shoot",RpcTarget.All);
+                if (PV.IsMine)
+                    PV.RPC("Shoot", RpcTarget.All);
                 fireCountDown = 1 / fireRate;
             }
             fireCountDown -= Time.deltaTime;
@@ -101,13 +101,13 @@ public class Turret : MonoBehaviour, IPunObservable
     void UpdateTarget()
     {
         List<GameMechanics.Player> players = GameMechanics.gameMechanics.players;
-        
+
 
         float closestDistance = Mathf.Infinity;
         GameObject closestEnemy = null;
         foreach (GameMechanics.Player enemy in players)
         {
-             GameObject obj = enemy.obj; 
+            GameObject obj = enemy.obj;
             float distanceToEnemy = Vector3.Distance(obj.transform.position, transform.position);
             if (distanceToEnemy < closestDistance)
             {
@@ -151,7 +151,7 @@ public class Turret : MonoBehaviour, IPunObservable
         float fraction = healthRemain / health;
         healthBarImage.fillAmount = fraction;
     }
-    
+
     public void applyForce(float force)
     {
         healthRemain -= force;
@@ -170,7 +170,7 @@ public class Turret : MonoBehaviour, IPunObservable
             player.GetComponent<Movement>().RPC_PushMe(pushFactor, ForceMode.Impulse);
         }
     }
-    
+
     void NotifyNearbyPlayers()
     {
         Collider[] playersInRadius = Physics.OverlapSphere(transform.position, explosionRadius, ~0, 0);

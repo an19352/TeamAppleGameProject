@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.1962879, g: 0.09740276, b: 0.11954967, a: 1}
+  m_IndirectSpecularColor: {r: 0.19634691, g: 0.09731356, b: 0.119633995, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -6872,6 +6872,9 @@ MonoBehaviour:
   - tag: Grenade
     prefab: {fileID: 1916769908316382501, guid: 2b08a1de1f2b44448a4fe1bad4af1c63, type: 3}
     size: 10
+  - tag: DroppedFlag
+    prefab: {fileID: 7716354420650957, guid: b2314e4357384b44693adcb971d71536, type: 3}
+    size: 2
 --- !u!4 &1523007682
 Transform:
   m_ObjectHideFlags: 0

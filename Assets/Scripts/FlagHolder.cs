@@ -13,11 +13,13 @@ public class FlagHolder : MonoBehaviour
     // public int playerTeam;
     public Transform droppedBall;
     public GameObject ball;
+    ObjectPooler poolOfObject;
     PhotonView PV;
     // Start is called before the first frame update
     void Start()
     {
         PV = GetComponent<PhotonView>();
+        poolOfObject = ObjectPooler.OP;
     }
 
     void OnDisable()
@@ -36,8 +38,8 @@ public class FlagHolder : MonoBehaviour
         Transform respawnFLagPlatform = FindClosestDistance(platforms, dropPosition);
         Vector3 respawnFlagPosition = new Vector3(respawnFLagPlatform.position.x, respawnFLagPlatform.position.y + 10, respawnFLagPlatform.position.z);
         Quaternion respawnFLagRotation = Quaternion.identity;
-        GameObject db = PhotonNetwork.Instantiate(droppedBall.name, respawnFlagPosition, respawnFLagRotation);
-        db.GetComponent<BallRecover>().teamID = teamID;
+        // GameObject db = PhotonNetwork.Instantiate(droppedBall.name, );
+        poolOfObject.SpawnFromPool("DroppedFlag", respawnFlagPosition, respawnFLagRotation);
         PlaySound.playSound.RPC_QueueVoice(GenerateCommentary(teamID), PhotonNetwork.PlayerList);
     }
 

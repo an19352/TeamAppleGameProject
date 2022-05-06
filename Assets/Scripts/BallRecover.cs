@@ -28,15 +28,10 @@ public class BallRecover : MonoBehaviour
                 // strangely worked the first time
                 //gameMechanics.RPC_Destroy(gameObject);
 
-                // brute force LOL
-                PV.RPC("DestroyFlag", RpcTarget.All);
+                gameObject.SetActive(false);
             }
 
         }
     }
-    [PunRPC]
-    void DestroyFlag()
-    {
-        gameObject.SetActive(false);
-    }
+
 }
