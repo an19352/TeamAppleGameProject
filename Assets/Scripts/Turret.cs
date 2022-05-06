@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Photon.Pun;
 using System.Linq;
+using Photon.Realtime;
 
 public class Turret : MonoBehaviour, IPunObservable
 {
@@ -14,7 +15,7 @@ public class Turret : MonoBehaviour, IPunObservable
     public float health = 50f;
     public float healthRemain = 50f;
     public GameObject explosionEffect;
-    public float explosionRadius = 2;
+    public float explosionRadius = 20;
     public float range = 15f;
     public float turnSpeed = 10f;
     public float pushForce = 5;
@@ -57,6 +58,8 @@ public class Turret : MonoBehaviour, IPunObservable
         //if (!PV.IsMine) return;
         if (healthRemain <= 0)
         {
+            Debug.Log("exploded");
+            NotifyNearbyPlayers();
             // Debug.Log(fsScript.generatorDestroyed);
             PV.RPC("RememberMe", RpcTarget.AllBuffered);
             //PhotonNetwork.Destroy(this.gameObject);
@@ -165,6 +168,19 @@ public class Turret : MonoBehaviour, IPunObservable
             Vector3 pushFactor = (player.transform.position - transform.position).normalized * pushForce;
             //Debug.Log(pushFactor);
             player.GetComponent<Movement>().RPC_PushMe(pushFactor, ForceMode.Impulse);
+        }
+    }
+    
+    void NotifyNearbyPlayers()
+    {
+        Collider[] playersInRadius = Physics.OverlapSphere(transform.position, explosionRadius, ~0, 0);
+        foreach (Collider col in playersInRadius)
+        {
+            if (col.CompareTag("Player"))
+            {
+                Player[] target = { col.GetComponent<PhotonView>().Owner };
+                PlaySound.playSound.RPC_QueueVoice(23, target);
+            }
         }
     }
 

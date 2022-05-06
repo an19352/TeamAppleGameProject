@@ -96,6 +96,7 @@ public class PlaySound : MonoBehaviour
      20 - Flag Pickup
      21 - Shields Down
      22 - Laser
+     23 - Turret Explosion
      */
 
     [PunRPC]
@@ -108,7 +109,10 @@ public class PlaySound : MonoBehaviour
     {
         foreach (Player p in target)
         {
-            PV.RPC("PlayVoice", p, voiceID);
+            if (PhotonNetwork.IsMasterClient)
+            {
+                PV.RPC("PlayVoice", p, voiceID);
+            }
         }
     }
 
@@ -116,7 +120,7 @@ public class PlaySound : MonoBehaviour
     {
         foreach (Player p in target)
         {
-            if (PV.IsMine)
+            if (PhotonNetwork.IsMasterClient)
             {
                 PV.RPC("QueueVoice", p, voiceID);
             }
