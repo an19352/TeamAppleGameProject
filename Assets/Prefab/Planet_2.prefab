@@ -215,7 +215,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3571409210200648031}
   - component: {fileID: 3898578769339987768}
-  - component: {fileID: 1785224713690441458}
   m_Layer: 0
   m_Name: Planet_2
   m_TagString: Ground
@@ -259,20 +258,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &1785224713690441458
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4241231335372436453}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e85688f8eb14f64c976e447ec963c9e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  transforms:
-  - {fileID: 4349939227886384478, guid: e3cd1439a340f41cc945319e0a8feb88, type: 3}
 --- !u!1 &5171947124246614306
 GameObject:
   m_ObjectHideFlags: 0
