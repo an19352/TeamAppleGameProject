@@ -125,7 +125,7 @@ public class EnergyGenerator : MonoBehaviour, IPunObservable
     {
         if(PV == null) return;
         fsScript.generatorDestroyed++;
-        Debug.Log("disable");
+        //Debug.Log("disable");
         NotifyNearbyPlayers();
     }
 

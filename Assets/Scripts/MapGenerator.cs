@@ -258,7 +258,7 @@ public class MapGenerator : MonoBehaviour
 
             if (settingup.gameObject.TryGetComponent(out BoardSetup BS))
                 photonSpawnables.AddRange(BS.Setup());
-         }
+        }
 
         position = tree[width/2].platform.transform.position + Vector3.right * 100f;
         GameObject redBase = Instantiate(redbase, position, Quaternion.identity);              
@@ -408,7 +408,7 @@ public class MapGenerator : MonoBehaviour
             if (previous.verticalReach > 4f) position.y += Random.Range(3 * previous.verticalReach / 2, previous.verticalReach);
             else position.y += Random.Range(-previous.verticalReach, previous.verticalReach);
 
-            Collider[] hitColliders = Physics.OverlapSphere(position, 6f);
+            Collider[] hitColliders = Physics.OverlapSphere(position, 8f);
             if (hitColliders.Length > 0)
             {
                 Transform platform = hitColliders[0].transform;
