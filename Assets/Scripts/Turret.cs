@@ -102,7 +102,8 @@ public class Turret : MonoBehaviour, IPunObservable
     // updates a few times a second, used to locate the closest enemy player in range
     void UpdateTarget()
     {
-        List<GameMechanics.Player> players = GameMechanics.gameMechanics.players;
+        List<GameMechanics.Player> players = new List<GameMechanics.Player>();
+        players = GameMechanics.gameMechanics.players;
 
 
         float closestDistance = Mathf.Infinity;
