@@ -151,7 +151,7 @@ public class MapGenerator : MonoBehaviour
         foreach (BoardSetup.PhotonSpawnable spawnable in photonSpawnables)
             PhotonNetwork.Instantiate(spawnable.prefab, spawnable.position, spawnable.rotation);
 
-        List<string> spawnThis = new List<string>();
+        List<List<(string, Vector3)>> spawnThis = new List<List<(string, Vector3)>>();
 
         for (int i = 1; i < tree.Count; i++)
         {
