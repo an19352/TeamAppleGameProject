@@ -14,7 +14,6 @@ public class Inventory : MonoBehaviour
     //public GameObject tooltip;
     public Vector3 tooltipOffset;
     public string firstPowerupTag = "Impulse Gun";
-    Canvas worldCanvas;
 
     [Range(1, 5)]
     public int inventorySize;
@@ -48,11 +47,17 @@ public class Inventory : MonoBehaviour
 
     public float antiGravity;
     public GameObject boosterFlame;
+
+    bool offline = false;
     // Start is called before the first frame update
     void Start()
     {
-        PV = GetComponent<PhotonView>();
+        if (TryGetComponent(out PhotonView _PV))
+            PV = _PV;
+        else offline = true;
         inventory = InventoryUIManager.inventory;
+
+        if(!offline)
         if (!PV.IsMine) return;
 
         IEs = inventory.CloneIEs();
@@ -62,7 +67,6 @@ public class Inventory : MonoBehaviour
         }
 
         inventoryItems = new IAbility[inventorySize];
-        worldCanvas = GameMechanics.gameMechanics.worldSpaceCanvas;
 
         for (int i = 1; i < inventorySize; i++)
             inventoryItems[i] = null;
@@ -78,6 +82,7 @@ public class Inventory : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(!offline)
         if (!PV.IsMine) return;
 
         if (inventoryMaxATM < 0)
@@ -103,6 +108,7 @@ public class Inventory : MonoBehaviour
             Debug.LogWarning(tag + " not found");
             return; 
         }*/
+        if(!offline)
         if (!PV.IsMine) return;
 
         if (inventoryMaxATM == inventorySize) return;
@@ -123,7 +129,10 @@ public class Inventory : MonoBehaviour
             {
                 inventoryItems[i] = gameObject.AddComponent(typeLookUp[tag]) as IAbility;
                 inventoryItems[i].SetUp(tag);
+                
+                if(!offline)
                 PV.RPC("RPC_AddComponent", RpcTarget.Others, typeLookUp[tag].FullName, tag);
+                
                 inventoryMaxATM = i;
 
                 SelectAbility(i);
@@ -142,12 +151,17 @@ public class Inventory : MonoBehaviour
 
     public void removeItem(string tag)
     {
+        if(!offline)
         if (!PV.IsMine) return;
 
         int i;
         for (i = 0; i < inventoryMaxATM; i++) if (inventoryItems[i].GetIE().powerupName == tag)
             {
                 inventoryItems[i].RightClick();
+
+                if (offline)
+                    RPC_DestroyComponent(inventoryItems[i].GetType().FullName);
+                else
                 PV.RPC("RPC_DestroyComponent", RpcTarget.All, inventoryItems[i].GetType().FullName);
                 //Destroy(inventoryItems[i] as MonoBehaviour);
 
@@ -161,7 +175,12 @@ public class Inventory : MonoBehaviour
             if (inventoryItems[inventoryMaxATM].GetIE().powerupName == tag)
             {
                 inventoryItems[inventoryMaxATM].RightClick();
-                PV.RPC("RPC_DestroyComponent", RpcTarget.All, inventoryItems[inventoryMaxATM].GetType().FullName);
+
+
+                if (offline)
+                    RPC_DestroyComponent(inventoryItems[inventoryMaxATM].GetType().FullName);
+                else
+                    PV.RPC("RPC_DestroyComponent", RpcTarget.All, inventoryItems[inventoryMaxATM].GetType().FullName);
                 //Destroy(inventoryItems[inventoryMaxATM] as MonoBehaviour);
                 inventoryItems[inventoryMaxATM] = null;
                 inventory.RemoveUIElement(tag);
@@ -188,12 +207,15 @@ public class Inventory : MonoBehaviour
         {
             inventory.RemoveUIElement(inventoryItems[i].GetIE().powerupName);
             inventoryItems[i].RightClick();
-            //PV.RPC("RPC_DestroyComponent", RpcTarget.AllBuffered, (inventoryItems[i] as MonoBehaviour));
+            if (offline)
+                RPC_DestroyComponent(inventoryItems[i].GetType().FullName);
+            else
+            PV.RPC("RPC_DestroyComponent", RpcTarget.All, inventoryItems[i].GetType().FullName);
             //Destroy(inventoryItems[i] as MonoBehaviour);
 
             inventoryItems[i] = null;
         }
-        selectedAbility = 0;
+        SelectAbility(0);
         inventoryMaxATM = 0;
     }
 
