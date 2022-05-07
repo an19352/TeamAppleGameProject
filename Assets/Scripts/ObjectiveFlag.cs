@@ -101,7 +101,7 @@ public class ObjectiveFlag : MonoBehaviour
 
     public void RPC_ApplyChangesOnState(int playerID)
     {
-        PV.RPC("ApplyChangesOnState", RpcTarget.MasterClient, playerID);
+        PV.RPC("ApplyChangesOnState", RpcTarget.All, playerID);
     }
 
     // based on the current state, apply changes
