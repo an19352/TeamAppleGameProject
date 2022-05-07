@@ -118,6 +118,7 @@ MonoBehaviour:
   - RPC_RespawnFlag
   - RPC_SpawnDroppedBall
   - RPC_SpawnDroppedFlag
+  - Showoff
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

@@ -53,6 +53,7 @@ public class Inventory : MonoBehaviour
     {
         PV = GetComponent<PhotonView>();
         inventory = InventoryUIManager.inventory;
+        if (!PV.IsMine) return;
 
         IEs = inventory.CloneIEs();
         foreach (InventoryElement IE in IEs)
@@ -122,7 +123,7 @@ public class Inventory : MonoBehaviour
             {
                 inventoryItems[i] = gameObject.AddComponent(typeLookUp[tag]) as IAbility;
                 inventoryItems[i].SetUp(tag);
-                PV.RPC("RPC_AddComponent", RpcTarget.Others, tag);
+                PV.RPC("RPC_AddComponent", RpcTarget.Others, typeLookUp[tag].FullName, tag);
                 inventoryMaxATM = i;
 
                 SelectAbility(i);
@@ -147,7 +148,7 @@ public class Inventory : MonoBehaviour
         for (i = 0; i < inventoryMaxATM; i++) if (inventoryItems[i].GetIE().powerupName == tag)
             {
                 inventoryItems[i].RightClick();
-                PV.RPC("RPC_DestroyComponent", RpcTarget.All, (inventoryItems[i] as MonoBehaviour));
+                PV.RPC("RPC_DestroyComponent", RpcTarget.All, inventoryItems[i].GetType().FullName);
                 //Destroy(inventoryItems[i] as MonoBehaviour);
 
                 inventoryItems[i] = null;
@@ -160,7 +161,7 @@ public class Inventory : MonoBehaviour
             if (inventoryItems[inventoryMaxATM].GetIE().powerupName == tag)
             {
                 inventoryItems[inventoryMaxATM].RightClick();
-                PV.RPC("RPC_DestroyComponent", RpcTarget.All, (inventoryItems[inventoryMaxATM] as MonoBehaviour));
+                PV.RPC("RPC_DestroyComponent", RpcTarget.All, inventoryItems[inventoryMaxATM].GetType().FullName);
                 //Destroy(inventoryItems[inventoryMaxATM] as MonoBehaviour);
                 inventoryItems[inventoryMaxATM] = null;
                 inventory.RemoveUIElement(tag);
@@ -212,14 +213,19 @@ public class Inventory : MonoBehaviour
     }
 
     [PunRPC]
-    void RPC_AddComponent(string tag)
+    void RPC_AddComponent(string type, string tag)
     {
-        (gameObject.AddComponent(typeLookUp[tag]) as IAbility).SetUp(tag);
+        (gameObject.AddComponent(System.Type.GetType(type)) as IAbility).SetUp(tag);
     }
 
     [PunRPC]
-    void RPC_DestroyComponent(MonoBehaviour MB)
+    void RPC_DestroyComponent(string componentType)
     {
-        Destroy(MB);
+        System.Type type = System.Type.GetType(componentType);
+        if (gameObject.GetComponent(type) != null)
+            Destroy(gameObject.GetComponent(type) as MonoBehaviour);
+        else
+        if (gameObject.GetComponentInChildren(type) != null)
+            Destroy(gameObject.GetComponentInChildren(type) as MonoBehaviour);
     }
 }
