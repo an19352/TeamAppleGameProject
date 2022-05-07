@@ -21,7 +21,7 @@ public class BallRecover : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             GameObject player = other.gameObject;
-            // if (!player.GetComponent<FlagHolder>().enabled)
+            if (!player.GetComponent<FlagHolder>().enabled)
             {
                 GameMechanics.gameMechanics.RPC_EnableFlagHolder(player.GetComponent<Movement>().GetId());
                 PV.RPC("DisableDroppedFlag", RpcTarget.All);

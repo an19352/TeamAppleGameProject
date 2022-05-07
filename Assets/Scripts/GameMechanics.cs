@@ -77,7 +77,9 @@ public class GameMechanics : MonoBehaviour
     public bool readyToDeploy = false;
     public GameObject MapGenerator;
     public GameObject mini;
+    public GameObject CMvcams;
     public GameObject Powerupgens;
+
 
     PhotonView PV;
 
@@ -473,6 +475,14 @@ public class GameMechanics : MonoBehaviour
         return null;
     }
 
+    public int GetLocalPlayerTeam()
+    {
+        foreach (Player player in players)
+        {
+            if (player.obj.GetComponent<PhotonView>().IsMine) return player.team;
+        }
+        return -1;
+    }
     [PunRPC]
     void EndGame()
     {
@@ -595,6 +605,7 @@ public class GameMechanics : MonoBehaviour
 
         PB.InitiatePlayer();
         mini.SetActive(true);
+        CMvcams.SetActive(true);
         Powerupgens.SetActive(true);
     }
 }
