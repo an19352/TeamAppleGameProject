@@ -6,12 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="9d59a655-b95b-4264-984d-b993a5d47562" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TeamAppleGameProject/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TeamAppleGameProject/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Extensions/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Extensions/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Powerups Settings/Grenade.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Powerups Settings/Grenade.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Powerups Settings/Impulse Gun.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Powerups Settings/Impulse Gun.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Procedural Generation.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Procedural Generation.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ObjectiveFlag.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ObjectiveFlag.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Turret.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Turret.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Arrow.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Arrow.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/BallRecover.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/BallRecover.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/FlagHolder.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/FlagHolder.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameMechanics.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GameMechanics.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -132,6 +130,7 @@
       <workItem from="1651755118990" duration="8980000" />
       <workItem from="1651853704762" duration="1929000" />
       <workItem from="1651926075932" duration="1013000" />
+      <workItem from="1651937693662" duration="1577000" />
     </task>
     <servers />
   </component>

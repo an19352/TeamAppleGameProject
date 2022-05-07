@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,7 +23,11 @@ public class Arrow : MonoBehaviour
 
     [HideInInspector]
     public GameObject home;
+
+    private Vector3 nothing;
+
     
+
     void Update()
     {
         if (!gameObject.GetComponent<PhotonView>().IsMine)
@@ -31,6 +36,8 @@ public class Arrow : MonoBehaviour
         float dist1;
         float dist2;
         float dist3;
+        float dist4;
+        Vector3 dir;
         Dictionary<float, GameObject> dist = new Dictionary<float, GameObject>();
 
         if (generator1 !=null && generator1.activeSelf)
@@ -51,6 +58,12 @@ public class Arrow : MonoBehaviour
             dist.Add(dist3, generator3);
         }
 
+        if (GameMechanics.gameMechanics.drop != nothing)
+        {
+            dist4 = Vector3.Distance(player.transform.position, GameMechanics.gameMechanics.drop);
+            dist.Add(dist4, null);
+        }
+
         List<float> list = dist.Keys.ToList();
         if (list.Count == 0)
         {
@@ -69,7 +82,15 @@ public class Arrow : MonoBehaviour
             generator = dist[list[0]];
         }
 
-        Vector3 dir = player.transform.InverseTransformPoint(generator.transform.position);
+        if (generator == null)
+        { 
+            dir = player.transform.InverseTransformPoint(GameMechanics.gameMechanics.drop);
+        }
+        else
+        {
+            dir = player.transform.InverseTransformPoint(generator.transform.position);
+        }
+        
         float a = Mathf.Atan2(dir.x, dir.z) * Mathf.Rad2Deg;
         a += 180;
         arrow.transform.localEulerAngles = new Vector3(0, 180, a);

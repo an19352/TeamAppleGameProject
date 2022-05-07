@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Photon.Pun;
 using Random = System.Random;
+using Vector3 = UnityEngine.Vector3;
 
 public class GameMechanics : MonoBehaviour
 {
@@ -79,7 +80,7 @@ public class GameMechanics : MonoBehaviour
     public GameObject mini;
     public GameObject CMvcams;
     public GameObject Powerupgens;
-
+    [HideInInspector] public Vector3 drop = new Vector3(0,0,0);
 
     PhotonView PV;
 
