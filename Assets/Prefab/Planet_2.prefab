@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7224259900525321250}
   - component: {fileID: 808446176365506678}
   - component: {fileID: 8049044100750777084}
-  m_Layer: 3
+  m_Layer: 16
   m_Name: Ring
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -109,7 +109,7 @@ GameObject:
   - component: {fileID: 3898578769316746455}
   - component: {fileID: 3898578769316746454}
   - component: {fileID: 3898578769316746457}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: RepelField
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -215,7 +215,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3571409210200648031}
   - component: {fileID: 3898578769339987768}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Planet_2
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -270,7 +270,7 @@ GameObject:
   - component: {fileID: 6739305489731616721}
   - component: {fileID: 7040819685166918606}
   - component: {fileID: 7749284935908281667}
-  m_Layer: 3
+  m_Layer: 16
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}

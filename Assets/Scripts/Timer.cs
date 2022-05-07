@@ -23,6 +23,8 @@ public class Timer : MonoBehaviour
             gameMechanics = GameMechanics.gameMechanics;
 
         totalTime++;
+        offlineTime++;
+        if (offline) totalTime = offlineTime;
         finishTime = Time.time + totalTime;
 
         timer = GetComponent<TextMeshProUGUI>();
@@ -38,7 +40,7 @@ public class Timer : MonoBehaviour
                 PhotonRoom.room.StartGame();
             else
                 gameMechanics.End_Game();
-            
+
             this.gameObject.SetActive(false);
         }
 

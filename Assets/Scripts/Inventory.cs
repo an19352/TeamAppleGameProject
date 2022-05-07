@@ -167,7 +167,7 @@ public class Inventory : MonoBehaviour
 
                 inventoryItems[i] = null;
                 inventory.RemoveUIElement(tag);
-                if (selectedAbility >= i) selectedAbility--;
+                if (selectedAbility >= i) { selectedAbility--; SelectAbility(selectedAbility); }
                 break;
             }
         if (i == inventoryMaxATM)

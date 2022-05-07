@@ -233,8 +233,10 @@ namespace SpaceBallAbilities
             particleSystem = inventory.particleSystem;
             pushedEffect = inventory.pushedEffect;
 
-            if(!offline)
-            if(PV.IsMine)
+            if(offline)
+                InventoryUIManager.inventory.AddUIElement(IEtag, inventory);
+                else
+            if (PV.IsMine)
             InventoryUIManager.inventory.AddUIElement(IEtag, inventory);
         }
 
@@ -339,7 +341,11 @@ namespace SpaceBallAbilities
                 if (PV.IsMine)
                     InventoryUIManager.inventory.AddUIElement(IEtag, inventory);
             }
-            else offline = true;
+            else 
+            { 
+                InventoryUIManager.inventory.AddUIElement(IEtag, inventory);
+                offline = true; 
+            }
         }
 
         public void RightClick() { return; }

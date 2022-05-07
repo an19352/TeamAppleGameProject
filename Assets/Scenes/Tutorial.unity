@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.1962879, g: 0.09740276, b: 0.11954967, a: 1}
+  m_IndirectSpecularColor: {r: 0.19634691, g: 0.09731356, b: 0.119633995, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -130,6 +130,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 230469355004548125, guid: b18bda2c21ced9c45a3cb0688dc902f3, type: 3}
+      propertyPath: m_Layer
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 280345679672949517, guid: b18bda2c21ced9c45a3cb0688dc902f3, type: 3}
+      propertyPath: m_Layer
+      value: 16
+      objectReference: {fileID: 0}
     - target: {fileID: 2872560894573219669, guid: b18bda2c21ced9c45a3cb0688dc902f3, type: 3}
       propertyPath: m_RootOrder
       value: 6
@@ -514,6 +522,10 @@ PrefabInstance:
       propertyPath: sceneViewId
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 6608188565613503937, guid: ae4d1828886102a42aaad677976921a2, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7291472432763749253, guid: ae4d1828886102a42aaad677976921a2, type: 3}
       propertyPath: sceneViewId
       value: 4
@@ -760,6 +772,14 @@ PrefabInstance:
     - target: {fileID: 572347807782146773, guid: 95b1554454eb9df41b749481067a5c5e, type: 3}
       propertyPath: sceneViewId
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5549040226059959033, guid: 95b1554454eb9df41b749481067a5c5e, type: 3}
+      propertyPath: m_Layer
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 5607844576220435945, guid: 95b1554454eb9df41b749481067a5c5e, type: 3}
+      propertyPath: m_Layer
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 7108472697868761867, guid: 95b1554454eb9df41b749481067a5c5e, type: 3}
       propertyPath: m_Name
@@ -1578,6 +1598,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[1]
       value: 
       objectReference: {fileID: 2100000, guid: f417b18f5a6b74e479ac9c2b4d3e5251, type: 2}
+    - target: {fileID: 5852158240109104858, guid: 4559a3726e1d96f4894f9e01eeeba80e, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 6520326351850067040, guid: 4559a3726e1d96f4894f9e01eeeba80e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
