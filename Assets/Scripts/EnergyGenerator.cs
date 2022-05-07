@@ -159,7 +159,7 @@ public class EnergyGenerator : MonoBehaviour, IPunObservable
         foreach (Collider player in playersInRadius)
         {
             Vector3 pushFactor = (player.transform.position - transform.position).normalized * pushForce;
-            player.GetComponent<Movement>().RPC_PushMe(pushFactor, ForceMode.Impulse);
+            player.GetComponent<Movement>().PushMe(pushFactor, ForceMode.Impulse);
         }
     }
     

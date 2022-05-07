@@ -165,7 +165,7 @@ public class Inventory : MonoBehaviour
                 //Destroy(inventoryItems[inventoryMaxATM] as MonoBehaviour);
                 inventoryItems[inventoryMaxATM] = null;
                 inventory.RemoveUIElement(tag);
-                if (selectedAbility == inventoryMaxATM) SelectAbility(selectedAbility--);
+                if (selectedAbility == inventoryMaxATM) { selectedAbility--; SelectAbility(selectedAbility); }
                 inventoryMaxATM--;
                 return;
             }

@@ -175,7 +175,7 @@ public class Movement : MonoBehaviour, IPunObservable
 
         playerBody.AddForce(Vector3.down * gravityStrength, ForceMode.Acceleration);
 
-        Fire();
+        //Fire();
     }
 
     void LateUpdate()
@@ -252,7 +252,7 @@ public class Movement : MonoBehaviour, IPunObservable
     }
 
     [PunRPC]
-    public void RPC_PushMe(Vector3 force, ForceMode mode)
+    void RPC_PushMe(Vector3 force, ForceMode mode)
     {
         Instantiate(pushedEffect, transform.position, transform.rotation);
         GetComponent<Rigidbody>().AddForce(force, mode);

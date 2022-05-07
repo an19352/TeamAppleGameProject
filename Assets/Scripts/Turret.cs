@@ -172,7 +172,7 @@ public class Turret : MonoBehaviour, IPunObservable
             //Debug.Log(player);
             Vector3 pushFactor = (player.transform.position - transform.position).normalized * pushForce;
             //Debug.Log(pushFactor);
-            player.GetComponent<Movement>().RPC_PushMe(pushFactor, ForceMode.Impulse);
+            player.GetComponent<Movement>().PushMe(pushFactor, ForceMode.Impulse);
         }
     }
 
