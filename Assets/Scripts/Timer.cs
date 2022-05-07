@@ -6,6 +6,9 @@ using TMPro;
 public class Timer : MonoBehaviour
 {
     public float totalTime = 100f;
+    public float offlineTime = 30f;
+
+    bool offline = false;
 
     public static GameMechanics gameMechanics;
     TextMeshProUGUI timer;
@@ -14,8 +17,14 @@ public class Timer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        gameMechanics = GameMechanics.gameMechanics;
+        if (GameMechanics.gameMechanics == null)
+            offline = true;
+        else
+            gameMechanics = GameMechanics.gameMechanics;
+
         totalTime++;
+        offlineTime++;
+        if (offline) totalTime = offlineTime;
         finishTime = Time.time + totalTime;
 
         timer = GetComponent<TextMeshProUGUI>();
@@ -26,8 +35,12 @@ public class Timer : MonoBehaviour
     void FixedUpdate()
     {
         if (totalTime <= 0)
-        { 
-            gameMechanics.End_Game();
+        {
+            if (offline)
+                PhotonRoom.room.StartGame();
+            else
+                gameMechanics.End_Game();
+
             this.gameObject.SetActive(false);
         }
 

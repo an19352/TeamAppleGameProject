@@ -47,6 +47,8 @@ public class OfflineMovement : MonoBehaviour
         plane.SetActive(true);
         gameObject.transform.GetChild(9).GetChild(0).GetChild(2).GetChild(0).GetChild(11).GetChild(7)
                 .GetComponent<Renderer>().material = highlightedMaterial;
+
+        GetComponent<Inventory>().enabled = true;
     }
 
     // Update is called once per frame

@@ -14,6 +14,8 @@ public class Powerup : MonoBehaviour//, IPunObservable
     public InventoryElement powerup;
     public GameObject pickupEffect;
 
+    bool offline = false;
+
     public float maxDiscrepencyDistance = 3f;
     Rigidbody powerupRB;
     Vector3 networkPosition;
@@ -30,12 +32,14 @@ public class Powerup : MonoBehaviour//, IPunObservable
     void Start()
     {
         PV = GetComponent<PhotonView>();
-        gameMechanics = GameMechanics.gameMechanics;
         powerupRB = GetComponent<Rigidbody>();
 
-        if (PV == null) Debug.LogWarning(this.name + " does not have a PV");
-        room = PhotonRoom.room;
-
+        if (PV == null) offline = true;
+        else
+        {
+            gameMechanics = GameMechanics.gameMechanics;
+            room = PhotonRoom.room;
+        }
         //thisPowerup = transform.gameObject;
     }
 
@@ -51,7 +55,15 @@ public class Powerup : MonoBehaviour//, IPunObservable
     //Makes powerup disappear when touched and writes to powerup text in UI
     private void OnCollisionEnter(Collision other)
     {
-        if (other.collider.CompareTag("Player"))
+        if (!other.collider.CompareTag("Player")) return;
+        
+        if (offline)
+        {
+            other.collider.GetComponent<Inventory>().activateItem(powerup.powerupName);
+            Instantiate(pickupEffect, transform.position, transform.rotation);
+            Destroy(gameObject);
+        }
+        else
         {
             PV.RPC("ActivateItem", RpcTarget.All, other.collider.GetComponent<Movement>().GetId(), powerup.powerupName);
             PhotonNetwork.Instantiate(pickupEffect.name, transform.position, transform.rotation);

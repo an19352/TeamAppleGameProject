@@ -215,25 +215,40 @@ namespace SpaceBallAbilities
         List<int> toBePushed;
 
         GameObject pushedEffect;
+        bool offline = false;
+        OfflineMovement NPCfound = null;
 
         // Start is called before the first frame update
         public void SetUp(string IEtag)
         {
-            PV = GetComponent<PhotonView>();
+            if (TryGetComponent(out PhotonView _PV))
+                PV = _PV;
+            else
+                offline = true;
+
             IE = InventoryUIManager.inventory.GetIE(IEtag);
             toBePushed = new List<int>();
             inventory = GetComponentInParent<Inventory>();
-            InventoryUIManager.inventory.AddUIElement(IEtag, inventory);
             pushForce = inventory.pushForce;
             particleSystem = inventory.particleSystem;
             pushedEffect = inventory.pushedEffect;
+
+            if(offline)
+                InventoryUIManager.inventory.AddUIElement(IEtag, inventory);
+                else
+            if (PV.IsMine)
+            InventoryUIManager.inventory.AddUIElement(IEtag, inventory);
         }
 
         public void LeftClick()
         {
             if (Time.time < timeToShoot) return;
-            PV.RPC("Showoff", RpcTarget.All);
+            if (offline) Showoff();
+            else PV.RPC("Showoff", RpcTarget.All);
             timeToShoot = Time.time + 1.2f;
+
+            if (NPCfound != null) NPCfound.RPC_PushMe(transform.forward * pushForce, ForceMode.VelocityChange);
+
             if (toBePushed.Count == 0) return;
             int[] pushNow = new int[toBePushed.Count];
             //pushed = GameObject.FindGameObjectsWithTag("Detected");
@@ -243,13 +258,12 @@ namespace SpaceBallAbilities
                 {
                     GameObject _obj = PhotonView.Find(toBePushed[i]).gameObject;
                     Debug.Log(_obj);
-                    _obj.GetComponent<Rigidbody>().AddForce(transform.forward * pushForce, ForceMode.VelocityChange);
-                    if (_obj.GetComponent<Movement>() != null)
+                    if (_obj.TryGetComponent(out Movement movement))
                     {
                         Instantiate(pushedEffect, _obj.transform.position, _obj.transform.rotation);
-                        _obj.GetComponent<Movement>().PushMe(transform.forward * pushForce, ForceMode.VelocityChange);
-
+                        movement.PushMe(transform.forward * pushForce, ForceMode.VelocityChange);
                     }
+                    else if(_obj.TryGetComponent(out Rigidbody rb)) rb.AddForce(transform.forward * pushForce, ForceMode.VelocityChange);
                 }
             }
         }
@@ -267,6 +281,12 @@ namespace SpaceBallAbilities
 
         private void OnTriggerEnter(Collider other)
         {
+            if (offline)
+            {
+                if (other.gameObject.TryGetComponent(out OfflineMovement OM)) NPCfound = OM;
+                return;
+            }
+
             if (other.CompareTag("Detector") && other.transform.parent != transform)
             {
                 toBePushed.Add(other.transform.parent.GetComponent<PhotonView>().ViewID);
@@ -279,6 +299,12 @@ namespace SpaceBallAbilities
 
         private void OnTriggerExit(Collider other)
         {
+            if (offline)
+            {
+                if (other.gameObject.TryGetComponent(out OfflineMovement OM)) NPCfound = null;
+                return;
+            }
+
             if (other.CompareTag("Detector") && other.transform.parent != transform)
             {
                 toBePushed.Remove(other.transform.parent.GetComponent<PhotonView>().ViewID);
@@ -300,15 +326,26 @@ namespace SpaceBallAbilities
         bool hasExploded = false;
         private Camera cameraMain;
         private Vector3 mouseLocation;
+        bool offline = false;
 
         public void SetUp(string IEtag)
         {
             cameraMain = Camera.main;
             IE = InventoryUIManager.inventory.GetIE(IEtag);
             inventory = GetComponent<Inventory>();
-            InventoryUIManager.inventory.AddUIElement(IEtag, inventory);
             grenadePrefab = inventory.grenadePrefab;
             mouseLocation = Input.mousePosition;
+
+            if (TryGetComponent(out PhotonView PV))
+            {
+                if (PV.IsMine)
+                    InventoryUIManager.inventory.AddUIElement(IEtag, inventory);
+            }
+            else 
+            { 
+                InventoryUIManager.inventory.AddUIElement(IEtag, inventory);
+                offline = true; 
+            }
         }
 
         public void RightClick() { return; }
@@ -318,11 +355,14 @@ namespace SpaceBallAbilities
             RaycastHit hit;
             Ray mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-            //wdint lm = LayerMask.GetMask("Ground");
-            if (Physics.Raycast(mouseRay, out hit, 1000f))
+            LayerMask lm = LayerMask.GetMask("Ground");
+            if (Physics.Raycast(mouseRay, out hit, 1000f, lm))
             {
                 Vector3 objectHit = hit.point;
-                PhotonNetwork.Instantiate(grenadePrefab.name, objectHit, Quaternion.identity);
+                if (offline)
+                    Instantiate(grenadePrefab, objectHit, Quaternion.identity);
+                else
+                    PhotonNetwork.Instantiate(grenadePrefab.name, objectHit, Quaternion.identity);
             }
         }
         public InventoryElement GetIE() { return IE; }
@@ -364,20 +404,21 @@ namespace SpaceBallAbilities
     {
         InventoryElement IE;
         Inventory inventory;
+        PhotonView PV;
 
         float gravity;
         float antiGravity;
 
         GameObject boosterFlamePrefab;
         GameObject boosterFlame;
-
+        Movement movement;
 
         public void SetUp(string IEtag)
         {
-            // PV = GetComponent<PhotonView>();
+            PV = GetComponent<PhotonView>();
             IE = InventoryUIManager.inventory.GetIE(IEtag);
             inventory = GetComponent<Inventory>();
-            InventoryUIManager.inventory.AddUIElement(IEtag, inventory);
+            movement = GetComponent<Movement>();
             // fetch parameter settings about the power-up from the static reference to inventory
             // (I guess) only store those variables that you want to expose to the editor in inventory
             antiGravity = inventory.antiGravity;
@@ -386,29 +427,40 @@ namespace SpaceBallAbilities
             gravity = GetComponent<Movement>().gravityStrength;
             boosterFlame = Instantiate(boosterFlamePrefab, transform);
             boosterFlame.SetActive(false);
+
+            if(PV.IsMine)
+            InventoryUIManager.inventory.AddUIElement(IEtag, inventory);
         }
 
 
 
         public void LeftClick()
         {
-            GetComponent<Movement>().gravityStrength = antiGravity;
-            boosterFlame.SetActive(true);
+            PV.RPC("Ues", RpcTarget.All, antiGravity);
+
         }
 
         public void RightClick()
         {
-            GetComponent<Movement>().gravityStrength = gravity;
-            boosterFlame.SetActive(false);
+            PV.RPC("Ues", RpcTarget.All, gravity);
+
         }
 
         public void Update()
         {
+            if (!PV.IsMine) return;
+
             if (Input.GetButtonUp("Fire1"))
             {
-                GetComponent<Movement>().gravityStrength = gravity;
-                boosterFlame.SetActive(false);
+                PV.RPC("Ues", RpcTarget.All, gravity);
             }
+        }
+
+        [PunRPC]
+        public void Ues(float _gravity)
+        {
+            movement.gravityStrength = _gravity;
+            boosterFlame.SetActive(_gravity == antiGravity);
         }
 
         public InventoryElement GetIE() { return IE; }

@@ -4,11 +4,21 @@ using UnityEngine;
 
 public class GroundCheckPlayer : MonoBehaviour
 {
+    private bool offline = false;
     Movement player;
-
+    private OfflineMovement player1;
     void Start()
     {
-        player = GetComponentInParent<Movement>();
+        if (transform.parent.TryGetComponent(out OfflineMovement off))
+        {
+            offline = true;
+            player1 = GetComponentInParent<OfflineMovement>();
+        }
+        else
+        {
+            player = GetComponentInParent<Movement>();   
+        }
+
     }
 /*
     private void OnTriggerEnter(Collider other)
@@ -22,7 +32,8 @@ public class GroundCheckPlayer : MonoBehaviour
     {
         if (other.tag == "Ground")
         {
-            player.Ground(false);
+            if(offline==true) player1.Ground(false);
+            else player.Ground(false);
             //if (other.transform.parent == null) return;
             //if (other.transform.parent.gameObject.TryGetComponent(out Animator animator))
               //  animator.enabled = false;
@@ -32,7 +43,8 @@ public class GroundCheckPlayer : MonoBehaviour
     {
         if (other.tag == "Ground")
         {
-            player.Ground(true);
+            if(offline==true) player1.Ground(true);
+            else player.Ground(true);
             //if (other.transform.parent == null) return;
             //if (other.transform.parent.gameObject.TryGetComponent(out Animator animator))
               //  animator.enabled = true;

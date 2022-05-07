@@ -280,7 +280,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 162807523679362662, guid: cd4a1609e103e5a49b9928ce227443de, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.83
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 162807523679362662, guid: cd4a1609e103e5a49b9928ce227443de, type: 3}
       propertyPath: m_LocalPosition.z
@@ -318,11 +318,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Rocket
       objectReference: {fileID: 0}
+    - target: {fileID: 1487758413029343267, guid: cd4a1609e103e5a49b9928ce227443de, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7442705701891647435, guid: cd4a1609e103e5a49b9928ce227443de, type: 3}
       propertyPath: m_Convex
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1487758413029343267, guid: cd4a1609e103e5a49b9928ce227443de, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: cd4a1609e103e5a49b9928ce227443de, type: 3}
 --- !u!1 &9123928470768538900 stripped
 GameObject:
@@ -350,17 +355,3 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!64 &1655690120340345924
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9123928470768538900}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 1934444970998904435, guid: ceab0248a08874d539025d250d50433a, type: 3}

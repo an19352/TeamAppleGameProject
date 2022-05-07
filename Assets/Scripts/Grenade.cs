@@ -9,6 +9,7 @@ public class Grenade : MonoBehaviour
     public float radius;
     public float force;
     public GameObject explosionEffect;
+    public GameObject offlineExplosionEffect;
     float countdown;
     bool hasExploded = false;
     private Rigidbody rb;
@@ -26,14 +27,21 @@ public class Grenade : MonoBehaviour
         countdown -= Time.deltaTime;
         if (countdown <= 0f && !hasExploded)
         {
-            Explode();
             hasExploded = true;
+            Explode();
         }
     }
     void Explode()
     {
+        bool offline = false;
+        if (GameMechanics.gameMechanics == null) offline = true;
+
         // show effect
-        GameObject explosion = PhotonNetwork.Instantiate(explosionEffect.name, transform.position, transform.rotation);
+        GameObject explosion;
+        if (offline)
+            explosion = Instantiate(offlineExplosionEffect, transform.position, Quaternion.identity);
+        else 
+            explosion = PhotonNetwork.Instantiate(explosionEffect.name, transform.position, Quaternion.identity);
         //get nearbyb objects
         Collider[] colliders = Physics.OverlapSphere(transform.position, radius);
         
@@ -50,8 +58,12 @@ public class Grenade : MonoBehaviour
                 if (nearbyObject.tag == "Player")
                 {
                     Vector3 pforce = (rb.position - transform.position).normalized * force;
+                    if (offline) nearbyObject.GetComponent<OfflineMovement>().RPC_PushMe(pforce, ForceMode.VelocityChange);
+                    else
                     nearbyObject.GetComponent<Movement>().PushMe(pforce,ForceMode.VelocityChange);
                 }
+                if (nearbyObject.TryGetComponent(out Gen_Tutorial GT))
+                    GT.applyForce(force);
                 //rb.AddExplosionForce(force, transform.position, radius);
             }
         }

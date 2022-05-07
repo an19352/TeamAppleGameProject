@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2423732549853049442}
   - component: {fileID: 5568480840891570892}
   - component: {fileID: 9101999043048173865}
-  m_Layer: 3
+  m_Layer: 16
   m_Name: pTorus1
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -108,7 +108,7 @@ GameObject:
   - component: {fileID: 292723460724007712}
   - component: {fileID: 4052994465291958079}
   - component: {fileID: 3603963108700393906}
-  m_Layer: 3
+  m_Layer: 16
   m_Name: Sphere
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -202,7 +202,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7501049796052596142}
   - component: {fileID: -8056260843084584423}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Planet_1
   m_TagString: Ground
   m_Icon: {fileID: 0}
