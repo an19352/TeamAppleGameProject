@@ -36,7 +36,7 @@ public class Inventory : MonoBehaviour
     public GameObject hookPrefab;
 
     [Header("Impulse Gun Settings")]
-    public GameObject impulseGunHolder;
+    public BoxCollider impulseGunHolder;
     public new GameObject particleSystem;
     public float pushForce;
     public GameObject pushedEffect;
@@ -68,7 +68,7 @@ public class Inventory : MonoBehaviour
             inventoryItems[i] = null;
 
         inventoryMaxATM = 0;
-        transform.GetChild(2).gameObject.SetActive(true);
+        impulseGunHolder.enabled = true;
         activateItem(firstPowerupTag);
 
         //inventoryItems[0] = impulseGunHolder.AddComponent(itemComponents[2]) as IAbility;
