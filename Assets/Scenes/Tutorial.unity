@@ -447,7 +447,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2963799697928989633, guid: d0309f77de521c44482a6b3b2913322b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 47.1
+      value: 46
       objectReference: {fileID: 0}
     - target: {fileID: 2963799697928989633, guid: d0309f77de521c44482a6b3b2913322b, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1065,7 +1065,7 @@ MonoBehaviour:
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 0
+  m_RenderPostProcessing: 1
   m_Antialiasing: 0
   m_AntialiasingQuality: 2
   m_StopNaN: 0
@@ -1150,6 +1150,54 @@ PrefabInstance:
     - {fileID: 4502714479763640856, guid: 2b08a1de1f2b44448a4fe1bad4af1c63, type: 3}
     - {fileID: 6617762937788037627, guid: 2b08a1de1f2b44448a4fe1bad4af1c63, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 2b08a1de1f2b44448a4fe1bad4af1c63, type: 3}
+--- !u!1 &2004471148
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2004471150}
+  - component: {fileID: 2004471149}
+  m_Layer: 0
+  m_Name: PPVolume
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2004471149
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2004471148}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isGlobal: 1
+  priority: 0
+  blendDistance: 0
+  weight: 1
+  sharedProfile: {fileID: 11400000, guid: 8ae4f701dc39bfc469986c903a673c52, type: 2}
+--- !u!4 &2004471150
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2004471148}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 4.054754, y: 5.2521863, z: -20.370874}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &2013985087 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8521386507383712024, guid: ae4d1828886102a42aaad677976921a2, type: 3}
@@ -1362,7 +1410,6 @@ GameObject:
   - component: {fileID: 2080710426}
   - component: {fileID: 2080710425}
   - component: {fileID: 2080710424}
-  - component: {fileID: 2080710423}
   - component: {fileID: 2080710428}
   m_Layer: 0
   m_Name: ScoreTrigger
@@ -1371,18 +1418,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &2080710423
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2080710422}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 78bccc5f165bb0f44b0b8565496bb99e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!64 &2080710424
 MeshCollider:
   m_ObjectHideFlags: 0
