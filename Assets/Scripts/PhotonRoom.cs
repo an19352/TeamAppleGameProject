@@ -68,7 +68,7 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
     public void StartGame()
     {
         if (team == -1) PhotonNetwork.LeaveRoom();
-        else
+        else if(PhotonNetwork.IsMasterClient)
             PhotonNetwork.LoadLevel(multiplayerSceneIndex);
     }
 
