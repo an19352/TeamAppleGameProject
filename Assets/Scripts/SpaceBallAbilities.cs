@@ -214,6 +214,8 @@ namespace SpaceBallAbilities
 
         List<int> toBePushed;
 
+        GameObject pushedEffect;
+
         // Start is called before the first frame update
         public void SetUp(string IEtag)
         {
@@ -224,6 +226,7 @@ namespace SpaceBallAbilities
             InventoryUIManager.inventory.AddUIElement(IEtag, inventory);
             pushForce = inventory.pushForce;
             particleSystem = inventory.particleSystem;
+            pushedEffect = inventory.pushedEffect;
         }
 
         public void LeftClick()
@@ -244,6 +247,7 @@ namespace SpaceBallAbilities
                     _obj.GetComponent<Rigidbody>().AddForce(transform.forward * pushForce, ForceMode.VelocityChange);
                     if (_obj.GetComponent<Movement>() != null)
                     {
+                        Instantiate(pushedEffect, _obj.transform.position, _obj.transform.rotation);
                         _obj.GetComponent<Movement>().PushMe(transform.forward * pushForce, ForceMode.VelocityChange);
 
                     }

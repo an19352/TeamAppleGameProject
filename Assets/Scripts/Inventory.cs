@@ -39,6 +39,7 @@ public class Inventory : MonoBehaviour
     public GameObject impulseGunHolder;
     public new GameObject particleSystem;
     public float pushForce;
+    public GameObject pushedEffect;
 
     [Header("Grenade Settings")]
     public GameObject grenadePrefab;
@@ -198,7 +199,7 @@ public class Inventory : MonoBehaviour
 
     void SelectAbility(int abilityIndex)
     {
-        if(abilityIndex > inventoryMaxATM || abilityIndex < 0)
+        if (abilityIndex > inventoryMaxATM || abilityIndex < 0)
         {
             //Debug.LogError(abilityIndex + "is not in inventory");
             return;

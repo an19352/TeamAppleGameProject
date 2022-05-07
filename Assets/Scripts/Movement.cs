@@ -62,6 +62,8 @@ public class Movement : MonoBehaviour, IPunObservable
 
     public GameObject plane;
 
+    public GameObject pushedEffect;
+
     private void Start()
     {
         PV = GetComponent<PhotonView>();
@@ -79,7 +81,7 @@ public class Movement : MonoBehaviour, IPunObservable
             plane.SetActive(true);
             int team = gameMechanics.checkTeam(ID);
             PV.RPC("SetColour", RpcTarget.All, team);
-            
+
             /*if (team == 1)
             {
                 gameObject.transform.GetChild(9).GetChild(0).GetChild(2).GetChild(0).GetChild(11).GetChild(7)
@@ -116,7 +118,7 @@ public class Movement : MonoBehaviour, IPunObservable
     void Update()
     {
         if (!PV.IsMine) return;
-        
+
         jumpInput = Input.GetButton("Jump");
 
         zAxisInput = Input.GetAxis(verticalAxis);
@@ -252,6 +254,7 @@ public class Movement : MonoBehaviour, IPunObservable
     [PunRPC]
     public void RPC_PushMe(Vector3 force, ForceMode mode)
     {
+        Instantiate(pushedEffect, transform.position, transform.rotation);
         GetComponent<Rigidbody>().AddForce(force, mode);
     }
 
