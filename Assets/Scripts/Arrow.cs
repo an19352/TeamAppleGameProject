@@ -24,7 +24,7 @@ public class Arrow : MonoBehaviour
     [HideInInspector]
     public GameObject home;
 
-    private Vector3 nothing;
+    private Vector3 nothing = new Vector3(0,0,0);
 
     
 
