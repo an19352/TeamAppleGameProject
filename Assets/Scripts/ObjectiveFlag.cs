@@ -109,7 +109,7 @@ public class ObjectiveFlag : MonoBehaviour
     void ApplyChangesOnState(int playerID)
     {
         currentState = EvaluateState();
-        Debug.Log(currentState);
+        //Debug.Log(currentState);
         switch (currentState)
         {
             case State.Idle:
