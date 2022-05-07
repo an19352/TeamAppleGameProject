@@ -264,10 +264,10 @@ MonoBehaviour:
     chance: 0.15
   - obj: {fileID: 8630314654677418282, guid: ebaf9c3d5436c40b4b120e153d21d4d0, type: 3}
     slotRequierment: 3
-    chance: 0.45
+    chance: 0.4
   - obj: {fileID: 65340535879613375, guid: e3cd1439a340f41cc945319e0a8feb88, type: 3}
     slotRequierment: 1
-    chance: 0.2
+    chance: 0.25
   nothingChance: 0.3
   availableSlots: 3
   slotPositions:
