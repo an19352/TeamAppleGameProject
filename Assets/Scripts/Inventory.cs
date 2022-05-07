@@ -53,7 +53,6 @@ public class Inventory : MonoBehaviour
     {
         PV = GetComponent<PhotonView>();
         inventory = InventoryUIManager.inventory;
-        if (!PV.IsMine) return;
 
         IEs = inventory.CloneIEs();
         foreach (InventoryElement IE in IEs)
@@ -123,7 +122,7 @@ public class Inventory : MonoBehaviour
             {
                 inventoryItems[i] = gameObject.AddComponent(typeLookUp[tag]) as IAbility;
                 inventoryItems[i].SetUp(tag);
-                //PV.RPC("RPC_AddComponent", RpcTarget.OthersBuffered, tag);
+                PV.RPC("RPC_AddComponent", RpcTarget.Others, tag);
                 inventoryMaxATM = i;
 
                 SelectAbility(i);
@@ -148,7 +147,7 @@ public class Inventory : MonoBehaviour
         for (i = 0; i < inventoryMaxATM; i++) if (inventoryItems[i].GetIE().powerupName == tag)
             {
                 inventoryItems[i].RightClick();
-                //PV.RPC("RPC_DestroyComponent", RpcTarget.AllBuffered, (inventoryItems[i] as MonoBehaviour));
+                PV.RPC("RPC_DestroyComponent", RpcTarget.All, (inventoryItems[i] as MonoBehaviour));
                 //Destroy(inventoryItems[i] as MonoBehaviour);
 
                 inventoryItems[i] = null;
@@ -161,11 +160,11 @@ public class Inventory : MonoBehaviour
             if (inventoryItems[inventoryMaxATM].GetIE().powerupName == tag)
             {
                 inventoryItems[inventoryMaxATM].RightClick();
-                //PV.RPC("RPC_DestroyComponent", RpcTarget.AllBuffered, (inventoryItems[inventoryMaxATM] as MonoBehaviour));
+                PV.RPC("RPC_DestroyComponent", RpcTarget.All, (inventoryItems[inventoryMaxATM] as MonoBehaviour));
                 //Destroy(inventoryItems[inventoryMaxATM] as MonoBehaviour);
                 inventoryItems[inventoryMaxATM] = null;
                 inventory.RemoveUIElement(tag);
-                if (selectedAbility == inventoryMaxATM) selectedAbility--;
+                if (selectedAbility == inventoryMaxATM) SelectAbility(selectedAbility--);
                 inventoryMaxATM--;
                 return;
             }

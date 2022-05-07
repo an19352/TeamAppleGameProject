@@ -45,6 +45,8 @@ public class FlagHolder : MonoBehaviour
     public void RPC_SpawnDroppedFlag(Vector3 respawnFlagPosition, Quaternion respawnFLagRotation)
     {
         poolOfObject.SpawnFromPool("DroppedFlag", respawnFlagPosition, respawnFLagRotation);
+        GameMechanics.gameMechanics.drop = respawnFlagPosition;
+        Debug.Log(respawnFlagPosition);
     }
 
 

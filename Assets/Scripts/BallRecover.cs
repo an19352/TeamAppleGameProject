@@ -7,7 +7,7 @@ public class BallRecover : MonoBehaviour
 {
     PhotonView PV;
     public int teamID;
-    public static GameMechanics gameMechanics;
+    GameMechanics gameMechanics;
 
 
     void Start()
@@ -23,8 +23,9 @@ public class BallRecover : MonoBehaviour
             GameObject player = other.gameObject;
             if (!player.GetComponent<FlagHolder>().enabled)
             {
-                GameMechanics.gameMechanics.RPC_EnableFlagHolder(player.GetComponent<Movement>().GetId());
+                gameMechanics.RPC_EnableFlagHolder(player.GetComponent<Movement>().GetId());
                 PV.RPC("DisableDroppedFlag", RpcTarget.All);
+                gameMechanics.drop = new Vector3(0,0,0);
             }
 
         }
