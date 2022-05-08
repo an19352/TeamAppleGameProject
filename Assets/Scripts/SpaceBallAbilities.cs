@@ -234,11 +234,11 @@ namespace SpaceBallAbilities
             particleSystem = inventory.particleSystem;
             pushedEffect = inventory.pushedEffect;
 
-            if(offline)
+            if (offline)
                 InventoryUIManager.inventory.AddUIElement(IEtag, inventory);
-                else
+            else
             if (PV.IsMine)
-            InventoryUIManager.inventory.AddUIElement(IEtag, inventory);
+                InventoryUIManager.inventory.AddUIElement(IEtag, inventory);
         }
 
         public void LeftClick()
@@ -264,7 +264,7 @@ namespace SpaceBallAbilities
                         Instantiate(pushedEffect, _obj.transform.position, _obj.transform.rotation);
                         movement.PushMe(transform.forward * pushForce, ForceMode.VelocityChange, true);
                     }
-                    else if(_obj.TryGetComponent(out Rigidbody rb)) rb.AddForce(transform.forward * pushForce, ForceMode.VelocityChange);
+                    else if (_obj.TryGetComponent(out Rigidbody rb)) rb.AddForce(transform.forward * pushForce, ForceMode.VelocityChange);
                 }
             }
         }
@@ -342,10 +342,10 @@ namespace SpaceBallAbilities
                 if (PV.IsMine)
                     InventoryUIManager.inventory.AddUIElement(IEtag, inventory);
             }
-            else 
-            { 
+            else
+            {
                 InventoryUIManager.inventory.AddUIElement(IEtag, inventory);
-                offline = true; 
+                offline = true;
             }
         }
 
@@ -375,7 +375,7 @@ namespace SpaceBallAbilities
         InventoryElement IE;
         Inventory inventory;
         PhotonView PV;
-        
+
         Transform objectHolder;
         public GameObject MeteorPrefab;
         private Camera cameraMain;
@@ -387,7 +387,8 @@ namespace SpaceBallAbilities
         public float meteorFallForce;
         public int meteorsSpawned;
         public float meteorInterval;
-        
+        public GameObject castEffect;
+
         public void SetUp(string IEtag)
         {
             PV = GetComponent<PhotonView>();
@@ -402,6 +403,9 @@ namespace SpaceBallAbilities
             mouseLocation = Input.mousePosition;
             meteorsSpawned = inventory.meteorsSpawned;
             meteorInterval = inventory.meteorInterval;
+            castEffect = inventory.castEffect;
+
+
             SetMeteorTags();
 
             /*if (TryGetComponent(out PhotonView PV))
@@ -421,6 +425,7 @@ namespace SpaceBallAbilities
         public void LeftClick()
         {
             Debug.Log("meteor");
+            Instantiate(castEffect, transform.position, transform.rotation);
             SpawnMeteors();
         }
 
@@ -434,7 +439,7 @@ namespace SpaceBallAbilities
 
             StartCoroutine(CoSpawnMeteors(mouseLocation));
         }
-        
+
         /*void SpawnMeteor()
         {
             Ray mouseRay = cameraMain.ScreenPointToRay(Input.mousePosition);
@@ -462,13 +467,13 @@ namespace SpaceBallAbilities
                 spawnLoc.y += newPos.y;
                 spawnLoc.x += newPos.x;
                 spawnLoc.z += newPos.z;
-            
+
                 PV.RPC("GenerateMeteor", RpcTarget.All, 0, spawnLoc, mouseLocation);
                 yield return new WaitForSeconds(meteorInterval);
             }
             yield return null;
         }
-        
+
         [PunRPC]
         void GenerateMeteor(int randMet, Vector3 randPositionSpawn, Vector3 randPositionTarget)
         {
@@ -481,7 +486,7 @@ namespace SpaceBallAbilities
                 meteor.GetComponent<Rigidbody>().AddForce(pushFactor, ForceMode.Impulse);
             }
         }
-        
+
         public void SetMeteorTags()
         {
             foreach (ObjectPooler.Pool pool in poolOfObject.pools)
@@ -490,7 +495,7 @@ namespace SpaceBallAbilities
                     meteorTags.Add(pool.tag);
             }
         }
-        
+
         public Vector3 RandomSpawnPosition()
         {
             Vector3 RanSpawn;
@@ -501,10 +506,10 @@ namespace SpaceBallAbilities
 
             return RanSpawn;
         }
-        
+
         public InventoryElement GetIE() { return IE; }
     }
-    
+
     public class Coin : MonoBehaviour, IAbility
     {
         InventoryElement IE;
@@ -565,8 +570,8 @@ namespace SpaceBallAbilities
             boosterFlame = Instantiate(boosterFlamePrefab, transform);
             boosterFlame.SetActive(false);
 
-            if(PV.IsMine)
-            InventoryUIManager.inventory.AddUIElement(IEtag, inventory);
+            if (PV.IsMine)
+                InventoryUIManager.inventory.AddUIElement(IEtag, inventory);
         }
 
 

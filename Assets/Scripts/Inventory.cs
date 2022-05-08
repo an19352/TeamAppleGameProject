@@ -42,14 +42,15 @@ public class Inventory : MonoBehaviour
 
     [Header("Grenade Settings")]
     public GameObject grenadePrefab;
-    
+
     [Header("Meteor Settings")]
     public GameObject MeteorPrefab;
     public LayerMask ignoredLayers;
     public float meteorFallForce;
     public int meteorsSpawned;
     public float meteorInterval;
-    
+    public GameObject castEffect;
+
     [Header("Jetpack Settings")]
     public float antiGravity;
     public GameObject boosterFlame;
@@ -63,8 +64,8 @@ public class Inventory : MonoBehaviour
         else offline = true;
         inventory = InventoryUIManager.inventory;
 
-        if(!offline)
-        if (!PV.IsMine) return;
+        if (!offline)
+            if (!PV.IsMine) return;
 
         IEs = inventory.CloneIEs();
         foreach (InventoryElement IE in IEs)
@@ -88,8 +89,8 @@ public class Inventory : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(!offline)
-        if (!PV.IsMine) return;
+        if (!offline)
+            if (!PV.IsMine) return;
 
         if (inventoryMaxATM < 0)
             return;
@@ -114,8 +115,8 @@ public class Inventory : MonoBehaviour
             Debug.LogWarning(tag + " not found");
             return; 
         }*/
-        if(!offline)
-        if (!PV.IsMine) return;
+        if (!offline)
+            if (!PV.IsMine) return;
 
         if (inventoryMaxATM == inventorySize) return;
 
@@ -135,10 +136,10 @@ public class Inventory : MonoBehaviour
             {
                 inventoryItems[i] = gameObject.AddComponent(typeLookUp[tag]) as IAbility;
                 inventoryItems[i].SetUp(tag);
-                
-                if(!offline)
-                PV.RPC("RPC_AddComponent", RpcTarget.Others, typeLookUp[tag].FullName, tag);
-                
+
+                if (!offline)
+                    PV.RPC("RPC_AddComponent", RpcTarget.Others, typeLookUp[tag].FullName, tag);
+
                 inventoryMaxATM = i;
 
                 SelectAbility(i);
@@ -157,8 +158,8 @@ public class Inventory : MonoBehaviour
 
     public void removeItem(string tag)
     {
-        if(!offline)
-        if (!PV.IsMine) return;
+        if (!offline)
+            if (!PV.IsMine) return;
 
         int i;
         for (i = 0; i < inventoryMaxATM; i++) if (inventoryItems[i].GetIE().powerupName == tag)
@@ -168,7 +169,7 @@ public class Inventory : MonoBehaviour
                 if (offline)
                     RPC_DestroyComponent(inventoryItems[i].GetType().FullName);
                 else
-                PV.RPC("RPC_DestroyComponent", RpcTarget.All, inventoryItems[i].GetType().FullName);
+                    PV.RPC("RPC_DestroyComponent", RpcTarget.All, inventoryItems[i].GetType().FullName);
                 //Destroy(inventoryItems[i] as MonoBehaviour);
 
                 inventoryItems[i] = null;
@@ -216,7 +217,7 @@ public class Inventory : MonoBehaviour
             if (offline)
                 RPC_DestroyComponent(inventoryItems[i].GetType().FullName);
             else
-            PV.RPC("RPC_DestroyComponent", RpcTarget.All, inventoryItems[i].GetType().FullName);
+                PV.RPC("RPC_DestroyComponent", RpcTarget.All, inventoryItems[i].GetType().FullName);
             //Destroy(inventoryItems[i] as MonoBehaviour);
 
             inventoryItems[i] = null;
