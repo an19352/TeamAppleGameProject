@@ -303,4 +303,18 @@ public class Movement : MonoBehaviour, IPunObservable
             gameMechanics.RPC_RemovePlayer(ID);
         PhotonNetwork.Disconnect();
     }
+
+    void DisableMoveThreeSec(float time)
+    {
+        StartCoroutine("DisableWaitReenable", time);
+    }
+
+    IEnumerator DisableWaitReenable(float time)
+    {
+        isNPC = true;
+        yield return new WaitForSeconds(time);
+        isNPC = false;
+    }
+    
+    public void NpcChange(bool value) { isNPC = value; }
 }
