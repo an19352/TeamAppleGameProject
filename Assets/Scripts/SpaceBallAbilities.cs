@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using Random = System.Random;
 
 namespace SpaceBallAbilities
 {
@@ -368,6 +369,110 @@ namespace SpaceBallAbilities
         public InventoryElement GetIE() { return IE; }
     }
 
+    public class Meteor : MonoBehaviour, IAbility
+    {
+        ObjectPooler poolOfObject;
+        InventoryElement IE;
+        Inventory inventory;
+        PhotonView PV;
+        
+        Transform objectHolder;
+        public GameObject MeteorPrefab;
+        private Camera cameraMain;
+        private Vector3 mouseLocation;
+        bool offline = false;
+        public LayerMask ignoredLayers;
+        private List<string> meteorTags;
+        private GameObject meteor;
+        public int meteorFallForce;
+        
+        public void SetUp(string IEtag)
+        {
+            PV = GetComponent<PhotonView>();
+            poolOfObject = ObjectPooler.OP;
+            meteorTags = new List<string>();
+            cameraMain = Camera.main;
+            IE = InventoryUIManager.inventory.GetIE(IEtag);
+            inventory = GetComponent<Inventory>();
+            MeteorPrefab = inventory.MeteorPrefab;
+            mouseLocation = Input.mousePosition;
+            SetMeteorTags();
+
+            /*if (TryGetComponent(out PhotonView PV))
+            {
+                if (PV.IsMine)
+                    InventoryUIManager.inventory.AddUIElement(IEtag, inventory);
+            }
+            else 
+            { 
+                InventoryUIManager.inventory.AddUIElement(IEtag, inventory);
+                offline = true; 
+            }*/
+        }
+
+        public void RightClick() { return; }
+
+        public void LeftClick()
+        {
+            Debug.Log("meteor");
+            SpawnMeteor();
+        }
+        
+        void SpawnMeteor()
+        {
+            Ray mouseRay = cameraMain.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(mouseRay, out RaycastHit hit, 1000f, ~ignoredLayers))
+            {
+                mouseLocation = hit.point;
+                Debug.Log(mouseLocation);
+            }
+
+            Vector3 spawnLoc = mouseLocation;
+            Vector3 newPos = RandomSpawnPosition();
+            spawnLoc.y += newPos.y;
+            spawnLoc.x += newPos.x;
+            spawnLoc.z += newPos.z;
+        
+            Debug.Log(meteorTags.Count);
+            PV.RPC("GenerateMeteor", RpcTarget.All, 0, spawnLoc, mouseLocation);
+
+        }
+        
+        [PunRPC]
+        void GenerateMeteor(int randMet, Vector3 randPositionSpawn, Vector3 randPositionTarget)
+        {
+            if (PV.IsMine)
+            {
+                meteor = poolOfObject.SpawnFromPool(meteorTags[randMet], randPositionSpawn, Quaternion.identity);
+                Vector3 pushFactor = ((randPositionTarget - randPositionSpawn).normalized) * meteorFallForce;
+                meteor.GetComponent<Rigidbody>().velocity = new Vector3(0f, 0f, 0f);
+                meteor.GetComponent<Rigidbody>().AddForce(pushFactor, ForceMode.Impulse);
+            }
+        }
+        
+        public void SetMeteorTags()
+        {
+            foreach (ObjectPooler.Pool pool in poolOfObject.pools)
+            {
+                if (pool.prefab.CompareTag("Meteor"))
+                    meteorTags.Add(pool.tag);
+            }
+        }
+        
+        public Vector3 RandomSpawnPosition()
+        {
+            Vector3 RanSpawn;
+            Random ran = new Random();
+            RanSpawn.x = ran.Next(-2, 3);
+            RanSpawn.z = ran.Next(-2, 3);
+            RanSpawn.y = 10;
+
+            return RanSpawn;
+        }
+        
+        public InventoryElement GetIE() { return IE; }
+    }
+    
     public class Coin : MonoBehaviour, IAbility
     {
         InventoryElement IE;

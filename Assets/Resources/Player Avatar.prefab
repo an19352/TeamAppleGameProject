@@ -5707,7 +5707,6 @@ GameObject:
   - component: {fileID: -7131588376947766652}
   - component: {fileID: -3096326147471984968}
   - component: {fileID: 6608188565613503937}
-  - component: {fileID: 4070538607894281487}
   - component: {fileID: 6366128571172061808}
   - component: {fileID: 2286949501575152505}
   - component: {fileID: 8318884176616926482}
@@ -5860,7 +5859,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tooltipOffset: {x: 5, y: 0, z: 0}
-  firstPowerupTag: Impulse Gun
+  firstPowerupTag: Meteor
   inventorySize: 8
   objectHolder: {fileID: 938504099680742854}
   maxGrabDistance: 3
@@ -5878,24 +5877,13 @@ MonoBehaviour:
   pushForce: 40
   pushedEffect: {fileID: 7270086744859371354, guid: 6d81717702a49f4479efa795dc03bb26, type: 3}
   grenadePrefab: {fileID: 6045759529378908636, guid: a2da29be360c84b1b80e96c2704e7ef8, type: 3}
-  antiGravity: -10
-  boosterFlame: {fileID: 7166044610272681018, guid: 646b9a69c9169214ca0779d539d92fb4, type: 3}
---- !u!114 &4070538607894281487
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8521386507383712022}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b4d6ec80c848974ea025f959f8478f7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  MeteorPrefab: {fileID: 4493169287405100905, guid: 88f9fd67ab7fe264ca160fc3e09f16fa, type: 3}
   ignoredLayers:
     serializedVersion: 2
     m_Bits: 131072
   meteorFallForce: 30
+  antiGravity: -10
+  boosterFlame: {fileID: 7166044610272681018, guid: 646b9a69c9169214ca0779d539d92fb4, type: 3}
 --- !u!114 &6366128571172061808
 MonoBehaviour:
   m_ObjectHideFlags: 0

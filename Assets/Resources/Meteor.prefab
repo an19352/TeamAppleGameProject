@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 4581746951084280135}
   m_Layer: 0
   m_Name: Meteor
-  m_TagString: Meteor
+  m_TagString: Powerup
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -152,5 +152,4 @@ MonoBehaviour:
   meteorForce: 20
   meteorRadius: 20
   hitRadius: 5
-  meteorPushForce: 20
   stunTime: 3
