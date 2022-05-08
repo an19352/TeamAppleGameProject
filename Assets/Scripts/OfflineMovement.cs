@@ -48,6 +48,7 @@ public class OfflineMovement : MonoBehaviour
         gameObject.transform.GetChild(9).GetChild(0).GetChild(2).GetChild(0).GetChild(11).GetChild(7)
                 .GetComponent<Renderer>().material = highlightedMaterial;
 
+        if(!isNPC)
         GetComponent<Inventory>().enabled = true;
     }
 
