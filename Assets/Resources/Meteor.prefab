@@ -152,5 +152,4 @@ MonoBehaviour:
   meteorForce: 20
   meteorRadius: 20
   hitRadius: 5
-  meteorPushForce: 20
   stunTime: 3

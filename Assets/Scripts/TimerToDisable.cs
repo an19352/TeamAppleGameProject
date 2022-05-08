@@ -6,7 +6,9 @@ using Cinemachine;
 public class TimerToDisable : MonoBehaviour
 {
     public CinemachineBrain cameraCM;
+    public GameObject introText;
     public float shutDownTime;
+
 
     // Start is called before the first frame update
     void Start()
