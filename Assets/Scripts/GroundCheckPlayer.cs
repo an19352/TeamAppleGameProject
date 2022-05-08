@@ -30,7 +30,7 @@ public class GroundCheckPlayer : MonoBehaviour
 */
     private void OnTriggerExit(Collider other)
     {
-        if (other.tag == "Ground")
+        if (other.CompareTag("Ground"))
         {
             if(offline==true) player1.Ground(false);
             else player.Ground(false);
@@ -41,7 +41,7 @@ public class GroundCheckPlayer : MonoBehaviour
     }
     private void OnTriggerStay(Collider other)
     {
-        if (other.tag == "Ground")
+        if (other.CompareTag("Ground"))
         {
             if(offline==true) player1.Ground(true);
             else player.Ground(true);

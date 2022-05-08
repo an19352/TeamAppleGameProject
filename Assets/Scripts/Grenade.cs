@@ -42,7 +42,7 @@ public class Grenade : MonoBehaviour
             explosion = Instantiate(offlineExplosionEffect, transform.position, Quaternion.identity);
         else 
             explosion = PhotonNetwork.Instantiate(explosionEffect.name, transform.position, Quaternion.identity);
-        //get nearbyb objects
+        //get nearyb objects
         Collider[] colliders = Physics.OverlapSphere(transform.position, radius);
         
         // Add force
@@ -53,14 +53,14 @@ public class Grenade : MonoBehaviour
             
             if (rb != null)
             {
-                if (nearbyObject.tag == "Generator") nearbyObject.GetComponent<EnergyGenerator>().applyForce(force);
-                if (nearbyObject.tag == "Turret") nearbyObject.GetComponent<Turret>().applyForce(force);
-                if (nearbyObject.tag == "Player")
+                if (nearbyObject.CompareTag("Generator")) nearbyObject.GetComponent<EnergyGenerator>().applyForce(force);
+                if (nearbyObject.CompareTag("Turret")) nearbyObject.GetComponent<Turret>().applyForce(force);
+                if (nearbyObject.CompareTag("Player"))
                 {
                     Vector3 pforce = (rb.position - transform.position).normalized * force;
                     if (offline) nearbyObject.GetComponent<OfflineMovement>().RPC_PushMe(pforce, ForceMode.VelocityChange);
                     else
-                    nearbyObject.GetComponent<Movement>().PushMe(pforce,ForceMode.VelocityChange);
+                        nearbyObject.GetComponent<Movement>().PushMe(pforce,ForceMode.VelocityChange);
                 }
                 if (nearbyObject.TryGetComponent(out Gen_Tutorial GT))
                     GT.applyForce(force);
