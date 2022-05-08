@@ -486,4 +486,17 @@ public class MapGenerator : MonoBehaviour
         GameMechanics.gameMechanics.flagObjectives[0] = new GameMechanics.FlagObjective(PhotonView.Find(PVIDs[0]).gameObject);
         GameMechanics.gameMechanics.flagObjectives[1] = new GameMechanics.FlagObjective(PhotonView.Find(PVIDs[1]).gameObject);
     }
+
+    public List<Vector3> GetPositionOfObjects(string prefabName)
+    {
+        List<Vector3> result = new List<Vector3>();
+
+        foreach(BoardSetup.PhotonSpawnable spawnable in photonSpawnables)
+        {
+            if (string.Compare(prefabName, spawnable.prefab) == 0)
+                result.Add(spawnable.position);
+        }
+
+        return result;
+    }
 }
