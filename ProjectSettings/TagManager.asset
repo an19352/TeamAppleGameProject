@@ -14,6 +14,7 @@ TagManager:
   - Turret
   - Generator
   - DetectorNonPlayer
+  - FractureBoard
   layers:
   - Default
   - TransparentFX

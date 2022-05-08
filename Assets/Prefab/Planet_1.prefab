@@ -244,4 +244,4 @@ MonoBehaviour:
   nothingChance: 0.2
   availableSlots: 1
   slotPositions:
-  - {x: 0, y: 4, z: 0}
+  - {x: 0, y: 6, z: 0}
