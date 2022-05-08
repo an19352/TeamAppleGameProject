@@ -123,6 +123,7 @@ public class ObjectiveFlag : MonoBehaviour
                 break;
             case State.Stalemate:
                 fieldRenderer.material = stalemateMaterial;
+                // stop the progress bar
                 StopAllCoroutines();
                 break;
         }

@@ -18,4 +18,4 @@ MonoBehaviour:
   timeToDie: 15
   associatedClass: Grenade
   tooltipText: "Left Click to throw the \ngrenade. Can be used against \nenemies
-    or to destroy generators \nand turrets."
+    or to destroy generators and turrets."

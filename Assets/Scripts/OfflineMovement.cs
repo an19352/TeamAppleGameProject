@@ -21,6 +21,7 @@ public class OfflineMovement : MonoBehaviour
     bool jumpInput;
     float xAxisInput, zAxisInput;
     bool isGrounded;
+    bool isFracture;
     Vector3 SpawningPosition;
 
     public float speed;
@@ -92,7 +93,7 @@ public class OfflineMovement : MonoBehaviour
         }
 
         player.rotation = Quaternion.Slerp(player.rotation, lookRotation, step);
-        if (isGrounded)
+        if (isGrounded || isFracture)
             if (jumpInput)
                 playerBody.AddForce(transform.up * jumpForce, ForceMode.Acceleration);
 
@@ -131,6 +132,10 @@ public class OfflineMovement : MonoBehaviour
     }
 
     public void Ground(bool value) { isGrounded = value; }
+    
+    public void Fracture(bool value)
+    {
+        Debug.Log("lkj"); isFracture = value; }
 
     private void OnDestroy()
     {

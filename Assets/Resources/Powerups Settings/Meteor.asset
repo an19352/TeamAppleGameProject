@@ -17,4 +17,5 @@ MonoBehaviour:
   Infinite: 1
   timeToDie: 0
   associatedClass: Meteor
-  tooltipText: 
+  tooltipText: "Left-Click to use meteor \nshower. Can be used to destroy \nturrets
+    and generators or \nstun players"
