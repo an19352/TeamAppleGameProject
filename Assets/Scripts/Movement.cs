@@ -124,7 +124,7 @@ public class Movement : MonoBehaviour, IPunObservable
 
         zAxisInput = Input.GetAxis(verticalAxis);
         xAxisInput = Input.GetAxis(horizontalAxis);
-        if (isGrounded) SpawningPosition = transform.position;
+        if (isGrounded) SpawningPosition = new Vector3(transform.position.x,(transform.position.y+3f),transform.position.z);
     }
 
     void FixedUpdate()
@@ -319,5 +319,27 @@ public class Movement : MonoBehaviour, IPunObservable
         isNPC = false;
     }
     
+    public void FractureBoard(Vector3 boardFractured)
+    {
+        PV.RPC("RPC_FractureBoard", RpcTarget.All, boardFractured);
+    }
+
+    [PunRPC]
+    void RPC_FractureBoard(Vector3 transform)
+    {
+        Transform parent;
+        Debug.Log(transform);
+        Collider[] colliders = Physics.OverlapSphere(transform, 1);
+        Debug.Log(colliders.Length);
+
+        if (colliders.Length > 0)
+        {
+            parent = colliders[0].transform;
+            while (parent.parent != null) parent = parent.parent;
+            if (parent.gameObject.TryGetComponent(out BoardFractured boardFractured))
+                boardFractured.Fracture();
+        }
+    }
+
     public void NpcChange(bool value) { isNPC = value; }
 }

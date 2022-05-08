@@ -158,7 +158,7 @@ GameObject:
   - component: {fileID: 5694743030178498151}
   m_Layer: 6
   m_Name: ImpulseDetectorCube
-  m_TagString: Untagged
+  m_TagString: Undetectable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5959,7 +5959,7 @@ GameObject:
   - component: {fileID: 3543029450949334635}
   m_Layer: 0
   m_Name: GroundCheck
-  m_TagString: Untagged
+  m_TagString: Undetectable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

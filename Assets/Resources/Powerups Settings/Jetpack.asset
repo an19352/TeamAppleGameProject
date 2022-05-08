@@ -17,5 +17,4 @@ MonoBehaviour:
   Infinite: 0
   timeToDie: 10
   associatedClass: Jetpack
-  tooltipText: "Left Click and hold to launch\nand hover over the map. \nRelease
-    to cancel.\n"
+  tooltipText: Left Click and hold to launch and hover over the map. Release to cancel.

@@ -17,5 +17,5 @@ MonoBehaviour:
   Infinite: 0
   timeToDie: 80
   associatedClass: Grapple
-  tooltipText: "Left click to throw the \ngrapple hook and swing \nto that position.
-    Right click \nto cancel. "
+  tooltipText: 'Left click to throw the grapple hook and swing to that position.
+    Right click to cancel. '

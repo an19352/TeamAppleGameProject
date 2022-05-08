@@ -497,6 +497,7 @@ GameObject:
   - component: {fileID: 325379340904600283}
   - component: {fileID: 4219108952383958170}
   - component: {fileID: 3636123015897474690}
+  - component: {fileID: -4918626774219941016}
   m_Layer: 16
   m_Name: FracturedBoard
   m_TagString: FractureBoard
@@ -549,6 +550,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   respawnTimer: 5
   brokenVersion: {fileID: 1137205522503485537, guid: bbcf253cab5c54443ad7fafb0eac8403, type: 3}
+--- !u!114 &-4918626774219941016
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1137205522503485537}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a424793e3232bcf449d4a423d46d392d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawns:
+  - obj: {fileID: 1337687631739204256, guid: deba92b159be39e4690def3f8ff43d31, type: 3}
+    slotRequierment: 2
+    chance: 0.55
+  - obj: {fileID: 65340535879613375, guid: e3cd1439a340f41cc945319e0a8feb88, type: 3}
+    slotRequierment: 1
+    chance: 0.45
+  nothingChance: 0.3
+  availableSlots: 3
+  slotPositions:
+  - {x: 0, y: 2, z: 0}
+  - {x: 2, y: 2, z: 0}
+  - {x: -2, y: 2, z: 0}
 --- !u!1 &1260258089356597980
 GameObject:
   m_ObjectHideFlags: 0

@@ -60,7 +60,7 @@ public class OfflineMovement : MonoBehaviour
 
         zAxisInput = Input.GetAxis("Vertical");
         xAxisInput = Input.GetAxis("Horizontal");
-        if (isGrounded) SpawningPosition = transform.position;
+        if (isGrounded) SpawningPosition = new Vector3(transform.position.x,(transform.position.y+3f),transform.position.z);
     }
 
     void FixedUpdate()
@@ -133,9 +133,7 @@ public class OfflineMovement : MonoBehaviour
 
     public void Ground(bool value) { isGrounded = value; }
     
-    public void Fracture(bool value)
-    {
-        Debug.Log("lkj"); isFracture = value; }
+    public void Fracture(bool value) { isFracture = value; }
 
     private void OnDestroy()
     {

@@ -123,16 +123,26 @@ public class ObjectiveFlag : MonoBehaviour
         {
             case State.Idle:
                 fieldRenderer.material = idleMaterial;
+                if (hasAlreadyStarted)
+                {
+                    Destroy(timer);
+                }
                 StopAllCoroutines();
                 break;
             case State.Capture:
                 fieldRenderer.material = captureMaterial;
                 // start the capture counter
+                if (PhotonRoom.room.team == otherTeam)
+                {
+                    StartCoroutine(StartTimerFill(captureDuration, timerInterval));
+                }
                 StartCoroutine(StartCaptureCountDown(captureDuration, playerID, defendTeam));
-                StartCoroutine(StartTimerFill(captureDuration, timerInterval));
                 break;
             case State.Stalemate:
-                ContestedTimer();
+                if (PhotonRoom.room.team == otherTeam)
+                {
+                    ContestedTimer();
+                }
                 fieldRenderer.material = stalemateMaterial;
                 // stop the progress bar
                 StopAllCoroutines();
@@ -180,9 +190,22 @@ public class ObjectiveFlag : MonoBehaviour
 
     void ContestedTimer()
     {
-        capturing.gameObject.SetActive(false);
-        contested.gameObject.SetActive(true);
-        fill.color = contested.color;
+        if (hasAlreadyStarted)
+        {
+            capturing.gameObject.SetActive(false);
+            contested.gameObject.SetActive(true);
+            fill.color = contested.color;
+        }
+        else
+        {
+            timer = Instantiate(captureTimer, InventoryUIManager.inventory.transform.parent);
+            hasAlreadyStarted = true;
+            fill = timer.transform.GetChild(1).GetComponent<Image>();
+            contested = timer.transform.GetChild(3).GetComponent<Text>();
+            capturing = timer.transform.GetChild(4).GetComponent<Text>();
+            fill.color = contested.color;
+            capturing.gameObject.SetActive(false);
+        }
     }
 
     void OnTriggerEnter(Collider other)
