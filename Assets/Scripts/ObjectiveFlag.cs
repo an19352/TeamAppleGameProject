@@ -198,8 +198,8 @@ public class ObjectiveFlag : MonoBehaviour
         }
         else
         {
-            hasAlreadyStarted = true;
             timer = Instantiate(captureTimer, InventoryUIManager.inventory.transform.parent);
+            hasAlreadyStarted = true;
             fill = timer.transform.GetChild(1).GetComponent<Image>();
             contested = timer.transform.GetChild(3).GetComponent<Text>();
             capturing = timer.transform.GetChild(4).GetComponent<Text>();
