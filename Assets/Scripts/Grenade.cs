@@ -60,7 +60,7 @@ public class Grenade : MonoBehaviour
                     Vector3 pforce = (rb.position - transform.position).normalized * force;
                     if (offline) nearbyObject.GetComponent<OfflineMovement>().RPC_PushMe(pforce, ForceMode.VelocityChange);
                     else
-                        nearbyObject.GetComponent<Movement>().PushMe(pforce,ForceMode.VelocityChange);
+                        nearbyObject.GetComponent<Movement>().PushMe(pforce,ForceMode.VelocityChange, false);
                 }
                 if (nearbyObject.TryGetComponent(out Gen_Tutorial GT))
                     GT.applyForce(force);
