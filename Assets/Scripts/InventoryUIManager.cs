@@ -57,7 +57,7 @@ public class InventoryUIManager : MonoBehaviour
         _element = Instantiate(prefab, transform).GetComponent<InventoryUIElement>();
         _element.SetPowerup(powerup, _inv);
 
-        if (UIelements.Count == 0) _element.Select();
+        //if (UIelements.Count == 0) Select(tag);
 
         UIelements.Add(_element);
     }
