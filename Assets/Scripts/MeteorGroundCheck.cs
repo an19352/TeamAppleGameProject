@@ -11,6 +11,7 @@ public class MeteorGroundCheck : MonoBehaviour
     public GameObject explosionEffect;
     public float meteorForce;
     public float meteorRadius;
+    public float hitRadius;
     public float meteorPushForce;
     private PhotonView PV;
     public float stunTime;
@@ -30,23 +31,27 @@ public class MeteorGroundCheck : MonoBehaviour
     private void OnCollisionEnter(Collision col)
     {
         //GameObject explosion = PhotonNetwork.Instantiate(explosionEffect.name, transform.position, transform.rotation);
-        Rigidbody rb = col.GetContact(0).otherCollider.GetComponent<Rigidbody>();
-        Collider other = col.GetContact(0).otherCollider;
-        Debug.Log(rb);
-        if (rb != null)
+        Collider[] collidersInRadius = Physics.OverlapSphere(transform.position, hitRadius);
+        Debug.Log("drewsphere");
+        foreach (Collider nearby in collidersInRadius)
         {
-            if (other.CompareTag("Generator"))
+            Rigidbody rb = nearby.GetComponent<Rigidbody>();
+            Debug.Log(rb);
+            if (rb != null)
             {
-                other.GetComponent<EnergyGenerator>().applyForce(meteorForce);
-            }
+                if (nearby.CompareTag("Generator"))
+                {
+                    nearby.GetComponent<EnergyGenerator>().applyForce(meteorForce);
+                }
     
-            if (other.CompareTag("Turret"))
-            {
-                other.GetComponent<Turret>().applyForce(meteorForce);
+                if (nearby.CompareTag("Turret"))
+                {
+                    nearby.GetComponent<Turret>().applyForce(meteorForce);
+                }
             }
         }
-            
-        Collider[] playersInRadius = Physics.OverlapSphere(transform.position, meteorRadius, ~0, 0);
+
+        Collider[] playersInRadius = Physics.OverlapSphere(transform.position, meteorRadius);
         foreach (Collider player in playersInRadius)
         {
             if (player.CompareTag("Player"))
@@ -60,7 +65,7 @@ public class MeteorGroundCheck : MonoBehaviour
     
     void StunPlayer(Collider player)
     {
-        player.gameObject.GetComponent<Movement>().DisableMoveSec(3f);
+        player.gameObject.GetComponent<Movement>().DisableMoveSec(stunTime);
     }
 
     /*IEnumerator CoStunPlayer(Collider player)
