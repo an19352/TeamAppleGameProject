@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.1962879, g: 0.09740276, b: 0.11954967, a: 1}
+  m_IndirectSpecularColor: {r: 0.19634691, g: 0.09731356, b: 0.119633995, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -7906,8 +7906,11 @@ MonoBehaviour:
   - tag: Meteor Shower
     prefab: {fileID: 1916769908316382501, guid: 32b56c3b4f4004c88a13f342ea4deae8, type: 3}
     size: 20
-  - tag: Meteor
-    prefab: {fileID: 4493169287405100905, guid: 88f9fd67ab7fe264ca160fc3e09f16fa, type: 3}
+  - tag: Meteor1
+    prefab: {fileID: 1438283912969267210, guid: 087999d06c37e3845a662e69f18297dc, type: 3}
+    size: 10
+  - tag: Meteor2
+    prefab: {fileID: 8012662535609402681, guid: c2ab73ba82200ff43a6fbbfb2d91016f, type: 3}
     size: 10
 --- !u!4 &1523007682
 Transform:
