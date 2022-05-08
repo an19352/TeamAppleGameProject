@@ -314,6 +314,7 @@ MonoBehaviour:
   mini: {fileID: 0}
   CMvcams: {fileID: 0}
   Powerupgens: {fileID: 0}
+  drop: {x: 0, y: 0, z: 0}
 --- !u!4 &45342573
 Transform:
   m_ObjectHideFlags: 0
@@ -1876,6 +1877,7 @@ MonoBehaviour:
   currentPowerup: {fileID: 0}
   hasPowerup: 0
   plane: {fileID: 0}
+  pushedEffect: {fileID: 0}
 --- !u!136 &364981107
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -6937,6 +6939,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraCM: {fileID: 0}
+  introText: {fileID: 0}
   shutDownTime: 9
 --- !u!114 &963194232
 MonoBehaviour:
@@ -7421,6 +7424,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   totalTime: 480
+  offlineTime: 30
 --- !u!114 &1039434767
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9280,6 +9284,7 @@ MonoBehaviour:
   currentPowerup: {fileID: 0}
   hasPowerup: 0
   plane: {fileID: 0}
+  pushedEffect: {fileID: 0}
 --- !u!114 &1287108075
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13178,6 +13183,10 @@ PrefabInstance:
       propertyPath: generatorIcon
       value: 
       objectReference: {fileID: 3700555844670630634, guid: 4d8752b654136b94a8c373a602241ac7, type: 3}
+    - target: {fileID: 7805278361457090341, guid: 908af0a07bd8e9248b524c4bfb6b4bd4, type: 3}
+      propertyPath: orthographic size
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 7805278361457090342, guid: 908af0a07bd8e9248b524c4bfb6b4bd4, type: 3}
       propertyPath: m_RootOrder
       value: 11

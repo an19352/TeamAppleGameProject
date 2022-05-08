@@ -14,7 +14,7 @@ public class Minimap : MonoBehaviour
 
     private LineRenderer lineRenderer;
     private GameObject player;
-    private List <GameObject> generators;
+    List<GameObject> enemyGens;
     PhotonView PV;
     GameMechanics gameMechanics;
 
@@ -25,11 +25,13 @@ public class Minimap : MonoBehaviour
         // find the transform of the player whoes owner is the same as the camera
         this.PV = GetComponent<PhotonView>();
         this.gameMechanics = GameMechanics.gameMechanics;
+
+        int enemyTeam = gameMechanics.GetLocalPlayerTeam() == 0 ? 1 : 0;
+        enemyGens = enemyTeam == 0 ? gameMechanics.redgens : gameMechanics.greengens;
         lineRenderer = GetComponent<LineRenderer>();
         playerIconRef = Instantiate(playerIcon, transform.position, transform.rotation);
-        generators = gameMechanics.greengens;
-        generators.AddRange(gameMechanics.redgens);
-        foreach (GameObject generator in generators)
+
+        foreach (GameObject generator in enemyGens)
         {
             Vector3 generatorPos = new Vector3(generator.transform.position.x, 60f, generator.transform.position.z);
             Instantiate(generatorIcon, generatorPos, generatorIcon.rotation);
