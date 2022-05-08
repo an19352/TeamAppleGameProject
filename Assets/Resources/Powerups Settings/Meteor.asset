@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   powerupName: Meteor
   icon: {fileID: 21300000, guid: a3e64b9c2650845cab87f8be77849b0f, type: 3}
-  Infinite: 1
-  timeToDie: 0
+  Infinite: 0
+  timeToDie: 15
   associatedClass: Meteor
   tooltipText: Left-Click to use meteor shower. Can be used to destroy turrets and
     generators or stun players

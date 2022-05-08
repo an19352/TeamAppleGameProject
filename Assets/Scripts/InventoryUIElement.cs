@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,15 +15,15 @@ public class InventoryUIElement : MonoBehaviour
 
     [Header("Small Version")]
     public Image smallIcon;
-    public Text smallTimerText;
+    public TextMeshProUGUI smallTimerText;
 
     [Header("Large Version")]
     public Image largeIcon;
-    public Text powerupName;
-    public Text largeTimerText;
+    public TextMeshProUGUI powerupName;
+    public TextMeshProUGUI largeTimerText;
 
     [Header("Tooltip")] 
-    public Text tooltip;
+    public TextMeshProUGUI tooltip;
     
     public void SetPowerup(InventoryElement _powerup, Inventory _inv)
     {

@@ -395,7 +395,6 @@ namespace SpaceBallAbilities
             poolOfObject = ObjectPooler.OP;
             meteorTags = new List<string>();
             cameraMain = Camera.main;
-            IE = InventoryUIManager.inventory.GetIE(IEtag);
             inventory = GetComponent<Inventory>();
             MeteorPrefab = inventory.MeteorPrefab;
             meteorFallForce = inventory.meteorFallForce;
@@ -407,11 +406,13 @@ namespace SpaceBallAbilities
 
 
             SetMeteorTags();
+            IE = InventoryUIManager.inventory.GetIE(IEtag);
 
+           
+            if (PV.IsMine)
+                InventoryUIManager.inventory.AddUIElement(IEtag, inventory);
             /*if (TryGetComponent(out PhotonView PV))
             {
-                if (PV.IsMine)
-                    InventoryUIManager.inventory.AddUIElement(IEtag, inventory);
             }
             else 
             { 

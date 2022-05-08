@@ -13,7 +13,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 680559589800285625, guid: ff08f3d22e1aa7a4c91f94c89bf534ee, type: 3}
       propertyPath: upwardForce
-      value: 1000
+      value: 1300
       objectReference: {fileID: 0}
     - target: {fileID: 2315330915670966640, guid: ff08f3d22e1aa7a4c91f94c89bf534ee, type: 3}
       propertyPath: m_Name

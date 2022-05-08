@@ -4632,19 +4632,19 @@ MonoBehaviour:
   - prefab: {fileID: 7157000051020754708, guid: d26fbeaacf2ea498c98b40be19dd77b7, type: 3}
     reach: 35
     verticalReach: 2.5
-    chance: 0.24
+    chance: 0.2
   - prefab: {fileID: 4241231335372436453, guid: cb23c9b82505b47b4916b0ed6d656942, type: 3}
     reach: 35
     verticalReach: 2.5
-    chance: 0.06
-  - prefab: {fileID: 4821233131761326416, guid: 1228a0c565c214fd6a26155a0881b3d5, type: 3}
+    chance: 0.05
+  - prefab: {fileID: 94678774797624346, guid: 944a874219c04489888b1a6a4e38a034, type: 3}
     reach: 35
     verticalReach: 2.5
-    chance: 0
+    chance: 0.2
   - prefab: {fileID: 1137205522503485537, guid: ff0e3a3aa7810ff4ab9f3f15e150f4b6, type: 3}
     reach: 35
     verticalReach: 2.5
-    chance: 0.3
+    chance: 0.15
   specialPlatforms:
   - prefab: {fileID: 2479892074112479611, guid: d0309f77de521c44482a6b3b2913322b, type: 3}
     reach: 25
@@ -7893,19 +7893,19 @@ MonoBehaviour:
   pools:
   - tag: Jetpack
     prefab: {fileID: 6689642354982003532, guid: 96de9554712b1bb46a75c8d6dc4a1d02, type: 3}
-    size: 10
+    size: 20
   - tag: Bullet
     prefab: {fileID: 5034455422450631387, guid: 378ca747c01b2fc49a51012c12d1431b, type: 3}
     size: 20
   - tag: Grenade
     prefab: {fileID: 1916769908316382501, guid: 2b08a1de1f2b44448a4fe1bad4af1c63, type: 3}
-    size: 10
+    size: 20
   - tag: DroppedFlag
     prefab: {fileID: 7716354420650957, guid: b2314e4357384b44693adcb971d71536, type: 3}
     size: 2
   - tag: Meteor Shower
     prefab: {fileID: 1916769908316382501, guid: 32b56c3b4f4004c88a13f342ea4deae8, type: 3}
-    size: 10
+    size: 20
   - tag: Meteor
     prefab: {fileID: 4493169287405100905, guid: 88f9fd67ab7fe264ca160fc3e09f16fa, type: 3}
     size: 10
