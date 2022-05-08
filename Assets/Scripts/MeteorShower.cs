@@ -85,8 +85,8 @@ public class MeteorShower : MonoBehaviour
     {
         Vector3 RanSpawn;
         Random ran = new Random();
-        RanSpawn.x = ran.Next(-2, 2);
-        RanSpawn.z = ran.Next(-2, 2);
+        RanSpawn.x = ran.Next(-2, 3);
+        RanSpawn.z = ran.Next(-2, 3);
         RanSpawn.y = 10;
 
         return RanSpawn;

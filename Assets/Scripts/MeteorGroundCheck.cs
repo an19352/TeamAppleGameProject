@@ -12,7 +12,6 @@ public class MeteorGroundCheck : MonoBehaviour
     public float meteorForce;
     public float meteorRadius;
     public float hitRadius;
-    public float meteorPushForce;
     private PhotonView PV;
     public float stunTime;
 
