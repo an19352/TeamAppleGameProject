@@ -77,6 +77,7 @@ public class MapGenerator : MonoBehaviour
     public int InitState = 13;
     public bool Generate_Again = false;
     int[] PVIDs = new int[2];
+    int middleIndex;
 
 /*    public void OnValidate()
     {
@@ -241,6 +242,7 @@ public class MapGenerator : MonoBehaviour
         }
 
         ReplacePlatform(0, specialPlatforms[2]);
+        middleIndex = 0;
         //ReplacePlatform(width - 1, specialPlatforms[0]);
         ReplacePlatform(width / 2, specialPlatforms[0]);
 
@@ -331,6 +333,7 @@ public class MapGenerator : MonoBehaviour
         DrawLineOfPlatforms(tree[width / 2], Vector3.back, height / 2);    // Draw a line down
         bottom = tree.Count - 1;
         ReplacePlatform(width / 2, specialPlatforms[2]);                   // Mark middle
+        middleIndex = width / 2;
 
         List<System.IFormattable[]> possibilities = new List<System.IFormattable[]>();
 
@@ -531,5 +534,10 @@ public class MapGenerator : MonoBehaviour
         }
 
         return result;
+    }
+
+    public Vector3 FindMiddle()
+    {
+        return tree[middleIndex].platform.transform.position;
     }
 }
