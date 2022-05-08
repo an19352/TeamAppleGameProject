@@ -4628,7 +4628,7 @@ MonoBehaviour:
   - prefab: {fileID: 2765404466157998811, guid: 90228459ee011a04f816883ed77bc560, type: 3}
     reach: 35
     verticalReach: 2.5
-    chance: 0.7
+    chance: 0.1
   - prefab: {fileID: 7157000051020754708, guid: d26fbeaacf2ea498c98b40be19dd77b7, type: 3}
     reach: 35
     verticalReach: 2.5
@@ -4641,19 +4641,27 @@ MonoBehaviour:
     reach: 35
     verticalReach: 2.5
     chance: 0
+  - prefab: {fileID: 1137205522503485537, guid: ff0e3a3aa7810ff4ab9f3f15e150f4b6, type: 3}
+    reach: 35
+    verticalReach: 2.5
+    chance: 0.6
   specialPlatforms:
   - prefab: {fileID: 2479892074112479611, guid: d0309f77de521c44482a6b3b2913322b, type: 3}
     reach: 25
     verticalReach: 12
-    chance: 0
+    chance: 1
   - prefab: {fileID: 6225837053503751009, guid: 1a78f81512f8c76488c9b3bdde4172d0, type: 3}
     reach: 70
     verticalReach: 13
-    chance: 0
+    chance: 1
   - prefab: {fileID: 2479892074112479611, guid: 1b2d5ba54a1a25e478d3151c5f4d528d, type: 3}
     reach: 25
     verticalReach: 24
-    chance: 0
+    chance: 1
+  - prefab: {fileID: 2383245981060830543, guid: 3b054d7de8388434586a287493630c59, type: 3}
+    reach: 25
+    verticalReach: 24
+    chance: 0.5
   width: 7
   height: 7
   method: 3
@@ -5261,7 +5269,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 684311414}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -83.3107, y: -39, z: 249.8739}
+  m_LocalPosition: {x: -83.3107, y: -45, z: 249.8739}
   m_LocalScale: {x: 290.13464, y: 30, z: 147.98596}
   m_Children: []
   m_Father: {fileID: 0}

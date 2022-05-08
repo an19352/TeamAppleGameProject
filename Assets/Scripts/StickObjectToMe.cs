@@ -11,7 +11,7 @@ using Photon.Pun;
     private void Start()
     {
         PV = GetComponent<PhotonView>();
-        if (PhotonNetwork.IsMasterClient) GetComponent<Animator>().enabled = true;
+        if (PhotonNetwork.IsMasterClient) StartCoroutine(ActivateAnimator()); 
     }
 
 
@@ -19,6 +19,8 @@ using Photon.Pun;
     {
         Transform target = collision.transform;
         if (oldParentPhoneBook.ContainsKey(target)) return;
+
+        if (GameMechanics.gameMechanics.GetLocalPlayer() == null) return;
 
         if (target.Equals(GameMechanics.gameMechanics.GetLocalPlayer().transform)) Camera.main.transform.SetParent(transform);
 
@@ -36,4 +38,11 @@ using Photon.Pun;
              oldParentPhoneBook.Remove(other);
          }
      }
- }
+
+    IEnumerator ActivateAnimator()
+    {
+        yield return new WaitForSeconds(Random.Range(0.0f, 120.0f));
+
+        GetComponent<Animator>().enabled = true;
+    }
+}

@@ -7,8 +7,7 @@ using UnityEngine;
 
 public class MeteorGroundCheck : MonoBehaviour
 {
-
-    public GameObject explosionEffect;
+    
     public float meteorForce;
     public float meteorRadius;
     public float hitRadius;

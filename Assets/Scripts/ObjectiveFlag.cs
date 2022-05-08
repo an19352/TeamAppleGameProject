@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
+using UnityEngine.UI;
 
 public class ObjectiveFlag : MonoBehaviour
 {
@@ -13,7 +14,7 @@ public class ObjectiveFlag : MonoBehaviour
     public bool hasFlag;
     // set to the same value in the inspector
     public float captureDuration;
-    public float captureCounter;
+    public float timerInterval;
     public Material idleMaterial;
     public Material captureMaterial;
     public Material stalemateMaterial;
@@ -25,7 +26,13 @@ public class ObjectiveFlag : MonoBehaviour
     public int numOfAttackers = 0, numOfDefenders = 0;
     public int firstEnteredId;
 
-
+    private Image fill;
+    private Text contested;
+    private Text capturing;
+    public GameObject captureTimer;
+    private bool hasAlreadyStarted = false;
+    private GameObject timer;
+    
     public GameObject flag;
     public GameObject detectionField;
     private GameMechanics gameMechanics;
@@ -60,6 +67,8 @@ public class ObjectiveFlag : MonoBehaviour
         fieldRenderer = detectionField.GetComponent<Renderer>();
 
         otherTeam = defendTeam == 0 ? 1 : 0;
+        
+
     }
 
     State EvaluateState()
@@ -120,8 +129,10 @@ public class ObjectiveFlag : MonoBehaviour
                 fieldRenderer.material = captureMaterial;
                 // start the capture counter
                 StartCoroutine(StartCaptureCountDown(captureDuration, playerID, defendTeam));
+                StartCoroutine(StartTimerFill(captureDuration, timerInterval));
                 break;
             case State.Stalemate:
+                ContestedTimer();
                 fieldRenderer.material = stalemateMaterial;
                 // stop the progress bar
                 StopAllCoroutines();
@@ -136,6 +147,42 @@ public class ObjectiveFlag : MonoBehaviour
         int firstPlayerId = firstPlayerEntered.obj.GetComponent<Movement>().GetId();
         gameMechanics.RPC_EnableFlagHolder(firstPlayerId);
         gameMechanics.RPC_DecreaseFlag(defendTeam);
+    }
+
+    IEnumerator StartTimerFill(float time, float interval)
+    {
+        if (hasAlreadyStarted)
+        {
+            Destroy(timer);
+        }
+        hasAlreadyStarted = true;
+        timer = Instantiate(captureTimer, InventoryUIManager.inventory.transform.parent);
+        fill = timer.transform.GetChild(1).GetComponent<Image>();
+        contested = timer.transform.GetChild(3).GetComponent<Text>();
+        capturing = timer.transform.GetChild(4).GetComponent<Text>();
+        fill.color = capturing.color;
+        fill.fillAmount = 0f;
+        contested.gameObject.SetActive(false);
+        float totalIncrements = time / interval;
+        float amountIncremented = 1 / totalIncrements;
+        Debug.Log(totalIncrements);
+        for (int i = 0; i < totalIncrements; i++)
+        {
+            Debug.Log("inc");
+            fill.fillAmount += amountIncremented;
+            Debug.Log(fill.fillAmount);
+            yield return new WaitForSeconds(interval);
+        }
+        Destroy(timer);
+        hasAlreadyStarted = false;
+        yield return null;
+    }
+
+    void ContestedTimer()
+    {
+        capturing.gameObject.SetActive(false);
+        contested.gameObject.SetActive(true);
+        fill.color = contested.color;
     }
 
     void OnTriggerEnter(Collider other)
