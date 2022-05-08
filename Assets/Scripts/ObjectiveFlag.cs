@@ -123,16 +123,26 @@ public class ObjectiveFlag : MonoBehaviour
         {
             case State.Idle:
                 fieldRenderer.material = idleMaterial;
+                if (hasAlreadyStarted)
+                {
+                    Destroy(timer);
+                }
                 StopAllCoroutines();
                 break;
             case State.Capture:
                 fieldRenderer.material = captureMaterial;
                 // start the capture counter
+                if (PhotonRoom.room.team == otherTeam)
+                {
+                    StartCoroutine(StartTimerFill(captureDuration, timerInterval));
+                }
                 StartCoroutine(StartCaptureCountDown(captureDuration, playerID, defendTeam));
-                StartCoroutine(StartTimerFill(captureDuration, timerInterval));
                 break;
             case State.Stalemate:
-                ContestedTimer();
+                if (PhotonRoom.room.team == otherTeam)
+                {
+                    ContestedTimer();
+                }
                 fieldRenderer.material = stalemateMaterial;
                 // stop the progress bar
                 StopAllCoroutines();
