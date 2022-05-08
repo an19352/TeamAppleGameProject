@@ -180,9 +180,22 @@ public class ObjectiveFlag : MonoBehaviour
 
     void ContestedTimer()
     {
-        capturing.gameObject.SetActive(false);
-        contested.gameObject.SetActive(true);
-        fill.color = contested.color;
+        if (hasAlreadyStarted)
+        {
+            capturing.gameObject.SetActive(false);
+            contested.gameObject.SetActive(true);
+            fill.color = contested.color;
+        }
+        else
+        {
+            hasAlreadyStarted = true;
+            timer = Instantiate(captureTimer, InventoryUIManager.inventory.transform.parent);
+            fill = timer.transform.GetChild(1).GetComponent<Image>();
+            contested = timer.transform.GetChild(3).GetComponent<Text>();
+            capturing = timer.transform.GetChild(4).GetComponent<Text>();
+            fill.color = contested.color;
+            capturing.gameObject.SetActive(false);
+        }
     }
 
     void OnTriggerEnter(Collider other)
