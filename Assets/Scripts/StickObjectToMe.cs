@@ -17,6 +17,9 @@ using Photon.Pun;
 
     private void OnTriggerEnter(Collider collision)
     {
+        if (collision.CompareTag("Undetectable") || collision.CompareTag("Detector") || collision.CompareTag("Detected"))
+            return;
+
         Transform target = collision.transform;
         if (oldParentPhoneBook.ContainsKey(target)) return;
 
@@ -30,7 +33,10 @@ using Photon.Pun;
 
     private void OnTriggerExit(Collider collision)
      {
-         Transform other = collision.transform;
+        if (collision.CompareTag("Undetectable") || collision.CompareTag("Detector") || collision.CompareTag("Detected"))
+            return;
+
+        Transform other = collision.transform;
          if (oldParentPhoneBook.ContainsKey(other))
          {
              other.SetParent(oldParentPhoneBook[other]);
