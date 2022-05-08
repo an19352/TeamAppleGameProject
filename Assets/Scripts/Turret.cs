@@ -166,13 +166,13 @@ public class Turret : MonoBehaviour, IPunObservable
 
     void RepelNearbyPlayers()
     {
-        Collider[] playersInRadius = Physics.OverlapSphere(transform.position, explosionRadius, players, 0);
+        Collider[] playersInRadius = Physics.OverlapSphere(transform.position, explosionRadius, ~0, 0);
         foreach (Collider player in playersInRadius)
         {
             //Debug.Log(player);
             Vector3 pushFactor = (player.transform.position - transform.position).normalized * pushForce;
             //Debug.Log(pushFactor);
-            player.GetComponent<Movement>().PushMe(pushFactor, ForceMode.Impulse);
+            player.GetComponent<Movement>().PushMe(pushFactor, ForceMode.Impulse, true);
         }
     }
 

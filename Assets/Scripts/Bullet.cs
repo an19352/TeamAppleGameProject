@@ -42,7 +42,7 @@ public class Bullet : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            other.GetComponent<Movement>().PushMe(rb.velocity * bulletForce, ForceMode.Force);
+            other.GetComponent<Movement>().PushMe(rb.velocity * bulletForce, ForceMode.Force, true);
         }
     }
     

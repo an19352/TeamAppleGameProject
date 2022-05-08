@@ -16,7 +16,7 @@ public class GroundCheckPlayer : MonoBehaviour
         }
         else
         {
-            player = GetComponentInParent<Movement>();   
+            player = GetComponentInParent<Movement>();
         }
 
     }

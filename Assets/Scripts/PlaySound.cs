@@ -42,8 +42,10 @@ public class PlaySound : MonoBehaviour
     {
         PV = this.GetComponent<PhotonView>();
         sounds = soundBoard.GetComponents<AudioSource>();
-        
         RPC_QueueVoice(0, PhotonNetwork.PlayerList);
+        RPC_QueueVoice(27, PhotonNetwork.PlayerList);
+        RPC_QueueVoice(24, PhotonNetwork.PlayerList);
+        RPC_QueueVoice(25, PhotonNetwork.PlayerList);
     }
 
     // Update is called once per frame
@@ -71,7 +73,7 @@ public class PlaySound : MonoBehaviour
             }   
         }
     }
-    
+
     /*
      0 - intro
      1 - B-AGD1
@@ -97,6 +99,10 @@ public class PlaySound : MonoBehaviour
      21 - Shields Down
      22 - Laser
      23 - Turret Explosion
+     24 - 321
+     25 - Go
+     26 - 3
+     27 - Start
      */
 
     [PunRPC]

@@ -261,7 +261,7 @@ namespace SpaceBallAbilities
                     if (_obj.TryGetComponent(out Movement movement))
                     {
                         Instantiate(pushedEffect, _obj.transform.position, _obj.transform.rotation);
-                        movement.PushMe(transform.forward * pushForce, ForceMode.VelocityChange);
+                        movement.PushMe(transform.forward * pushForce, ForceMode.VelocityChange, true);
                     }
                     else if(_obj.TryGetComponent(out Rigidbody rb)) rb.AddForce(transform.forward * pushForce, ForceMode.VelocityChange);
                 }

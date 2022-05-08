@@ -246,15 +246,18 @@ public class Movement : MonoBehaviour, IPunObservable
         return ID;
     }
 
-    public void PushMe(Vector3 force, ForceMode mode)
+    public void PushMe(Vector3 force, ForceMode mode, bool isExplosion)
     {
-        PV.RPC("RPC_PushMe", PhotonView.Find(PV.ViewID).Owner, force, mode);
+        PV.RPC("RPC_PushMe", PhotonView.Find(PV.ViewID).Owner, force, mode, isExplosion);
     }
 
     [PunRPC]
-    void RPC_PushMe(Vector3 force, ForceMode mode)
+    void RPC_PushMe(Vector3 force, ForceMode mode, bool isExplosion)
     {
-        Instantiate(pushedEffect, transform.position, transform.rotation);
+        if (isExplosion)
+        {
+            Instantiate(pushedEffect, transform.position, transform.rotation);
+        }
         GetComponent<Rigidbody>().AddForce(force, mode);
     }
 

@@ -56,7 +56,7 @@ public class Hook : MonoBehaviour
         {
             //pullingForce = (transform.position - playerPosition).normalized * pullSpeed;
             //sin = (new Vector2(pullingForce.x, pullingForce.z).magnitude) / Vector3.Distance(transform.position, playerPosition);
-            player.PushMe((-playerPosition + transform.position).normalized * pullSpeed - player.gameObject.GetComponent<Rigidbody>().velocity, ForceMode.Acceleration);
+            player.PushMe((-playerPosition + transform.position).normalized * pullSpeed - player.gameObject.GetComponent<Rigidbody>().velocity, ForceMode.Acceleration, false);
         }
     }
 

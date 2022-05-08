@@ -85,7 +85,7 @@ public class EnergyGenerator : MonoBehaviour, IPunObservable
     {
         GameObject explosion = PhotonNetwork.Instantiate(explosionEffect.name, transform.position, transform.rotation);
 
-        // RepelNearbyPlayers();
+        RepelNearbyPlayers();
         // // yield return new WaitForSeconds(2);
         // PhotonNetwork.Destroy(explosion);
         // Debug.Log("destroy explosion instantiated");
@@ -159,7 +159,7 @@ public class EnergyGenerator : MonoBehaviour, IPunObservable
         foreach (Collider player in playersInRadius)
         {
             Vector3 pushFactor = (player.transform.position - transform.position).normalized * pushForce;
-            player.GetComponent<Movement>().PushMe(pushFactor, ForceMode.Impulse);
+            player.GetComponent<Movement>().PushMe(pushFactor, ForceMode.Impulse, false);
         }
     }
     

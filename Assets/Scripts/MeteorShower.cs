@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Photon.Pun;
 using UnityEngine;
+using Random = System.Random;
 
 public class MeteorShower : MonoBehaviour
 {
@@ -61,9 +62,10 @@ public class MeteorShower : MonoBehaviour
         }
 
         Vector3 spawnLoc = mouseLocation;
-        spawnLoc.y += 10;
-        spawnLoc.x += 2;
-        spawnLoc.z += 2;
+        Vector3 newPos = RandomSpawnPosition();
+        spawnLoc.y += newPos.y;
+        spawnLoc.x += newPos.x;
+        spawnLoc.z += newPos.z;
         
         Debug.Log(meteorTags.Count);
         PV.RPC("GenerateMeteor", RpcTarget.All, 0, spawnLoc, mouseLocation);
@@ -77,6 +79,17 @@ public class MeteorShower : MonoBehaviour
             if (pool.prefab.CompareTag("Meteor"))
                 meteorTags.Add(pool.tag);
         }
+    }
+
+    public Vector3 RandomSpawnPosition()
+    {
+        Vector3 RanSpawn;
+        Random ran = new Random();
+        RanSpawn.x = ran.Next(-2, 2);
+        RanSpawn.z = ran.Next(-2, 2);
+        RanSpawn.y = 10;
+
+        return RanSpawn;
     }
     
     /*IEnumerator SpawnMeteor()
