@@ -23,7 +23,7 @@ public class InventoryUIElement : MonoBehaviour
     public TextMeshProUGUI largeTimerText;
 
     [Header("Tooltip")] 
-    public Text tooltip;
+    public TextMeshProUGUI tooltip;
     
     public void SetPowerup(InventoryElement _powerup, Inventory _inv)
     {
