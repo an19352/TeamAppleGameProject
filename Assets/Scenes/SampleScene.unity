@@ -10505,9 +10505,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: Board_Move_Horizontal (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 4795708478117195173, guid: a300de21971d9ca4ebdab142bbf98624, type: 3}
+      propertyPath: sceneViewId
+      value: 45
+      objectReference: {fileID: 0}
     - target: {fileID: 7854861794064884152, guid: a300de21971d9ca4ebdab142bbf98624, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7854861794064884152, guid: a300de21971d9ca4ebdab142bbf98624, type: 3}
       propertyPath: m_LocalPosition.x
@@ -12173,6 +12177,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Board_Move_Horizontal (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 4795708478117195173, guid: a300de21971d9ca4ebdab142bbf98624, type: 3}
+      propertyPath: sceneViewId
+      value: 44
+      objectReference: {fileID: 0}
     - target: {fileID: 7854861794064884152, guid: a300de21971d9ca4ebdab142bbf98624, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -12733,6 +12741,14 @@ PrefabInstance:
     - target: {fileID: 585275862656352412, guid: a300de21971d9ca4ebdab142bbf98624, type: 3}
       propertyPath: m_Name
       value: Board_Move_Horizontal
+      objectReference: {fileID: 0}
+    - target: {fileID: 4173700507112859946, guid: a300de21971d9ca4ebdab142bbf98624, type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4795708478117195173, guid: a300de21971d9ca4ebdab142bbf98624, type: 3}
+      propertyPath: sceneViewId
+      value: 43
       objectReference: {fileID: 0}
     - target: {fileID: 7854861794064884152, guid: a300de21971d9ca4ebdab142bbf98624, type: 3}
       propertyPath: m_RootOrder
