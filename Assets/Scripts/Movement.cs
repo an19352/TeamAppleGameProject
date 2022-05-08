@@ -28,6 +28,7 @@ public class Movement : MonoBehaviour, IPunObservable
     public float jumpForce = 13f;
     Vector3 currentVelocity;
     bool isGrounded;
+    bool isFracture;
 
     int ID;           // ID is private so it can't be changed from inspector
 
@@ -169,7 +170,7 @@ public class Movement : MonoBehaviour, IPunObservable
         }
 
         player.rotation = Quaternion.Slerp(player.rotation, lookRotation, step);
-        if (isGrounded)
+        if (isGrounded || isFracture)
             if (jumpInput)
                 playerBody.AddForce(transform.up * jumpForce, ForceMode.Acceleration);
 
@@ -285,6 +286,8 @@ public class Movement : MonoBehaviour, IPunObservable
     }
 
     public void Ground(bool value) { isGrounded = value; }
+    
+    public void Fracture(bool value) { isFracture = value; }
 
     private void OnDestroy()
     {

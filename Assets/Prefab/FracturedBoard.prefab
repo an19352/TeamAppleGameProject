@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 1841835065720528792}
   - component: {fileID: 5330509417323448117}
   - component: {fileID: 8420379914466506162}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Board_cell.024
-  m_TagString: Ground
+  m_TagString: FractureBoard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -92,9 +92,9 @@ GameObject:
   - component: {fileID: 2159858793529182312}
   - component: {fileID: 356101753504923346}
   - component: {fileID: 5021956671193127153}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Board_cell.013
-  m_TagString: Ground
+  m_TagString: FractureBoard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -173,9 +173,9 @@ GameObject:
   - component: {fileID: 935598319280137378}
   - component: {fileID: 6805228522545662379}
   - component: {fileID: 2216357070205906261}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Board_cell.022
-  m_TagString: Ground
+  m_TagString: FractureBoard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -254,9 +254,9 @@ GameObject:
   - component: {fileID: 2459365054576202286}
   - component: {fileID: 3951947580945598283}
   - component: {fileID: 2866304177823283338}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Board_cell.025
-  m_TagString: Ground
+  m_TagString: FractureBoard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -335,9 +335,9 @@ GameObject:
   - component: {fileID: 4948280977194799661}
   - component: {fileID: 2214721442608966960}
   - component: {fileID: 7223952666053433790}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Board_cell.021
-  m_TagString: Ground
+  m_TagString: FractureBoard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -416,9 +416,9 @@ GameObject:
   - component: {fileID: 2906427445431195762}
   - component: {fileID: 8152983567821429655}
   - component: {fileID: 1854528258543460919}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Board_cell.027
-  m_TagString: Ground
+  m_TagString: FractureBoard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -497,9 +497,9 @@ GameObject:
   - component: {fileID: 325379340904600283}
   - component: {fileID: 4219108952383958170}
   - component: {fileID: 3636123015897474690}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: FracturedBoard
-  m_TagString: Ground
+  m_TagString: FractureBoard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -560,9 +560,9 @@ GameObject:
   - component: {fileID: 8372511467668426220}
   - component: {fileID: 79505422009017205}
   - component: {fileID: 2247108946437381543}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Board_cell.036
-  m_TagString: Ground
+  m_TagString: FractureBoard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -640,9 +640,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2961331637365121622}
   - component: {fileID: 6082199388525637259}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: BoardPieces
-  m_TagString: Untagged
+  m_TagString: FractureBoard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -724,9 +724,9 @@ GameObject:
   - component: {fileID: 8111928611940981093}
   - component: {fileID: 5709991863898942310}
   - component: {fileID: 5295771546359973465}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Board_cell.031
-  m_TagString: Ground
+  m_TagString: FractureBoard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -805,9 +805,9 @@ GameObject:
   - component: {fileID: 6947236345587854241}
   - component: {fileID: 1159173596784416426}
   - component: {fileID: 2297465119369064946}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Board_cell.032
-  m_TagString: Ground
+  m_TagString: FractureBoard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -886,9 +886,9 @@ GameObject:
   - component: {fileID: 2382313736352876055}
   - component: {fileID: 540673371098936361}
   - component: {fileID: 4693778784631700858}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Board_cell.010
-  m_TagString: Ground
+  m_TagString: FractureBoard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -967,9 +967,9 @@ GameObject:
   - component: {fileID: 2697230769942208848}
   - component: {fileID: 5369629941383824629}
   - component: {fileID: 4295303925234056403}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Board_cell.009
-  m_TagString: Ground
+  m_TagString: FractureBoard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1048,9 +1048,9 @@ GameObject:
   - component: {fileID: 625985521313694587}
   - component: {fileID: 3576238237543390976}
   - component: {fileID: 3999917233881097627}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Board_cell.020
-  m_TagString: Ground
+  m_TagString: FractureBoard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1129,9 +1129,9 @@ GameObject:
   - component: {fileID: 3884422385673375792}
   - component: {fileID: 1251384680637935952}
   - component: {fileID: 7519659294111107042}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Board_cell.016
-  m_TagString: Ground
+  m_TagString: FractureBoard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1210,9 +1210,9 @@ GameObject:
   - component: {fileID: 4465712933008358022}
   - component: {fileID: 4512204978077570239}
   - component: {fileID: 3615309334395536990}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Board_cell.030
-  m_TagString: Ground
+  m_TagString: FractureBoard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1291,9 +1291,9 @@ GameObject:
   - component: {fileID: 6214053469952072058}
   - component: {fileID: 6873369649323047868}
   - component: {fileID: 8575854228502285457}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Board_cell.029
-  m_TagString: Ground
+  m_TagString: FractureBoard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1372,9 +1372,9 @@ GameObject:
   - component: {fileID: 5480672854870069870}
   - component: {fileID: 5999305143035370532}
   - component: {fileID: 8297115388636750224}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Board_cell.018
-  m_TagString: Ground
+  m_TagString: FractureBoard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1453,9 +1453,9 @@ GameObject:
   - component: {fileID: 6148691479247955411}
   - component: {fileID: 1861410240713358635}
   - component: {fileID: 5829774288942509601}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Board_cell.035
-  m_TagString: Ground
+  m_TagString: FractureBoard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1534,9 +1534,9 @@ GameObject:
   - component: {fileID: 6461044290765599714}
   - component: {fileID: 5644627438759341451}
   - component: {fileID: 2950218776862650220}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Board_cell.001
-  m_TagString: Ground
+  m_TagString: FractureBoard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1615,9 +1615,9 @@ GameObject:
   - component: {fileID: 2595132234711568065}
   - component: {fileID: 6890719467066676806}
   - component: {fileID: 5321130501710194883}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Board_cell.033
-  m_TagString: Ground
+  m_TagString: FractureBoard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1696,9 +1696,9 @@ GameObject:
   - component: {fileID: 3719830018200750734}
   - component: {fileID: 104622508377275244}
   - component: {fileID: 5384624353889681516}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Board_cell.015
-  m_TagString: Ground
+  m_TagString: FractureBoard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1777,9 +1777,9 @@ GameObject:
   - component: {fileID: 2234176260405076111}
   - component: {fileID: 217550861561311121}
   - component: {fileID: 3316307551894132435}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Board_cell.004
-  m_TagString: Ground
+  m_TagString: FractureBoard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1858,9 +1858,9 @@ GameObject:
   - component: {fileID: 2288346503654728662}
   - component: {fileID: 3558478864896142276}
   - component: {fileID: 2158346353913445501}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Board_cell.012
-  m_TagString: Ground
+  m_TagString: FractureBoard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1939,9 +1939,9 @@ GameObject:
   - component: {fileID: 3619213987486475770}
   - component: {fileID: 2611583106257117755}
   - component: {fileID: 7609330721842686793}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Board_cell.017
-  m_TagString: Ground
+  m_TagString: FractureBoard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2020,9 +2020,9 @@ GameObject:
   - component: {fileID: 488719112584313898}
   - component: {fileID: 6405425366221915227}
   - component: {fileID: 3621668855609730149}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Board_cell.019
-  m_TagString: Ground
+  m_TagString: FractureBoard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2101,9 +2101,9 @@ GameObject:
   - component: {fileID: 9218498870928264571}
   - component: {fileID: 5007772708882750196}
   - component: {fileID: 8075600525552091796}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Board_cell.008
-  m_TagString: Ground
+  m_TagString: FractureBoard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2182,9 +2182,9 @@ GameObject:
   - component: {fileID: 4100385130823641036}
   - component: {fileID: 7228714096793007699}
   - component: {fileID: 1156768307630270055}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Board_cell.014
-  m_TagString: Ground
+  m_TagString: FractureBoard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2263,9 +2263,9 @@ GameObject:
   - component: {fileID: 2730633438109527697}
   - component: {fileID: 3637718391589832678}
   - component: {fileID: 5627140908824873394}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Board_cell.005
-  m_TagString: Ground
+  m_TagString: FractureBoard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2344,9 +2344,9 @@ GameObject:
   - component: {fileID: 6174079278872991450}
   - component: {fileID: 5442485372577301377}
   - component: {fileID: 6069599060384368189}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Board_cell.034
-  m_TagString: Ground
+  m_TagString: FractureBoard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2425,9 +2425,9 @@ GameObject:
   - component: {fileID: 6895194947061126218}
   - component: {fileID: 303150519370664144}
   - component: {fileID: 5881444605597401794}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Board_cell.023
-  m_TagString: Ground
+  m_TagString: FractureBoard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2506,9 +2506,9 @@ GameObject:
   - component: {fileID: 4757683336821401989}
   - component: {fileID: 9133955030632647505}
   - component: {fileID: 1746233085244380007}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Board_cell
-  m_TagString: Ground
+  m_TagString: FractureBoard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2587,9 +2587,9 @@ GameObject:
   - component: {fileID: 7989191393530205481}
   - component: {fileID: 1496345525408332648}
   - component: {fileID: 3516162696091565975}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Board_cell.002
-  m_TagString: Ground
+  m_TagString: FractureBoard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2668,9 +2668,9 @@ GameObject:
   - component: {fileID: 2095427707706523305}
   - component: {fileID: 8156442869141108175}
   - component: {fileID: 1136826233238716141}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Board_cell.038
-  m_TagString: Ground
+  m_TagString: FractureBoard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2749,9 +2749,9 @@ GameObject:
   - component: {fileID: 9179269306237178488}
   - component: {fileID: 3083926096434163784}
   - component: {fileID: 827869947804424770}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Board_cell.011
-  m_TagString: Ground
+  m_TagString: FractureBoard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2830,9 +2830,9 @@ GameObject:
   - component: {fileID: 1033323094318759100}
   - component: {fileID: 5171790292725025506}
   - component: {fileID: 8465770599720025950}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Board_cell.037
-  m_TagString: Ground
+  m_TagString: FractureBoard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2911,9 +2911,9 @@ GameObject:
   - component: {fileID: 1177449428924806870}
   - component: {fileID: 9182934308030793601}
   - component: {fileID: 7366941741055737538}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Board_cell.003
-  m_TagString: Ground
+  m_TagString: FractureBoard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2992,9 +2992,9 @@ GameObject:
   - component: {fileID: 4634487267229075768}
   - component: {fileID: 7239635525102179788}
   - component: {fileID: 3427770726774019839}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Board_cell.006
-  m_TagString: Ground
+  m_TagString: FractureBoard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3073,9 +3073,9 @@ GameObject:
   - component: {fileID: 542289971153101510}
   - component: {fileID: 2398674728915813370}
   - component: {fileID: 5223799817032771380}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Board_cell.007
-  m_TagString: Ground
+  m_TagString: FractureBoard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3154,9 +3154,9 @@ GameObject:
   - component: {fileID: 1713191569775767595}
   - component: {fileID: 8184448618313996790}
   - component: {fileID: 416604809948309657}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Board_cell.028
-  m_TagString: Ground
+  m_TagString: FractureBoard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3235,9 +3235,9 @@ GameObject:
   - component: {fileID: 5990535483670929284}
   - component: {fileID: 7589063896218687948}
   - component: {fileID: 7922991683650257978}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Board_cell.026
-  m_TagString: Ground
+  m_TagString: FractureBoard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
