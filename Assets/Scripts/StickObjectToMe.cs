@@ -11,7 +11,7 @@ using Photon.Pun;
     private void Start()
     {
         PV = GetComponent<PhotonView>();
-        if (PhotonNetwork.IsMasterClient) GetComponent<Animator>().enabled = false;
+        if (PhotonNetwork.IsMasterClient) StartCoroutine(ActivateAnimator()); 
     }
 
 
@@ -38,4 +38,11 @@ using Photon.Pun;
              oldParentPhoneBook.Remove(other);
          }
      }
- }
+
+    IEnumerator ActivateAnimator()
+    {
+        yield return new WaitForSeconds(Random.Range(0.0f, 120.0f));
+
+        GetComponent<Animator>().enabled = true;
+    }
+}

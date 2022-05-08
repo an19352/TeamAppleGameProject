@@ -245,6 +245,13 @@ public class MapGenerator : MonoBehaviour
         ReplacePlatform(width / 2, specialPlatforms[0]);
 
         DrawLineOfPlatforms(tree[0], Vector3.right, 2);
+
+        if (Random.Range(0.0f, 1.0f) >= specialPlatforms[3].chance)
+        {
+            ReplacePlatform(tree.Count - 2, specialPlatforms[3]);
+            photonSpawnables.AddRange(tree[tree.Count - 2].platform.transform.gameObject.GetComponent<BoardSetup>().Setup());
+        }
+
         ReplacePlatform(tree.Count - 1, specialPlatforms[1]);
         photonSpawnables.AddRange(tree[tree.Count - 1].platform.transform.gameObject.GetComponent<BoardSetup>().Setup());
         /*
@@ -366,10 +373,24 @@ public class MapGenerator : MonoBehaviour
         ReplacePlatform(width - 1, specialPlatforms[0]);
 
         DrawLineOfPlatforms(tree[width / 2], Vector3.left, 2);
+
+        if (Random.Range(0.0f, 1.0f) >= specialPlatforms[3].chance)
+        {
+            ReplacePlatform(tree.Count - 2, specialPlatforms[3]);
+            photonSpawnables.AddRange(tree[tree.Count - 2].platform.transform.gameObject.GetComponent<BoardSetup>().Setup());
+        }
+
         ReplacePlatform(tree.Count - 1, specialPlatforms[1]);
         photonSpawnables.AddRange(tree[tree.Count - 1].platform.transform.gameObject.GetComponent<BoardSetup>().Setup());
 
         DrawLineOfPlatforms(tree[width / 2], Vector3.right, 2);
+
+        if (Random.Range(0.0f, 1.0f) >= specialPlatforms[3].chance)
+        {
+            ReplacePlatform(tree.Count - 2, specialPlatforms[3]);
+            photonSpawnables.AddRange(tree[tree.Count - 2].platform.transform.gameObject.GetComponent<BoardSetup>().Setup());
+        }
+
         ReplacePlatform(tree.Count - 1, specialPlatforms[1]);
         photonSpawnables.AddRange(tree[tree.Count - 1].platform.transform.gameObject.GetComponent<BoardSetup>().Setup());
 
