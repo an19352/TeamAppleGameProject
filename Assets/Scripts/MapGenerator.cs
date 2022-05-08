@@ -406,7 +406,7 @@ public class MapGenerator : MonoBehaviour
         }
     }
 
-    int FindPlatform(Transform _transform)
+    public int FindPlatform(Transform _transform)
     {
         foreach (TreeElement element in tree)
             if (element.platform.transform.Equals(_transform)) return element.index;

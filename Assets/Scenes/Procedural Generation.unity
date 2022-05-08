@@ -4628,7 +4628,7 @@ MonoBehaviour:
   - prefab: {fileID: 2765404466157998811, guid: 90228459ee011a04f816883ed77bc560, type: 3}
     reach: 35
     verticalReach: 2.5
-    chance: 0.1
+    chance: 0.4
   - prefab: {fileID: 7157000051020754708, guid: d26fbeaacf2ea498c98b40be19dd77b7, type: 3}
     reach: 35
     verticalReach: 2.5
@@ -4644,7 +4644,7 @@ MonoBehaviour:
   - prefab: {fileID: 1137205522503485537, guid: ff0e3a3aa7810ff4ab9f3f15e150f4b6, type: 3}
     reach: 35
     verticalReach: 2.5
-    chance: 0.6
+    chance: 0.3
   specialPlatforms:
   - prefab: {fileID: 2479892074112479611, guid: d0309f77de521c44482a6b3b2913322b, type: 3}
     reach: 25

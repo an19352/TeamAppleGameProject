@@ -10,12 +10,18 @@ public class BoardFractured : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            GameObject bv = Instantiate(brokenVersion, transform.position, transform.rotation);
-            transform.Find("BoardPieces").gameObject.SetActive(false);
-            StartCoroutine("RespawnFlag");
-            StartCoroutine(DestroyDebris(bv));
-        };
+            other.gameObject.GetComponent<Movement>().FractureBoard(transform.position);
+        }
     }
+
+    public void Fracture()
+    {
+        GameObject bv = Instantiate(brokenVersion, transform.position, transform.rotation);
+        transform.Find("BoardPieces").gameObject.SetActive(false);
+        StartCoroutine("RespawnFlag");
+        StartCoroutine(DestroyDebris(bv));
+    }
+
     IEnumerator RespawnFlag()
     {
         yield return new WaitForSeconds(respawnTimer);

@@ -121,6 +121,7 @@ MonoBehaviour:
   - Showoff
   - Ues
   - StunPlayer
+  - RPC_FractureBoard
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
