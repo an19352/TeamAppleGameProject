@@ -384,7 +384,9 @@ namespace SpaceBallAbilities
         public LayerMask ignoredLayers;
         private List<string> meteorTags;
         private GameObject meteor;
-        public int meteorFallForce;
+        public float meteorFallForce;
+        public int meteorsSpawned;
+        public float meteorInterval;
         
         public void SetUp(string IEtag)
         {
@@ -395,7 +397,11 @@ namespace SpaceBallAbilities
             IE = InventoryUIManager.inventory.GetIE(IEtag);
             inventory = GetComponent<Inventory>();
             MeteorPrefab = inventory.MeteorPrefab;
+            meteorFallForce = inventory.meteorFallForce;
+            ignoredLayers = inventory.ignoredLayers;
             mouseLocation = Input.mousePosition;
+            meteorsSpawned = inventory.meteorsSpawned;
+            meteorInterval = inventory.meteorInterval;
             SetMeteorTags();
 
             /*if (TryGetComponent(out PhotonView PV))
@@ -415,16 +421,26 @@ namespace SpaceBallAbilities
         public void LeftClick()
         {
             Debug.Log("meteor");
-            SpawnMeteor();
+            SpawnMeteors();
         }
-        
-        void SpawnMeteor()
+
+        void SpawnMeteors()
         {
             Ray mouseRay = cameraMain.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(mouseRay, out RaycastHit hit, 1000f, ~ignoredLayers))
             {
                 mouseLocation = hit.point;
-                Debug.Log(mouseLocation);
+            }
+
+            StartCoroutine(CoSpawnMeteors(mouseLocation));
+        }
+        
+        /*void SpawnMeteor()
+        {
+            Ray mouseRay = cameraMain.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(mouseRay, out RaycastHit hit, 1000f, ~ignoredLayers))
+            {
+                mouseLocation = hit.point;
             }
 
             Vector3 spawnLoc = mouseLocation;
@@ -432,10 +448,25 @@ namespace SpaceBallAbilities
             spawnLoc.y += newPos.y;
             spawnLoc.x += newPos.x;
             spawnLoc.z += newPos.z;
-        
-            Debug.Log(meteorTags.Count);
+            
             PV.RPC("GenerateMeteor", RpcTarget.All, 0, spawnLoc, mouseLocation);
 
+        }*/
+
+        IEnumerator CoSpawnMeteors(Vector3 mouseLocation)
+        {
+            for (int i = 0; i < meteorsSpawned; i++)
+            {
+                Vector3 spawnLoc = mouseLocation;
+                Vector3 newPos = RandomSpawnPosition();
+                spawnLoc.y += newPos.y;
+                spawnLoc.x += newPos.x;
+                spawnLoc.z += newPos.z;
+            
+                PV.RPC("GenerateMeteor", RpcTarget.All, 0, spawnLoc, mouseLocation);
+                yield return new WaitForSeconds(meteorInterval);
+            }
+            yield return null;
         }
         
         [PunRPC]
@@ -443,6 +474,7 @@ namespace SpaceBallAbilities
         {
             if (PV.IsMine)
             {
+                Debug.Log(meteorTags[randMet]);
                 meteor = poolOfObject.SpawnFromPool(meteorTags[randMet], randPositionSpawn, Quaternion.identity);
                 Vector3 pushFactor = ((randPositionTarget - randPositionSpawn).normalized) * meteorFallForce;
                 meteor.GetComponent<Rigidbody>().velocity = new Vector3(0f, 0f, 0f);

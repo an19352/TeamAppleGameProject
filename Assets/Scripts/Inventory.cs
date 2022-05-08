@@ -46,7 +46,9 @@ public class Inventory : MonoBehaviour
     [Header("Meteor Settings")]
     public GameObject MeteorPrefab;
     public LayerMask ignoredLayers;
-    public int meteorFallForce;
+    public float meteorFallForce;
+    public int meteorsSpawned;
+    public float meteorInterval;
     
     [Header("Jetpack Settings")]
     public float antiGravity;

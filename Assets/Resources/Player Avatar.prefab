@@ -5880,8 +5880,10 @@ MonoBehaviour:
   MeteorPrefab: {fileID: 4493169287405100905, guid: 88f9fd67ab7fe264ca160fc3e09f16fa, type: 3}
   ignoredLayers:
     serializedVersion: 2
-    m_Bits: 131072
+    m_Bits: 458750
   meteorFallForce: 30
+  meteorsSpawned: 3
+  meteorInterval: 0.25
   antiGravity: -10
   boosterFlame: {fileID: 7166044610272681018, guid: 646b9a69c9169214ca0779d539d92fb4, type: 3}
 --- !u!114 &6366128571172061808
