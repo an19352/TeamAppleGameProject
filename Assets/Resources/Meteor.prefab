@@ -152,6 +152,3 @@ MonoBehaviour:
   meteorForce: 20
   meteorRadius: 20
   meteorPushForce: 20
-  players:
-    serializedVersion: 2
-    m_Bits: 12288

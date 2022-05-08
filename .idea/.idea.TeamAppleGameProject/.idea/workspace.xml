@@ -4,12 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9d59a655-b95b-4264-984d-b993a5d47562" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.TeamAppleGameProject/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TeamAppleGameProject/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/NetworkConnector.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/NetworkConnector.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Tutorial.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Tutorial.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/BoardFractured.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/BoardFractured.cs" afterDir="false" />
-    </list>
+    <list default="true" id="9d59a655-b95b-4264-984d-b993a5d47562" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -132,7 +127,7 @@
       <workItem from="1651853704762" duration="1929000" />
       <workItem from="1651926075932" duration="1013000" />
       <workItem from="1651937693662" duration="1577000" />
-      <workItem from="1651963337467" duration="5671000" />
+      <workItem from="1651963337467" duration="6469000" />
     </task>
     <servers />
   </component>

@@ -19586,7 +19586,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 807309145668344836, guid: bd78a2a15475a1d4698780a7d85602de, type: 3}
       propertyPath: m_Layer
-      value: 16
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 1167803481291226577, guid: bd78a2a15475a1d4698780a7d85602de, type: 3}
       propertyPath: m_CastShadows
