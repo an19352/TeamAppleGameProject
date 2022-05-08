@@ -663,7 +663,7 @@ MonoBehaviour:
   explosionRadius: 20
   range: 39
   turnSpeed: 10
-  pushForce: 5
+  pushForce: 50
   fireRate: 1
   fireCountDown: 0
   bulletPrefab: {fileID: 5034455422450631387, guid: 378ca747c01b2fc49a51012c12d1431b, type: 3}

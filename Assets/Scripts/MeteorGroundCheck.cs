@@ -28,18 +28,21 @@ public class MeteorGroundCheck : MonoBehaviour
     {
         //GameObject explosion = PhotonNetwork.Instantiate(explosionEffect.name, transform.position, transform.rotation);
         transform.gameObject.SetActive(false);
-        GameObject other = col.GetContact(0).otherCollider.transform.parent.gameObject;
-        Debug.Log(other);
-        if (other.CompareTag("Generator"))
+        if (col.GetContact(0).otherCollider.transform.parent.gameObject != null)
         {
-            other.GetComponent<EnergyGenerator>().applyForce(meteorForce);
-        }
+            GameObject other = col.GetContact(0).otherCollider.transform.parent.gameObject;
+            Debug.Log(other);
+            if (other.CompareTag("Generator"))
+            {
+                other.GetComponent<EnergyGenerator>().applyForce(meteorForce);
+            }
         
-        if (other.CompareTag("Turret"))
-        {
-            other.GetComponent<Turret>().applyForce(meteorForce);
+            if (other.CompareTag("Turret"))
+            {
+                other.GetComponent<Turret>().applyForce(meteorForce);
+            }
+            
         }
-        
         Collider[] playersInRadius = Physics.OverlapSphere(transform.position, meteorRadius, ~0, 0);
         foreach (Collider player in playersInRadius)
         {

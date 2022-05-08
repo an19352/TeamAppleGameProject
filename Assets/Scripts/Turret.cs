@@ -146,15 +146,25 @@ public class Turret : MonoBehaviour, IPunObservable
      */
     void OnCollisionEnter(Collision other)
     {
-        ContactPoint cp = other.GetContact(0);
-        Vector3 collisionVelocity = other.relativeVelocity;
-        Vector3 collisionNormal = cp.normal;
-        float mass = other.collider.attachedRigidbody.mass;
-        float force = Mathf.Abs(Vector3.Dot(cp.normal, collisionVelocity)) * mass;
+        if (other.gameObject.TryGetComponent<Movement>(out Movement mov))
+        {
 
-        healthRemain -= force;
-        float fraction = healthRemain / health;
-        healthBarImage.fillAmount = fraction;
+            int id = mov.GetId();
+            int teamid = GameMechanics.gameMechanics.checkTeam(id);
+
+            if (teamid != team)
+            {
+
+                ContactPoint cp = other.GetContact(0);
+                Vector3 collisionVelocity = other.relativeVelocity;
+                Vector3 collisionNormal = cp.normal;
+                float mass = other.collider.attachedRigidbody.mass;
+                float force = Mathf.Abs(Vector3.Dot(cp.normal, collisionVelocity)) * mass;
+
+                applyForce(force);
+            }
+            else return;
+        }
     }
 
     public void applyForce(float force)
@@ -169,10 +179,11 @@ public class Turret : MonoBehaviour, IPunObservable
         Collider[] playersInRadius = Physics.OverlapSphere(transform.position, explosionRadius, ~0, 0);
         foreach (Collider player in playersInRadius)
         {
-            //Debug.Log(player);
-            Vector3 pushFactor = (player.transform.position - transform.position).normalized * pushForce;
-            //Debug.Log(pushFactor);
-            player.GetComponent<Movement>().PushMe(pushFactor, ForceMode.Impulse, true);
+            if (player.CompareTag("Player"))
+            {
+                Vector3 pushFactor = (player.transform.position - transform.position).normalized * pushForce;
+                player.GetComponent<Movement>().PushMe(pushFactor, ForceMode.Impulse, true);
+            }
         }
     }
 

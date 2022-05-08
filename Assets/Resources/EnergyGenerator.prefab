@@ -613,7 +613,7 @@ MonoBehaviour:
   healthRemain: 200
   explosionEffect: {fileID: 7270086744859371354, guid: 3f958cfa70c704a41af22aee83c9ce2a, type: 3}
   explosionRadius: 20
-  pushForce: 5
+  pushForce: 50
   fireCountDown: 0
   healthBar: {fileID: 5119524586429548672}
   players:
