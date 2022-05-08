@@ -20,7 +20,10 @@ public class InventoryUIElement : MonoBehaviour
     public Image largeIcon;
     public Text powerupName;
     public Text largeTimerText;
-    public Text tooltip; 
+
+    [Header("Tooltip")] 
+    public Text tooltip;
+    
     public void SetPowerup(InventoryElement _powerup, Inventory _inv)
     {
         powerup = _powerup;
@@ -60,9 +63,9 @@ public class InventoryUIElement : MonoBehaviour
     public void Select()
     {
         if (selected) return;
-
         smallIcon.transform.parent.gameObject.SetActive(false);
         largeIcon.transform.parent.gameObject.SetActive(true);
+        tooltip.transform.gameObject.SetActive(true);
         selected = true;
     }
 
@@ -74,9 +77,9 @@ public class InventoryUIElement : MonoBehaviour
     public void Deselect()
     {
         if (!selected) return;
-
         largeIcon.transform.parent.gameObject.SetActive(false);
         smallIcon.transform.parent.gameObject.SetActive(true);
+        tooltip.transform.gameObject.SetActive(false);
         selected = false;
     }
 }

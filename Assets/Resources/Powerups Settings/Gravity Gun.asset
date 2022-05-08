@@ -17,5 +17,5 @@ MonoBehaviour:
   Infinite: 0
   timeToDie: 60
   associatedClass: GravityGun
-  tooltipText: "Left Click on an object to \npick up and throw it. Use \nRight click
-    to cancel."
+  tooltipText: Left Click on an object to pick up and throw it. Use Right click to
+    cancel.
