@@ -304,7 +304,7 @@ public class Movement : MonoBehaviour, IPunObservable
         PhotonNetwork.Disconnect();
     }
 
-    void DisableMoveThreeSec(float time)
+    public void DisableMoveSec(float time)
     {
         StartCoroutine("DisableWaitReenable", time);
     }

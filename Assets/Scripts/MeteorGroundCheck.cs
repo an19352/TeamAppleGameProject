@@ -51,21 +51,19 @@ public class MeteorGroundCheck : MonoBehaviour
         {
             if (player.CompareTag("Player"))
             {
-                RPC_StunPlayer(player);
+                StunPlayer(player);
             }
         }
-
-        StartCoroutine("DespawnMeteor");
+        gameObject.SetActive(false);
+        //StartCoroutine("DespawnMeteor");
     }
     
-    [PunRPC]
     void StunPlayer(Collider player)
     {
-        player.GetComponent<Movement>().isNPC = true;
-        StartCoroutine(CoStunPlayer(player));
+        player.gameObject.GetComponent<Movement>().DisableMoveSec(3f);
     }
 
-    IEnumerator CoStunPlayer(Collider player)
+    /*IEnumerator CoStunPlayer(Collider player)
     {
         player.GetComponent<Movement>().isNPC = true;
         Debug.Log("disabled");
@@ -88,5 +86,5 @@ public class MeteorGroundCheck : MonoBehaviour
     {
         yield return new WaitForSeconds(3);
         gameObject.SetActive(false);
-    }
+    }*/
 }
