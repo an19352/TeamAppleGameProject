@@ -148,7 +148,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ec0354bf1966964aa5ddbabafe8a515, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  explosionEffect: {fileID: 0}
   meteorForce: 20
   meteorRadius: 20
   hitRadius: 5
