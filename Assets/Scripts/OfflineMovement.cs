@@ -121,9 +121,12 @@ public class OfflineMovement : MonoBehaviour
         playerBody.velocity = new Vector3(0f, 0f, 0f);
     }
 
-    public void RPC_PushMe(Vector3 force, ForceMode mode)
+    public void RPC_PushMe(Vector3 force, ForceMode mode, bool isExplosion)
     {
-        Instantiate(pushedEffect, transform.position, transform.rotation);
+        if(isExplosion)
+        {
+            Instantiate(pushedEffect, transform.position, transform.rotation);
+        }
         GetComponent<Rigidbody>().AddForce(force, mode);
     }
 

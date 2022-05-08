@@ -58,7 +58,7 @@ public class Grenade : MonoBehaviour
                 if (nearbyObject.CompareTag("Player"))
                 {
                     Vector3 pforce = (rb.position - transform.position).normalized * force;
-                    if (offline) nearbyObject.GetComponent<OfflineMovement>().RPC_PushMe(pforce, ForceMode.VelocityChange);
+                    if (offline) nearbyObject.GetComponent<OfflineMovement>().RPC_PushMe(pforce, ForceMode.VelocityChange,false);
                     else
                         nearbyObject.GetComponent<Movement>().PushMe(pforce,ForceMode.VelocityChange, false);
                 }
@@ -69,6 +69,6 @@ public class Grenade : MonoBehaviour
         }
         // remove grenade
         Destroy(gameObject);
-        Destroy(explosion);
+        //Destroy(explosion);
     }
 }

@@ -248,7 +248,7 @@ namespace SpaceBallAbilities
             else PV.RPC("Showoff", RpcTarget.All);
             timeToShoot = Time.time + 1.2f;
 
-            if (NPCfound != null) NPCfound.RPC_PushMe(transform.forward * pushForce, ForceMode.VelocityChange);
+            if (NPCfound != null) NPCfound.RPC_PushMe(transform.forward * pushForce, ForceMode.VelocityChange, true);
 
             if (toBePushed.Count == 0) return;
             int[] pushNow = new int[toBePushed.Count];
