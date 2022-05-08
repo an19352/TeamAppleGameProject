@@ -42,9 +42,15 @@ public class Inventory : MonoBehaviour
 
     [Header("Grenade Settings")]
     public GameObject grenadePrefab;
-
+    
+    [Header("Meteor Settings")]
+    public GameObject MeteorPrefab;
+    public LayerMask ignoredLayers;
+    public float meteorFallForce;
+    public int meteorsSpawned;
+    public float meteorInterval;
+    
     [Header("Jetpack Settings")]
-
     public float antiGravity;
     public GameObject boosterFlame;
 

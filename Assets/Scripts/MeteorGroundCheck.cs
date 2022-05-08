@@ -35,7 +35,6 @@ public class MeteorGroundCheck : MonoBehaviour
         foreach (Collider nearby in collidersInRadius)
         {
             Rigidbody rb = nearby.GetComponent<Rigidbody>();
-            Debug.Log(rb);
             if (rb != null)
             {
                 if (nearby.CompareTag("Generator"))

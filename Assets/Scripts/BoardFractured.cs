@@ -19,7 +19,7 @@ public class BoardFractured : MonoBehaviour
     IEnumerator RespawnFlag()
     {
         yield return new WaitForSeconds(respawnTimer);
-        transform.Find("BoardPieces").gameObject.SetActive(true);
+        transform.GetChild(0).gameObject.SetActive(true);
     }
     IEnumerator DestroyDebris(GameObject bv)
     {
