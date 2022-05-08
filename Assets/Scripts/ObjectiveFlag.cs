@@ -30,6 +30,8 @@ public class ObjectiveFlag : MonoBehaviour
     private Text contested;
     private Text capturing;
     public GameObject captureTimer;
+    private bool hasAlreadyStarted = false;
+    private GameObject timer;
     
     public GameObject flag;
     public GameObject detectionField;
@@ -130,6 +132,7 @@ public class ObjectiveFlag : MonoBehaviour
                 StartCoroutine(StartTimerFill(captureDuration, timerInterval));
                 break;
             case State.Stalemate:
+                ContestedTimer();
                 fieldRenderer.material = stalemateMaterial;
                 // stop the progress bar
                 StopAllCoroutines();
@@ -148,7 +151,12 @@ public class ObjectiveFlag : MonoBehaviour
 
     IEnumerator StartTimerFill(float time, float interval)
     {
-        GameObject timer = Instantiate(captureTimer, InventoryUIManager.inventory.transform.parent);
+        if (hasAlreadyStarted)
+        {
+            Destroy(timer);
+        }
+        hasAlreadyStarted = true;
+        timer = Instantiate(captureTimer, InventoryUIManager.inventory.transform.parent);
         fill = timer.transform.GetChild(1).GetComponent<Image>();
         contested = timer.transform.GetChild(3).GetComponent<Text>();
         capturing = timer.transform.GetChild(4).GetComponent<Text>();
@@ -166,6 +174,7 @@ public class ObjectiveFlag : MonoBehaviour
             yield return new WaitForSeconds(interval);
         }
         Destroy(timer);
+        hasAlreadyStarted = false;
         yield return null;
     }
 
