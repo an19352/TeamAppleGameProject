@@ -4322,11 +4322,11 @@ MonoBehaviour:
   - prefab: {fileID: 2479892074112479611, guid: d0309f77de521c44482a6b3b2913322b, type: 3}
     reach: 25
     verticalReach: 12
-    chance: 0
+    chance: 1
   - prefab: {fileID: 6225837053503751009, guid: 1a78f81512f8c76488c9b3bdde4172d0, type: 3}
     reach: 70
     verticalReach: 13
-    chance: 0
+    chance: 1
   - prefab: {fileID: 2479892074112479611, guid: 1b2d5ba54a1a25e478d3151c5f4d528d, type: 3}
     reach: 25
     verticalReach: 24

@@ -11,7 +11,7 @@ using Photon.Pun;
     private void Start()
     {
         PV = GetComponent<PhotonView>();
-        if (PhotonNetwork.IsMasterClient) GetComponent<Animator>().enabled = true;
+        if (PhotonNetwork.IsMasterClient) GetComponent<Animator>().enabled = false;
     }
 
 
@@ -19,6 +19,8 @@ using Photon.Pun;
     {
         Transform target = collision.transform;
         if (oldParentPhoneBook.ContainsKey(target)) return;
+
+        if (GameMechanics.gameMechanics.GetLocalPlayer() == null) return;
 
         if (target.Equals(GameMechanics.gameMechanics.GetLocalPlayer().transform)) Camera.main.transform.SetParent(transform);
 
