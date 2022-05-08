@@ -124,7 +124,7 @@ public class Movement : MonoBehaviour, IPunObservable
 
         zAxisInput = Input.GetAxis(verticalAxis);
         xAxisInput = Input.GetAxis(horizontalAxis);
-        if (isGrounded) SpawningPosition = transform.position;
+        if (isGrounded) SpawningPosition = new Vector3(transform.position.x,(transform.position.y+3f),transform.position.z);
     }
 
     void FixedUpdate()
