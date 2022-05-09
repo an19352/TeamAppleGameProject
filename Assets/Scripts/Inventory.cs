@@ -174,7 +174,7 @@ public class Inventory : MonoBehaviour
 
                 inventoryItems[i] = null;
                 inventory.RemoveUIElement(tag);
-                if (selectedAbility >= i) { selectedAbility--; SelectAbility(selectedAbility); }
+                if (selectedAbility >= i) selectedAbility--;
                 break;
             }
         if (i == inventoryMaxATM)
@@ -206,10 +206,14 @@ public class Inventory : MonoBehaviour
 
         inventoryItems[inventoryMaxATM] = null;
         inventoryMaxATM--;
+
+        SelectAbility(selectedAbility);
     }
 
     public void ClearInventory()
     {
+        SelectAbility(0);
+        inventoryMaxATM = 0;
         for (int i = inventoryMaxATM; i > 0; i--)
         {
             inventory.RemoveUIElement(inventoryItems[i].GetIE().powerupName);
@@ -222,8 +226,6 @@ public class Inventory : MonoBehaviour
 
             inventoryItems[i] = null;
         }
-        SelectAbility(0);
-        inventoryMaxATM = 0;
     }
 
     void SelectAbility(int abilityIndex)
