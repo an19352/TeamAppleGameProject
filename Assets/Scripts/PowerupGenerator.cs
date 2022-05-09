@@ -37,7 +37,7 @@ public class PowerupGenerator : MonoBehaviour
     {
         while (true)
         {
-            float time = Random.Range(5,10);
+            float time = Random.Range(4,8);
             yield return new WaitForSeconds(time);
 
             int randPow = Random.Range(0, powerupTags.Count);
