@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6818247298593214820}
   - component: {fileID: -1222993632372617965}
+  - component: {fileID: 5706944393275128380}
   m_Layer: 16
   m_Name: UFO
   m_TagString: Ground
@@ -138,7 +139,7 @@ PrefabInstance:
     - target: {fileID: -6597097688982236908, guid: 6f5b2a61098714b5a87d46eeb6f92e98, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: fffa3a07901b3ac459a2c8b13b875f23, type: 2}
+      objectReference: {fileID: 2100000, guid: c234dcc93d2d93c4ca8b4019a65e3683, type: 2}
     - target: {fileID: -6588312178227178728, guid: 6f5b2a61098714b5a87d46eeb6f92e98, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -266,7 +267,7 @@ PrefabInstance:
     - target: {fileID: -1823322365421230674, guid: 6f5b2a61098714b5a87d46eeb6f92e98, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 90922f99862030f4cab29e2d41f8e42f, type: 2}
+      objectReference: {fileID: 2100000, guid: 54eb0a880c35ecd4fa56b3b6c33e8aaa, type: 2}
     - target: {fileID: -1688617927700330159, guid: 6f5b2a61098714b5a87d46eeb6f92e98, type: 3}
       propertyPath: m_Layer
       value: 16
@@ -430,7 +431,7 @@ PrefabInstance:
     - target: {fileID: 6317578925029434746, guid: 6f5b2a61098714b5a87d46eeb6f92e98, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 3651f58312a59764aa09e9c739cdd6a2, type: 2}
+      objectReference: {fileID: 2100000, guid: 3a82dcf55ae7c104da26a1fbd4819d2b, type: 2}
     - target: {fileID: 6335250783087129314, guid: 6f5b2a61098714b5a87d46eeb6f92e98, type: 3}
       propertyPath: m_Layer
       value: 16
@@ -474,7 +475,7 @@ PrefabInstance:
     - target: {fileID: 8442510506162454399, guid: 6f5b2a61098714b5a87d46eeb6f92e98, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: fffa3a07901b3ac459a2c8b13b875f23, type: 2}
+      objectReference: {fileID: 2100000, guid: c234dcc93d2d93c4ca8b4019a65e3683, type: 2}
     - target: {fileID: 8679558718761855538, guid: 6f5b2a61098714b5a87d46eeb6f92e98, type: 3}
       propertyPath: m_Layer
       value: 16

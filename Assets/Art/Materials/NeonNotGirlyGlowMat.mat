@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: NeonGlowMat 1
+  m_Name: NeonNotGirlyGlowMat
   m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
   m_ShaderKeywords: _EMISSION
   m_LightmapFlags: 2
@@ -117,9 +117,9 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - _BaseColor: {r: 1, g: 0, b: 0.9454918, a: 1}
+    - _BaseColor: {r: 0.77180487, g: 0.5626557, b: 0.8207547, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _EmissionColor: {r: 4.237095, g: 0.35493988, b: 3.704685, a: 1}
+    - _EmissionColor: {r: 0.27036896, g: 0, b: 3.6886053, a: 1}
     - _Glow: {r: 15.872923, g: 0, b: 18.379171, a: 0}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
   m_BuildTextureStacks: []
