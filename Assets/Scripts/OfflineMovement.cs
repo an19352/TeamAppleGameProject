@@ -81,6 +81,15 @@ public class OfflineMovement : MonoBehaviour
         // This part ^ allows the player to beat his own input force and turn around quickly
         float step = rotationSpeed * Time.deltaTime;                // frictionCoef controls how easy it is for the player to fully change moving direction
 
+        player.rotation = Quaternion.Slerp(player.rotation, lookRotation, step);
+        if (isGrounded || isFracture)
+            if (jumpInput)
+                playerBody.AddForce(transform.up * jumpForce, ForceMode.Acceleration);
+
+        playerBody.AddForce(Vector3.down * gravityStrength, ForceMode.Acceleration);
+
+        if (isNPC) return;
+
         Ray mouseRay = cameraMain.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(mouseRay, out RaycastHit hit, 1000f, mousecastPlane))
         {
@@ -90,14 +99,6 @@ public class OfflineMovement : MonoBehaviour
             lookRotation.x = 0f;
             lookRotation.z = 0f;
         }
-
-        player.rotation = Quaternion.Slerp(player.rotation, lookRotation, step);
-        if (isGrounded || isFracture)
-            if (jumpInput)
-                playerBody.AddForce(transform.up * jumpForce, ForceMode.Acceleration);
-
-        playerBody.AddForce(Vector3.down * gravityStrength, ForceMode.Acceleration);
-
         //Fire();
     }
 
