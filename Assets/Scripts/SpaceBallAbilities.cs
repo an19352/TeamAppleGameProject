@@ -328,7 +328,7 @@ namespace SpaceBallAbilities
 
         Transform objectHolder;
         public GameObject grenadePrefab;
-        bool hasExploded = false;
+        //bool hasExploded = false;
         private Camera cameraMain;
         private Vector3 mouseLocation;
         bool offline = false;
@@ -384,7 +384,6 @@ namespace SpaceBallAbilities
         public GameObject MeteorPrefab;
         private Camera cameraMain;
         private Vector3 mouseLocation;
-        bool offline = false;
         public LayerMask ignoredLayers;
         private List<string> meteorTags;
         private GameObject meteor;

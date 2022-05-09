@@ -4636,11 +4636,11 @@ MonoBehaviour:
   - prefab: {fileID: 4241231335372436453, guid: cb23c9b82505b47b4916b0ed6d656942, type: 3}
     reach: 35
     verticalReach: 2.5
-    chance: 0.05
+    chance: 0.1
   - prefab: {fileID: 94678774797624346, guid: 944a874219c04489888b1a6a4e38a034, type: 3}
     reach: 35
     verticalReach: 2.5
-    chance: 0.2
+    chance: 0.15
   - prefab: {fileID: 1137205522503485537, guid: ff0e3a3aa7810ff4ab9f3f15e150f4b6, type: 3}
     reach: 35
     verticalReach: 2.5
