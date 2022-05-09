@@ -31,7 +31,7 @@ public class MeteorGroundCheck : MonoBehaviour
 
     private void OnCollisionEnter(Collision col)
     {
-        Instantiate(explosion, transform.position, transform.rotation);
+        PhotonNetwork.Instantiate(explosion.name, transform.position, transform.rotation);
         Collider[] collidersInRadius = Physics.OverlapSphere(transform.position, hitRadius);
         Debug.Log("drewsphere");
         foreach (Collider nearby in collidersInRadius)
@@ -66,7 +66,7 @@ public class MeteorGroundCheck : MonoBehaviour
     void StunPlayer(Collider player)
     {
         player.gameObject.GetComponent<Movement>().DisableMoveSec(stunTime);
-        Instantiate(stunEffect, player.transform.position, player.transform.rotation);
+        PhotonNetwork.Instantiate(stunEffect.name, player.transform.position, player.transform.rotation);
     }
 
     /*IEnumerator CoStunPlayer(Collider player)
