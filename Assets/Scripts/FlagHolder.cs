@@ -10,6 +10,7 @@ public class FlagHolder : MonoBehaviour
     // stores which team's flag it is holding
 
     public int teamID;
+    public int ballOrigin;
     // public int playerTeam;
     public Transform droppedBall;
     public GameObject ball;
@@ -20,6 +21,8 @@ public class FlagHolder : MonoBehaviour
     {
         PV = GetComponent<PhotonView>();
         poolOfObject = ObjectPooler.OP;
+
+        teamID = GameMechanics.gameMechanics.checkTeam(GetComponent<Movement>().GetId());
     }
 
     void OnDisable()
@@ -39,12 +42,13 @@ public class FlagHolder : MonoBehaviour
         Vector3 respawnFlagPosition = new Vector3(respawnFLagPlatform.position.x, respawnFLagPlatform.position.y + 10, respawnFLagPlatform.position.z);
         Quaternion respawnFLagRotation = Quaternion.identity;
         PV.RPC("RPC_SpawnDroppedFlag", RpcTarget.All, respawnFlagPosition, respawnFLagRotation);
+        poolOfObject.SpawnFromPool("DroppedFlag", respawnFlagPosition, respawnFLagRotation).GetComponent<BallRecover>().teamID = ballOrigin;
         PlaySound.playSound.RPC_QueueVoice(GenerateCommentary(teamID), PhotonNetwork.PlayerList);
     }
+
     [PunRPC]
     public void RPC_SpawnDroppedFlag(Vector3 respawnFlagPosition, Quaternion respawnFLagRotation)
     {
-        poolOfObject.SpawnFromPool("DroppedFlag", respawnFlagPosition, respawnFLagRotation);
         GameMechanics.gameMechanics.drop = respawnFlagPosition;
         Debug.Log(respawnFlagPosition);
     }

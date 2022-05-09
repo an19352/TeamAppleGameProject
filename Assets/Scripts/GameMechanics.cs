@@ -183,14 +183,15 @@ public class GameMechanics : MonoBehaviour
     }
 
     #region FlagStuff
-    public void RPC_IncreaseFlag(int teamID)
+    public void RPC_IncreaseFlag(int teamID, int origin)
     {
         int voiceID = GenerateCommentary(teamID);
         PlaySound.playSound.RPC_QueueVoice(voiceID, PhotonNetwork.PlayerList);
         PV.RPC("IncreaseFlag", RpcTarget.All, teamID);
         PV.RPC("UpdateFlagUI", RpcTarget.All);
         int otherTeam = teamID == 0 ? 1 : 0;
-        flagObjectives[otherTeam].objective.GetComponent<ObjectiveFlag>().hasFlag = true;
+
+        flagObjectives[origin].objective.GetComponent<ObjectiveFlag>().hasFlag = true;
 
     }
     public void RPC_DecreaseFlag(int teamID)
@@ -274,17 +275,18 @@ public class GameMechanics : MonoBehaviour
 
 
 
-    public void RPC_EnableFlagHolder(int playerID)
+    public void RPC_EnableFlagHolder(int playerID, int flagOrigin)
     {
         Photon.Realtime.Player[] target = { players[playerID].obj.GetComponent<PhotonView>().Owner };
         PlaySound.playSound.RPC_QueueVoice(20, target);
-        PV.RPC("EnableFlagHolder", RpcTarget.All, playerID);
+        PV.RPC("EnableFlagHolder", RpcTarget.All, playerID, flagOrigin);
     }
     [PunRPC]
-    public void EnableFlagHolder(int playerID)
+    public void EnableFlagHolder(int playerID, int flagOrigin)
     {
         FlagHolder fh = players[playerID].obj.GetComponent<FlagHolder>();
         fh.enabled = true;
+        fh.ballOrigin = flagOrigin;
     }
 
     public void RPC_DisableFlagHolder(int playerID)

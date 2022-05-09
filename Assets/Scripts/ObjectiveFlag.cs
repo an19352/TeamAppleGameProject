@@ -19,7 +19,7 @@ public class ObjectiveFlag : MonoBehaviour
     public Material captureMaterial;
     public Material stalemateMaterial;
     public Material returnMaterial;
-    // red <-> green 
+    // red <-> green
     // public GameObject otherObjectiveFlag;
 
     public List<GameMechanics.Player> playerList;
@@ -38,7 +38,7 @@ public class ObjectiveFlag : MonoBehaviour
     private GameMechanics gameMechanics;
     private enum State
     {
-        // Idle: nothing happening 
+        // Idle: nothing happening
         // Capture: attacker getting the flag
         // Stalemate: same/less amount of attackers & defenders
         // Return: defender returning the flag / attacker returning the flag
@@ -79,7 +79,7 @@ public class ObjectiveFlag : MonoBehaviour
         // the defending team has the flag
         if (hasFlag)
         {
-            // first check if a defender has the other team's flag, if they have, score a point 
+            // first check if a defender has the other team's flag, if they have, score a point
             // foreach (var player in playerList)
             // {
             //     if (player.team == defendTeam && player.obj.transform.Find("Flag") != null)
@@ -157,7 +157,7 @@ public class ObjectiveFlag : MonoBehaviour
         int firstPlayerId = firstPlayerEntered.obj.GetComponent<Movement>().GetId();
         if (!firstPlayerEntered.obj.GetComponent<FlagHolder>().enabled)
         {
-            gameMechanics.RPC_EnableFlagHolder(firstPlayerId);
+            gameMechanics.RPC_EnableFlagHolder(firstPlayerId, defendTeam);
             gameMechanics.RPC_DecreaseFlag(defendTeam);
         };
 
@@ -227,25 +227,28 @@ public class ObjectiveFlag : MonoBehaviour
             int teamID = gameMechanics.checkTeam(playerID);
             playerList.Add(new GameMechanics.Player { team = teamID, obj = other.gameObject });
 
-            // an enemy enter 
+            // an enemy enter
             if (teamID != defendTeam)
             {
                 gameMechanics.RPC_UpdateAttackers(defendTeam, true);
             }
-            // a friendly player enter 
+            // a friendly player enter
             else
             {
                 gameMechanics.RPC_UpdateDefenders(teamID, true);
                 // if the friendly player enters with a flag
                 if (playerEntered.GetComponent<FlagHolder>().enabled)
                 {
+                    int origin = playerEntered.GetComponent<FlagHolder>().ballOrigin;
                     gameMechanics.RPC_DisableFlagHolder(playerID);
                     Player[] target = { playerEntered.GetComponent<PhotonView>().Owner };
                     PlaySound.playSound.RPC_QueueVoice(18, target);
                     // scoring an enemy flag
                     // if (playerEntered.GetComponent<FlagHolder>().teamID != defendTeam)
                     // {
-                    gameMechanics.RPC_IncreaseFlag(defendTeam);
+                    gameMechanics.RPC_IncreaseFlag(defendTeam, origin);
+
+
                     // }
                     // return a friendly flag
                     // else { gameMechanics.RPC_UpdateFlag(defendTeam, false); }
@@ -267,12 +270,12 @@ public class ObjectiveFlag : MonoBehaviour
             GameObject playerExited = other.gameObject;
             int playerID = other.gameObject.GetComponent<Movement>().GetId();
             int teamID = gameMechanics.checkTeam(playerID);
-            // an enemy player exits 
+            // an enemy player exits
             if (teamID != defendTeam)
             {
                 gameMechanics.RPC_UpdateAttackers(defendTeam, false);
             }
-            // a friendly player exits 
+            // a friendly player exits
             else
             {
                 gameMechanics.RPC_UpdateDefenders(defendTeam, false);
