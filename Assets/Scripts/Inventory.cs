@@ -49,7 +49,6 @@ public class Inventory : MonoBehaviour
     public float meteorFallForce;
     public int meteorsSpawned;
     public float meteorInterval;
-    public GameObject castEffect;
 
     [Header("Jetpack Settings")]
     public float antiGravity;

@@ -7,12 +7,15 @@ using UnityEngine;
 
 public class MeteorGroundCheck : MonoBehaviour
 {
-    
+
     public float meteorForce;
     public float meteorRadius;
     public float hitRadius;
     private PhotonView PV;
     public float stunTime;
+    public GameObject explosion;
+    public GameObject stunEffect;
+
 
     // Start is called before the first frame update
     void Start()
@@ -23,12 +26,12 @@ public class MeteorGroundCheck : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     private void OnCollisionEnter(Collision col)
     {
-        //GameObject explosion = PhotonNetwork.Instantiate(explosionEffect.name, transform.position, transform.rotation);
+        Instantiate(explosion, transform.position, transform.rotation);
         Collider[] collidersInRadius = Physics.OverlapSphere(transform.position, hitRadius);
         Debug.Log("drewsphere");
         foreach (Collider nearby in collidersInRadius)
@@ -40,7 +43,7 @@ public class MeteorGroundCheck : MonoBehaviour
                 {
                     nearby.GetComponent<EnergyGenerator>().applyForce(meteorForce);
                 }
-    
+
                 if (nearby.CompareTag("Turret"))
                 {
                     nearby.GetComponent<Turret>().applyForce(meteorForce);
@@ -59,10 +62,11 @@ public class MeteorGroundCheck : MonoBehaviour
         gameObject.SetActive(false);
         //StartCoroutine("DespawnMeteor");
     }
-    
+
     void StunPlayer(Collider player)
     {
         player.gameObject.GetComponent<Movement>().DisableMoveSec(stunTime);
+        Instantiate(stunEffect, player.transform.position, player.transform.rotation);
     }
 
     /*IEnumerator CoStunPlayer(Collider player)

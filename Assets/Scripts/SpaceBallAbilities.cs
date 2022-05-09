@@ -390,7 +390,6 @@ namespace SpaceBallAbilities
         public float meteorFallForce;
         public int meteorsSpawned;
         public float meteorInterval;
-        public GameObject castEffect;
 
         public void SetUp(string IEtag)
         {
@@ -405,13 +404,12 @@ namespace SpaceBallAbilities
             mouseLocation = Input.mousePosition;
             meteorsSpawned = inventory.meteorsSpawned;
             meteorInterval = inventory.meteorInterval;
-            castEffect = inventory.castEffect;
 
 
             SetMeteorTags();
             IE = InventoryUIManager.inventory.GetIE(IEtag);
 
-           
+
             if (PV.IsMine)
                 InventoryUIManager.inventory.AddUIElement(IEtag, inventory);
             /*if (TryGetComponent(out PhotonView PV))
@@ -428,7 +426,7 @@ namespace SpaceBallAbilities
 
         public void LeftClick()
         {
-            Instantiate(castEffect, transform.position, transform.rotation);
+            Debug.Log("meteor");
             SpawnMeteors();
         }
 
