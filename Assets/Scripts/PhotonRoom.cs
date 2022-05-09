@@ -69,7 +69,7 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
     {
         if (team == -1) PhotonNetwork.LeaveRoom();
         else if(PhotonNetwork.IsMasterClient)
-            PhotonNetwork.LoadLevel(multiplayerSceneIndex);
+            SceneManager.LoadScene(1);
     }
 
     void OnSceneFinishedLoading(Scene scene, LoadSceneMode mode)

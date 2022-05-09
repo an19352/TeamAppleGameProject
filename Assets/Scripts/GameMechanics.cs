@@ -491,7 +491,7 @@ public class GameMechanics : MonoBehaviour
         PhotonRoom.room.blueFlag = flagObjectives[1].flagCount;
         PhotonRoom.room.redScore = teams[1].score;
         PhotonRoom.room.blueScore = teams[0].score;
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene(3);
     }
 
     public void RPC_Destroy(GameObject obj)

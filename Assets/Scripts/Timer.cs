@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
 using TMPro;
 
@@ -37,7 +38,8 @@ public class Timer : MonoBehaviour
         if (totalTime <= 0)
         {
             if (offline)
-                PhotonRoom.room.StartGame();
+                PhotonNetwork.LoadLevel(PhotonRoom.room.multiplayerSceneIndex);
+
             else
                 gameMechanics.End_Game();
 
