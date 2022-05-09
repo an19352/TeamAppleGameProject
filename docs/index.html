@@ -23,6 +23,15 @@
         <div id="unity-build-title">SpaceBall</div>
       </div>
     </div>
+	<script>
+      function passwordInput(){
+      var pass = prompt("Enter the password to access the game", "");
+      if (pass != "spaceapple") {
+        location.replace("https://www.google.com");
+      }
+    }
+    window.onload = passwordInput;
+    </script>
     <script>
       var container = document.querySelector("#unity-container");
       var canvas = document.querySelector("#unity-canvas");
