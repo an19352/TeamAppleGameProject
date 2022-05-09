@@ -31,7 +31,7 @@ public class EnergyGenerator : MonoBehaviour, IPunObservable
 
     private ForceShield fsScript;
     private Image healthBarImage;
-
+    private GameObject mapgen;
     public MeshRenderer glowPart;
 
     // Start is called before the first frame update
@@ -39,23 +39,24 @@ public class EnergyGenerator : MonoBehaviour, IPunObservable
     {
         PV = this.GetComponent<PhotonView>();
         gameMechanics = GameMechanics.gameMechanics;
+        mapgen = gameMechanics.MapGenerator;
         // Transform canvas = this.gameObject.transform.Find("Canvas");
         healthBarImage = healthBar.gameObject.GetComponent<Image>();
         if (GameMechanics.gameMechanics == null) this.enabled = false;
 
-        float redDistance = Vector3.Distance(transform.position, gameMechanics.bases[0].transform.position);
-        float blueDistance = Vector3.Distance(transform.position, gameMechanics.bases[1].transform.position);
+        Vector3 midpos = mapgen.GetComponent<MapGenerator>().FindMiddle();
+        //float redDistance = Vector3.Distance(transform.position, gameMechanics.bases[0].transform.position);
+        //float blueDistance = Vector3.Distance(transform.position, gameMechanics.bases[1].transform.position);
 
-        if (redDistance < blueDistance)
+        if (midpos.x < transform.position.x)
         {
-            //Debug.Log("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< red");
             gameMechanics.redgens.Add(gameObject);
             fsScript = gameMechanics.bases[0].GetComponentInChildren<ForceShield>();
             team = 0;
         }
+            
         else 
         {
-            //Debug.Log("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< blue");
             gameMechanics.greengens.Add(gameObject);
             fsScript = gameMechanics.bases[1].GetComponentInChildren<ForceShield>();
             team = 1; 
