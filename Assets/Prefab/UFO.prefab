@@ -51,7 +51,7 @@ MonoBehaviour:
   nothingChance: 0.2
   availableSlots: 1
   slotPositions:
-  - {x: 0, y: 6, z: 0}
+  - {x: 0, y: 11, z: 0}
 --- !u!1001 &7301354246826394801
 PrefabInstance:
   m_ObjectHideFlags: 0
