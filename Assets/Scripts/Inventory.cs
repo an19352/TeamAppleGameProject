@@ -182,6 +182,7 @@ public class Inventory : MonoBehaviour
             if (inventoryItems[inventoryMaxATM].GetIE().powerupName == tag)
             {
                 inventoryItems[inventoryMaxATM].RightClick();
+                if (selectedAbility == inventoryMaxATM) { selectedAbility--; SelectAbility(selectedAbility); }
 
 
                 if (offline)
@@ -190,9 +191,8 @@ public class Inventory : MonoBehaviour
                     PV.RPC("RPC_DestroyComponent", RpcTarget.All, inventoryItems[inventoryMaxATM].GetType().FullName);
                 //Destroy(inventoryItems[inventoryMaxATM] as MonoBehaviour);
                 inventoryItems[inventoryMaxATM] = null;
-                inventory.RemoveUIElement(tag);
-                if (selectedAbility == inventoryMaxATM) { selectedAbility--; SelectAbility(selectedAbility); }
                 inventoryMaxATM--;
+                inventory.RemoveUIElement(tag);
                 return;
             }
             else
