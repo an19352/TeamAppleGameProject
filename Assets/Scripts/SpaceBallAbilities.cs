@@ -284,7 +284,7 @@ namespace SpaceBallAbilities
         {
             if (offline)
             {
-                if (other.gameObject.TryGetComponent(out OfflineMovement OM)) NPCfound = OM;
+                if (other.transform.parent.gameObject.TryGetComponent(out OfflineMovement OM)) NPCfound = OM;
                 return;
             }
 
@@ -302,7 +302,7 @@ namespace SpaceBallAbilities
         {
             if (offline)
             {
-                if (other.gameObject.TryGetComponent(out OfflineMovement OM)) NPCfound = null;
+                if (other.transform.parent.gameObject.TryGetComponent(out OfflineMovement OM)) NPCfound = null;
                 return;
             }
 

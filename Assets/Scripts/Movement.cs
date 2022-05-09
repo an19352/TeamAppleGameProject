@@ -118,6 +118,7 @@ public class Movement : MonoBehaviour, IPunObservable
 
     void Update()
     {
+        if (isNPC) return;
         if (!PV.IsMine) return;
 
         jumpInput = Input.GetButton("Jump");
@@ -129,7 +130,6 @@ public class Movement : MonoBehaviour, IPunObservable
 
     void FixedUpdate()
     {
-        if (isNPC) return;
         if (!PV.IsMine)
         {   // Move other players according to the data they sent over the network... teleport them if they are too far away
             if (Vector3.Distance(networkPosition, playerBody.position) > maxDiscDistance)

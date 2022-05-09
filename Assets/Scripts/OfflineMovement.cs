@@ -56,6 +56,7 @@ public class OfflineMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (isNPC) return;
         jumpInput = Input.GetButton("Jump");
 
         zAxisInput = Input.GetAxis("Vertical");
@@ -65,8 +66,6 @@ public class OfflineMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (isNPC) return;
-
         Vector3 currentVelocity = new Vector3(playerBody.velocity.x, 0, playerBody.velocity.z);   // #LeaveGravityAlone
 
         //Keyboard controls
