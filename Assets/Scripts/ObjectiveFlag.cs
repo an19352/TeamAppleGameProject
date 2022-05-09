@@ -32,7 +32,7 @@ public class ObjectiveFlag : MonoBehaviour
     public GameObject captureTimer;
     private bool hasAlreadyStarted = false;
     private GameObject timer;
-    
+
     public GameObject flag;
     public GameObject detectionField;
     private GameMechanics gameMechanics;
@@ -67,7 +67,7 @@ public class ObjectiveFlag : MonoBehaviour
         fieldRenderer = detectionField.GetComponent<Renderer>();
 
         otherTeam = defendTeam == 0 ? 1 : 0;
-        
+
 
     }
 
@@ -155,8 +155,12 @@ public class ObjectiveFlag : MonoBehaviour
         yield return new WaitForSeconds(time);
         GameMechanics.Player firstPlayerEntered = playerList.Find(player => player.team == otherTeam);
         int firstPlayerId = firstPlayerEntered.obj.GetComponent<Movement>().GetId();
-        gameMechanics.RPC_EnableFlagHolder(firstPlayerId);
-        gameMechanics.RPC_DecreaseFlag(defendTeam);
+        if (!firstPlayerEntered.obj.GetComponent<FlagHolder>().enabled)
+        {
+            gameMechanics.RPC_EnableFlagHolder(firstPlayerId);
+            gameMechanics.RPC_DecreaseFlag(defendTeam);
+        };
+
     }
 
     IEnumerator StartTimerFill(float time, float interval)
@@ -212,7 +216,7 @@ public class ObjectiveFlag : MonoBehaviour
     {
         if (!PhotonNetwork.IsConnected) return;
         if (PV == null) return;
-        if (!PV.IsMine) return;
+        if (!PhotonNetwork.IsMasterClient) return;
 
         // track players as they enter the detection field
         if (other.gameObject.CompareTag("Player") && !playerList.Exists(player => player.obj == other.gameObject))
@@ -255,7 +259,7 @@ public class ObjectiveFlag : MonoBehaviour
     {
         if (!PhotonNetwork.IsConnected) return;
         if (PV == null) return;
-        if (!PV.IsMine) return;
+        if (!PhotonNetwork.IsMasterClient) return;
 
         // Untrack players as they leave the detection field
         if (other.gameObject.CompareTag("Player"))
