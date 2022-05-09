@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6818247298593214820}
   - component: {fileID: -1222993632372617965}
-  - component: {fileID: 5706944393275128380}
+  - component: {fileID: 6710007297768668324}
   m_Layer: 16
   m_Name: UFO
   m_TagString: Ground
@@ -53,6 +53,25 @@ MonoBehaviour:
   availableSlots: 1
   slotPositions:
   - {x: 0, y: 11, z: 0}
+--- !u!95 &6710007297768668324
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 94678774797624346}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 293360d58693b53448afa34cb92fa534, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &7301354246826394801
 PrefabInstance:
   m_ObjectHideFlags: 0
