@@ -112,7 +112,7 @@ public class Inventory : MonoBehaviour
     {/*
         if (typeLookUp.ContainsKey(tag)) 
         {
-            Debug.LogWarning(tag + " not found");
+
             return; 
         }*/
         if (!offline)
@@ -197,7 +197,6 @@ public class Inventory : MonoBehaviour
             }
             else
             {
-                Debug.LogWarning(tag + " was not in inventory");
                 return;
             }
         }
@@ -232,7 +231,6 @@ public class Inventory : MonoBehaviour
     {
         if (abilityIndex > inventoryMaxATM || abilityIndex < 0)
         {
-            //Debug.LogError(abilityIndex + "is not in inventory");
             return;
         }
 

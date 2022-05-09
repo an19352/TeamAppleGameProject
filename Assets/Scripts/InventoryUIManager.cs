@@ -49,8 +49,7 @@ public class InventoryUIManager : MonoBehaviour
 
         for (int i = 0; i < UIelements.Count; i++)
             if (UIelements[i].powerupName.text == powerup.powerupName)
-            { 
-                Debug.LogWarning(powerup.powerupName + " was added twice");
+            {
                 return;
             }
 
@@ -89,16 +88,13 @@ public class InventoryUIManager : MonoBehaviour
                 return;
             }
         }
-  
-         Debug.LogWarning(tag + " does not exist");
     }
 
     public InventoryElement GetIE(string tag) 
     {
         foreach(InventoryElement IE in IEs)
             if (IE.powerupName == tag) return IE;
-
-        Debug.LogWarning("Inventory element " + tag + " not found");
+        
         return IEs[0];
     }
     
@@ -112,7 +108,7 @@ public class InventoryUIManager : MonoBehaviour
                 selectedIndex = i;
                 return;
             }
-        Debug.LogWarning(tag + " is not in inventory");
+
     }
 
     public InventoryElement[] CloneIEs()

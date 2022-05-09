@@ -258,7 +258,7 @@ namespace SpaceBallAbilities
                 if (PhotonView.Find(toBePushed[i]) != null)
                 {
                     GameObject _obj = PhotonView.Find(toBePushed[i]).gameObject;
-                    Debug.Log(_obj);
+
                     if (_obj.TryGetComponent(out Movement movement))
                     {
                         Instantiate(pushedEffect, _obj.transform.position, _obj.transform.rotation);
@@ -428,7 +428,6 @@ namespace SpaceBallAbilities
 
         public void LeftClick()
         {
-            Debug.Log("meteor");
             Instantiate(castEffect, transform.position, transform.rotation);
             SpawnMeteors();
         }
@@ -483,7 +482,7 @@ namespace SpaceBallAbilities
         {
             if (PV.IsMine)
             {
-                Debug.Log(meteorTags[randMet]);
+
                 meteor = poolOfObject.SpawnFromPool(meteorTags[randMet], randPositionSpawn, Quaternion.identity);
                 Vector3 pushFactor = ((randPositionTarget - randPositionSpawn).normalized) * meteorFallForce;
                 meteor.GetComponent<Rigidbody>().velocity = new Vector3(0f, 0f, 0f);

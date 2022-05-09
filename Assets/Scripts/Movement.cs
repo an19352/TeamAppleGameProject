@@ -71,8 +71,7 @@ public class Movement : MonoBehaviour, IPunObservable
         gameMechanics = GameMechanics.gameMechanics;
         shadowInsatance = Instantiate(shadow);
         //SpawningPosition = transform.position;
-
-        //Debug.Log(gameObject.transform.GetChild(9).GetChild(0).GetChild(2).GetChild(0).GetChild(11).GetChild(7).GetComponent<Renderer>().material);
+        
 
         player = transform;
         cameraMain = Camera.main;
@@ -143,7 +142,6 @@ public class Movement : MonoBehaviour, IPunObservable
             playerBody.rotation = Quaternion.RotateTowards(playerBody.rotation, networkRotation, Time.fixedDeltaTime * 100f);
             return;
         }
-        //Debug.Log(playerBody.velocity);
         currentVelocity = new Vector3(playerBody.velocity.x, 0, playerBody.velocity.z);   // #LeaveGravityAlone
 
         //Keyboard controls
@@ -329,9 +327,7 @@ public class Movement : MonoBehaviour, IPunObservable
     void RPC_FractureBoard(Vector3 transform)
     {
         Transform parent;
-        Debug.Log(transform);
         Collider[] colliders = Physics.OverlapSphere(transform, 1);
-        Debug.Log(colliders.Length);
 
         if (colliders.Length > 0)
         {

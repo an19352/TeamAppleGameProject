@@ -58,9 +58,7 @@ public class Turret : MonoBehaviour, IPunObservable
         //if (!PV.IsMine) return;
         if (healthRemain <= 0)
         {
-            //Debug.Log("exploded");
             NotifyNearbyPlayers();
-            // Debug.Log(fsScript.generatorDestroyed);
             PV.RPC("RememberMe", RpcTarget.AllBuffered);
             //PhotonNetwork.Destroy(this.gameObject);
 

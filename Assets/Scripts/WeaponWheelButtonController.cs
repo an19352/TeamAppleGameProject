@@ -49,7 +49,6 @@ public class WeaponWheelButtonController : MonoBehaviour
     }
     public void HoverExit()
     {
-        Debug.Log("exit");
         anim.SetBool("Hover", false);
         itemText.text = "";
     }

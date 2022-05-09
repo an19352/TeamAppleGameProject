@@ -118,7 +118,6 @@ public class ObjectiveFlag : MonoBehaviour
     void ApplyChangesOnState(int playerID)
     {
         currentState = EvaluateState();
-        //Debug.Log(currentState);
         switch (currentState)
         {
             case State.Idle:
@@ -179,12 +178,9 @@ public class ObjectiveFlag : MonoBehaviour
         contested.gameObject.SetActive(false);
         float totalIncrements = time / interval;
         float amountIncremented = 1 / totalIncrements;
-        Debug.Log(totalIncrements);
         for (int i = 0; i < totalIncrements; i++)
         {
-            Debug.Log("inc");
             fill.fillAmount += amountIncremented;
-            Debug.Log(fill.fillAmount);
             yield return new WaitForSeconds(interval);
         }
         Destroy(timer);

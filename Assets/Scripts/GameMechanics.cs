@@ -138,7 +138,6 @@ public class GameMechanics : MonoBehaviour
     public void Add_player(int playerViewId, int team)
     {
         //if (players.Count > 0)
-        //  Debug.Log(players[0].obj.GetComponent<PhotonView>().Owner.NickName + " has ID " + players[0].obj.GetComponent<PhotonView>().OwnerActorNr);
         Player _player = new Player { obj = PhotonView.Find(playerViewId).gameObject, team = team };
         players.Add(_player);
         _player.obj.GetComponent<Movement>().SetId(players.Count - 1);
@@ -534,8 +533,7 @@ public class GameMechanics : MonoBehaviour
                 }
 
             }
-
-            Debug.Log(randomNum);
+            
 
             if (randomNum == 1)
             {
@@ -588,8 +586,7 @@ public class GameMechanics : MonoBehaviour
                 commentaryID = 8;
             }
         }
-
-        Debug.Log(commentaryID);
+        
         return commentaryID;
     }
 
