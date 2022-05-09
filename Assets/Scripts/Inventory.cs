@@ -213,7 +213,6 @@ public class Inventory : MonoBehaviour
     public void ClearInventory()
     {
         SelectAbility(0);
-        inventoryMaxATM = 0;
         for (int i = inventoryMaxATM; i > 0; i--)
         {
             inventory.RemoveUIElement(inventoryItems[i].GetIE().powerupName);
@@ -226,6 +225,7 @@ public class Inventory : MonoBehaviour
 
             inventoryItems[i] = null;
         }
+        inventoryMaxATM = 0;
     }
 
     void SelectAbility(int abilityIndex)
