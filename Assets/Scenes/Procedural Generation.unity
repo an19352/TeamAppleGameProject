@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.19634691, g: 0.09731356, b: 0.119633995, a: 1}
+  m_IndirectSpecularColor: {r: 0.1962879, g: 0.09740276, b: 0.11954967, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -734,8 +734,8 @@ MonoBehaviour:
 
 '
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 1cd8e2a3416bd954683fd68d960d0a82, type: 2}
-  m_sharedMaterial: {fileID: -3156222063616703781, guid: 1cd8e2a3416bd954683fd68d960d0a82, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 53bda6823d9a347bf991fac08e020103, type: 2}
+  m_sharedMaterial: {fileID: -1189736206247428788, guid: 53bda6823d9a347bf991fac08e020103, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -4367,8 +4367,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Objective:'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 1cd8e2a3416bd954683fd68d960d0a82, type: 2}
-  m_sharedMaterial: {fileID: -3156222063616703781, guid: 1cd8e2a3416bd954683fd68d960d0a82, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 53bda6823d9a347bf991fac08e020103, type: 2}
+  m_sharedMaterial: {fileID: -1189736206247428788, guid: 53bda6823d9a347bf991fac08e020103, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -5638,8 +5638,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: '- Find and destroy the 3 generators'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 1cd8e2a3416bd954683fd68d960d0a82, type: 2}
-  m_sharedMaterial: {fileID: -3156222063616703781, guid: 1cd8e2a3416bd954683fd68d960d0a82, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 53bda6823d9a347bf991fac08e020103, type: 2}
+  m_sharedMaterial: {fileID: -1189736206247428788, guid: 53bda6823d9a347bf991fac08e020103, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -6338,7 +6338,7 @@ RectTransform:
   m_GameObject: {fileID: 1128854775}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.1870178, y: 1.28451, z: 1.1041}
+  m_LocalScale: {x: 0.89721924, y: 0.9709097, z: 0.83454496}
   m_Children:
   - {fileID: 423147504}
   - {fileID: 790457556}
@@ -6348,7 +6348,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 132, y: -50}
+  m_AnchoredPosition: {x: 106, y: -35}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1146146230

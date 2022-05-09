@@ -17,5 +17,5 @@ MonoBehaviour:
   Infinite: 0
   timeToDie: 15
   associatedClass: Meteor
-  tooltipText: Left-Click to use meteor shower. Can be used to destroy turrets and
-    generators or stun players
+  tooltipText: Left-Click to ignite meteor shower. Can be used to destroy turrets
+    and generators or stun players

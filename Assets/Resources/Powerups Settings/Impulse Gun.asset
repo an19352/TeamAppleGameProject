@@ -17,4 +17,4 @@ MonoBehaviour:
   Infinite: 1
   timeToDie: 0
   associatedClass: ImpulseCannon
-  tooltipText: Left Click to launch a sonic wave to push opponents and objects away.
+  tooltipText: Left Click to push opponents and objects away.

@@ -17,5 +17,5 @@ MonoBehaviour:
   Infinite: 0
   timeToDie: 15
   associatedClass: Grenade
-  tooltipText: Left Click to throw the grenade. Can be used against enemies or to
+  tooltipText: Left-Click to throw the grenade. Can be used against enemies or to
     destroy generators and turrets.
