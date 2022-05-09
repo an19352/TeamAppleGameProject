@@ -469,7 +469,7 @@ namespace SpaceBallAbilities
                 spawnLoc.x += newPos.x;
                 spawnLoc.z += newPos.z;
 
-                PV.RPC("GenerateMeteor", RpcTarget.All, 0, spawnLoc, mouseLocation);
+                PV.RPC("GenerateMeteor", RpcTarget.All, RandMetInd(), spawnLoc, mouseLocation);
                 yield return new WaitForSeconds(meteorInterval);
             }
             yield return null;
@@ -503,9 +503,16 @@ namespace SpaceBallAbilities
             Random ran = new Random();
             RanSpawn.x = ran.Next(-2, 3);
             RanSpawn.z = ran.Next(-2, 3);
-            RanSpawn.y = 10;
+            RanSpawn.y = 20;
 
             return RanSpawn;
+        }
+
+        public int RandMetInd()
+        {
+            Random ran = new Random();
+            int randInd = ran.Next(0, 2);
+            return randInd;
         }
 
         public InventoryElement GetIE() { return IE; }
