@@ -7893,19 +7893,19 @@ MonoBehaviour:
   pools:
   - tag: Jetpack
     prefab: {fileID: 6689642354982003532, guid: 96de9554712b1bb46a75c8d6dc4a1d02, type: 3}
-    size: 20
+    size: 10
   - tag: Bullet
     prefab: {fileID: 5034455422450631387, guid: 378ca747c01b2fc49a51012c12d1431b, type: 3}
     size: 20
   - tag: Grenade
     prefab: {fileID: 1916769908316382501, guid: 2b08a1de1f2b44448a4fe1bad4af1c63, type: 3}
-    size: 20
+    size: 10
   - tag: DroppedFlag
     prefab: {fileID: 7716354420650957, guid: b2314e4357384b44693adcb971d71536, type: 3}
     size: 2
   - tag: Meteor Shower
     prefab: {fileID: 1916769908316382501, guid: 32b56c3b4f4004c88a13f342ea4deae8, type: 3}
-    size: 20
+    size: 10
   - tag: Meteor1
     prefab: {fileID: 1438283912969267210, guid: 087999d06c37e3845a662e69f18297dc, type: 3}
     size: 10
