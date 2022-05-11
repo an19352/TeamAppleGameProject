@@ -4,18 +4,9 @@ using UnityEngine;
 
 public class Zawarudo : MonoBehaviour
 {
+    // Gives everyone bullet time... OUT OF SERVICE
     public float slowScale;
-    // Start is called before the first frame update
-    void Start()
-    {
 
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))

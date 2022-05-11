@@ -5,6 +5,7 @@ using Photon.Pun;
 
 public class ObjectPooler : MonoBehaviour
 {
+    // This singleton spawns any object you told it (in the editor) and disables them. For efficiency reasons they can be reactivated from queues later by other scripts 
     [System.Serializable]
     public class Pool
     {
@@ -41,7 +42,7 @@ public class ObjectPooler : MonoBehaviour
         poolDictionary = new Dictionary<string, Queue<GameObject>>();
 
         foreach(Pool pool in pools)
-        {
+        {   // Normal elements get spawned on every client with ease
             if (!pool.prefab.GetComponent<PhotonView>())
             {
                 Queue<GameObject> objectPool = new Queue<GameObject>();
@@ -58,6 +59,7 @@ public class ObjectPooler : MonoBehaviour
         if (!PhotonNetwork.IsMasterClient)
             return;
 
+        // Synchronised elements get only spawned by the master client and refrences of them get sent to the other clients
         foreach (Pool pool in pools)
             if (pool.prefab.GetComponent<PhotonView>())
             {
@@ -76,6 +78,7 @@ public class ObjectPooler : MonoBehaviour
             }
     }
 
+    // Replaces Instantiate() but with most of the heavy computation already done. If it's at max capacity, it will reuse old elements
     public GameObject SpawnFromPool(string tag, Vector3 position, Quaternion rotation)
     {
         if (!poolDictionary.ContainsKey(tag)) 
@@ -99,7 +102,7 @@ public class ObjectPooler : MonoBehaviour
         return poolDictionary.Count == pools.Count;
     }
 
-    [PunRPC]
+    [PunRPC]  // Tell the OP on othe clients what you Synchronised Queues you made
     void SendQueue(string tag, int[] queueViewID)
     {
         Queue<GameObject> _queue = new Queue<GameObject>();

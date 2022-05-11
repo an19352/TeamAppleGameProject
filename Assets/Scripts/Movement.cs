@@ -8,6 +8,7 @@ using Cinemachine;
 
 public class Movement : MonoBehaviour, IPunObservable
 {
+    // Handles all the movement done by the player (and remembers its ID in GameMechanics)
     PhotonView PV;
     public static GameMechanics gameMechanics;
 
@@ -115,6 +116,7 @@ public class Movement : MonoBehaviour, IPunObservable
         }
     }
 
+    // Get all the inputs
     void Update()
     {
         if (isNPC) return;
@@ -127,6 +129,7 @@ public class Movement : MonoBehaviour, IPunObservable
         if (isGrounded) SpawningPosition = new Vector3(transform.position.x,(transform.position.y+3f),transform.position.z);
     }
 
+    // Physics logic
     void FixedUpdate()
     {
         if (!PV.IsMine)
@@ -178,6 +181,7 @@ public class Movement : MonoBehaviour, IPunObservable
         //Fire();
     }
 
+    // Find where its shadow should be
     void LateUpdate()
     {
         RaycastHit hit;
@@ -246,6 +250,7 @@ public class Movement : MonoBehaviour, IPunObservable
         return ID;
     }
 
+    // Other clients wishing to apply any force on a player across the network HAVE to use this method
     public void PushMe(Vector3 force, ForceMode mode, bool isExplosion)
     {
         PV.RPC("RPC_PushMe", PhotonView.Find(PV.ViewID).Owner, force, mode, isExplosion);
@@ -318,6 +323,7 @@ public class Movement : MonoBehaviour, IPunObservable
         isNPC = false;
     }
     
+    // The player breaks a fracture board over the network so the board doesn't have to be synchronised
     public void FractureBoard(Vector3 boardFractured)
     {
         PV.RPC("RPC_FractureBoard", RpcTarget.All, boardFractured);

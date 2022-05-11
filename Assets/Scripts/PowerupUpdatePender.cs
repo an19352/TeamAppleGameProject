@@ -4,17 +4,17 @@ using UnityEngine;
 
 public class PowerupUpdatePender : MonoBehaviour
 {
+    // This script used to synchronise the powerup generator once Game Mechanics was synchronised
+    // It is now redundant
     ObjectPooler objectPooler;
     PowerupGenerator powerupGenerator;
 
-    // Start is called before the first frame update
     void Start()
     {
         objectPooler = ObjectPooler.OP;
         powerupGenerator = GetComponentInParent<PowerupGenerator>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         bool trigger = objectPooler.isSynced();

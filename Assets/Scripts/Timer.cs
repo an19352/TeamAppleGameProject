@@ -6,6 +6,9 @@ using TMPro;
 
 public class Timer : MonoBehaviour
 {
+    // The global timer untill the round ends
+    // The offline mode is used in the tutorial
+
     public float totalTime = 100f;
     public float offlineTime = 30f;
 
@@ -15,7 +18,6 @@ public class Timer : MonoBehaviour
     TextMeshProUGUI timer;
     float finishTime;
 
-    // Start is called before the first frame update
     void Start()
     {
         if (GameMechanics.gameMechanics == null)
@@ -32,7 +34,6 @@ public class Timer : MonoBehaviour
         timer.text = Convert_seconds(totalTime);
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
         if (totalTime <= 0)
@@ -50,6 +51,7 @@ public class Timer : MonoBehaviour
         timer.text = Convert_seconds(totalTime);
     }
 
+    // Convert the time in seconds to a readeble form
     private string Convert_seconds(float _totalTime)
     {
         string _timer = "";
@@ -63,6 +65,7 @@ public class Timer : MonoBehaviour
         return _timer;
     }
     
+    // This is what Game Mechanics uses to sync
     public void UpdateTimer (float newTotalTime)
     {
         totalTime = newTotalTime;

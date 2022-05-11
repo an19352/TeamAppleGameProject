@@ -5,6 +5,7 @@ using Photon.Pun;
 
 public class PowerupGenerator : MonoBehaviour
 {
+    // Spawns a powerup every now and then
     ObjectPooler poolOfObject;
 
     private GameObject newCube;
@@ -50,7 +51,6 @@ public class PowerupGenerator : MonoBehaviour
         }
     }
 
-    // Start is called before the first frame update
     void OnEnable()
     {
         PV = GetComponent<PhotonView>();
@@ -81,6 +81,7 @@ public class PowerupGenerator : MonoBehaviour
                 powerupTags.Add(pool.tag);
     }
 
+    // Just to make the Inspector easier to work with
     public void ParentPowerups()
     {
         foreach (KeyValuePair<string, Queue<GameObject>> kvp in poolOfObject.poolDictionary)

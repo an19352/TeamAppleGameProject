@@ -7,6 +7,7 @@ using Photon.Pun;
 
 public class Minimap : MonoBehaviour
 {
+    // Handles minimap logic
     public Transform playerIcon;
     public Transform generatorIcon;
 
@@ -19,7 +20,6 @@ public class Minimap : MonoBehaviour
     GameMechanics gameMechanics;
 
 
-    // Start is called before the first frame update
     void OnEnable()
     {
         // find the transform of the player whoes owner is the same as the camera

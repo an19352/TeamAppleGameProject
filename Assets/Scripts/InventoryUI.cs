@@ -10,19 +10,5 @@ public class InventoryUI : MonoBehaviour
         public TextMeshProUGUI background_Image;
         public TextMeshProUGUI icon;
         public bool selected;
-
-
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

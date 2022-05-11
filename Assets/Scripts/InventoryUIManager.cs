@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class InventoryUIManager : MonoBehaviour
 {
+    // This singleton is responssible for the communication between the UIElements and the actual Inventory
     public static InventoryUIManager inventory;
 
     public Sprite prefabspr;
@@ -37,11 +38,12 @@ public class InventoryUIManager : MonoBehaviour
     void Start()
     {
         IEs = new List<InventoryElement>();
-        Object[] _objs = Resources.LoadAll("Powerups Settings", typeof(InventoryElement));
+        Object[] _objs = Resources.LoadAll("Powerups Settings", typeof(InventoryElement));  // Retrievs the settings for any powerup in the game files
         for (int i = 0; i < _objs.Length; i++) IEs.Add((InventoryElement)_objs[i]);
         UIelements = new List<InventoryUIElement>(); 
     }
 
+    // A powerup script was added to your player. Awesome. Now let's display it and by proxy set a timer do remove it
     public void AddUIElement(string tag, Inventory _inv)
     {
         InventoryElement powerup = GetIE(tag);
@@ -90,6 +92,7 @@ public class InventoryUIManager : MonoBehaviour
         }
     }
 
+    // Get one of the IEs this script copied from the files
     public InventoryElement GetIE(string tag) 
     {
         foreach(InventoryElement IE in IEs)
@@ -98,6 +101,7 @@ public class InventoryUIManager : MonoBehaviour
         return IEs[0];
     }
     
+    // Deselcts the currently selected powerup and Selects the new one
     public void Select(string tag) 
     {
         UIelements[selectedIndex].Deselect();
@@ -111,6 +115,7 @@ public class InventoryUIManager : MonoBehaviour
 
     }
 
+    // Clone the IEs this script loaded from the files
     public InventoryElement[] CloneIEs()
     {
         return IEs.ToArray();

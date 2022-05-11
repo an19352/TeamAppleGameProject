@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class ObjectiveFlag : MonoBehaviour
 {
+    // The Objective Flag is the hexagonal platform you capture the enemy's flag
     PhotonView PV;
     public int defendTeam;
 
@@ -71,6 +72,7 @@ public class ObjectiveFlag : MonoBehaviour
 
     }
 
+    // If an enemy player is alone with the flag, start capturing. If an ally is with him, it will be contested
     State EvaluateState()
     {
         numOfDefenders = gameMechanics.flagObjectives[defendTeam].numOfDefenders;

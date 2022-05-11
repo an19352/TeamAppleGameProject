@@ -21,7 +21,7 @@ namespace SpaceBallAbilities
         public InventoryElement GetIE(); // Return the scriptable object associated with this component
     }
 
-    public class GravityGun : MonoBehaviour, IAbility
+    public class GravityGun : MonoBehaviour, IAbility   // OUT OF SERVICE
     {
         PhotonView PV;
         InventoryElement IE;
@@ -127,7 +127,7 @@ namespace SpaceBallAbilities
         }
     }
 
-    public class Grapple : MonoBehaviour, IAbility
+    public class Grapple : MonoBehaviour, IAbility   // OUT OF SERVICE
     {
         float pullSpeed;
         float maxShootDistance;
@@ -204,6 +204,7 @@ namespace SpaceBallAbilities
 
     public class ImpulseCannon : MonoBehaviour, IAbility
     {
+        // So far the default ability, allows you to push any player forward
         PhotonView PV;
         InventoryElement IE;
         Inventory inventory;
@@ -219,7 +220,6 @@ namespace SpaceBallAbilities
         bool offline = false;
         OfflineMovement NPCfound = null;
 
-        // Start is called before the first frame update
         public void SetUp(string IEtag)
         {
             if (TryGetComponent(out PhotonView _PV))
@@ -241,6 +241,7 @@ namespace SpaceBallAbilities
                 InventoryUIManager.inventory.AddUIElement(IEtag, inventory);
         }
 
+        // Shoots people in the list
         public void LeftClick()
         {
             if (Time.time < timeToShoot) return;
@@ -280,6 +281,7 @@ namespace SpaceBallAbilities
 
         public InventoryElement GetIE() { return IE; }
 
+        // When somebody touches the detection cube in front of the player, put them on a list
         private void OnTriggerEnter(Collider other)
         {
             if (offline)
@@ -300,6 +302,7 @@ namespace SpaceBallAbilities
             }
         }
 
+        // When somebody leaves the detection cube in front of the player, take them off the list
         private void OnTriggerExit(Collider other)
         {
             if (offline)
@@ -323,6 +326,7 @@ namespace SpaceBallAbilities
 
     public class Grenade : MonoBehaviour, IAbility
     {
+        // Synchronously spawns in a grenade that... explodes
         InventoryElement IE;
         Inventory inventory;
 
@@ -375,6 +379,7 @@ namespace SpaceBallAbilities
 
     public class Meteor : MonoBehaviour, IAbility
     {
+        // Rains down meteors who stun people in an area. Each meteor is spawned in Synchronously
         ObjectPooler poolOfObject;
         InventoryElement IE;
         Inventory inventory;
@@ -461,6 +466,7 @@ namespace SpaceBallAbilities
 
         IEnumerator CoSpawnMeteors(Vector3 mouseLocation)
         {
+            // Meteors are not highlanders. There can be more than one
             for (int i = 0; i < meteorsSpawned; i++)
             {
                 Vector3 spawnLoc = mouseLocation;
@@ -518,7 +524,7 @@ namespace SpaceBallAbilities
         public InventoryElement GetIE() { return IE; }
     }
 
-    public class Coin : MonoBehaviour, IAbility
+    public class Coin : MonoBehaviour, IAbility   // OUT OF SERVICE
     {
         InventoryElement IE;
         Inventory inventory;
@@ -552,6 +558,7 @@ namespace SpaceBallAbilities
 
     public class Jetpack : MonoBehaviour, IAbility
     {
+        // Propels the player up while they're holding down left click
         InventoryElement IE;
         Inventory inventory;
         PhotonView PV;
@@ -602,7 +609,7 @@ namespace SpaceBallAbilities
 
             if (Input.GetButtonUp("Fire1"))
             {
-                PV.RPC("Ues", RpcTarget.All, gravity);
+                PV.RPC("Ues", RpcTarget.All, gravity); // If not holding down, stop propeling
             }
         }
 

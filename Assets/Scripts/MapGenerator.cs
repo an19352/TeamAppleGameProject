@@ -5,6 +5,7 @@ using Photon.Pun;
 
 public class MapGenerator : MonoBehaviour
 {
+    // Generates the map in two *easy* steps
     PhotonView PV;
     [HideInInspector]
     public int indicator = 0;
@@ -13,8 +14,8 @@ public class MapGenerator : MonoBehaviour
     public struct PlatformType
     {
         public GameObject prefab;
-        public float reach;
-        public float verticalReach;
+        public float reach;            // How far on the x-z axis can you jump from it
+        public float verticalReach;    // How high up can you get 
         public float chance;
 
         public void modifyChance(float newChance)
@@ -24,7 +25,7 @@ public class MapGenerator : MonoBehaviour
         }
     }
 
-    public struct Platform
+    public struct Platform      // An actual instance of a platform
     {
         public PlatformType board;
         public Transform transform;
@@ -40,11 +41,11 @@ public class MapGenerator : MonoBehaviour
         }
     }
 
-    public struct TreeElement
+    public struct TreeElement       // A node
     {
-        public int index, root;
-        public List<int> leafs;
-        public Platform platform;
+        public int index, root;     // Where in the list is this node and its parent
+        public List<int> leafs;     // what about the children
+        public Platform platform;   // So this is the actual platform
 
         public TreeElement(Vector3 position, Quaternion rotation, PlatformType type, int _index, int _root = -1)
         {
@@ -55,7 +56,7 @@ public class MapGenerator : MonoBehaviour
             leafs = new List<int>();
         }
     }
-    public List<TreeElement> tree = new List<TreeElement>();
+    public List<TreeElement> tree = new List<TreeElement>();        // This is all the nodes. They have connections by knowing each other's index in this list
     public List<TreeElement> mirrortree = new List<TreeElement>();
     List<BoardSetup.PhotonSpawnable> photonSpawnables = new List<BoardSetup.PhotonSpawnable>();
 
@@ -105,7 +106,7 @@ public class MapGenerator : MonoBehaviour
         //foreach (PlatformType plt in platformTypes) chanceSum += plt.chance;
 
         PV = GetComponent<PhotonView>();
-        PV.RPC("Awaken", RpcTarget.MasterClient);
+        PV.RPC("Awaken", RpcTarget.MasterClient);   // Tell the master you have risen
 
 /*        //Random.InitState(InitState);
         if (Random.Range(0.0f, 1.0f) > 0.5f) second_method();
@@ -119,18 +120,18 @@ public class MapGenerator : MonoBehaviour
 
         indicator++;
 
-        if (indicator < PhotonNetwork.PlayerList.Length) return;
+        if (indicator < PhotonNetwork.PlayerList.Length) return;    // Once all players have activated the map generation, let's start
 
         indicator = 0;
         PV.RPC("firstStepGeneration", RpcTarget.All, (int)Random.Range(0, 1000));
     }
 
-    [PunRPC]
+    [PunRPC]  // Generate all the non synchronised terrain. Platforms and planets
     void firstStepGeneration(int seed)
     {
-        Random.InitState(seed);
+        Random.InitState(seed);    // Sync
 
-        if (Random.Range(0.0f, 1.0f) > 0.5f) second_method();
+        if (Random.Range(0.0f, 1.0f) > 0.5f) second_method();   // 50% chance the map is mirrored
         else
         third_method();
 
@@ -144,12 +145,13 @@ public class MapGenerator : MonoBehaviour
 
         indicator++;
 
-        if (indicator >= PhotonNetwork.PlayerList.Length) secondStepGeneration();
+        if (indicator >= PhotonNetwork.PlayerList.Length) secondStepGeneration();   // If everyone has all the platforms, let's populate them with synchronised elements
     }
 
+    // The master client Spawns in all the fun elements
     void secondStepGeneration()
     {
-        foreach (BoardSetup.PhotonSpawnable spawnable in photonSpawnables)
+        foreach (BoardSetup.PhotonSpawnable spawnable in photonSpawnables)      // Spawn all elements who were destroyed because they had a Photon View
             PhotonNetwork.Instantiate(spawnable.prefab, spawnable.position, spawnable.rotation);
 
         List<List<(string, Vector3)>> spawnThis = new List<List<(string, Vector3)>>();
@@ -176,7 +178,7 @@ public class MapGenerator : MonoBehaviour
             if (TE.platform.transform.gameObject.TryGetComponent(out SpawnSecondStep SSS))
                 SSS.SpawnObject();*/
 
-        StartCoroutine(ActivateCooldown(1));
+        StartCoroutine(ActivateCooldown(1)); // Wait a sec and initialise the first player
         //GameMechanics.gameMechanics.RPC_InitiatePlayer();
 
     }
@@ -420,6 +422,7 @@ public class MapGenerator : MonoBehaviour
         Destroy(original.platform.transform.gameObject);
     }
 
+    // The angle over time (in radians) adds an offset from platform to platform, arching the whole path
     void DrawLineOfPlatforms(TreeElement from, Vector3 direction, int length = -1, float angleOverTime = -1f)
     {
         if (length == 0) return;

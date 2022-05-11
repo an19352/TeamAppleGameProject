@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class JumpPad : MonoBehaviour
 {
-    // Start is called before the first frame update
+    // Makes the jump pad yeet you
     public float coolDown;
     public float upwardForce;
     private GameObject arrowUp;
@@ -12,7 +12,6 @@ public class JumpPad : MonoBehaviour
     void Start()
     {
         arrowUp = gameObject.transform.GetChild(0).gameObject;
-
     }
 
     void OnCollisionEnter(Collision other)
@@ -22,8 +21,6 @@ public class JumpPad : MonoBehaviour
         StartCoroutine(ActivateCooldown(coolDown));
         Rigidbody playerBody = other.collider.attachedRigidbody;
         playerBody.AddForce(transform.up * upwardForce, ForceMode.Acceleration);
-
-
     }
 
     //Coroutine to activate a cooldown for a set period of time

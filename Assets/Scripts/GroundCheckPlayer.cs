@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GroundCheckPlayer : MonoBehaviour
 {
+    // Enables the player to jump when they're on ground and tells them if they just landed on a fracture board
     private bool offline = false;
     Movement player;
     private OfflineMovement player1;

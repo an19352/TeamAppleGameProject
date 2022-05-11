@@ -6,6 +6,8 @@ using SpaceBallAbilities;
 
 public class Inventory : MonoBehaviour
 {
+    // This script manages what what the player has in their inventory and EACH player's individual settings (so in future they may be buffed during the game)
+    // Also allows them to scroll through and use their items
     PhotonView PV;
     public static InventoryUIManager inventory;
 
@@ -55,7 +57,7 @@ public class Inventory : MonoBehaviour
     public GameObject boosterFlame;
 
     bool offline = false;
-    // Start is called before the first frame update
+
     void Start()
     {
         if (TryGetComponent(out PhotonView _PV))
@@ -66,7 +68,7 @@ public class Inventory : MonoBehaviour
         if (!offline)
             if (!PV.IsMine) return;
 
-        IEs = inventory.CloneIEs();
+        IEs = inventory.CloneIEs();       // We need the powerups general settings like how much they last and their icons
         foreach (InventoryElement IE in IEs)
         {
             typeLookUp.Add(IE.powerupName, System.Type.GetType("SpaceBallAbilities." + IE.associatedClass));
@@ -79,7 +81,7 @@ public class Inventory : MonoBehaviour
 
         inventoryMaxATM = 0;
         impulseGunHolder.enabled = true;
-        activateItem(firstPowerupTag);
+        activateItem(firstPowerupTag);     // We always start with a powerup. IT MUST BE SET TO INFINITE LIFETIME
 
         //inventoryItems[0] = impulseGunHolder.AddComponent(itemComponents[2]) as IAbility;
         //inventoryItems[0].SetUp();
@@ -107,6 +109,7 @@ public class Inventory : MonoBehaviour
             inventoryItems[selectedAbility].RightClick();
     }
 
+    // Add a powerup to the inventory. You need its IE's tag
     public void activateItem(string tag)
     {/*
         if (typeLookUp.ContainsKey(tag)) 
@@ -155,12 +158,13 @@ public class Inventory : MonoBehaviour
         }
     }
 
+    // Remove an item from the inventory. Usually because it expired or the player died
     public void removeItem(string tag)
     {
         if (!offline)
             if (!PV.IsMine) return;
 
-        int i;
+        int i;  // Go through each item. If you haven't found it, it's the last one or it is nowhere
         for (i = 0; i < inventoryMaxATM; i++) if (inventoryItems[i].GetIE().powerupName == tag)
             {
                 inventoryItems[i].RightClick();
@@ -176,7 +180,7 @@ public class Inventory : MonoBehaviour
                 if (selectedAbility >= i) selectedAbility--;
                 break;
             }
-        if (i == inventoryMaxATM)
+        if (i == inventoryMaxATM)   // It was the last one
         {
             if (inventoryItems[inventoryMaxATM].GetIE().powerupName == tag)
             {
@@ -200,6 +204,7 @@ public class Inventory : MonoBehaviour
             }
         }
 
+        // If i is bigger than inventoryMaxATM, you already deleted an item and so all of them need to be shifted down a level;
         for (; i < inventoryMaxATM; i++) inventoryItems[i] = inventoryItems[i + 1];
 
         inventoryItems[inventoryMaxATM] = null;
@@ -208,6 +213,7 @@ public class Inventory : MonoBehaviour
         SelectAbility(selectedAbility);
     }
 
+    // Remove all BUT THE FIRST powerups
     public void ClearInventory()
     {
         SelectAbility(0);
@@ -226,6 +232,7 @@ public class Inventory : MonoBehaviour
         inventoryMaxATM = 0;
     }
 
+    // Safely select an ability in your inventory. ALWAYS USE THIS
     void SelectAbility(int abilityIndex)
     {
         if (abilityIndex > inventoryMaxATM || abilityIndex < 0)
@@ -240,7 +247,7 @@ public class Inventory : MonoBehaviour
         inventory.Select(inventoryItems[selectedAbility].GetIE().powerupName);
     }
 
-    [PunRPC]
+    [PunRPC]    // For a powerup to sync it must exist on the same player on all clients
     void RPC_AddComponent(string type, string tag)
     {
         (gameObject.AddComponent(System.Type.GetType(type)) as IAbility).SetUp(tag);

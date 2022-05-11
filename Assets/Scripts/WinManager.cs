@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class WinManager : MonoBehaviour
 {
+    // This script decides what the final score screen displays
     public GameObject RedWins;  
     public GameObject BlueWins;  
     public GameObject scoreDraw;

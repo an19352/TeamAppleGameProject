@@ -6,6 +6,7 @@ using Photon.Pun;
 
 public class GoBack : MonoBehaviour
 {
+    // The Go back button. All elements from DontDestroyOnLoad must be destroyed here
    public void OnClick()
     {
         PhotonNetwork.Disconnect();

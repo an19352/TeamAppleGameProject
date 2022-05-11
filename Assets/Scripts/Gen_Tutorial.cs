@@ -6,14 +6,13 @@ using UnityEngine.UI;
 
 public class Gen_Tutorial : MonoBehaviour
 {
-    
+    // A special version of the generator that is not network dependent
     public float health = 50f;
     public float healthRemain = 50f;
     public GameObject explosionEffect;
     public Transform healthBar;
     private Image healthBarImage;
     
-    // Start is called before the first frame update
     void Start()
     {
         healthBarImage = healthBar.gameObject.GetComponent<Image>();
@@ -27,7 +26,7 @@ public class Gen_Tutorial : MonoBehaviour
             Vector3 collisionVelocity = other.relativeVelocity;
             Vector3 collisionNormal = cp.normal;
             float mass = other.collider.attachedRigidbody.mass;
-            float force = Mathf.Abs(Vector3.Dot(cp.normal, collisionVelocity)) * mass;
+            float force = Mathf.Abs(Vector3.Dot(cp.normal, collisionVelocity)) * mass;   // Converts velocity to damage
             
             applyForce(force);
         }
@@ -44,11 +43,5 @@ public class Gen_Tutorial : MonoBehaviour
             gameObject.SetActive(false);
             Instantiate(explosionEffect, transform.position, transform.rotation);
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

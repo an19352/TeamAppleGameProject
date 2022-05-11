@@ -2,6 +2,7 @@ using UnityEngine;
 
 namespace DebugStuff
 {
+    // This console is used for debuging in the actual game should you ever need it (creates a console top right)
     public class ConsoleToGUI : MonoBehaviour
     {
         //#if !UNITY_EDITOR

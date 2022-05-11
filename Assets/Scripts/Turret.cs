@@ -8,6 +8,9 @@ using Photon.Realtime;
 
 public class Turret : MonoBehaviour, IPunObservable
 {
+    // Handles turret logic and damage registration
+    // Turrets used to be on the team in whose half they spawned but it ended up being more fun if they just shoot at everyone
+
     PhotonView PV;
 
     [Header("Can mess with")]
@@ -46,6 +49,7 @@ public class Turret : MonoBehaviour, IPunObservable
         poolOfObject = ObjectPooler.OP;
         //InvokeRepeating("UpdateTarget", 0f, 0.1f);
 
+        // Determines which team its on____ No longer used
         float distanceRed = Vector3.Distance(transform.position, GameMechanics.gameMechanics.bases[0].transform.position);
         float distanceBlue = Vector3.Distance(transform.position, GameMechanics.gameMechanics.bases[1].transform.position);
 
@@ -64,7 +68,7 @@ public class Turret : MonoBehaviour, IPunObservable
 
         }
         
-        UpdateTarget();
+        UpdateTarget(); // Check for new players
         
         if (target != null)
         {

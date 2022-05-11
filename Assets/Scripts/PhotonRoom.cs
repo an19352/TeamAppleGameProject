@@ -8,6 +8,7 @@ using Photon.Realtime;
 
 public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
 {
+    // This singleton travels from scene to scene, never getting destroyed
     public static PhotonRoom room;
     private PhotonView PV;
 
@@ -72,6 +73,7 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
             SceneManager.LoadScene(1);
     }
 
+    // If we got to the multiplayer scene, spawn in the PhotonPlayer script
     void OnSceneFinishedLoading(Scene scene, LoadSceneMode mode)
     {
         currentSceneIndex = scene.buildIndex;

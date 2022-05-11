@@ -7,6 +7,7 @@ using Photon.Pun;
 
 public class Powerup : MonoBehaviour//, IPunObservable
 {
+    // This script sits on any powerup you can pick up and tells the player what they got
     PhotonView PV;
     public static PhotonRoom room;
     public static GameMechanics gameMechanics;
@@ -83,7 +84,7 @@ public class Powerup : MonoBehaviour//, IPunObservable
                 PV.RPC("NotifyMe", RpcTarget.All);
     }
 
-    [PunRPC]
+    [PunRPC] // Tell the player what they got
     public void ActivateItem(int playerID, string item)
     {
         gameMechanics.players[playerID].obj.GetComponent<Inventory>().activateItem(item);

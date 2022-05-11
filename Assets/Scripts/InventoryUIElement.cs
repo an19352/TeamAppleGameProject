@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class InventoryUIElement : MonoBehaviour
 {
+    // The thing that gets displayed at the bottom right for each powerup you have. It also is responssible for removing the powerup
     Inventory inventory;
 
     InventoryElement powerup;
@@ -13,11 +14,11 @@ public class InventoryUIElement : MonoBehaviour
     float totalTime;
     bool selected = false;
 
-    [Header("Small Version")]
+    [Header("Small Version")]  // Powerup NOT selected
     public Image smallIcon;
     public TextMeshProUGUI smallTimerText;
 
-    [Header("Large Version")]
+    [Header("Large Version")]  // Powerup selected
     public Image largeIcon;
     public TextMeshProUGUI powerupName;
     public TextMeshProUGUI largeTimerText;
@@ -25,6 +26,7 @@ public class InventoryUIElement : MonoBehaviour
     [Header("Tooltip")] 
     public TextMeshProUGUI tooltip;
     
+    // __init__
     public void SetPowerup(InventoryElement _powerup, Inventory _inv)
     {
         powerup = _powerup;
@@ -52,7 +54,7 @@ public class InventoryUIElement : MonoBehaviour
 
         totalTime = timeToDie - Time.time;
 
-        if (totalTime < 0) inventory.removeItem(powerupName.text);
+        if (totalTime < 0) inventory.removeItem(powerupName.text); // Powerup expired
 
         string seconds = ((int)totalTime).ToString();
         smallTimerText.text = seconds;

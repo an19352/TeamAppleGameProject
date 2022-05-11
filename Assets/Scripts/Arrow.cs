@@ -8,6 +8,7 @@ using Photon.Pun;
 
 public class Arrow : MonoBehaviour
 {
+    // This script points the arrow towards the closest generator / flag
     public GameObject arrow;
 
     public GameObject player;
@@ -40,6 +41,7 @@ public class Arrow : MonoBehaviour
         Vector3 dir;
         Dictionary<float, GameObject> dist = new Dictionary<float, GameObject>();
 
+        // Calculate the distance to each generator
         if (generator1 !=null && generator1.activeSelf)
         {
             dist1 = Vector3.Distance(player.transform.position, generator1.transform.position);
@@ -93,9 +95,10 @@ public class Arrow : MonoBehaviour
         
         float a = Mathf.Atan2(dir.x, dir.z) * Mathf.Rad2Deg;
         a += 180;
-        arrow.transform.localEulerAngles = new Vector3(0, 180, a);
+        arrow.transform.localEulerAngles = new Vector3(0, 180, a); // Rotate the arrow towards the closest
     }
 
+    // Used to set up the arrow on your player
     public void getgens(List<GameObject> gens, GameObject redbase, GameObject greenbase, int t)
     {
         if (t == 0)

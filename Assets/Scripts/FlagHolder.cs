@@ -7,16 +7,16 @@ using Random = System.Random;
 
 public class FlagHolder : MonoBehaviour
 {
-    // stores which team's flag it is holding
-
+    // This script sits on the player and gets activated when he picks up the flag
+    
     public int teamID;
-    public int ballOrigin;
+    public int ballOrigin;  // stores which team's flag it is holding
     // public int playerTeam;
     public Transform droppedBall;
-    public GameObject ball;
+    public GameObject ball; // visual representation of the flag
     ObjectPooler poolOfObject;
     PhotonView PV;
-    // Start is called before the first frame update
+    
     void Start()
     {
         PV = GetComponent<PhotonView>();
@@ -34,6 +34,7 @@ public class FlagHolder : MonoBehaviour
         ball.SetActive(true);
     }
 
+    // Drop the flag in the center of the closest platform, called upon the player's death
     public void RespawnFlag(Vector3 dropPosition, Quaternion dropRotation)
     {
         GameObject[] platforms = GameObject.FindGameObjectsWithTag("Ground");
@@ -46,14 +47,14 @@ public class FlagHolder : MonoBehaviour
         PlaySound.playSound.RPC_QueueVoice(GenerateCommentary(teamID), PhotonNetwork.PlayerList);
     }
 
-    [PunRPC]
+    [PunRPC] // Drop the flag for everyone
     public void RPC_SpawnDroppedFlag(Vector3 respawnFlagPosition, Quaternion respawnFLagRotation)
     {
         GameMechanics.gameMechanics.drop = respawnFlagPosition;
         Debug.Log(respawnFlagPosition);
     }
 
-
+    // Find the closest platform
     Transform FindClosestDistance(GameObject[] platforms, Vector3 respawnFlagPosition)
     {
 
@@ -72,6 +73,7 @@ public class FlagHolder : MonoBehaviour
         return closestPlatform.transform;
     }
 
+    // Play the right audio
     int GenerateCommentary(int teamNo)
     {
         Random ran = new Random();

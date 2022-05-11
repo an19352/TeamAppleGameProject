@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
+    // The turrets shoot bullets. This is each bullet's logic
     public float travelSpeed;
     public float lifeTime;
     public const float lifeTimeConst = 10;
@@ -14,7 +15,6 @@ public class Bullet : MonoBehaviour
     public float soundRadius;
     public LayerMask players;
 
-    // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -24,10 +24,9 @@ public class Bullet : MonoBehaviour
     {
         lifeTime = lifeTimeConst;
         NotifyNearbyPlayers();
-
     }
 
-    // Update is called once per frame
+    // This is the physics loop update, called first
     void FixedUpdate()
     {
         if (lifeTime <= 0) gameObject.SetActive(false);
@@ -38,6 +37,7 @@ public class Bullet : MonoBehaviour
         }
     }
 
+    // I touched a player, yuck! Push it away!
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -46,6 +46,7 @@ public class Bullet : MonoBehaviour
         }
     }
     
+    // Play a sounf for players within the soundRadius
     void NotifyNearbyPlayers()
     {
         Collider[] playersInRadius = Physics.OverlapSphere(transform.position, soundRadius, ~0, 0);

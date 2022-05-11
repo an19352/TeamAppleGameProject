@@ -5,7 +5,7 @@ using Cinemachine;
 
 public class Cutscene : MonoBehaviour
 {
-    // Start is called before the first frame update
+    // Finds the enemy generators and objective area for the cutscene that plays at the start of every match
     int enemyTeam;
     GameMechanics gameMechanics;
     List<GameObject> enemyGens;

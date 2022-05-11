@@ -7,7 +7,7 @@ using Random = System.Random;
 
 public class ForceShield : MonoBehaviour
 {
-    // Start is called before the first frame update
+    // This sits on the force shields in each base
     //public GameObject explosion;
     public int generatorDestroyed = 0;
     // green is 0 and red is 1
@@ -21,7 +21,7 @@ public class ForceShield : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        // The generatorDestroyed variable is changed in the EnergyGenerator script
         if (generatorDestroyed >= 3)
         {
             StartCoroutine(GeneratorsDown());
@@ -31,7 +31,7 @@ public class ForceShield : MonoBehaviour
     IEnumerator GeneratorsDown()
     {
         //Instantiate(explosion, transform.position, transform.rotation);
-        yield return new WaitForSeconds(PlaySound.playSound.sounds[19].clip.length);
+        yield return new WaitForSeconds(PlaySound.playSound.sounds[19].clip.length);  // After the commentator commentates, disable this generator
         PlaySound.playSound.RPC_QueueVoice(21, PhotonNetwork.PlayerList);
         PlaySound.playSound.RPC_QueueVoice(GenerateCommentaryID(), PhotonNetwork.PlayerList);
         gameObject.SetActive(false);

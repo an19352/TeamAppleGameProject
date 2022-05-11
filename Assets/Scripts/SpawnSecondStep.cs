@@ -5,6 +5,9 @@ using Photon.Pun;
 
 public class SpawnSecondStep : MonoBehaviour
 {
+    // Sits on boards that can spawn fun elements. Each board has a number of slots available and each element requiers a few slots,
+    // in the future a new team may make these into scriptable objects and play around even more, adding diversity
+
     [System.Serializable]
     public struct spawnable
     {
@@ -19,6 +22,7 @@ public class SpawnSecondStep : MonoBehaviour
     public int availableSlots = 3;
     public List<Vector3> slotPositions;
 
+    // returns this list of what it spawned where so the map generation can mirror it
     public List<(string, Vector3)> SpawnObject()
     {
         if (Random.Range(0.0f, 1.0f) <= nothingChance) return new List<(string, Vector3)>();
@@ -43,6 +47,7 @@ public class SpawnSecondStep : MonoBehaviour
         return result;
     }
 
+    // allows to spawn in certain items
     public void SpawnObject(List<(string, Vector3)> tupleList)
     {
         if (tupleList == null) return;

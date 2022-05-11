@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class OfflineMovement : MonoBehaviour
 {
+    // For the tutorial
     Rigidbody playerBody;
     Transform player;
     Camera cameraMain;

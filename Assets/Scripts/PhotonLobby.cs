@@ -10,6 +10,7 @@ using UnityEngine.EventSystems;
 
 public class PhotonLobby : MonoBehaviourPunCallbacks
 {
+    // This script manages everything about joinging and creating rooms
     public static PhotonLobby lobby;
 
     public byte maxPlayers;
@@ -33,7 +34,7 @@ public class PhotonLobby : MonoBehaviourPunCallbacks
 
     void Start()
     {
-        PhotonNetwork.AutomaticallySyncScene = true;
+        PhotonNetwork.AutomaticallySyncScene = true; // This means everyone loads each scene synchronisly
         PhotonNetwork.ConnectUsingSettings();
     }
 
@@ -53,6 +54,7 @@ public class PhotonLobby : MonoBehaviourPunCallbacks
         playerName.transform.parent.parent.gameObject.GetComponent<TMP_InputField>().Select();
     }
 
+    // Create a room
     public void OnClickCreate()
     {
         if (playerName.text.Length > 1)
@@ -84,6 +86,7 @@ public class PhotonLobby : MonoBehaviourPunCallbacks
         base.OnRoomListUpdate(roomList);
     }
 
+    // Photon sends you updates with the list of rooms in this lobby. There is no way to ask for it :(
     void UpdateRoomList(List<RoomInfo> roomList)
     {
         foreach(RoomItem item in roomItemsList)
@@ -130,6 +133,7 @@ public class PhotonLobby : MonoBehaviourPunCallbacks
         PhotonNetwork.LeaveRoom();
     }
 
+    // Navigating the room selection menu with keybinds
     private void Update()
     {
         if (EventSystem.current.currentSelectedGameObject == null) return;

@@ -10,6 +10,7 @@ using Photon.Realtime;
 
 public class EnergyGenerator : MonoBehaviour, IPunObservable
 {
+    // Finds out which team this generator should be on, registers the hits it takes and synchronises it over the network
     PhotonView PV;
     GameMechanics gameMechanics;
     public GameObject forceShield;
@@ -44,22 +45,22 @@ public class EnergyGenerator : MonoBehaviour, IPunObservable
         healthBarImage = healthBar.gameObject.GetComponent<Image>();
         if (GameMechanics.gameMechanics == null) this.enabled = false;
 
-        Vector3 midpos = mapgen.GetComponent<MapGenerator>().FindMiddle();
+        Vector3 midpos = mapgen.GetComponent<MapGenerator>().FindMiddle(); // Finds the coordonates of the middle platform
         //float redDistance = Vector3.Distance(transform.position, gameMechanics.bases[0].transform.position);
         //float blueDistance = Vector3.Distance(transform.position, gameMechanics.bases[1].transform.position);
 
-        if (midpos.x < transform.position.x)
+        if (midpos.x < transform.position.x) 
         {
             gameMechanics.redgens.Add(gameObject);
             fsScript = gameMechanics.bases[0].GetComponentInChildren<ForceShield>();
-            team = 0;
+            team = 0; // Be red if you're on the left
         }
             
         else 
         {
             gameMechanics.greengens.Add(gameObject);
             fsScript = gameMechanics.bases[1].GetComponentInChildren<ForceShield>();
-            team = 1; 
+            team = 1; // or blue if you're on the right
         }
 
         forceShield = fsScript.gameObject;
@@ -100,20 +101,20 @@ public class EnergyGenerator : MonoBehaviour, IPunObservable
     void OnCollisionEnter(Collision other)
     {
 
-        if (other.gameObject.TryGetComponent<Movement>(out Movement mov))
+        if (other.gameObject.TryGetComponent<Movement>(out Movement mov)) // Only players have the movement script
         {
 
             int id = mov.GetId();
             int teamid = GameMechanics.gameMechanics.checkTeam(id);
 
-            if (teamid != team)
+            if (teamid != team)  // No friendly fire
             {
 
                 ContactPoint cp = other.GetContact(0);
                 Vector3 collisionVelocity = other.relativeVelocity;
                 Vector3 collisionNormal = cp.normal;
                 float mass = other.collider.attachedRigidbody.mass;
-                float force = Mathf.Abs(Vector3.Dot(cp.normal, collisionVelocity)) * mass;
+                float force = Mathf.Abs(Vector3.Dot(cp.normal, collisionVelocity)) * mass; // Converting the velocity to damage
 
                 applyForce(force);
             }
@@ -124,11 +125,12 @@ public class EnergyGenerator : MonoBehaviour, IPunObservable
     private void OnDisable()
     {
         if(PV == null) return;
-        fsScript.generatorDestroyed++;
+        fsScript.generatorDestroyed++; // Notify your shield, one more generator fell
         //Debug.Log("disable");
         NotifyNearbyPlayers();
     }
 
+    // Take Damage
     public void applyForce(float force)
     {
         healthRemain -= force;
@@ -154,6 +156,7 @@ public class EnergyGenerator : MonoBehaviour, IPunObservable
          healthBarImage.fillAmount = fraction;
      }
 
+    // Repel every player in the explosionRadius, this happens on every client
     void RepelNearbyPlayers()
     {
         Debug.Log("called");
@@ -171,6 +174,7 @@ public class EnergyGenerator : MonoBehaviour, IPunObservable
         }
     }
     
+    //Play a sound in the explosionRadius. This only happens on the Master client
     void NotifyNearbyPlayers()
     {
         Collider[] playersInRadius = Physics.OverlapSphere(transform.position, explosionRadius, ~0, 0);
@@ -190,6 +194,7 @@ public class EnergyGenerator : MonoBehaviour, IPunObservable
         gameObject.SetActive(false);
     }
 
+    // Photon uses this to synchronise whatever you want. The Player who owns the object (Photon View) is the one who constantly writes
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
         if (stream.IsWriting)

@@ -7,6 +7,7 @@ using Photon.Pun;
 
 public class teamSelectionScreenManager : MonoBehaviour
 {
+    // Makes sure no more than 3 people join each team and everything is displayed correctly
     PhotonView PV;
     public List<Transform> contexts;
     public List<Button> buttons;

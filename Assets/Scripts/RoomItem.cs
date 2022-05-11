@@ -6,6 +6,7 @@ using Photon.Pun;
 
 public class RoomItem : MonoBehaviour
 {
+    // The prefab for the room buttons in the room selection screen
     public static PhotonLobby photonLobby;
 
     public TextMeshProUGUI roomName;

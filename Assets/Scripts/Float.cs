@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Float : MonoBehaviour
 {
-    // Start is called before the first frame update
+    // We're in space! This script drive that point home by making stuff float
+
     public float floatStrength;
     public float randomRotationStrength;
 

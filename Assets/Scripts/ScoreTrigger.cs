@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ScoreTrigger : MonoBehaviour
 {
+    // This script respawns any player who touches its object
     public static GameMechanics gameMechanics;
 
     // Hides the mesh of our Trigger

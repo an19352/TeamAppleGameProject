@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ToolTip : MonoBehaviour
 {
+    // OUT OF SERVICE
     public float timeToRead = 3f;
     float timeToDie;
 

@@ -4,12 +4,17 @@ using UnityEngine;
 
 public class FollowPlayer : MonoBehaviour
 {
+    // This is the camera script that follows the player
+
     //[HideInInspector]
     public Transform player;
 
+    [Tooltip("Where will the camera be relative to the player")]
     public Vector3 offset;
+    [Tooltip("Where will the camera be pointed relative to the player")]
     public Vector3 focalOffsets;
-    public bool smoothMotion = false;
+    [Tooltip("Makes the camera lag behind a tiny bit")]
+    public bool smoothMotion = false;  
     public float smoothSpeed = 1.25f;
     public float rubberBand = 1f;
     public bool attachToPlayer = false;
@@ -35,6 +40,7 @@ public class FollowPlayer : MonoBehaviour
         }
     }
 
+    // Just stifly follow the player
     void MoveCamera() 
     {
         Vector3 newpos = new Vector3(player.position.x - offset.x, player.position.y - offset.y, player.position.z - offset.z);
@@ -43,6 +49,7 @@ public class FollowPlayer : MonoBehaviour
         transform.LookAt(player.position + focalOffsets);
     }
 
+    // Follow the player but with the smoothSpeed
     void MoveCameraSmoothly()
     {
         Vector3 newpos = new Vector3(player.position.x - offset.x, player.position.y - offset.y, player.position.z - offset.z);

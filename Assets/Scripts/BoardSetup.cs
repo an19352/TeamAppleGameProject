@@ -5,9 +5,10 @@ using Photon.Pun;
 
 public class BoardSetup : MonoBehaviour
 {
-    public List<Transform> transforms;
+    // This script is used for mirroring boards and marking all of their components that need to be synchrinsed for the second step.
+    public List<Transform> transforms; // When you create a board prefab, give it the transforms of ant object that sits on it
     
-    public struct PhotonSpawnable
+    public struct PhotonSpawnable  // Things that need to be synchronised when instantiated
     {
         public string prefab;
         public Vector3 position;
@@ -20,7 +21,7 @@ public class BoardSetup : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
+    // Mirror any element on the x axis and destroy anyhting that has Photon View and return a list commemorating what was where
     public List<PhotonSpawnable> Setup()
     {
         List<PhotonSpawnable> result = new List<PhotonSpawnable>();

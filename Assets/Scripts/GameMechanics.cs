@@ -11,6 +11,8 @@ using Vector3 = UnityEngine.Vector3;
 
 public class GameMechanics : MonoBehaviour
 {
+    // The script that does it all. This singleton shares variables with and synchronises almost all other objects
+
     public static GameMechanics gameMechanics;
 
     #region Singleton
@@ -37,14 +39,14 @@ public class GameMechanics : MonoBehaviour
     }
 
     [Serializable]
-    public struct Player         // Allows for Players to be affiliated with teams in inspector
+    public struct Player         // Allows for Players to be affiliated with teams
     {
         public GameObject obj;
         public int team;
     }
 
     [Serializable]
-    public struct FlagObjective
+    public struct FlagObjective   // The areas where you capture a flag
     {
         public GameObject objective;
         public int flagCount;
@@ -62,7 +64,7 @@ public class GameMechanics : MonoBehaviour
 
     public List<Team> teams;
     public List<Player> players;
-    public List<Transform> spawnPpoints;
+    public List<Transform> spawnPpoints;  // Where powerups spawn
     public List<Material> teamMaterials;
 
     public Timer timer;
@@ -100,6 +102,7 @@ public class GameMechanics : MonoBehaviour
 
     }
 
+    // The Local Player has loaded and so the map generation can begin on this client
     public void SetPB(PhotonPlayer _new)
     {
         PB = _new;
@@ -144,6 +147,7 @@ public class GameMechanics : MonoBehaviour
 
         PhotonView PPV = PhotonView.Find(playerViewId);
 
+        // Continue the chain of player initialisation
         if (PPV.IsMine)
             if (PPV.OwnerActorNr < PhotonNetwork.PlayerList.Length)
             {
@@ -182,7 +186,7 @@ public class GameMechanics : MonoBehaviour
     }
 
     #region FlagStuff
-    public void RPC_IncreaseFlag(int teamID, int origin)
+    public void RPC_IncreaseFlag(int teamID, int origin)   // teamID just brought a flag home
     {
         int voiceID = GenerateCommentary(teamID);
         PlaySound.playSound.RPC_QueueVoice(voiceID, PhotonNetwork.PlayerList);
@@ -190,14 +194,14 @@ public class GameMechanics : MonoBehaviour
         PV.RPC("UpdateFlagUI", RpcTarget.All);
         int otherTeam = teamID == 0 ? 1 : 0;
 
-        flagObjectives[origin].objective.GetComponent<ObjectiveFlag>().hasFlag = true;
+        flagObjectives[origin].objective.GetComponent<ObjectiveFlag>().hasFlag = true; // returns the flag to the flag objective
 
     }
-    public void RPC_DecreaseFlag(int teamID)
+    public void RPC_DecreaseFlag(int teamID)    // teamID just lost their flag
     {
         PV.RPC("DecreaseFlag", RpcTarget.All, teamID);
         PV.RPC("UpdateFlagUI", RpcTarget.All);
-        flagObjectives[teamID].objective.GetComponent<ObjectiveFlag>().hasFlag = false;
+        flagObjectives[teamID].objective.GetComponent<ObjectiveFlag>().hasFlag = false; // the flag was taken
     }
 
     [PunRPC]
@@ -273,7 +277,7 @@ public class GameMechanics : MonoBehaviour
     }
 
 
-
+    // Tells all clients that playerID has taken a flag and so, it should be displayed above its head
     public void RPC_EnableFlagHolder(int playerID, int flagOrigin)
     {
         Photon.Realtime.Player[] target = { players[playerID].obj.GetComponent<PhotonView>().Owner };
@@ -288,6 +292,7 @@ public class GameMechanics : MonoBehaviour
         fh.ballOrigin = flagOrigin;
     }
 
+    // Tells all clients that playerID just lost the flag
     public void RPC_DisableFlagHolder(int playerID)
     {
         PV.RPC("DisableFlagHolder", RpcTarget.All, playerID);
@@ -338,7 +343,7 @@ public class GameMechanics : MonoBehaviour
 
     #endregion
 
-    [PunRPC]
+    [PunRPC] // Called by the MasterClient on everyone at the start of the game to make sure everyone is on the same page
     void Sync(float game_time, int[] playerViewIds, int[] playerTeams, string[] teamNames, int[] teamScores, int[] flagCounts, int[] numsOfAttackers, int[] numsOfDefenders)
     {
         timer.UpdateTimer(game_time);
@@ -372,7 +377,7 @@ public class GameMechanics : MonoBehaviour
         }
     }
 
-    [PunRPC]
+    [PunRPC] // Called after the map generation is done, only on the Master Client to synchronise everyone else with him
     void SendVariables()
     {
         float game_time = timer.GetTimer();
@@ -425,6 +430,7 @@ public class GameMechanics : MonoBehaviour
         PV.RPC("Sync", RpcTarget.Others, game_time, playerViewIds, playerTeams, teamNames, teamScores, flagCounts, numsOfAttackers, numsOfDefenders);
     }
 
+    // Used to be usefull when we allowed players to enter an ongoing match. Synchronises the powerup generator
     public void SyncPowerupsNow()
     {
         PV.RPC("SendPowerups", RpcTarget.MasterClient);
@@ -463,11 +469,13 @@ public class GameMechanics : MonoBehaviour
         activePowerups = _powerups;
     }
 
+    // Ends the game and takes everyone to the next scene
     public void End_Game()
     {
         PV.RPC("EndGame", RpcTarget.All);
     }
 
+    // Just a handy function to find the player avatar of your client
     public GameObject GetLocalPlayer()
     {
         foreach (Player player in players)
@@ -477,6 +485,7 @@ public class GameMechanics : MonoBehaviour
         return null;
     }
 
+    // Just a handy function to find the team your player avatar is on
     public int GetLocalPlayerTeam()
     {
         foreach (Player player in players)
@@ -495,6 +504,7 @@ public class GameMechanics : MonoBehaviour
         SceneManager.LoadScene(3);
     }
 
+    // Only the Master Client can destroy any object. So if we ever need that power, Game Mechanics could do it
     public void RPC_Destroy(GameObject obj)
     {
         if (obj.TryGetComponent(out PhotonView target))
@@ -590,6 +600,7 @@ public class GameMechanics : MonoBehaviour
         return commentaryID;
     }
 
+    // Starts the chain of spawning players one by one. This gets called after the map generation finishes
     public void RPC_InitiatePlayer()
     {
         PV.RPC("InitiatePlayer", PhotonNetwork.PlayerList[0]);

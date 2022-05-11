@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class PhotonPlayer : MonoBehaviourPunCallbacks
 {
+    // Every client has one of these for every player
     private PhotonView PV;
     GameMechanics gameMechanics;
     Transform spawningPoint;
@@ -18,7 +19,6 @@ public class PhotonPlayer : MonoBehaviourPunCallbacks
     int team = -1;
 
 
-    // Start is called before the first frame update
     void Start()
     {
         PV = GetComponent<PhotonView>();
@@ -37,7 +37,7 @@ public class PhotonPlayer : MonoBehaviourPunCallbacks
         }
 
         //InitiatePlayer();
-        GameMechanics.gameMechanics.SetPB(this);
+        GameMechanics.gameMechanics.SetPB(this); // Signal your friendly neighbourhood Game Mechanics to start the map generation
         
 
 /*        if (gameMechanics.activePowerups.Count > 0)
@@ -56,7 +56,7 @@ public class PhotonPlayer : MonoBehaviourPunCallbacks
 
     public void SetTeam(int _team) { team = _team; }
 
-    // Update is called once per frame
+    // Spawn in your avatar and tell Game Mechanics about it
     public void InitiatePlayer()
     {
         int playerLayer;

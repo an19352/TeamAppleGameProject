@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ListSpawningPoints : MonoBehaviour
 {
+    // Stops a data race between the players who wants to spawn at the start of the game
     [SerializeField]
     public List<Transform> playerSpawningPoints;
     Queue<Transform> spawningPoints = new Queue<Transform>();

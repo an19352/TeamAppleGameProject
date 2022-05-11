@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class PlaySound : MonoBehaviour
 {
-    
+    // Knows all lines and songs and plays them
     public static PlaySound playSound;
 
     #region Singleton

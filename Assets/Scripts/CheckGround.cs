@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CheckGround : MonoBehaviour
 {
-
+    // This script stops objects from falling when they hit another object tagged as ground
     void OnTriggerEnter(Collider other)
     {
         Debug.Log(other.gameObject.tag);
