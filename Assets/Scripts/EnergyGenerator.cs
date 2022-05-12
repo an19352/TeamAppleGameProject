@@ -159,15 +159,15 @@ public class EnergyGenerator : MonoBehaviour, IPunObservable
     // Repel every player in the explosionRadius, this happens on every client
     void RepelNearbyPlayers()
     {
-        Debug.Log("called");
-        Debug.Log(transform.position);
+        //Debug.Log("called");
+        //Debug.Log(transform.position);
         Collider[] playersInRadius = Physics.OverlapSphere(transform.position, explosionRadius, ~0, 0);
         foreach (Collider player in playersInRadius)
         {
-            Debug.Log(player);
+            //Debug.Log(player);
             if (player.CompareTag("Player"))
             {
-                Debug.Log("found");
+                //Debug.Log("found");
                 Vector3 pushFactor = (player.transform.position - transform.position).normalized * pushForce;
                 player.GetComponent<Movement>().PushMe(pushFactor, ForceMode.Impulse, false);
             }

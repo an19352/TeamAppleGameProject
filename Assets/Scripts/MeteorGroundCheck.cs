@@ -31,7 +31,7 @@ public class MeteorGroundCheck : MonoBehaviour
     {
         PhotonNetwork.Instantiate(explosion.name, transform.position, transform.rotation);
         Collider[] collidersInRadius = Physics.OverlapSphere(transform.position, hitRadius);
-        Debug.Log("drewsphere");
+        //Debug.Log("drewsphere");
         foreach (Collider nearby in collidersInRadius)
         {
             Rigidbody rb = nearby.GetComponent<Rigidbody>();

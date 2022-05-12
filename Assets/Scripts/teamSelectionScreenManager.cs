@@ -88,8 +88,8 @@ public class teamSelectionScreenManager : MonoBehaviour
         if (players.Count >= maxPeoplePerTeam) buttons[team].interactable = false;
 
         team = (team + 1) % 2;
-        if (redplayers.Count + blueplayers.Count == maxPeoplePerTeam * 2 && PhotonNetwork.IsMasterClient) 
-            Debug.Log("Now you'd be able to start the game");
+        if (redplayers.Count + blueplayers.Count == maxPeoplePerTeam * 2 && PhotonNetwork.IsMasterClient) ;
+        //Debug.Log("Now you'd be able to start the game");
     }
 
     private void OnDisable()

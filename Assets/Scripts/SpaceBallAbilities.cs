@@ -431,7 +431,7 @@ namespace SpaceBallAbilities
 
         public void LeftClick()
         {
-            Debug.Log("meteor");
+            //Debug.Log("meteor");
             SpawnMeteors();
         }
 

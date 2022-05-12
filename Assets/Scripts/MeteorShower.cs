@@ -58,7 +58,7 @@ public class MeteorShower : MonoBehaviour
         if (Physics.Raycast(mouseRay, out RaycastHit hit, 1000f, ~ignoredLayers))
         {
             mouseLocation = hit.point;
-            Debug.Log(mouseLocation);
+            //Debug.Log(mouseLocation);
         }
 
         Vector3 spawnLoc = mouseLocation;
@@ -67,7 +67,7 @@ public class MeteorShower : MonoBehaviour
         spawnLoc.x += newPos.x;
         spawnLoc.z += newPos.z;
         
-        Debug.Log(meteorTags.Count);
+        //Debug.Log(meteorTags.Count);
         PV.RPC("GenerateMeteor", RpcTarget.All, 0, spawnLoc, mouseLocation);
 
     }

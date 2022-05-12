@@ -124,7 +124,7 @@ public class PhotonLobby : MonoBehaviourPunCallbacks
         if (playerName.text.Length > 1)
         {
             PhotonNetwork.NickName = playerName.text;
-            Debug.Log(PhotonNetwork.JoinRoom("Room of " + roomName.text));
+            //Debug.Log(PhotonNetwork.JoinRoom("Room of " + roomName.text));
         }
     }
 

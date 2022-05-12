@@ -20,7 +20,7 @@ public class MapGenerator : MonoBehaviour
 
         public void modifyChance(float newChance)
         {
-            Debug.LogWarning("Chance modified for " + prefab.name + " from " + chance.ToString() + " to " + newChance.ToString());
+            //Debug.LogWarning("Chance modified for " + prefab.name + " from " + chance.ToString() + " to " + newChance.ToString());
             chance = newChance;
         }
     }
@@ -210,7 +210,7 @@ public class MapGenerator : MonoBehaviour
 
         List<System.IFormattable[]> possibilities = new List<System.IFormattable[]>();
 
-        Debug.Log(width / 6);
+        //Debug.Log(width / 6);
         for (int i = 1; i <= width / 6; i++)
         {
             possibilities.Add(new System.IFormattable[] { Vector3.back, 340, bottom, i * 3 });

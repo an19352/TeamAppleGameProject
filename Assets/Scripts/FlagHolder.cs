@@ -51,7 +51,7 @@ public class FlagHolder : MonoBehaviour
     public void RPC_SpawnDroppedFlag(Vector3 respawnFlagPosition, Quaternion respawnFLagRotation)
     {
         GameMechanics.gameMechanics.drop = respawnFlagPosition;
-        Debug.Log(respawnFlagPosition);
+        //Debug.Log(respawnFlagPosition);
     }
 
     // Find the closest platform
